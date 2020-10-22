@@ -1,0 +1,65 @@
+title: DaveCave
+
+# custom_header: !include lovelace/custom_header.yaml
+
+# Custom Header
+# custom_header:
+#   compact_mode: true
+#   background: #d32f2f
+# #   all_tabs_color: black
+#   elements_color: black
+#   tab_indicator_color: black
+# #   fit_tabs: true
+#   chevrons: false
+#   shadow: true
+#   exceptions:
+#     - conditions:
+#         user: Ebony, test
+#       config:
+#         hide_tabs: 'Surveillance, Cameras'
+#         # disable_sidebar: true
+#         hide_help: true
+#         hide_unused: true
+#         hide_config: true
+#         hide_edit_dash: true
+#         hide_raw: true
+#         hide_ch_settings: true
+#     - conditions:
+#         user_agent: "iPad"
+#       config:
+#         hide_tabs: 'Old Main'
+# - conditions:
+#     user_agent: "Macintosh; Intel Mac OS X"
+#   config:
+#     hide_tabs: 'Main, Mobile'
+# - conditions:
+#     user_agent: "iPhone; CPU iPhone OS"
+#     # user_agent: "Meow OS"
+#   config:
+#     hide_tabs: 'iPad'
+
+# Swipe Navigation
+# swipe_nav:
+#   wrap: false
+#   animate: flip
+#   swipe_amount: 30
+#   animate: swipe
+#   animate: fade
+#   skip_tabs: 5,6,7,8
+#   prevent_default: true
+
+views:
+  - !include lovelace/views/ipad.yaml
+  - !include lovelace/views/test-ipad.yaml
+  # - !include lovelace/views/old-main.yaml
+  - !include lovelace/views/mobile.yaml
+  - !include lovelace/views/test-mobile.yaml
+  - !include lovelace/views/lights.yaml
+  - !include lovelace/views/surveillance.yaml
+  # - !include lovelace/views/cameras.yaml
+  - !include lovelace/views/test3.yaml
+  - !include lovelace/views/settings.yaml
+  - !include lovelace/views/media.yaml
+  - !include lovelace/views/map.yaml
+  - !include lovelace/views/test.yaml
+  - !include lovelace/views/cast.yaml

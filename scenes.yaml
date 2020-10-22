@@ -1,0 +1,363 @@
+# Morning
+- id: "morning"
+  name: Morning
+  entities:
+    light.all_lights_except_closet:
+      friendly_name: All Lights Except Closet
+      state: "on"
+      brightness: 181
+      color_temp: 200
+    # light.living_room_lights:
+    #   friendly_name: Living Room Lights
+    #   state: "on"
+    #   brightness: 181
+    #   color_temp: 200
+    # light.bedroom:
+    #   friendly_name: Bed Room Light
+    #   state: "on"
+    #   brightness: 181
+    #   color_temp: 200
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "on"
+
+# Morning - Darker
+- id: "morning_darker"
+  name: Morning Darker
+  entities:
+    light.living_room_and_kitchen_lights:
+      #   friendly_name: All Lights
+      state: "on"
+      brightness: 181
+      color_temp: 200
+    light.bed:
+      state: "on"
+      brightness: 181
+    light.hallway:
+      state: "on"
+      brightness_pct: 30
+      color_temp: 200
+    light.bedroom:
+      state: "off"
+    light.bathroom:
+      state: "on"
+      brigtness: "181"
+      color_temp: 200
+    # light.living_room_lights:
+    #   friendly_name: Living Room Lights
+    #   state: "on"
+    #   brightness: 181
+    #   color_temp: 200
+    # light.bedroom:
+    #   friendly_name: Bed Room Light
+    #   state: "on"
+    #   brightness: 181
+    #   color_temp: 200
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "on"
+
+# Movie Time
+- id: "movie_time"
+  name: Movie Time
+  entities:
+    light.bedroom:
+      friendly_name: Bed Room Light
+      state: "on"
+      brightness_pct: 10
+      rgb_color: [194, 25, 252]
+    light.chandelier:
+      friendly_name: Chandelier
+      state: "on"
+      brightness_pct: 2
+      rgb_color: [194, 25, 252]
+    light.tv:
+      friendly_name: TV Lights
+      state: "on"
+      brightness_pct: 40
+      rgb_color: [194, 25, 252]
+    light.kitchen_lights:
+      friendly_name: Kitchen Lights
+      state: "off"
+      brightness_pct: 10
+      rgb_color: [194, 25, 252]
+    light.hallway:
+      friendly_name: Hallway
+      state: "off"
+      brightness_pct: 10
+      rgb_color: [194, 25, 252]
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "on"
+      rgb_color: [194, 25, 252]
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "off"
+    # light.lamp:
+    #   friendly_name: Lamp
+    #   state:
+    #     "off"
+
+    #  rgb_color: [194, 25, 252]
+
+# Dinner and a Movie
+- id: "dinner_and_a_movie"
+  name: "Dinner and a Movie"
+  entities:
+    light.bedroom:
+      friendly_name: Bed Room Light
+      state: "on"
+      brightness_pct: 10
+      rgb_color: [194, 25, 252]
+    light.chandelier:
+      friendly_name: Chandelier
+      state: "on"
+      brightness_pct: 35
+      rgb_color: [194, 25, 252]
+    light.tv:
+      friendly_name: TV Lights
+      state: "on"
+      brightness_pct: 55
+      rgb_color: [194, 25, 252]
+    light.kitchen_lights:
+      friendly_name: Kitchen Lights
+      state: "off"
+      brightness_pct: 10
+      rgb_color: [194, 25, 252]
+    light.hallway:
+      friendly_name: Hallway
+      state: "off"
+      brightness_pct: 10
+      rgb_color: [194, 25, 252]
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "on"
+      rgb_color: [194, 25, 252]
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "off"
+    # light.lamp:
+    #   friendly_name: Lamp
+    #   state: "off"
+
+# Normal
+- id: "normal"
+  name: Normal
+  entities:
+    light.living_room_lights:
+      friendly_name: Living Room Lights
+      brightness: 167
+      color_temp: 370
+      state: "on"
+    light.bedroom:
+      friendly_name: Bed Room Light
+      brightness: 167
+      color_temp: 370
+      state: "on"
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "on"
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "on"
+
+# Evening
+- id: "evening"
+  name: Evening
+  entities:
+    light.all_lights_except_closet:
+      friendly_name: All Lights Except Closet
+      brightness: 130
+      color_temp: 370
+      state: "on"
+    light.hallway:
+      #   friendly_name: All Lights
+      brightness: 130
+      color_temp: 370
+      state: "on"
+    # light.all_lights:
+    #   friendly_name: All Lights
+    #   brightness: 90
+    #   color_temp: 370
+    #   state: 'on'
+    light.bedroom:
+      friendly_name: Bed Room Light
+      brightness: 130
+      color_temp: 370
+      state: "on"
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "on"
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "on"
+
+# Emergency
+- id: "emergency"
+  name: Emergency
+  entities:
+    light.living_room_lights:
+      friendly_name: Living Room Lights
+      brightness_pct: 90
+      rgb_color: [255, 0, 0]
+      state: "on"
+    light.bedroom:
+      friendly_name: Bed Room Light
+      brightness_pct: 90
+      rgb_color: [255, 0, 0]
+      state: "on"
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "on"
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "on"
+
+# Sexy Time
+- id: "sexy_time"
+  name: Sexy Time
+  entities:
+    light.living_room_and_kitchen_lights:
+      friendly_name: Living Room Lights
+      brightness_pct: 30
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.hallway:
+      friendly_name: Hallway
+      brightness_pct: 30
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.bedroom:
+      brightness_pct: 30
+      friendly_name: Bed Room Light
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "on"
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "on"
+
+# Toilet
+- id: "toilet"
+  name: Toilet
+  entities:
+    light.bedroom:
+      friendly_name: Bed Room Light
+      brightness_pct: 5
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.chandelier:
+      friendly_name: Chandelier
+      brightness_pct: 2
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.hallway:
+      friendly_name: Hallway
+      brightness_pct: 6
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.kitchen_east:
+      friendly_name: Kitchen East
+      brightness_pct: 20
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.kitchen_west:
+      friendly_name: Kitchen West
+      brightness_pct: 20
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.tv:
+      friendly_name: TV Lights
+      brightness_pct: 26
+      rgb_color: [192, 144, 255]
+      state: "on"
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "off"
+    # light.lamp:
+    #   friendly_name: Lamp
+    #   state: "off"
+
+# Goodnight
+- id: "goodnight"
+  name: Goodnight
+  entities:
+    light.all_lights_including_closet:
+      friendly_name: All Lights Including Closet
+      state: "off"
+    # light.bedroom:
+    #   state: 'off'
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "off"
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "off"
+    # light.lamp:
+    #   friendly_name: Lamp
+    #   state: "off"
+
+# - id: "goodnight_bed_light_on"
+#   name: Goodnight
+#   entities:
+#     light.living_room_and_kitchen_lights:
+#       state: "off"
+#     light.hallway:
+#       state: "off"
+#     light.bedroom:
+#       state: "off"
+#     light.bed:
+#       # color_name: "purple"
+#       brightness_pct: 2
+#     light.bathroom:
+#       friendly_name: Bathroom Lights
+#       state: "off"
+#     light.lightning_bolts:
+#       friendly_name: Lightning Bolts
+#       state: "off"
+#     light.lamp:
+#       friendly_name: Lamp
+#       state: "off"
+
+# Dinner
+- id: "dinner"
+  name: Dinner
+  entities:
+    light.bedroom:
+      friendly_name: Bed Room Light
+      brightness: 91
+      color_temp: 363
+      state: "on"
+    light.chandelier:
+      friendly_name: Chandelier
+      brightness: 91
+      color_temp: 370
+      state: "on"
+    light.hallway:
+      friendly_name: Hallway
+      brightness: 90
+      color_temp: 370
+      state: "on"
+    light.kitchen_east:
+      friendly_name: Kitchen East
+      brightness: 230
+      color_temp: 370
+      state: "on"
+    light.kitchen_west:
+      friendly_name: Kitchen West
+      brightness: 230
+      color_temp: 370
+      state: "on"
+    light.tv:
+      friendly_name: TV Lights
+      brightness: 109
+      color_temp: 370
+      state: "on"
+    light.bathroom:
+      friendly_name: Bathroom Lights
+      state: "on"
+    light.lightning_bolts:
+      friendly_name: Lightning Bolts
+      state: "on"

@@ -1,0 +1,62 @@
+switch.kettle:
+  icon: mdi:kettle
+switch.blanket:
+  icon: mdi:bed-outline
+switch.fan:
+  icon: mdi:fan
+switch.space_heater:
+  icon: mdi:fireplace
+light.bathroom:
+  icon: mdi:shower
+switch.lightning_red:
+  icon: mdi:lightning-bolt-outline
+switch.lightning_purple_1:
+  icon: mdi:lightning-bolt-outline
+switch.lightning_purple_2:
+  icon: mdi:lightning-bolt-outline
+light.lightning_red:
+  icon: mdi:lightning-bolt-outline
+light.lightning_purple_1:
+  icon: mdi:lightning-bolt-outline
+light.lightning_purple_2:
+  icon: mdi:lightning-bolt-outline
+light.chandelier:
+  icon: mdi:ceiling-light
+light.bed:
+  icon: mdi:bed-king-outline
+scene.morning:
+  icon: mdi:white-balance-sunny
+scene.evening:
+  icon: mdi:weather-sunset
+scene.normal:
+  icon: mdi:brightness-5
+scene.goodnight:
+  icon: mdi:moon-waxing-crescent
+scene.movie_time:
+  icon: mdi:video-vintage
+scene.sexy_time:
+  icon: mdi:heart-pulse
+scene.dinner_time:
+  icon: mdi:food-fork-drink
+scene.toilet:
+  icon: mdi:flashlight
+scene.dinner_and_a_movie:
+  icon: mdi:food-fork-drink
+script.morning:
+  icon: mdi:white-balance-sunny
+script.evening:
+  icon: mdi:weather-sunset
+script.normal:
+  icon: mdi:brightness-5
+script.goodnight:
+  icon: mdi:moon-waxing-crescent
+script.movie_time:
+  icon: mdi:video-vintage
+script.sexy_time:
+  icon: mdi:heart-pulse
+script.dinner_time:
+  icon: mdi:food-fork-drink
+script.toilet:
+  icon: mdi:flashlight
+script.dinner_and_a_movie:
+  icon: mdi:food-fork-drink

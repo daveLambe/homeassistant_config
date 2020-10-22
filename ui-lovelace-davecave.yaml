@@ -1,0 +1,27 @@
+title: "DaveCave"
+
+# custom_header: !include lovelace/custom_header.yaml
+# views: !include_dir_merge_list lovelace/views
+
+# Swipe Navigation
+# swipe_nav:
+#   wrap: false
+#   animate: flip
+#   swipe_amount: 50
+#   animate: swipe
+#   animate: fade
+#   skip_tabs: 5,6,7,8
+#   prevent_default: true
+
+views:
+  - !include lovelace/views/ipad.yaml
+  - !include lovelace/views/lights.yaml
+  - !include lovelace/views/media.yaml
+  - !include lovelace/views/map.yaml
+  - !include lovelace/views/settings.yaml
+  # - !include lovelace/views/surveillance.yaml
+  # - !include lovelace/views/test3.yaml
+# - !include lovelace/views/cameras.yaml
+#   - !include lovelace/views/mobile.yaml
+#   - !include lovelace/views/old-main.yaml
+#   - !include lovelace/views/test.yaml

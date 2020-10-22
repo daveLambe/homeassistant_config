@@ -1,0 +1,1184 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+
+homeassistant:
+  customize: !include customize.yaml
+
+default_config:
+
+# group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+camera: !include cameras.yaml
+zone: !include zones.yaml
+
+zwave:
+  usb_path: /dev/ttyUSB0
+
+zha:
+  usb_path: /dev/ttyUSB1
+  database_path: /config/zigbee.db
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+updater:
+
+downloader:
+  download_dir: downloads
+#   media_dirs:
+# media: /config/media
+
+# Activiate the configuration editor
+config:
+
+system_health:
+
+media_source:
+
+stream:
+
+ffmpeg:
+
+# Text to speech
+tts:
+  - platform: google_translate
+    base_url: !secret ha_base_url
+    service_name: google_translate_say
+
+lovelace:
+  mode: yaml
+  resources: !include lovelace/resources.yaml
+  dashboards:
+    lovelace-davecave:
+      title: "DaveCave"
+      icon: "mdi:account-group"
+      filename: ui-lovelace-davecave.yaml
+      show_in_sidebar: true
+      require_admin: false
+      mode: yaml
+    lovelace-mobile:
+      title: "DaveCave Mobile"
+      icon: "mdi:cellphone-iphone"
+      filename: ui-lovelace-mobile.yaml
+      show_in_sidebar: true
+      require_admin: false
+      mode: yaml
+    lovelace-guest:
+      title: "Guest"
+      icon: "mdi:account-group-outline"
+      filename: ui-lovelace-guest.yaml
+      show_in_sidebar: false
+      require_admin: false
+      mode: yaml
+    # lovelace-settings:
+    #   title: "Guest"
+    #   icon: "mdi:cog"
+    #   filename: ui-lovelace-guest.yaml
+    #   show_in_sidebar: false
+    #   mode: yaml
+    # lovelace-test:
+    #   title: "Test"
+    #   icon: "mdi:cog"
+    #   filename: ui-lovelace-test.yaml
+    #   show_in_sidebar: true
+    #   require_admin: true
+    #   mode: yaml
+    # lovelace-cast:
+    #   title: "Cast"
+    #   icon: "mdi:cast"
+    #   filename: ui-lovelace-cast.yaml
+    #   show_in_sidebar: true
+    #   require_admin: true
+    #   mode: yaml
+
+proximity:
+  home:
+    # ignored_zones:
+    #   - jaz
+    #   - deandre
+    #   - davecave
+    #   - noodle_house
+    devices:
+      - device_tracker.davecom
+      - device_tracker.ebonycom
+    unit_of_measurement: mi
+    tolerance: 50
+
+media_player:
+  - platform: androidtv
+    name: Living Room TV
+    host: !secret living_room_tv_ip
+
+    # device_class: androidtv
+    # host: 192.
+    # adbkey: "/config/android/adbkey"
+    # exclude_unnamed_apps: true
+    # apps:
+    # com.amazon.tv.launcher: "Fire TV"
+    # some.background.app:  # this will never show up in the sources list
+    # another.background.app: ""
+
+# Amcrest
+amcrest:
+  - host: !secret ip_amcrest_living_room
+    name: "Amcrest Living Room"
+    username: !secret amcrest_username
+    password: !secret amcrest_password
+    # port: 80
+    # stream_source: rtsp
+    # stream_source: mjpeg
+    # resolution: low
+    binary_sensors:
+      # - motion_detected
+      - online
+      - motion_detected_polled
+    sensors:
+      - sdcard
+      - ptz_preset
+
+  - host: !secret ip_amcrest_driveway
+    name: "Amcrest Driveway"
+    username: !secret amcrest_username
+    password: !secret amcrest_password
+    binary_sensors:
+      - online
+      - motion_detected_polled
+
+  - host: !secret ip_amcrest_bedroom
+    name: "Amcrest Bedroom"
+    username: !secret amcrest_username
+    password: !secret amcrest_password
+    binary_sensors:
+      - online
+      - motion_detected_polled
+
+# Android IP Cameras
+# android_ip_webcam:
+#   - host: !secret ip_androidcam1
+#     port: 8080
+#     username: !secret androidcam_username
+#     password: !secret androidcam_password
+#     name: androidcam1
+#     motion_sensor: true
+#     sensors:
+#       - audio_connections
+#       - battery_level
+#       - battery_temp
+#       - battery_voltage
+#       - light
+#       - motion
+#       - pressure
+#       - proximity
+#       - sound
+#       - video_connections
+#     switches:
+#       - exposure_lock
+#       - ffc
+#       - focus
+#       - gps_active
+#       - motion_detect
+#       - night_vision
+#       - overlay
+#       - torch
+#       - whitebalance_lock
+#       - video_recording
+#   - host: !secret ip_androidcam2
+#     port: 8080
+#     username: !secret androidcam_username
+#     password: !secret androidcam_password
+#     name: androidcam2
+#     motion_sensor: true
+#     sensors:
+#       - audio_connections
+#       - battery_level
+#       - battery_temp
+#       - battery_voltage
+#       - light
+#       - motion
+#       - pressure
+#       - proximity
+#       - sound
+#       - video_connections
+#     switches:
+#       - exposure_lock
+#       - ffc
+#       - focus
+#       - gps_active
+#       - motion_detect
+#       - night_vision
+#       - overlay
+#       - torch
+#       - whitebalance_lock
+#       - video_recording
+#   - host: !secret ip_androidcam3
+#     port: 8080
+#     username: !secret androidcam_username
+#     password: !secret androidcam_password
+#     name: androidcam3
+#     motion_sensor: true
+#     sensors:
+#       - audio_connections
+#       - battery_level
+#       - battery_temp
+#       - battery_voltage
+#       - light
+#       - motion
+#       - pressure
+#       - proximity
+#       - sound
+#       - video_connections
+#     switches:
+#       - exposure_lock
+#       - ffc
+#       - focus
+#       - gps_active
+#       - motion_detect
+#       - night_vision
+#       - overlay
+#       - torch
+#       - whitebalance_lock
+#       - video_recording
+
+input_boolean:
+  vacation_mode:
+    initial: false
+  ebony_mode:
+    initial: false
+  stay_dark:
+    initial: false
+  delivery_mode:
+    initial: false
+  extreme_delivery_mode:
+    initial: false
+  ignore_motion:
+    initial: false
+  ebony_dave_together:
+    initial: false
+  guest_mode:
+    initial: false
+  cinema_mode:
+    initial: false
+  notify_indoor_motion:
+    initial: false
+  notify_outdoor_motion:
+    initial: false
+  auto_lock:
+    initial: true
+  notify_proximity:
+    initial: true
+
+input_select:
+  selectable_light:
+    options:
+      - Chandelier
+      - TV
+      - Kitchen
+      - Bedroom
+      - Bed
+      - Hallway
+      - Bathroom
+    initial: Chandelier
+
+  selectable_room:
+    options:
+      - All
+      - Living Room
+      - Kitchen
+      - Living Room And Kitchen
+      - Bedroom
+    initial: All
+
+  selectable_camera:
+    name: "Camera"
+    options:
+      - "Driveway"
+      - "Street"
+      #   - "Driveway"
+      #   - "Street"
+      # - "Living Room"
+      # - "Bedroom"
+      - "None"
+    initial: "None"
+    icon: "mdi:camera"
+
+  destination:
+    name: destination
+    options:
+      - Home
+      - Noodle House
+      - Work
+
+# Sensors
+sensor:
+  - platform: time_date
+    display_options:
+      - "time"
+      - "date"
+      - "date_time"
+      - "time_date"
+
+  - platform: spotcast
+
+  - platform: template
+    sensors:
+      selected_light_brightness:
+        # friendly_name: "Selected Light Brightness"
+        value_template: "{{ states.light.all_lights.attributes.brightness }}"
+      selected_light_hs_color:
+        value_template: "{{ states.light.all_lights.attributes.hs_color }}"
+      selected_light_rgb_color:
+        value_template: "{{ states.light.all_lights.attributes.rgb_color }}"
+
+  # - platform: open_route_service
+  #   api_key: !secret open_route_service_key
+  #   name: tt Dave to Ebony
+  #   origin_entity_id: device_tracker.davecom
+  #   destination_entity_id: device_tracker.ebonycom
+
+  # sensors:
+
+  #  - platform: waze_travel_time
+  #    name: Dave to Noodlez
+  #    origin: !secret address_davecave
+  #    destination: !secret address_noodle_house
+  #    region: "US"
+
+  # - platform: template
+  #   sensors:
+  #     kitchen_east_brightness:
+  #       friendly_name: "Kitchen East Brightness"
+  #       value_template: "{{ state_attr('light.kitchen_east', 'brightness') }}"
+
+  # - platform: template
+
+  # selected_light_brightness:
+  #   value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int }}"
+
+  # selected_room_brightness:
+  #   value_template: "{{ (state_attr(('light.' ~ states('input_select.selectable_room').lower()) | replace(' ', '_') ~'_lights', 'brightness') | int / 255 * 100) | int }}"
+
+  # dest_address:
+  #   value_template: >-
+  #     {%- if is_state("input_select.destination", "Home")  -%}
+  #       !secret address_davecave
+  #     {%- elif is_state("input_select.destination", "Work")  -%}
+  #       !secret address_work
+  #     {%- elif is_state("input_select.destination", "Noodle House")  -%}
+  #       !secret address_noodle_house
+  #     {%- else -%}
+  #       Unknown
+  #     {%- endif %}
+
+  # - platform: waze_travel_time
+  #   name: tt_dave_to_ebony
+  #   origin: device_tracker.davecom
+  #   destination: device_tracker.ebonycom
+  #   region:
+  #     "US"
+
+  # selected_light:
+  #   value_template: "{{ ('light.' ~ (states('input_select.selectable_light').lower())) }}"
+
+  # selected_room:
+  #   value_template: "{{ ('light.' ~ states('input_select.selectable_room').lower()) | replace(' ', '_') ~'_lights' }}"
+
+  # current_brightness:
+  #   value_template: >-
+  # {% if is_state("input_select.selectable_light", "Chandelier") %}
+  #   {{ state_attr('light.chandelier', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_light", "TV") %}
+  #   {{ state_attr('light.tv', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_light", "Kitchen") %}
+  #   {{ state_attr('light.light', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_light", "Desk") %}
+  #   {{ state_attr('light.closet', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_light", "Bedroom") %}
+  #   {{ state_attr('light.bedroom', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_light", "Bed") %}
+  #   {{ state_attr('light.bed', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_light", "Hallway") %}
+  #   {{ state_attr('light.hallway', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_light", "Bathroom") %}
+  #   {{ state_attr('light.bathroom', 'brightness') | int / 255 * 100  }}
+  # {% else %}
+  #   {{ state_attr('light.chandelier', 'brightness') | int / 255 * 100  }}
+  # {% endif %}
+
+  # {% if is_state("input_select.selectable_room", "Chandelier") %}
+
+  #   {{ state_attr('light.chandelier', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_room", "TV") %}
+
+  #   {{ state_attr('light.tv', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_room", "Kitchen") %}
+
+  #   {{ state_attr('light.light', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_room", "Desk") %}
+
+  #   {{ state_attr('light.closet', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_room", "Bedroom") %}
+
+  #   {{ state_attr('light.bedroom', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_room", "Bed") %}
+
+  #   {{ state_attr('light.bed', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_room", "Hallway") %}
+
+  #   {{ state_attr('light.hallway', 'brightness') | int / 255 * 100  }}
+  # {%-elif is_state("input_select.selectable_room", "Bathroom") %}
+
+  #   {{ state_attr('light.bathroom', 'brightness') | int / 255 * 100  }}
+  # {% else %}
+  #   {{ state_attr('light.chandelier', 'brightness') | int / 255 * 100  }}
+  # {% endif %}
+
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+
+spotcast:
+  sp_dc: !secret spotcast_sp_dc
+  sp_key: !secret spotcast_sp_key
+
+# Rest Commands
+rest_command:
+  # Assistant Relay Commands
+  assistant_broadcast:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "broadcast":true}'
+
+  assistant_converse:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "converse":true}'
+
+  assistant_relay:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
+
+# iOS Actions
+ios:
+  actions:
+    - name: "movie_time"
+      background_color: "#a742f5"
+      label:
+        text: "Movie time"
+        color: "#000000"
+      icon:
+        icon: video-vintage
+        color: "#000000"
+    - name: "toilet"
+      background_color: "#ffffff"
+      label:
+        text: "Toilet"
+        color: "#000000"
+      icon:
+        icon: flashlight
+        color: "#a742f5"
+    - name: "morning"
+      background_color: "#03fc07"
+      label:
+        text: "Morning"
+        color: "#000000"
+      icon:
+        icon: weather-sunny
+        color: "#ffff00"
+    - name: "goodnight"
+      background_color: "#000000"
+      label:
+        text: "Goodnight"
+        color: "#ffffff"
+      icon:
+        icon: moon-waxing-crescent
+        color: "#ffffff"
+    - name: "evening"
+      background_color: "#fcb503"
+      label:
+        text: "Evening"
+        color: "#000000"
+      icon:
+        icon: weather-sunset-down
+        color: "#ffff00"
+    - name: "normal"
+      background_color: "#ffffff"
+      label:
+        text: "Normal"
+        color: "#000000"
+      icon:
+        icon: lightbulb
+        color: "#000000"
+    - name: "dinner"
+      background_color: "#e00d0d"
+      label:
+        text: "Dinner"
+        color: "#000000"
+      icon:
+        icon: food-fork-drink
+        color: "#000000"
+    - name: "sexy_time"
+      background_color: "#a832a4"
+      label:
+        text: "Sexy time"
+        color: "#000000"
+      icon:
+        icon: heart-pulse
+        color: "#000000"
+    - name: "tv_on"
+      background_color: "#0000ff"
+      label:
+        text: "TV On"
+        color: "#000000"
+      icon:
+        icon: remote-tv
+        color: "#000000"
+    - name: "tv_off"
+      background_color: "#0000ff"
+      label:
+        text: "TV Off"
+        color: "#000000"
+      icon:
+        icon: remote-tv-off
+        color: "#000000"
+    - name: "cinema_mode_on"
+      background_color: "#0000ff"
+      label:
+        text: "Cinema Mode: On"
+        color: "#38ab07"
+      icon:
+        icon: theater
+        color: "#000000"
+    - name: "cinema_mode_off"
+      background_color: "#0000ff"
+      label:
+        text: "Cinema Mode: Off"
+        color: "#38ab07"
+      icon:
+        icon: theater
+        color: "#000000"
+    # - name: "test_relay"
+    #   background_color: "#0d1be0"
+    #   label:
+    #     text: "Test Assistant Relay"
+    #     color: "#000000"
+    #   icon:
+    #     icon: google-assistant
+    #     color: "#000000"
+    - name: "play_playlist_relax_sleep"
+      background_color: "#38ab07"
+      label:
+        text: "Play Playlist Relax Sleep"
+        color: "#000000"
+      icon:
+        icon: spotify
+        color: "#000000"
+    - name: "spotify_goodnight"
+      background_color: "#0000ff"
+      label:
+        text: "Spotify Goodnight"
+        color: "#38ab07"
+      icon:
+        icon: spotify
+        color: "#000000"
+
+light:
+  - platform: template
+    lights:
+      selected_light:
+        friendly_name: "Selected Light"
+        unique_id: "light.selected_light"
+        # level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int }}"
+        level_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int }}"
+        # value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int > 0 }}"
+        value_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int > 0 }}"
+        temperature_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'color_temp') | int }}"
+        # temperature_template: "{{states('input_number.light_temperature_input') | int}}"
+        color_template: "({{states('input_number.h_light_input') | int}}, {{states('input_number.s_light_input') | int}})"
+        # color_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'hs_color') | float}}"
+        turn_on:
+          service: light.turn_on
+          data_template:
+            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+        turn_off:
+          service: light.turn_off
+          data_template:
+            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+        set_level:
+          service: light.turn_on
+          data_template:
+            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+            brightness_pct: "{{ (brightness / 255) * 100 | round (2) }}"
+        set_temperature:
+          - service: input_number.set_value
+            data:
+              value: "{{ color_temp }}"
+              entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+          - service: light.turn_on
+            data_template:
+              entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+              brightness: "{{ brightness }}"
+              color_temp: "{{ color_temp }}"
+        set_white_value:
+          service: input_number.set_value
+          data:
+            value: "{{ white_value }}"
+            entity_id: input_number.white_value_input
+        # set_color:
+        #   service: light.turn_on
+        #   data_template:
+        #     entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+        #     hs_color: "{{ hs_color }}"
+        set_color:
+          - service: input_number.set_value
+            data:
+              value: "{{ h }}"
+              entity_id: input_number.h_light_input
+          - service: input_number.set_value
+            data:
+              value: "{{ s }}"
+              entity_id: input_number.s_light_input
+          - service: light.turn_on
+            data_template:
+              entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+              # transition: "{{ transition | float }}"
+              hs_color:
+                - "{{ hs[0] }}"
+                - "{{ hs[1] }}"
+            # hs_color:
+            # - "{{ hs[0] }}"
+            # - "{{ hs[1] }}"
+
+          # data:
+          #   value: "{{ hs_color }}"
+          #   entity_id: input_number.light_temperature_input
+          # - service: input_number.set_value
+          #   data:
+          #     value: "{{ h }}"
+          #     entity_id: input_number.h_light_input
+          # - service: input_number.set_value
+          #   data:
+          #     value: "{{ s }}"
+          #     entity_id: input_number.s_light_input
+          # - service: light.turn_on
+          # data_template:
+          #   entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+          #   hs_color:
+          #     - "{{ hs[0] }}"
+          #     - "{{ hs[1] }}"
+
+      selected_room:
+        friendly_name: "Selected Room"
+        unique_id: "light.selected_room"
+        # level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int }}"
+        level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'brightness')) | int }}"
+        # value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int > 0 }}"
+        value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'brightness')) | int > 0 }}"
+        temperature_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'color_temp')) | int }}"
+        # temperature_template: "{{states('input_number.room_temperature_input') | int}}"
+        color_template: "({{states('input_number.h_room_input') | int }}, {{states('input_number.s_room_input') | int }})"
+        turn_on:
+          service: light.turn_on
+          data_template:
+            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+        turn_off:
+          service: light.turn_off
+          data_template:
+            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+        set_level:
+          service: light.turn_on
+          data_template:
+            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+            brightness_pct: "{{ (brightness / 255) * 100 | round (2) }}"
+        set_temperature:
+          - service: input_number.set_value
+            data:
+              value: "{{ color_temp }}"
+              entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+          - service: light.turn_on
+            data_template:
+              entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+              brightness: "{{ brightness }}"
+              color_temp: "{{ color_temp }}"
+        set_white_value:
+          service: input_number.set_value
+          data:
+            value: "{{ white_value }}"
+            entity_id: input_number.room_white_value_input
+        set_color:
+          - service: input_number.set_value
+            data:
+              value: "{{ h }}"
+              entity_id: input_number.h_room_input
+          - service: input_number.set_value
+            data:
+              value: "{{ s }}"
+              entity_id: input_number.s_room_input
+          - service: light.turn_on
+            data_template:
+              entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+              # transition: "{{ transition | float }}"
+              hs_color:
+                - "{{ hs[0] }}"
+                - "{{ hs[1] }}"
+
+  - platform: switch
+    name: "Lightning Red"
+    entity_id: switch.lightning_red
+
+  - platform: switch
+    name: "Lightning Purple 1"
+    entity_id: switch.lightning_purple_1
+
+  - platform: switch
+    name: "Lightning Purple 2"
+    entity_id: switch.lightning_purple_2
+
+  # - platform: switch
+  #   name: "Lamp"
+  #   entity_id: switch.lamp
+
+  - platform: group
+    name: All Lights
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  - platform: group
+    name: All Lights Except Lightning Bolts
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.closet
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+
+  - platform: group
+    name: All Lights Except Lightning Bolts And Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+
+  - platform: group
+    name: All Lights Except Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  - platform: group
+    name: All Lights Including Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+      - light.closet
+
+  - platform: group
+    name: Living Room And Kitchen Lights
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+
+  - platform: group
+    name: Living Room Lights
+    entities:
+      - light.chandelier
+      - light.tv
+
+  - platform: group
+    name: Kitchen Lights
+    entities:
+      - light.kitchen_east
+      - light.kitchen_west
+
+  - platform: group
+    name: Bedroom Lights
+    entities:
+      - light.bedroom
+      - light.bed
+
+  - platform: group
+    name: LIFX
+    entities:
+      - light.chandelier
+      - light.hallway
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.closet
+      - light.bedroom
+
+  - platform: group
+    name: Lightning Bolts
+    entities:
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  - platform: group
+    name: Govee
+    entities:
+      - light.bed
+      - light.bathroom
+
+  - platform: group
+    name: LED Strips
+    entities:
+      - light.tv
+      - light.bed
+      - light.bathroom
+
+  - platform: group
+    name: test
+    entities:
+      - light.hallway
+      - light.kitchen_east
+
+# Groups
+group:
+  Selected Individual Lights:
+    name: Selected Individual Lights
+    icon: "mdi:lightbulb"
+    entities:
+      - light.chandelier
+
+  Selected Room Lights:
+    name: Selected Room Lights
+    icon: "mdi:lightbulb-group"
+    entities:
+      - light.all_lights_except_lightning_bolts_and_closet
+
+  Light Group:
+    name: Selected
+    entities:
+      - light.hallway
+      - light.kitchen_east
+
+  All Lights:
+    name: All Lights
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  All Lights Except Lightning Bolts:
+    name: All Lights Except Lightning Bolts
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.closet
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+
+  All Lights Except Lightning Bolts And Closet:
+    name: All Lights Except Lightning Bolts And Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+
+  All Lights Except Closet:
+    name: All Lights Except Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  All Lights Including Closet:
+    name: All Lights Including Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+      - light.closet
+
+  Living Room And Kitchen Lights:
+    name: Living Room And Kitchen Lights
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+
+  Living Room Lights:
+    name: Living Room Lights
+    entities:
+      - light.chandelier
+      - light.tv
+
+  Kitchen Lights:
+    name: Kitchen Lights
+    entities:
+      - light.kitchen_east
+      - light.kitchen_west
+
+  Bedroom Lights:
+    name: Bedroom Lights
+    entities:
+      - light.bedroom
+      - light.bed
+
+  LIFX:
+    name: LIFX
+    entities:
+      - light.chandelier
+      - light.hallway
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.closet
+      - light.bedroom
+
+  Lightning Bolts:
+    name: Lightning Bolts
+    entities:
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  Govee:
+    name: Govee
+    entities:
+      - light.bed
+      - light.bathroom
+
+  LED Strips:
+    name: LED Strips
+    entities:
+      - light.tv
+      - light.bed
+      - light.bathroom
+
+# Google Assistant Integration
+cloud:
+  google_actions:
+    filter:
+      include_domains:
+        - light
+        - camera
+        - media_player
+        - script
+        - input_boolean
+        - group
+      exclude_domains:
+        - scene
+        - switch
+        - input_select
+      include_entities:
+        - switch.kettle
+      exclude_entities:
+        - light.bathroom
+        # - media_player.living_room_tv
+    entity_config:
+      light.chandellier:
+        name: chandelier
+        aliases:
+          - chandelier
+          - the chandelier
+          - ceiling light
+        room: "Living Room"
+      switch.kettle:
+        name: Kettle
+        aliases:
+          - The Kettle
+          - The Kettle
+          - Teapot
+        room: "Kitchen"
+      media_player.living_room_tv:
+        name: "Screen"
+        aliases:
+          - "On Screen"
+          - "Screen Media Player"
+          - "Security Screen"
+        room: "Living Room"
+
+notify:
+  - name: dave_lambe_gmail
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    timeout: 15
+    sender: !secret email_address_dave
+    encryption: starttls
+    username: !secret email_address_dave
+    password: !secret email_address_pw_dave
+    recipient:
+      - !secret email_address_dave
+    sender_name: "Home Assistant Priority Notifier"
+  # Travel Time
+  #   - platform: waze_travel_time
+  #     name: dave_to_destination
+  #     origin: device_tracker.davecom
+  #     destination: sensor.dest_address
+  #     region: "US"
+
+  #   - platform: waze_travel_time
+  #     name: ebony_to_destination
+  #     origin: device_tracker.ebonycom
+  #     destination: sensor.dest_address
+  #     region: "US"
+#   - platform: waze_travel_time
+#     name: tt_dave_to_work
+#     origin: device_tracker.davecom
+#     destination: !secret address_work
+#     region: "US"
+
+#   - platform: waze_travel_time
+#     name: tt_dave_to_noodle_house
+#     origin: device_tracker.davecom
+#     destination: !secret address_noodle_house
+#     region: "US"
+
+#   - platform: waze_travel_time
+#     name: tt_dave_to_ebony_work
+#     origin: device_tracker.davecom
+#     destination: !secret address_ebony_work
+#     region: "US"
+
+#   - platform: waze_travel_time
+#     name: tt_ebony_to_davecave
+#     origin: device_tracker.ebonycom
+#     destination: !secret address_davecave
+#     region: "US"
+
+#   - platform: waze_travel_time
+#     name: tt_davecave_to_noodle_house
+#     origin: !secret address_davecave
+#     destination: !secret address_noodle_house
+#     region: "US"
+
+#   - platform: waze_travel_time
+#     name: tt_noodle_house_to_davecave
+#     origin: !secret address_noodle_house
+#     destination: !secret address_davecave
+#     region: "US"
+
+#   - platform: waze_travel_time
+#     name: tt_davecave_to_ebony_work
+#     origin: !secret address_davecave
+#     destination: !secret address_ebony_work
+#     region: "US"
+
+#   # Tracking entity in imperial unit
+#   - platform: waze_travel_time
+#     name: imperial
+#     origin: device_tracker.davecom
+#     destination: "725 5th Ave, New York, NY 10022, USA"
+#     region: "US"
+#     units: imperial    # 'metric' for Metric, 'imperial' for Imperial
+#     vehicle_type: motorcycle  # vehicle type used for routing
+
+#   # Avoiding toll, subscription
+#   - platform: waze_travel_time
+#     name: Westerscheldetunnel
+#     origin: 51.330436, 3.802043
+#     destination: 51.445677, 3.749929
+#     region: "EU"
+#     avoid_toll_roads: true
+#     avoid_subscription_roads: true
+
+#   - name: "Home"
+#     latitude: !secret zone_davecave_lat
+#     longitude: !secret zone_davecave_long
+#     radius: 100
+#     icon: mdi:home
+
+#   - name: "DaveCave"
+#     latitude: !secret zone_davecave_lat
+#     longitude: !secret zone_davecave_long
+#     radius: 100
+#     icon: mdi:home
+#     passive: true
+
+#   - name: "Noodle House"
+#     latitude: !secret zone_noodle_house_lat
+#     longitude: !secret zone_noodle_house_long
+#     radius: 100
+#     icon: mdi:noodles
+
+#   - name: "Deandre"
+#     latitude: !secret zone_deandre_lat
+#     longitude: !secret zone_deandre_long
+#     radius: 100
+#     icon: mdi:campfire
+
+#   - name: "Jaz"
+#     latitude: !secret zone_jaz_lat
+#     longitude: !secret zone_jaz_long
+#     radius: 100
+#     icon: mdi:glasses

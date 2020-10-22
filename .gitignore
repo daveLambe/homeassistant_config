@@ -1,0 +1,14 @@
+appdaemon
+*.db*
+*.xml
+deps
+home-assistant.log
+home-assistant_v2.db*
+themes
+tts
+www
+custom_components
+secrets.yaml
+.cloud
+.HA_VERSION
+.storage
