@@ -1,0 +1,146 @@
+group:
+  Selected Individual Lights:
+    name: Selected Individual Lights
+    icon: "mdi:lightbulb"
+    entities:
+      - light.chandelier
+
+  Selected Room Lights:
+    name: Selected Room Lights
+    icon: "mdi:lightbulb-group"
+    entities:
+      - light.all_lights_except_lightning_bolts_and_closet
+
+  Light Group:
+    name: Selected
+    entities:
+      - light.hallway
+      - light.kitchen_east
+
+  All Lights:
+    name: All Lights
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  All Lights Except Lightning Bolts:
+    name: All Lights Except Lightning Bolts
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.closet
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+
+  All Lights Except Lightning Bolts And Closet:
+    name: All Lights Except Lightning Bolts And Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+
+  All Lights Except Closet:
+    name: All Lights Except Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  All Lights Including Closet:
+    name: All Lights Including Closet
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.hallway
+      - light.bedroom
+      - light.bed
+      - light.bathroom
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+      - light.closet
+
+  Living Room And Kitchen Lights:
+    name: Living Room And Kitchen Lights
+    entities:
+      - light.chandelier
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+
+  Living Room Lights:
+    name: Living Room Lights
+    entities:
+      - light.chandelier
+      - light.tv
+
+  Kitchen Lights:
+    name: Kitchen Lights
+    entities:
+      - light.kitchen_east
+      - light.kitchen_west
+
+  Bedroom Lights:
+    name: Bedroom Lights
+    entities:
+      - light.bedroom
+      - light.bed
+
+  LIFX:
+    name: LIFX
+    entities:
+      - light.chandelier
+      - light.hallway
+      - light.tv
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.closet
+      - light.bedroom
+
+  Lightning Bolts:
+    name: Lightning Bolts
+    entities:
+      - light.lightning_red
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+
+  Govee:
+    name: Govee
+    entities:
+      - light.bed
+      - light.bathroom
+
+  LED Strips:
+    name: LED Strips
+    entities:
+      - light.tv
+      - light.bed
+      - light.bathroom

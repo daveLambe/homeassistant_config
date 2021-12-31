@@ -34,13 +34,6 @@ sensor:
     file_paths:
       - /config/home-assistant.log
 
-  - platform: time_date
-    display_options:
-      - "time"
-      - "date"
-      - "date_time"
-      - "time_date"
-
   - platform: spotcast
 
   - platform: template

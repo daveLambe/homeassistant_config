@@ -48,7 +48,6 @@
 #     {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(', ') }}
 
 homeassistant:
-  # customize: !include customize.yaml
   name: Home
   latitude: !secret zone_davecave_lat
   longitude: !secret zone_davecave_long
@@ -56,7 +55,7 @@ homeassistant:
   temperature_unit: C
   unit_system: metric
   currency: USD
-  # packages: !include_dir_named include
+  packages: !include_dir_named include
   allowlist_external_dirs:
     - /config
 
@@ -68,9 +67,10 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 camera: !include cameras.yaml
 zone: !include zones.yaml
+
 # Hope that path works
-frontend:
-  themes: !include_dir_merge_named themes
+# frontend:
+#   themes: !include_dir_merge_named themes
 
 logger:
   default: warning
@@ -91,6 +91,7 @@ updater:
 
 downloader:
   download_dir: downloads
+
 #   media_dirs:
 # media: /config/media
 
@@ -408,111 +409,111 @@ amcrest:
 #       - whitebalance_lock
 #       - video_recording
 
-input_boolean:
-  vacation_mode:
-    initial: true
+# input_boolean:
+#   vacation_mode:
+#     initial: true
 
-  security_mode:
-    initial: false
+#   security_mode:
+#     initial: false
 
-  ebony_mode:
-    initial: true
+#   ebony_mode:
+#     initial: true
 
-  stay_dark:
-    initial: false
+#   stay_dark:
+#     initial: false
 
-  delivery_mode:
-    initial: false
+#   delivery_mode:
+#     initial: false
 
-  extreme_delivery_mode:
-    initial: false
+#   extreme_delivery_mode:
+#     initial: false
 
-  ignore_motion:
-    initial: false
+#   ignore_motion:
+#     initial: false
 
-  ebony_dave_together:
-    initial: false
+#   ebony_dave_together:
+#     initial: false
 
-  guest_mode:
-    initial: false
+#   guest_mode:
+#     initial: false
 
-  cinema_mode:
-    initial: false
+#   cinema_mode:
+#     initial: false
 
-  auto_lock:
-    initial: true
+#   auto_lock:
+#     initial: true
 
-  notify_proximity:
-    initial: true
+#   notify_proximity:
+#     initial: true
 
-  notify_indoor_motion:
-    initial: false
+#   notify_indoor_motion:
+#     initial: false
 
-  notify_outdoor_motion:
-    initial: false
+#   notify_outdoor_motion:
+#     initial: false
 
-input_select:
-  selectable_light:
-    options:
-      - Chandelier
-      - TV
-      - Kitchen East
-      - Kitchen West
-      - Bedroom
-      - Bed
-      - Hallway
-      - Bathroom
-    initial: Chandelier
+# input_select:
+#   selectable_light:
+#     options:
+#       - Chandelier
+#       - TV
+#       - Kitchen East
+#       - Kitchen West
+#       - Bedroom
+#       - Bed
+#       - Hallway
+#       - Bathroom
+#     initial: Chandelier
 
-  selectable_room:
-    options:
-      - All
-      - Living Room
-      - Kitchen
-      - Living Room And Kitchen
-      - Bedroom
-    initial: All
+#   selectable_room:
+#     options:
+#       - All
+#       - Living Room
+#       - Kitchen
+#       - Living Room And Kitchen
+#       - Bedroom
+#     initial: All
 
-  selectable_camera:
-    name: "Camera"
-    options:
-      - "Driveway"
-      - "Street"
-      #   - "Driveway"
-      #   - "Street"
-      # - "Living Room"
-      # - "Bedroom"
-      - "None"
-    initial: "None"
-    icon: "mdi:camera"
+#   selectable_camera:
+#     name: "Camera"
+#     options:
+#       - "Driveway"
+#       - "Street"
+#       #   - "Driveway"
+#       #   - "Street"
+#       # - "Living Room"
+#       # - "Bedroom"
+#       - "None"
+#     initial: "None"
+#     icon: "mdi:camera"
 
-  destination:
-    name: destination
-    options:
-      - Home
-      - Noodle House
-      - Work
+#   destination:
+#     name: destination
+#     options:
+#       - Home
+#       - Noodle House
+#       - Work
 
 # Sensors
-sensor:
-  - platform: time_date
-    display_options:
-      - "time"
-      - "date"
-      - "date_time"
-      - "time_date"
+# sensor:
+#   - platform: time_date
+#     display_options:
+#       - "time"
+#       - "date"
+#       - "date_time"
+#       - "time_date"
 
-  - platform: spotcast
+#   - platform: spotcast
 
-  - platform: template
-    sensors:
-      selected_light_brightness:
-        # friendly_name: "Selected Light Brightness"
-        value_template: "{{ states.light.all_lights.attributes.brightness }}"
-      selected_light_hs_color:
-        value_template: "{{ states.light.all_lights.attributes.hs_color }}"
-      selected_light_rgb_color:
-        value_template: "{{ states.light.all_lights.attributes.rgb_color }}"
+#   - platform: template
+#     sensors:
+#       selected_light_brightness:
+#         # friendly_name: "Selected Light Brightness"
+#         value_template: "{{ states.light.all_lights.attributes.brightness }}"
+#       selected_light_hs_color:
+#         value_template: "{{ states.light.all_lights.attributes.hs_color }}"
+#       selected_light_rgb_color:
+#         value_template: "{{ states.light.all_lights.attributes.rgb_color }}"
 
   # - platform: open_route_service
   #   api_key: !secret open_route_service_key
@@ -647,566 +648,566 @@ rest_command:
     payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
 
 # iOS Actions
-ios:
-  actions:
-    - name: "movie_time"
-      background_color: "#a742f5"
-      label:
-        text: "Movie time"
-        color: "#000000"
-      icon:
-        icon: video-vintage
-        color: "#000000"
-    - name: "toilet"
-      background_color: "#ffffff"
-      label:
-        text: "Toilet"
-        color: "#000000"
-      icon:
-        icon: flashlight
-        color: "#a742f5"
-    - name: "morning"
-      background_color: "#03fc07"
-      label:
-        text: "Morning"
-        color: "#000000"
-      icon:
-        icon: weather-sunny
-        color: "#ffff00"
-    - name: "goodnight"
-      background_color: "#000000"
-      label:
-        text: "Goodnight"
-        color: "#ffffff"
-      icon:
-        icon: moon-waxing-crescent
-        color: "#ffffff"
-    - name: "evening"
-      background_color: "#fcb503"
-      label:
-        text: "Evening"
-        color: "#000000"
-      icon:
-        icon: weather-sunset-down
-        color: "#ffff00"
-    - name: "normal"
-      background_color: "#ffffff"
-      label:
-        text: "Normal"
-        color: "#000000"
-      icon:
-        icon: lightbulb
-        color: "#000000"
-    - name: "dinner"
-      background_color: "#e00d0d"
-      label:
-        text: "Dinner"
-        color: "#000000"
-      icon:
-        icon: food-fork-drink
-        color: "#000000"
-    - name: "sexy_time"
-      background_color: "#a832a4"
-      label:
-        text: "Sexy time"
-        color: "#000000"
-      icon:
-        icon: heart-pulse
-        color: "#000000"
-    - name: "tv_on"
-      background_color: "#0000ff"
-      label:
-        text: "TV On"
-        color: "#000000"
-      icon:
-        icon: remote-tv
-        color: "#000000"
-    - name: "tv_off"
-      background_color: "#0000ff"
-      label:
-        text: "TV Off"
-        color: "#000000"
-      icon:
-        icon: remote-tv-off
-        color: "#000000"
-    - name: "cinema_mode_on"
-      background_color: "#0000ff"
-      label:
-        text: "Cinema Mode: On"
-        color: "#38ab07"
-      icon:
-        icon: theater
-        color: "#000000"
-    - name: "cinema_mode_off"
-      background_color: "#0000ff"
-      label:
-        text: "Cinema Mode: Off"
-        color: "#38ab07"
-      icon:
-        icon: theater
-        color: "#000000"
-    # - name: "test_relay"
-    #   background_color: "#0d1be0"
-    #   label:
-    #     text: "Test Assistant Relay"
-    #     color: "#000000"
-    #   icon:
-    #     icon: google-assistant
-    #     color: "#000000"
-    - name: "play_playlist_relax_sleep"
-      background_color: "#38ab07"
-      label:
-        text: "Play Playlist Relax Sleep"
-        color: "#000000"
-      icon:
-        icon: spotify
-        color: "#000000"
-    - name: "spotify_goodnight"
-      background_color: "#0000ff"
-      label:
-        text: "Spotify Goodnight"
-        color: "#38ab07"
-      icon:
-        icon: spotify
-        color: "#000000"
+# ios:
+#   actions:
+#     - name: "movie_time"
+#       background_color: "#a742f5"
+#       label:
+#         text: "Movie time"
+#         color: "#000000"
+#       icon:
+#         icon: video-vintage
+#         color: "#000000"
+#     - name: "toilet"
+#       background_color: "#ffffff"
+#       label:
+#         text: "Toilet"
+#         color: "#000000"
+#       icon:
+#         icon: flashlight
+#         color: "#a742f5"
+#     - name: "morning"
+#       background_color: "#03fc07"
+#       label:
+#         text: "Morning"
+#         color: "#000000"
+#       icon:
+#         icon: weather-sunny
+#         color: "#ffff00"
+#     - name: "goodnight"
+#       background_color: "#000000"
+#       label:
+#         text: "Goodnight"
+#         color: "#ffffff"
+#       icon:
+#         icon: moon-waxing-crescent
+#         color: "#ffffff"
+#     - name: "evening"
+#       background_color: "#fcb503"
+#       label:
+#         text: "Evening"
+#         color: "#000000"
+#       icon:
+#         icon: weather-sunset-down
+#         color: "#ffff00"
+#     - name: "normal"
+#       background_color: "#ffffff"
+#       label:
+#         text: "Normal"
+#         color: "#000000"
+#       icon:
+#         icon: lightbulb
+#         color: "#000000"
+#     - name: "dinner"
+#       background_color: "#e00d0d"
+#       label:
+#         text: "Dinner"
+#         color: "#000000"
+#       icon:
+#         icon: food-fork-drink
+#         color: "#000000"
+#     - name: "sexy_time"
+#       background_color: "#a832a4"
+#       label:
+#         text: "Sexy time"
+#         color: "#000000"
+#       icon:
+#         icon: heart-pulse
+#         color: "#000000"
+#     - name: "tv_on"
+#       background_color: "#0000ff"
+#       label:
+#         text: "TV On"
+#         color: "#000000"
+#       icon:
+#         icon: remote-tv
+#         color: "#000000"
+#     - name: "tv_off"
+#       background_color: "#0000ff"
+#       label:
+#         text: "TV Off"
+#         color: "#000000"
+#       icon:
+#         icon: remote-tv-off
+#         color: "#000000"
+#     - name: "cinema_mode_on"
+#       background_color: "#0000ff"
+#       label:
+#         text: "Cinema Mode: On"
+#         color: "#38ab07"
+#       icon:
+#         icon: theater
+#         color: "#000000"
+#     - name: "cinema_mode_off"
+#       background_color: "#0000ff"
+#       label:
+#         text: "Cinema Mode: Off"
+#         color: "#38ab07"
+#       icon:
+#         icon: theater
+#         color: "#000000"
+#     # - name: "test_relay"
+#     #   background_color: "#0d1be0"
+#     #   label:
+#     #     text: "Test Assistant Relay"
+#     #     color: "#000000"
+#     #   icon:
+#     #     icon: google-assistant
+#     #     color: "#000000"
+#     - name: "play_playlist_relax_sleep"
+#       background_color: "#38ab07"
+#       label:
+#         text: "Play Playlist Relax Sleep"
+#         color: "#000000"
+#       icon:
+#         icon: spotify
+#         color: "#000000"
+#     - name: "spotify_goodnight"
+#       background_color: "#0000ff"
+#       label:
+#         text: "Spotify Goodnight"
+#         color: "#38ab07"
+#       icon:
+#         icon: spotify
+#         color: "#000000"
 
-light:
-  - platform: template
-    lights:
-      selected_light:
-        friendly_name: "Selected Light"
-        unique_id: "light.selected_light"
-        # level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int }}"
-        level_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int }}"
-        # value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int > 0 }}"
-        value_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int > 0 }}"
-        temperature_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'color_temp') | int }}"
-        # temperature_template: "{{states('input_number.light_temperature_input') | int}}"
-        color_template: "({{states('input_number.h_light_input') | int}}, {{states('input_number.s_light_input') | int}})"
-        # color_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'hs_color') | float}}"
-        turn_on:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-        turn_off:
-          service: light.turn_off
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-        set_level:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-            brightness_pct: "{{ (brightness / 255) * 100 | round (2) }}"
-        set_temperature:
-          - service: input_number.set_value
-            data:
-              value: "{{ color_temp }}"
-              entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-          - service: light.turn_on
-            data_template:
-              entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-              brightness: "{{ brightness }}"
-              color_temp: "{{ color_temp }}"
-        set_white_value:
-          service: input_number.set_value
-          data:
-            value: "{{ white_value }}"
-            entity_id: input_number.white_value_input
-        # set_color:
-        #   service: light.turn_on
-        #   data_template:
-        #     entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-        #     hs_color: "{{ hs_color }}"
-        set_color:
-          - service: input_number.set_value
-            data:
-              value: "{{ h }}"
-              entity_id: input_number.h_light_input
-          - service: input_number.set_value
-            data:
-              value: "{{ s }}"
-              entity_id: input_number.s_light_input
-          - service: light.turn_on
-            data_template:
-              entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-              # transition: "{{ transition | float }}"
-              hs_color:
-                - "{{ hs[0] }}"
-                - "{{ hs[1] }}"
-            # hs_color:
-            # - "{{ hs[0] }}"
-            # - "{{ hs[1] }}"
+# light:
+#   - platform: template
+#     lights:
+#       selected_light:
+#         friendly_name: "Selected Light"
+#         unique_id: "light.selected_light"
+#         # level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int }}"
+#         level_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int }}"
+#         # value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int > 0 }}"
+#         value_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int > 0 }}"
+#         temperature_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'color_temp') | int }}"
+#         # temperature_template: "{{states('input_number.light_temperature_input') | int}}"
+#         color_template: "({{states('input_number.h_light_input') | int}}, {{states('input_number.s_light_input') | int}})"
+#         # color_template: "{{ state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'hs_color') | float}}"
+#         turn_on:
+#           service: light.turn_on
+#           data_template:
+#             entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#         turn_off:
+#           service: light.turn_off
+#           data_template:
+#             entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#         set_level:
+#           service: light.turn_on
+#           data_template:
+#             entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#             brightness_pct: "{{ (brightness / 255) * 100 | round (2) }}"
+#         set_temperature:
+#           - service: input_number.set_value
+#             data:
+#               value: "{{ color_temp }}"
+#               entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#           - service: light.turn_on
+#             data_template:
+#               entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#               brightness: "{{ brightness }}"
+#               color_temp: "{{ color_temp }}"
+#         set_white_value:
+#           service: input_number.set_value
+#           data:
+#             value: "{{ white_value }}"
+#             entity_id: input_number.white_value_input
+#         # set_color:
+#         #   service: light.turn_on
+#         #   data_template:
+#         #     entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#         #     hs_color: "{{ hs_color }}"
+#         set_color:
+#           - service: input_number.set_value
+#             data:
+#               value: "{{ h }}"
+#               entity_id: input_number.h_light_input
+#           - service: input_number.set_value
+#             data:
+#               value: "{{ s }}"
+#               entity_id: input_number.s_light_input
+#           - service: light.turn_on
+#             data_template:
+#               entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#               # transition: "{{ transition | float }}"
+#               hs_color:
+#                 - "{{ hs[0] }}"
+#                 - "{{ hs[1] }}"
+#             # hs_color:
+#             # - "{{ hs[0] }}"
+#             # - "{{ hs[1] }}"
 
-          # data:
-          #   value: "{{ hs_color }}"
-          #   entity_id: input_number.light_temperature_input
-          # - service: input_number.set_value
-          #   data:
-          #     value: "{{ h }}"
-          #     entity_id: input_number.h_light_input
-          # - service: input_number.set_value
-          #   data:
-          #     value: "{{ s }}"
-          #     entity_id: input_number.s_light_input
-          # - service: light.turn_on
-          # data_template:
-          #   entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-          #   hs_color:
-          #     - "{{ hs[0] }}"
-          #     - "{{ hs[1] }}"
+#           # data:
+#           #   value: "{{ hs_color }}"
+#           #   entity_id: input_number.light_temperature_input
+#           # - service: input_number.set_value
+#           #   data:
+#           #     value: "{{ h }}"
+#           #     entity_id: input_number.h_light_input
+#           # - service: input_number.set_value
+#           #   data:
+#           #     value: "{{ s }}"
+#           #     entity_id: input_number.s_light_input
+#           # - service: light.turn_on
+#           # data_template:
+#           #   entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+#           #   hs_color:
+#           #     - "{{ hs[0] }}"
+#           #     - "{{ hs[1] }}"
 
-      selected_room:
-        friendly_name: "Selected Room"
-        unique_id: "light.selected_room"
-        # level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int }}"
-        level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'brightness')) | int }}"
-        # value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int > 0 }}"
-        value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'brightness')) | int > 0 }}"
-        temperature_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'color_temp')) | int }}"
-        # temperature_template: "{{states('input_number.room_temperature_input') | int}}"
-        color_template: "({{states('input_number.h_room_input') | int }}, {{states('input_number.s_room_input') | int }})"
-        turn_on:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-        turn_off:
-          service: light.turn_off
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-        set_level:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-            brightness_pct: "{{ (brightness / 255) * 100 | round (2) }}"
-        set_temperature:
-          - service: input_number.set_value
-            data:
-              value: "{{ color_temp }}"
-              entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-          - service: light.turn_on
-            data_template:
-              entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-              brightness: "{{ brightness }}"
-              color_temp: "{{ color_temp }}"
-        set_white_value:
-          service: input_number.set_value
-          data:
-            value: "{{ white_value }}"
-            entity_id: input_number.room_white_value_input
-        set_color:
-          - service: input_number.set_value
-            data:
-              value: "{{ h }}"
-              entity_id: input_number.h_room_input
-          - service: input_number.set_value
-            data:
-              value: "{{ s }}"
-              entity_id: input_number.s_room_input
-          - service: light.turn_on
-            data_template:
-              entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-              # transition: "{{ transition | float }}"
-              hs_color:
-                - "{{ hs[0] }}"
-                - "{{ hs[1] }}"
+#       selected_room:
+#         friendly_name: "Selected Room"
+#         unique_id: "light.selected_room"
+#         # level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int }}"
+#         level_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'brightness')) | int }}"
+#         # value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_light').lower())), 'brightness') | int / 255 * 100) | int > 0 }}"
+#         value_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'brightness')) | int > 0 }}"
+#         temperature_template: "{{ (state_attr(('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights', 'color_temp')) | int }}"
+#         # temperature_template: "{{states('input_number.room_temperature_input') | int}}"
+#         color_template: "({{states('input_number.h_room_input') | int }}, {{states('input_number.s_room_input') | int }})"
+#         turn_on:
+#           service: light.turn_on
+#           data_template:
+#             entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+#         turn_off:
+#           service: light.turn_off
+#           data_template:
+#             entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+#         set_level:
+#           service: light.turn_on
+#           data_template:
+#             entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+#             brightness_pct: "{{ (brightness / 255) * 100 | round (2) }}"
+#         set_temperature:
+#           - service: input_number.set_value
+#             data:
+#               value: "{{ color_temp }}"
+#               entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+#           - service: light.turn_on
+#             data_template:
+#               entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+#               brightness: "{{ brightness }}"
+#               color_temp: "{{ color_temp }}"
+#         set_white_value:
+#           service: input_number.set_value
+#           data:
+#             value: "{{ white_value }}"
+#             entity_id: input_number.room_white_value_input
+#         set_color:
+#           - service: input_number.set_value
+#             data:
+#               value: "{{ h }}"
+#               entity_id: input_number.h_room_input
+#           - service: input_number.set_value
+#             data:
+#               value: "{{ s }}"
+#               entity_id: input_number.s_room_input
+#           - service: light.turn_on
+#             data_template:
+#               entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+#               # transition: "{{ transition | float }}"
+#               hs_color:
+#                 - "{{ hs[0] }}"
+#                 - "{{ hs[1] }}"
 
-  - platform: switch
-    name: "Lightning Red"
-    entity_id: switch.lightning_red
+#   - platform: switch
+#     name: "Lightning Red"
+#     entity_id: switch.lightning_red
 
-  - platform: switch
-    name: "Lightning Purple 1"
-    entity_id: switch.lightning_purple_1
+#   - platform: switch
+#     name: "Lightning Purple 1"
+#     entity_id: switch.lightning_purple_1
 
-  - platform: switch
-    name: "Lightning Purple 2"
-    entity_id: switch.lightning_purple_2
+#   - platform: switch
+#     name: "Lightning Purple 2"
+#     entity_id: switch.lightning_purple_2
 
-  # - platform: switch
-  #   name: "Lamp"
-  #   entity_id: switch.lamp
+#   # - platform: switch
+#   #   name: "Lamp"
+#   #   entity_id: switch.lamp
 
-  - platform: group
-    name: All Lights
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
+#   - platform: group
+#     name: All Lights
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
 
-  - platform: group
-    name: All Lights Except Lightning Bolts
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.closet
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
+#   - platform: group
+#     name: All Lights Except Lightning Bolts
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.closet
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
 
-  - platform: group
-    name: All Lights Except Lightning Bolts And Closet
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
+#   - platform: group
+#     name: All Lights Except Lightning Bolts And Closet
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
 
-  - platform: group
-    name: All Lights Except Closet
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
+#   - platform: group
+#     name: All Lights Except Closet
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
 
-  - platform: group
-    name: All Lights Including Closet
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
-      - light.closet
+#   - platform: group
+#     name: All Lights Including Closet
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
+#       - light.closet
 
-  - platform: group
-    name: Living Room And Kitchen Lights
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
+#   - platform: group
+#     name: Living Room And Kitchen Lights
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
 
-  - platform: group
-    name: Living Room Lights
-    entities:
-      - light.chandelier
-      - light.tv
+#   - platform: group
+#     name: Living Room Lights
+#     entities:
+#       - light.chandelier
+#       - light.tv
 
-  - platform: group
-    name: Kitchen Lights
-    entities:
-      - light.kitchen_east
-      - light.kitchen_west
+#   - platform: group
+#     name: Kitchen Lights
+#     entities:
+#       - light.kitchen_east
+#       - light.kitchen_west
 
-  - platform: group
-    name: Bedroom Lights
-    entities:
-      - light.bedroom
-      - light.bed
+#   - platform: group
+#     name: Bedroom Lights
+#     entities:
+#       - light.bedroom
+#       - light.bed
 
-  - platform: group
-    name: LIFX
-    entities:
-      - light.chandelier
-      - light.hallway
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.closet
-      - light.bedroom
+#   - platform: group
+#     name: LIFX
+#     entities:
+#       - light.chandelier
+#       - light.hallway
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.closet
+#       - light.bedroom
 
-  - platform: group
-    name: Lightning Bolts
-    entities:
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
+#   - platform: group
+#     name: Lightning Bolts
+#     entities:
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
 
-  - platform: group
-    name: Govee
-    entities:
-      - light.bed
-      - light.bathroom
+#   - platform: group
+#     name: Govee
+#     entities:
+#       - light.bed
+#       - light.bathroom
 
-  - platform: group
-    name: LED Strips
-    entities:
-      - light.tv
-      - light.bed
-      - light.bathroom
+#   - platform: group
+#     name: LED Strips
+#     entities:
+#       - light.tv
+#       - light.bed
+#       - light.bathroom
 
-  - platform: group
-    name: test
-    entities:
-      - light.hallway
-      - light.kitchen_east
+#   - platform: group
+#     name: test
+#     entities:
+#       - light.hallway
+#       - light.kitchen_east
 
 # Groups
-group:
-  Selected Individual Lights:
-    name: Selected Individual Lights
-    icon: "mdi:lightbulb"
-    entities:
-      - light.chandelier
+# group:
+#   Selected Individual Lights:
+#     name: Selected Individual Lights
+#     icon: "mdi:lightbulb"
+#     entities:
+#       - light.chandelier
 
-  Selected Room Lights:
-    name: Selected Room Lights
-    icon: "mdi:lightbulb-group"
-    entities:
-      - light.all_lights_except_lightning_bolts_and_closet
+#   Selected Room Lights:
+#     name: Selected Room Lights
+#     icon: "mdi:lightbulb-group"
+#     entities:
+#       - light.all_lights_except_lightning_bolts_and_closet
 
-  Light Group:
-    name: Selected
-    entities:
-      - light.hallway
-      - light.kitchen_east
+#   Light Group:
+#     name: Selected
+#     entities:
+#       - light.hallway
+#       - light.kitchen_east
 
-  All Lights:
-    name: All Lights
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
+#   All Lights:
+#     name: All Lights
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
 
-  All Lights Except Lightning Bolts:
-    name: All Lights Except Lightning Bolts
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.closet
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
+#   All Lights Except Lightning Bolts:
+#     name: All Lights Except Lightning Bolts
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.closet
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
 
-  All Lights Except Lightning Bolts And Closet:
-    name: All Lights Except Lightning Bolts And Closet
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
+#   All Lights Except Lightning Bolts And Closet:
+#     name: All Lights Except Lightning Bolts And Closet
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
 
-  All Lights Except Closet:
-    name: All Lights Except Closet
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
+#   All Lights Except Closet:
+#     name: All Lights Except Closet
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
 
-  All Lights Including Closet:
-    name: All Lights Including Closet
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.hallway
-      - light.bedroom
-      - light.bed
-      - light.bathroom
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
-      - light.closet
+#   All Lights Including Closet:
+#     name: All Lights Including Closet
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.hallway
+#       - light.bedroom
+#       - light.bed
+#       - light.bathroom
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
+#       - light.closet
 
-  Living Room And Kitchen Lights:
-    name: Living Room And Kitchen Lights
-    entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
+#   Living Room And Kitchen Lights:
+#     name: Living Room And Kitchen Lights
+#     entities:
+#       - light.chandelier
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
 
-  Living Room Lights:
-    name: Living Room Lights
-    entities:
-      - light.chandelier
-      - light.tv
+#   Living Room Lights:
+#     name: Living Room Lights
+#     entities:
+#       - light.chandelier
+#       - light.tv
 
-  Kitchen Lights:
-    name: Kitchen Lights
-    entities:
-      - light.kitchen_east
-      - light.kitchen_west
+#   Kitchen Lights:
+#     name: Kitchen Lights
+#     entities:
+#       - light.kitchen_east
+#       - light.kitchen_west
 
-  Bedroom Lights:
-    name: Bedroom Lights
-    entities:
-      - light.bedroom
-      - light.bed
+#   Bedroom Lights:
+#     name: Bedroom Lights
+#     entities:
+#       - light.bedroom
+#       - light.bed
 
-  LIFX:
-    name: LIFX
-    entities:
-      - light.chandelier
-      - light.hallway
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.closet
-      - light.bedroom
+#   LIFX:
+#     name: LIFX
+#     entities:
+#       - light.chandelier
+#       - light.hallway
+#       - light.tv
+#       - light.kitchen_east
+#       - light.kitchen_west
+#       - light.closet
+#       - light.bedroom
 
-  Lightning Bolts:
-    name: Lightning Bolts
-    entities:
-      - light.lightning_red
-      - light.lightning_purple_1
-      - light.lightning_purple_2
+#   Lightning Bolts:
+#     name: Lightning Bolts
+#     entities:
+#       - light.lightning_red
+#       - light.lightning_purple_1
+#       - light.lightning_purple_2
 
-  Govee:
-    name: Govee
-    entities:
-      - light.bed
-      - light.bathroom
+#   Govee:
+#     name: Govee
+#     entities:
+#       - light.bed
+#       - light.bathroom
 
-  LED Strips:
-    name: LED Strips
-    entities:
-      - light.tv
-      - light.bed
-      - light.bathroom
+#   LED Strips:
+#     name: LED Strips
+#     entities:
+#       - light.tv
+#       - light.bed
+#       - light.bathroom
 
 # Google Assistant Integration
 cloud:

@@ -1,5 +1,5 @@
 template:
-  select:
+  # select:
     #   - name: vacuum_speed
     #     state: >
     #       {% set fan_speed = state_attr('vacuum.morty', 'fan_speed') %}
@@ -45,7 +45,7 @@ template:
     #         source: >
     #           {{ option }}
 
-    # binary_sensor:
+  binary_sensor:
     #   - unique_id: laundry_time_trigger
     #     state: >
     #       {% set start_time = state_attr('calendar.tvatta', 'start_time') %}

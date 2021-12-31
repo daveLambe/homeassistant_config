@@ -1,0 +1,122 @@
+ios:
+  actions:
+    - name: "movie_time"
+      background_color: "#a742f5"
+      label:
+        text: "Movie time"
+        color: "#000000"
+      icon:
+        icon: video-vintage
+        color: "#000000"
+    - name: "toilet"
+      background_color: "#ffffff"
+      label:
+        text: "Toilet"
+        color: "#000000"
+      icon:
+        icon: flashlight
+        color: "#a742f5"
+    - name: "morning"
+      background_color: "#03fc07"
+      label:
+        text: "Morning"
+        color: "#000000"
+      icon:
+        icon: weather-sunny
+        color: "#ffff00"
+    - name: "goodnight"
+      background_color: "#000000"
+      label:
+        text: "Goodnight"
+        color: "#ffffff"
+      icon:
+        icon: moon-waxing-crescent
+        color: "#ffffff"
+    - name: "evening"
+      background_color: "#fcb503"
+      label:
+        text: "Evening"
+        color: "#000000"
+      icon:
+        icon: weather-sunset-down
+        color: "#ffff00"
+    - name: "normal"
+      background_color: "#ffffff"
+      label:
+        text: "Normal"
+        color: "#000000"
+      icon:
+        icon: lightbulb
+        color: "#000000"
+    - name: "dinner"
+      background_color: "#e00d0d"
+      label:
+        text: "Dinner"
+        color: "#000000"
+      icon:
+        icon: food-fork-drink
+        color: "#000000"
+    - name: "sexy_time"
+      background_color: "#a832a4"
+      label:
+        text: "Sexy time"
+        color: "#000000"
+      icon:
+        icon: heart-pulse
+        color: "#000000"
+    - name: "tv_on"
+      background_color: "#0000ff"
+      label:
+        text: "TV On"
+        color: "#000000"
+      icon:
+        icon: remote-tv
+        color: "#000000"
+    - name: "tv_off"
+      background_color: "#0000ff"
+      label:
+        text: "TV Off"
+        color: "#000000"
+      icon:
+        icon: remote-tv-off
+        color: "#000000"
+    - name: "cinema_mode_on"
+      background_color: "#0000ff"
+      label:
+        text: "Cinema Mode: On"
+        color: "#38ab07"
+      icon:
+        icon: theater
+        color: "#000000"
+    - name: "cinema_mode_off"
+      background_color: "#0000ff"
+      label:
+        text: "Cinema Mode: Off"
+        color: "#38ab07"
+      icon:
+        icon: theater
+        color: "#000000"
+    # - name: "test_relay"
+    #   background_color: "#0d1be0"
+    #   label:
+    #     text: "Test Assistant Relay"
+    #     color: "#000000"
+    #   icon:
+    #     icon: google-assistant
+    #     color: "#000000"
+    - name: "play_playlist_relax_sleep"
+      background_color: "#38ab07"
+      label:
+        text: "Play Playlist Relax Sleep"
+        color: "#000000"
+      icon:
+        icon: spotify
+        color: "#000000"
+    - name: "spotify_goodnight"
+      background_color: "#0000ff"
+      label:
+        text: "Spotify Goodnight"
+        color: "#38ab07"
+      icon:
+        icon: spotify
+        color: "#000000"
