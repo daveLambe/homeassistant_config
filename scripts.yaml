@@ -189,7 +189,7 @@ lock_door:
     - service: rest_command.assistant_relay
       data:
         command: Lock the door
-  icon: mdi:shield-lock
+  icon: mdi:door-closed-lock
 restart_door_lock_bridge:
   alias: Restart Door Lock Bridge
   mode: restart
@@ -201,6 +201,7 @@ restart_door_lock_bridge:
     - service: switch.turn_on
       data:
         entity_id: switch.door_lock_bridge
+  icon: mdi:door-closed
 restart_fan:
   alias: Restart Fan
   mode: restart
@@ -305,7 +306,7 @@ morning:
     - variables:
         scene:
           "{% set state = states('sensor.time') %} {% set dave_morning_time = '05:30'\
-          \ < state < '09:00' %} {% set ebony_home = (states('device_tracker.ebonycom')\
+          \ < state < '07:45' %} {% set ebony_home = (states('device_tracker.ebonycom')\
           \ == 'home') %} {% set ebony_mode_on = (states('input_boolean.ebony_mode')\
           \ == 'on' ) %}\n{% if dave_morning_time and ebony_mode_on %}\n    scene.morning_darker\n\
           {% else %}\n    scene.morning\n{% endif %}\n"
@@ -668,7 +669,7 @@ create_driveway_camera_link:
     - service: webrtc.create_link
       data:
         link_id: "{{ link_id }}"
-        url: rtsp://admin:trvvujg3292@192.168.42.243:554/cam/realmonitor?channel=1&subtype=1
+        url: !secret cam_rtsp_driveway
         open_limit: 2
         time_to_live: 500
     - service: persistent_notification.create
@@ -685,7 +686,7 @@ create_street_camera_link:
     - service: webrtc.create_link
       data:
         link_id: "{{ link_id }}"
-        url: rtsp://Lambo:zUC2mdTXb6@192.168.42.227/live
+        url: !secret cam_rtsp_street
         open_limit: 2
         time_to_live: 500
     - service: persistent_notification.create
@@ -702,7 +703,7 @@ create_living_room_camera_link:
     - service: webrtc.create_link
       data:
         link_id: "{{ link_id }}"
-        url: rtsp://admin:trvvujg3292@192.168.42.243/cam/realmonitor?channel=1&subtype=1
+        url: !secret cam_rtsp_living_room
         open_limit: 2
         time_to_live: 500
     - service: persistent_notification.create
@@ -717,7 +718,7 @@ dashcast_driveway:
     - service: webrtc.dash_cast
       entity_id: media_player.living_room_chromecast
       data:
-        url: rtsp://admin:trvvujg3292@192.168.42.166/cam/realmonitor?channel=1&subtype=1
+        url: !secret cam_rtsp_driveway
   mode: single
 dashcast_street:
   alias: DashCast Street camera
@@ -725,7 +726,7 @@ dashcast_street:
     - service: webrtc.dash_cast
       entity_id: media_player.living_room_chromecast
       data:
-        url: rtsp://Lambo:zUC2mdTXb6@192.168.42.227/live
+        url: !secret cam_rtsp_street
   mode: single
 dashcast_living_room:
   alias: DashCast Living Room camera
@@ -733,7 +734,7 @@ dashcast_living_room:
     - service: webrtc.dash_cast
       entity_id: media_player.living_room_chromecast
       data:
-        url: rtsp://admin:trvvujg3292@192.168.42.243/cam/realmonitor?channel=1&subtype=1
+        url: !secret cam_rtsp_living_room
 lock_door_if_closed:
   alias: Lock door if closed
   mode: single
@@ -744,7 +745,7 @@ lock_door_if_closed:
     - service: script.turn_on
       data:
         entity_id: script.lock_door
-  icon: mdi:shield-lock
+  icon: mdi:door-closed-lock
 set_living_room_tv_ambient_mode:
   sequence:
     - service: androidtv.adb_command
@@ -798,7 +799,7 @@ create_temporary_camera_link_for_driveway:
     - service: webrtc.create_link
       data:
         link_id: "{{ link_id }}"
-        url: rtsp://Lambo:zUC2mdTXb6@192.168.42.227/live
+        url: !secret cam_rtsp_street
         open_limit: 2
         time_to_live: 500
     - service: persistent_notification.create
@@ -820,3 +821,11 @@ restart_blanket:
       target:
         entity_id: switch.blanket
   mode: restart
+unlock_the_door:
+  alias: Unlock the door
+  sequence:
+    - service: rest_command.assistant_relay
+      data:
+        command: Unlock the door
+  mode: restart
+  icon: mdi:door-open

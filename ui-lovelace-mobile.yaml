@@ -1,5 +1,7 @@
 title: "DaveCave Mobile"
 
+button_card_templates: !include button_card_templates.yaml
+
 # custom_header: !include lovelace/custom_header.yaml
 
 # Swipe Navigation

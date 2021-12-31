@@ -1,7 +1,64 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 
+# Helpful Stuff
+
+# {{ expand(''group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights'')|map(attribute='entity_id')|list|join(', ') }}
+
+# {{ expand(''group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights'')|map(attribute='entity_id')|list|join(', ') }}
+# {{ (''light.'' ~ (states(''input_select.selectable_room'').lower()))
+#         | replace('' '', ''_'') ~''_lights'' }}
+
+# Output group entitity_ids as readable list
+# {{ expand('group.all_lights')|map(attribute='entity_id')|list|join(', ') }}
+
+# Output group names as readable list
+# {{ expand('group.all_lights')|map(attribute='name')|list|join(', ') }}
+
+# - data_template: >
+#     {% if is_state('input_boolean.your_input_boolean_here', 'on') %}
+#       notify.all_iphones
+#     {% else %}
+#       notify.some_iphones
+#     {% endif %}
+
+# service: group.set
+# data:
+#   object_id: selected_room_lights
+#   entities: >-
+#     {{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace('
+#     ', '_') ~'_lights' }}
+
+# service: group.set
+# data:
+#   object_id: light_group
+#   entities: >-
+#     {{ expand('group.kitchen_lights')|map(attribute='entity_id')|list|join(', ') }}
+
+# <<< Is this it? >>>
+# {{ expand('group.light_group') |map(attribute='entity_id')|list }}
+# {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list }}
+# {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(', ') }}
+# <<< Is this it? >>>
+
+# Taken from Dev Tools - I think the working one
+# service: group.set
+# data:
+#   object_id: light_group
+#   entities: >-
+#     {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(', ') }}
+
 homeassistant:
-  customize: !include customize.yaml
+  # customize: !include customize.yaml
+  name: Home
+  latitude: !secret zone_davecave_lat
+  longitude: !secret zone_davecave_long
+  time_zone: "America/Los_Angeles"
+  temperature_unit: C
+  unit_system: metric
+  currency: USD
+  # packages: !include_dir_named include
+  allowlist_external_dirs:
+    - /config
 
 default_config:
 
@@ -11,6 +68,17 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 camera: !include cameras.yaml
 zone: !include zones.yaml
+# Hope that path works
+frontend:
+  themes: !include_dir_merge_named themes
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.websocket_api: fatal
+    homeassistant.components.camera: fatal
+    amcrest: debug
+    homeassistant.components.amcrest: debug
 
 zwave:
   usb_path: /dev/ttyUSB0
@@ -18,9 +86,6 @@ zwave:
 zha:
   usb_path: /dev/ttyUSB1
   database_path: /config/zigbee.db
-
-frontend:
-  themes: !include_dir_merge_named themes
 
 updater:
 
@@ -40,6 +105,14 @@ stream:
 
 ffmpeg:
 
+browser_mod:
+  prefix: "browser_"
+  devices:
+    ac39bba2-5650e008:
+      name: "DaveBook Pro"
+    0d518399-1bf39487:
+      name: "DaveCom"
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -48,7 +121,7 @@ tts:
 
 lovelace:
   mode: yaml
-  resources: !include lovelace/resources.yaml
+  # resources: !include lovelace/resources.yaml
   dashboards:
     lovelace-davecave:
       title: "DaveCave"
@@ -59,7 +132,7 @@ lovelace:
       mode: yaml
     lovelace-mobile:
       title: "DaveCave Mobile"
-      icon: "mdi:cellphone-iphone"
+      icon: mdi:cellphone
       filename: ui-lovelace-mobile.yaml
       show_in_sidebar: true
       require_admin: false
@@ -71,6 +144,57 @@ lovelace:
       show_in_sidebar: false
       require_admin: false
       mode: yaml
+    lovelace-main:
+      title: "V2"
+      icon: mdi:hexagram
+      filename: ui-lovelace-main.yaml
+      show_in_sidebar: false
+      require_admin: true
+      mode: yaml
+    lovelace-homekit:
+      title: "HomeKit"
+      icon: mdi:apple-ios
+      filename: ui-lovelace-homekit.yaml
+      show_in_sidebar: false
+      require_admin: true
+      mode: yaml
+  resources: # HACS
+    - url: /hacsfiles/rgb-light-card/card.js
+      type: module
+    - url: /hacsfiles/scheduler-card/scheduler-card.js
+      type: module
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+      type: module
+    - url: /hacsfiles/bignumber-card/bignumber-card.js
+      type: module
+    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+      type: module
+    - url: /hacsfiles/spotify-card/spotify-card.js
+      type: module
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+    - url: /hacsfiles/swipe-card/swipe-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
+      type: module
+    - url: /hacsfiles/stack-in-card/stack-in-card.js
+      type: module
+    - url: /hacsfiles/decluttering-card/decluttering-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-tools/card-tools.js
+      type: module
+    - url: /hacsfiles/deep-press/deep-press.js
+      type: module
+    - url: /hacsfiles/frigate-hass-card/frigate-hass-card.js
+      type: module
+    - url: /hacsfiles/light-entity-card/light-entity-card.js
+      type: module
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module
+    - url: /browser_mod.js
+      type: module
+    - url: /hacsfiles/light-popup-card/light-popup-card.js
+      type: module
     # lovelace-settings:
     #   title: "Guest"
     #   icon: "mdi:cog"
@@ -91,6 +215,41 @@ lovelace:
     #   show_in_sidebar: true
     #   require_admin: true
     #   mode: yaml
+
+person:
+  - name: Dave
+    id: dave
+    device_trackers:
+      - device_tracker.davecom
+
+  - name: Ebony
+    id: ebony
+    device_trackers:
+      - device_tracker.ebonycom
+
+lock:
+  - platform: template
+    name: Door
+    value_template: >
+      {{ states('binary_sensor.front_door_sensor_status') }}
+    lock:
+      service: script.turn_on
+      entity_id: script.lock_door_if_closed
+    unlock:
+      service: script.turn_on
+      entity_id: script.unlock_the_door
+
+alert:
+  front_door:
+    name: Front Door is open
+    # done_message: Garage is closed
+    entity_id: input_boolean.front_door_sensor_status
+    state: "on"
+    repeat: 5
+    # can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - mobile_app_davecom
 
 proximity:
   home:
@@ -144,14 +303,23 @@ amcrest:
     binary_sensors:
       - online
       - motion_detected_polled
+    sensors:
+      - sdcard
 
-  - host: !secret ip_amcrest_bedroom
-    name: "Amcrest Bedroom"
-    username: !secret amcrest_username
-    password: !secret amcrest_password
-    binary_sensors:
-      - online
-      - motion_detected_polled
+  # - host: !secret ip_amcrest_bedroom
+  #   name: "Amcrest Bedroom"
+  #   username: !secret amcrest_username
+  #   password: !secret amcrest_password
+  # stream_source: rtsp, snapshot
+  # port: 554, 3777, 80
+  # resolution: low, high
+  # binary_sensors:
+  #   - online
+  #   - motion_detected_polled
+  # sensors:
+  #   - sdcard
+  # switches:
+  #   - privacy_mode
 
 # Android IP Cameras
 # android_ip_webcam:
@@ -242,38 +410,54 @@ amcrest:
 
 input_boolean:
   vacation_mode:
+    initial: true
+
+  security_mode:
     initial: false
+
   ebony_mode:
-    initial: false
+    initial: true
+
   stay_dark:
     initial: false
+
   delivery_mode:
     initial: false
+
   extreme_delivery_mode:
     initial: false
+
   ignore_motion:
     initial: false
+
   ebony_dave_together:
     initial: false
+
   guest_mode:
     initial: false
+
   cinema_mode:
     initial: false
-  notify_indoor_motion:
-    initial: false
-  notify_outdoor_motion:
-    initial: false
+
   auto_lock:
     initial: true
+
   notify_proximity:
     initial: true
+
+  notify_indoor_motion:
+    initial: false
+
+  notify_outdoor_motion:
+    initial: false
 
 input_select:
   selectable_light:
     options:
       - Chandelier
       - TV
-      - Kitchen
+      - Kitchen East
+      - Kitchen West
       - Bedroom
       - Bed
       - Hallway

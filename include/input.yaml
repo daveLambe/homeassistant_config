@@ -1,0 +1,117 @@
+input_boolean:
+  vacation_mode:
+    initial: true
+
+  security_mode:
+    initial: false
+
+  ebony_mode:
+    initial: true
+
+  stay_dark:
+    initial: false
+
+  delivery_mode:
+    initial: false
+
+  extreme_delivery_mode:
+    initial: false
+
+  ignore_motion:
+    initial: false
+
+  ebony_dave_together:
+    initial: false
+
+  guest_mode:
+    initial: false
+
+  cinema_mode:
+    initial: false
+
+  auto_lock:
+    initial: true
+
+  notify_proximity:
+    initial: true
+
+  notify_indoor_motion:
+    initial: false
+
+  notify_outdoor_motion:
+    initial: false
+
+input_select:
+  selectable_light:
+    options:
+      - Chandelier
+      - TV
+      - Kitchen East
+      - Kitchen West
+      - Bedroom
+      - Bed
+      - Hallway
+      - Bathroom
+    initial: Chandelier
+
+  selectable_room:
+    options:
+      - All
+      - Living Room
+      - Kitchen
+      - Living Room And Kitchen
+      - Bedroom
+    initial: All
+
+  selectable_camera:
+    name: "Camera"
+    options:
+      - "Driveway"
+      - "Street"
+      #   - "Driveway"
+      #   - "Street"
+      # - "Living Room"
+      # - "Bedroom"
+      - "None"
+    initial: "None"
+    icon: "mdi:camera"
+
+  destination:
+    name: destination
+    options:
+      - Home
+      - Noodle House
+      - Work
+# input_boolean:
+#   laundry_display:
+
+#   computer_lock:
+#     name: Avstängningslås
+#     icon: custom:lock
+
+# input_number:
+#   monitors_volume:
+#     name: Volym
+#     icon: mdi:volume-high
+#     initial: 20
+#     min: 7
+#     max: 75
+#     unit_of_measurement: '%'
+
+#   wemo_fan_timer:
+#     name: Stäng efter
+#     icon: mdi:timer-outline
+#     initial: 12
+#     min: 1
+#     max: 12
+#     unit_of_measurement: h
+
+# input_select:
+#   conditional_media:
+#     initial: Senast nedladdat
+#     options:
+#       - Senast nedladdat
+#       - Vardagsrum
+#       - Sovrum
+#       - Spotify
+#       - Google Nest Mini

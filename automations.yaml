@@ -1,399 +1,404 @@
 - id: automation.notify_windows_goodnight
   alias: Notify if a window is open when Goodnight script triggered
   trigger:
-  - platform: state
-    entity_id: script.goodnight, script.goodnight_relax_playlist
-    to: 'on'
+    - platform: state
+      entity_id: script.goodnight, script.goodnight_relax_playlist
+      to: "on"
   condition:
-  - condition: state
-    entity_id: binary_sensor.window_living_room_south_status
-    state: 'on'
+    - condition: state
+      entity_id: binary_sensor.window_living_room_south_status
+      state: "on"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: Window Alert!
-      message: Living Room window (South) is open
+    - service: notify.mobile_app_davecom
+      data:
+        title: Window Alert!
+        message: Living Room window (South) is open
   mode: single
 - id: automation.vacation_mode_on
   alias: Turn Vacation Mode on
   trigger:
-  - platform: state
-    entity_id: device_tracker.davecom
-    from: home
-    for: 00:20:00
-  - platform: time_pattern
-    minutes: '30'
-  condition:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: device_tracker.ebonycom
-      state: home
-  - condition: not
-    conditions:
-    - condition: state
-      state: home
+    - platform: state
       entity_id: device_tracker.davecom
-  - condition: state
-    entity_id: input_boolean.guest_mode
-    state: 'off'
+      from: home
+      for: 00:20:00
+    - platform: time_pattern
+      minutes: "30"
+  condition:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: device_tracker.ebonycom
+          state: home
+    - condition: not
+      conditions:
+        - condition: state
+          state: home
+          entity_id: device_tracker.davecom
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
   action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.vacation_mode
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.vacation_mode
   mode: single
 - id: automation.vacation_mode_on_notification
   alias: Notify Vacation Mode on
   trigger:
-  - platform: state
-    entity_id: input_boolean.vacation_mode
-    to: 'on'
+    - platform: state
+      entity_id: input_boolean.vacation_mode
+      to: "on"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: Vacation Mode
-      message: Vacation Mode has been turned on
+    - service: notify.mobile_app_davecom
+      data:
+        title: Vacation Mode
+        message: Vacation Mode has been turned on
 - id: automation.vacation_mode_off
   alias: Turn Vacation Mode off
   trigger:
-  - platform: state
-    entity_id: device_tracker.davecom
-    to: home
-  - platform: state
-    entity_id: device_tracker.ebonycom
-    to: home
+    - platform: state
+      entity_id: device_tracker.davecom
+      to: home
+    - platform: state
+      entity_id: device_tracker.ebonycom
+      to: home
   condition:
-  - condition: state
-    entity_id: input_boolean.vacation_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "on"
   action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.vacation_mode
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.vacation_mode
   mode: single
 - id: automation.vacation_mode_off_notification
   alias: Notify Vacation Mode off
   trigger:
-  - platform: state
-    entity_id: input_boolean.vacation_mode
-    to: 'off'
+    - platform: state
+      entity_id: input_boolean.vacation_mode
+      to: "off"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: Vacation Mode
-      message: Vacation Mode has been turned off
+    - service: notify.mobile_app_davecom
+      data:
+        title: Vacation Mode
+        message: Vacation Mode has been turned off
 - id: automation.ipad_charger_turn_on
   alias: Turn iPad charger on
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.davepad_pro_battery_level
-    below: '45'
-  - platform: numeric_state
-    entity_id: sensor.davepad_pro_battery_level
-    below: '40'
+    - platform: numeric_state
+      entity_id: sensor.davepad_pro_battery_level
+      below: "45"
+    - platform: numeric_state
+      entity_id: sensor.davepad_pro_battery_level
+      below: "40"
   action:
-  - service: switch.turn_on
-    entity_id: switch.ipad_charger
+    - service: switch.turn_on
+      entity_id: switch.ipad_charger
   mode: single
 - id: automation.ipad_charger_turn_off
   alias: Turn iPad charger off
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.davepad_pro_battery_level
-    above: '80'
-  - platform: numeric_state
-    entity_id: sensor.davepad_pro_battery_level
-    above: '85'
+    - platform: numeric_state
+      entity_id: sensor.davepad_pro_battery_level
+      above: "80"
+    - platform: numeric_state
+      entity_id: sensor.davepad_pro_battery_level
+      above: "85"
   action:
-  - service: switch.turn_off
-    entity_id: switch.ipad_charger
+    - service: switch.turn_off
+      entity_id: switch.ipad_charger
   mode: single
 - id: automation.ebonycom_battery_below_10
   alias: Ebonycom battery below 10
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.ebonycom_battery_level
-    below: 10
+    - platform: numeric_state
+      entity_id: sensor.ebonycom_battery_level
+      below: 10
   action:
-  - service: notify.mobile_app_ebonycom
-    data:
-      title: Battery Low. Charge soon!
-      message: Your battery is below 10%
+    - service: notify.mobile_app_ebonycom
+      data:
+        title: Battery Low. Charge soon!
+        message: Your battery is below 10%
 - id: automation.ebonycom_battery_below_20
   alias: Ebonycom battery below 20
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.ebonycom_battery_level
-    below: 20
+    - platform: numeric_state
+      entity_id: sensor.ebonycom_battery_level
+      below: 20
   action:
-  - service: notify.mobile_app_ebonycom
-    data:
-      title: Battery Low
-      message: Your battery is below 20%
+    - service: notify.mobile_app_ebonycom
+      data:
+        title: Battery Low
+        message: Your battery is below 20%
 - id: automation.ebonycom_fully_charged
   alias: Ebonycom battery fully charged
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.ebonycom_battery_level
-    above: 99
+    - platform: numeric_state
+      entity_id: sensor.ebonycom_battery_level
+      above: 99
   action:
-  - service: notify.mobile_app_ebonycom
-    data:
-      message: Your phone is fully charged
+    - service: notify.mobile_app_ebonycom
+      data:
+        message: Your phone is fully charged
 - id: automation.turn_ebony_mode_on
   alias: Turn Ebony Mode on
   trigger:
-  - platform: state
-    entity_id: device_tracker.ebonycom
-    to: home
-    for: 00:01:00
+    - platform: state
+      entity_id: device_tracker.ebonycom
+      to: home
+      for: 00:01:00
   action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.ebony_mode
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.ebony_mode
 - id: automation.turn_ebony_mode_off
   alias: Turn Ebony Mode off
   trigger:
-  - platform: state
-    entity_id: device_tracker.ebonycom
-    from: home
-    for: 00:05:00
+    - platform: state
+      entity_id: device_tracker.ebonycom
+      from: home
+      for: 00:05:00
   action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.ebony_mode
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.ebony_mode
 - id: automation.ebony_dave_together_on
   alias: ebony_dave_together_on
   trigger:
-  - platform: template
-    value_template: '{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-      <= 3 }}'
-  - platform: zone
-    entity_id: device_tracker.ebonycom
-    zone: zone.davecave
-    event: enter
-  - platform: zone
-    entity_id: device_tracker.davecom
-    zone: zone.noodle_house
-    event: enter
-  - platform: zone
-    entity_id: device_tracker.davecom
-    zone: zone.noodle_house
-    event: enter
-  - platform: zone
-    entity_id: device_tracker.davecom
-    zone: zone.deandre
-    event: enter
-  - platform: zone
-    entity_id: device_tracker.davecom
-    zone: zone.jaz
-    event: enter
-  - platform: state
-    entity_id: input_boolean.ebony_mode
-    from: 'off'
-    to: 'on'
+    - platform: template
+      value_template:
+        "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+        <= 3 }}"
+    - platform: zone
+      entity_id: device_tracker.ebonycom
+      zone: zone.davecave
+      event: enter
+    - platform: zone
+      entity_id: device_tracker.davecom
+      zone: zone.noodle_house
+      event: enter
+    - platform: zone
+      entity_id: device_tracker.davecom
+      zone: zone.noodle_house
+      event: enter
+    - platform: zone
+      entity_id: device_tracker.davecom
+      zone: zone.deandre
+      event: enter
+    - platform: zone
+      entity_id: device_tracker.davecom
+      zone: zone.jaz
+      event: enter
+    - platform: state
+      entity_id: input_boolean.ebony_mode
+      from: "off"
+      to: "on"
   condition:
-  - condition: template
-    value_template: '{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-      <= 3 }}'
+    - condition: template
+      value_template:
+        "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+        <= 3 }}"
   action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.ebony_dave_together
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.ebony_dave_together
   mode: restart
 - id: automation.ebony_dave_together_off
   alias: ebony_dave_together_off
   trigger:
-  - platform: state
-    entity_id: sensor.drive_time_dave_to_ebony
-    to: '5'
-  - platform: zone
-    entity_id: device_tracker.ebonycom
-    zone: zone.davecave
-    event: leave
-  - platform: template
-    value_template: '{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-      > 3 }}'
-  - platform: zone
-    entity_id: device_tracker.davecom
-    zone: zone.noodle_house
-    event: leave
-  - platform: zone
-    entity_id: device_tracker.davecom
-    zone: zone.jaz
-    event: leave
+    - platform: state
+      entity_id: sensor.drive_time_dave_to_ebony
+      to: "5"
+    - platform: zone
+      entity_id: device_tracker.ebonycom
+      zone: zone.davecave
+      event: leave
+    - platform: template
+      value_template:
+        "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+        > 3 }}"
+    - platform: zone
+      entity_id: device_tracker.davecom
+      zone: zone.noodle_house
+      event: leave
+    - platform: zone
+      entity_id: device_tracker.davecom
+      zone: zone.jaz
+      event: leave
   condition:
-  - condition: template
-    value_template: '{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-      > 3 }}'
+    - condition: template
+      value_template:
+        "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+        > 3 }}"
   action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.ebony_dave_together
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.ebony_dave_together
   mode: restart
 - id: automation.turn_blanket_off
   alias: Turn blanket off at 5
   trigger:
-  - platform: time
-    at: 06:00:00
+    - platform: time
+      at: 06:00:00
   condition:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: device_tracker.ebonycom
-      state: home
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: device_tracker.ebonycom
+          state: home
   action:
-  - service: switch.turn_off
-    entity_id: switch.blanket
-  - delay:
-      seconds: 30
-  - service: switch.turn_on
-    entity_id: switch.blanket
+    - service: switch.turn_off
+      entity_id: switch.blanket
+    - delay:
+        seconds: 30
+    - service: switch.turn_on
+      entity_id: switch.blanket
 - id: automation.proximity_alert_dave_ebony_further
   alias: Proximity Alert Dave/Ebony Further
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.drive_time_dave_to_ebony
-    below: '42'
+    - platform: numeric_state
+      entity_id: sensor.drive_time_dave_to_ebony
+      below: "42"
   condition:
-  - condition: state
-    entity_id: input_boolean.ebony_dave_together
-    state: 'off'
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
-  - condition: state
-    entity_id: input_boolean.notify_proximity
-    state: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
+    - condition: state
+      entity_id: input_boolean.ebony_dave_together
+      state: "off"
+      for:
+        hours: 0
+        minutes: 10
+        seconds: 0
+        milliseconds: 0
+    - condition: state
+      entity_id: input_boolean.notify_proximity
+      state: "on"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Ebony is within 45 minutes of your location
+    - service: notify.mobile_app_davecom
+      data:
+        message: Ebony is within 45 minutes of your location
   mode: single
 - id: automation.proximity_alert_dave_ebony
   alias: Proximity Alert Dave/Ebony
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.drive_time_dave_to_ebony
-    below: '13'
+    - platform: numeric_state
+      entity_id: sensor.drive_time_dave_to_ebony
+      below: "13"
   condition:
-  - condition: state
-    entity_id: input_boolean.ebony_dave_together
-    state: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
-  - condition: and
-    conditions:
-    - condition: not
+    - condition: state
+      entity_id: input_boolean.ebony_dave_together
+      state: "off"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    - condition: and
       conditions:
-      - condition: state
-        entity_id: sensor.davecom_geocoded_location
-        state: unknown
-        for:
-          hours: 0
-          minutes: 3
-          seconds: 0
-          milliseconds: 0
-      - condition: not
-        conditions:
-        - condition: state
-          entity_id: sensor.ebonycom_geocoded_location
-          state: unknown
-          for:
-            hours: 0
-            minutes: 3
-            seconds: 0
-            milliseconds: 0
-  - condition: state
-    entity_id: input_boolean.notify_proximity
-    state: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
+        - condition: not
+          conditions:
+            - condition: state
+              entity_id: sensor.davecom_geocoded_location
+              state: unknown
+              for:
+                hours: 0
+                minutes: 3
+                seconds: 0
+                milliseconds: 0
+            - condition: not
+              conditions:
+                - condition: state
+                  entity_id: sensor.ebonycom_geocoded_location
+                  state: unknown
+                  for:
+                    hours: 0
+                    minutes: 3
+                    seconds: 0
+                    milliseconds: 0
+    - condition: state
+      entity_id: input_boolean.notify_proximity
+      state: "on"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
   action:
-  - service: notify.mobile_app_ebonycom
-    data:
-      message: Dave is within 10 minutes of your location
-  - service: notify.mobile_app_davecom
-    data:
-      message: Ebony is within 10-15 minutes of your location
+    - service: notify.mobile_app_ebonycom
+      data:
+        message: Dave is within 10 minutes of your location
+    - service: notify.mobile_app_davecom
+      data:
+        message: Ebony is within 10-15 minutes of your location
   mode: single
 - id: automation.proximity_alert_dave_ebony_closer
   alias: Proximity Alert Dave/Ebony Closer
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.drive_time_dave_to_ebony
-    below: '7'
+    - platform: numeric_state
+      entity_id: sensor.drive_time_dave_to_ebony
+      below: "7"
   condition:
-  - condition: state
-    entity_id: input_boolean.ebony_dave_together
-    state: 'off'
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
-  - condition: state
-    entity_id: input_boolean.notify_proximity
-    state: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
+    - condition: state
+      entity_id: input_boolean.ebony_dave_together
+      state: "off"
+      for:
+        hours: 0
+        minutes: 10
+        seconds: 0
+        milliseconds: 0
+    - condition: state
+      entity_id: input_boolean.notify_proximity
+      state: "on"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Ebony is within 5 minutes of your location
+    - service: notify.mobile_app_davecom
+      data:
+        message: Ebony is within 5 minutes of your location
   mode: single
 - id: automation.notify_restart
   alias: Notify on HA Start
   trigger:
-  - platform: homeassistant
-    event: start
+    - platform: homeassistant
+      event: start
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Home Assistant has started
+    - service: notify.mobile_app_davecom
+      data:
+        message: Home Assistant has started
 - id: automation.street_on_screen
   alias: Street on screen
   trigger:
-  - platform: webhook
-    webhook_id: street_on_screen
+    - platform: webhook
+      webhook_id: street_on_screen
   action:
-  - service: script.turn_on
-    entity_id: script.cast_street_to_tv
+    - service: script.turn_on
+      entity_id: script.cast_street_to_tv
 - id: automation.driveway_on_screen
   alias: Driveway on screen
   trigger:
-  - platform: webhook
-    webhook_id: driveway_on_screen
+    - platform: webhook
+      webhook_id: driveway_on_screen
   action:
-  - service: script.turn_on
-    entity_id: script.cast_driveway_to_tv
+    - service: script.turn_on
+      entity_id: script.cast_driveway_to_tv
 - id: automation.cast_camera
   alias: Cast Camera
   trigger:
     platform: state
     entity_id: input_select.selectable_camera
   action:
-  - service: script.turn_on
-    data:
-      entity_id: "{% if is_state(\"input_select.selectable_camera\", \"Driveway\"\
-        ) %}\n  script.cast_driveway_to_tv\n{%-elif is_state(\"input_select.selectable_camera\"\
-        , \"Street\") %}\n  script.cast_street_to_tv\n{% else %}\n  none\n{% endif\
-        \ %}\n"
+    - service: script.turn_on
+      data:
+        entity_id:
+          "{% if is_state(\"input_select.selectable_camera\", \"Driveway\"\
+          ) %}\n  script.cast_driveway_to_tv\n{%-elif is_state(\"input_select.selectable_camera\"\
+          , \"Street\") %}\n  script.cast_street_to_tv\n{% else %}\n  none\n{% endif\
+          \ %}\n"
 - id: automation.stop_cast_camera
   alias: Stop Cast Camera
   trigger:
@@ -401,1202 +406,1268 @@
     entity_id: input_select.selectable_camera
     to: None
   action:
-  - service: media_player.turn_off
-    entity_id: media_player.living_room_chromecast
+    - service: media_player.turn_off
+      entity_id: media_player.living_room_chromecast
 - id: automation.fire_event
   alias: Fire Event
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: input_boolean.ebony_mode
+    - platform: state
+      entity_id: input_boolean.ebony_mode
   action:
-  - event: event_ebony_state_changed
-    event_data:
-      state: 'on'
+    - event: event_ebony_state_changed
+      event_data:
+        state: "on"
 - id: automation.ebony_mode_on_notification
   alias: Notify Ebony Mode on
   trigger:
-  - platform: state
-    entity_id: input_boolean.ebony_mode
-    to: 'on'
+    - platform: state
+      entity_id: input_boolean.ebony_mode
+      to: "on"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: 'Ebony Mode: On'
-      message: Ebony is Home
+    - service: notify.mobile_app_davecom
+      data:
+        title: "Ebony Mode: On"
+        message: Ebony is Home
   mode: single
 - id: automation.ebony_mode_off_notification
   alias: Notify Ebony Mode off
   trigger:
-  - platform: state
-    entity_id: input_boolean.ebony_mode
-    to: 'off'
+    - platform: state
+      entity_id: input_boolean.ebony_mode
+      to: "off"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: 'Ebony Mode: Off'
-      message: Ebony left Home
+    - service: notify.mobile_app_davecom
+      data:
+        title: "Ebony Mode: Off"
+        message: Ebony left Home
   mode: single
 - id: automation.alarm_on
   alias: Alarm on
   description: Alarm On
   trigger:
-  - platform: state
-    entity_id: input_boolean.vacation_mode
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: input_boolean.vacation_mode
+      from: "off"
+      to: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.google_say_alarm_on
+    - service: script.turn_on
+      entity_id: script.google_say_alarm_on
 - id: automation.alarm_off
   alias: Alarm off
   description: Alarm Off
   trigger:
-  - platform: state
-    entity_id: input_boolean.vacation_mode
-    from: 'on'
-    to: 'off'
+    - platform: state
+      entity_id: input_boolean.vacation_mode
+      from: "on"
+      to: "off"
   action:
-  - service: script.turn_on
-    entity_id: script.google_say_alarm_off
+    - service: script.turn_on
+      entity_id: script.google_say_alarm_off
 - id: automation.delivery_on
   alias: Delivery on
   description: Delivery on
   trigger:
-  - platform: state
-    entity_id: input_boolean.delivery_mode
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: input_boolean.delivery_mode
+      from: "off"
+      to: "on"
   condition:
-  - condition: state
-    entity_id: media_player.living_room_speaker
-    state: 'off'
-  action:
-  - service: tts.google_translate_say
-    data:
+    - condition: state
       entity_id: media_player.living_room_speaker
-      message: Delivery Mode on
-  - delay: 00:00:15
-  - service: media_player.turn_off
-    entity_id: media_player.living_room_speaker
+      state: "off"
+  action:
+    - service: tts.google_translate_say
+      data:
+        entity_id: media_player.living_room_speaker
+        message: Delivery Mode on
+    - delay: 00:00:15
+    - service: media_player.turn_off
+      entity_id: media_player.living_room_speaker
 - id: automation.delivery_off
   alias: Delivery off
   description: Delivery off
   trigger:
-  - platform: state
-    entity_id: input_boolean.delivery_mode
-    from: 'on'
-    to: 'off'
+    - platform: state
+      entity_id: input_boolean.delivery_mode
+      from: "on"
+      to: "off"
   condition:
-  - condition: state
-    entity_id: media_player.living_room_speaker
-    state: 'off'
-  action:
-  - service: tts.google_translate_say
-    data:
+    - condition: state
       entity_id: media_player.living_room_speaker
-      message: Delivery Mode off
-  - delay: 00:00:15
-  - service: media_player.turn_off
-    entity_id: media_player.living_room_speaker
+      state: "off"
+  action:
+    - service: tts.google_translate_say
+      data:
+        entity_id: media_player.living_room_speaker
+        message: Delivery Mode off
+    - delay: 00:00:15
+    - service: media_player.turn_off
+      entity_id: media_player.living_room_speaker
 - id: automation.restart_ffmpeg_daily
   alias: Restart ffmpeg daily
   description: Restart ffmpeg once a day
   trigger:
-  - platform: time
-    at: '21:30:00'
+    - platform: time
+      at: "21:30:00"
   action:
-  - service: ffmpeg.restart
-    entity_id: binary_sensor.street_motion_detected
+    - service: ffmpeg.restart
+      entity_id: binary_sensor.street_motion_detected
 - id: automation.restart_door_lock_bridge_every_3_hours
   alias: Restart Door Lock Bridge every 3 hours
   trigger:
-  - platform: time_pattern
-    hours: /3
-    minutes: '00'
-    seconds: '00'
+    - platform: time_pattern
+      hours: /3
+      minutes: "00"
+      seconds: "00"
   action:
-  - service: script.turn_on
-    entity_id: script.restart_door_lock_bridge
+    - service: script.turn_on
+      entity_id: script.restart_door_lock_bridge
 - id: automation.vacation_morning
   alias: Vacation - Morning
-  description: 'Activate Scipt to mock occupied. Script: Morning'
+  description: "Activate Scipt to mock occupied. Script: Morning"
   trigger:
-  - platform: time
-    at: 07:58:00
+    - platform: time
+      at: 07:58:00
   condition:
-  - condition: state
-    entity_id: input_boolean.vacation_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.morning
-  - service: notify.mobile_app_davecom
-    data:
-      message: 'Vacation - Activated Script: Morning'
+    - service: script.turn_on
+      entity_id: script.morning
+    - service: notify.mobile_app_davecom
+      data:
+        message: "Vacation - Activated Script: Morning"
 - id: automation.vacation_dinner_time
   alias: Vacation - Dinner
-  description: 'Activate Scipt to mock occupied. Script: Dinner'
+  description: "Activate Scipt to mock occupied. Script: Dinner"
   trigger:
-  - platform: time
-    at: '19:43:12'
+    - platform: time
+      at: "19:43:12"
   condition:
-  - condition: state
-    entity_id: input_boolean.vacation_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.dinner_time
-  - service: notify.mobile_app_davecom
-    data:
-      message: 'Vacation - Activated Script: Dinner'
+    - service: script.turn_on
+      entity_id: script.dinner_time
+    - service: notify.mobile_app_davecom
+      data:
+        message: "Vacation - Activated Script: Dinner"
 - id: automation.vacation_evening
   alias: Vacation - Evening
-  description: 'Activate Scipt to mock occupied. Script: Evening'
+  description: "Activate Scipt to mock occupied. Script: Evening"
   trigger:
-  - platform: sun
-    event: sunset
+    - platform: sun
+      event: sunset
   condition:
-  - condition: state
-    entity_id: input_boolean.vacation_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.evening
-  - service: notify.mobile_app_davecom
-    data:
-      message: 'Vacation - Activated Script: Evening'
+    - service: script.turn_on
+      entity_id: script.evening
+    - service: notify.mobile_app_davecom
+      data:
+        message: "Vacation - Activated Script: Evening"
   mode: single
 - id: automation.vacation_movie_time
   alias: Vacation - Movie Time
-  description: 'Activate Scipt to mock occupied. Script: Movie Time'
+  description: "Activate Scipt to mock occupied. Script: Movie Time"
   trigger:
-  - platform: time
-    at: '22:46:00'
+    - platform: time
+      at: "22:46:00"
   condition:
-  - condition: state
-    entity_id: input_boolean.vacation_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.movie_time
-  - service: notify.mobile_app_davecom
-    data:
-      message: 'Vacation - Activated Script: Movie Time'
+    - service: script.turn_on
+      entity_id: script.movie_time
+    - service: notify.mobile_app_davecom
+      data:
+        message: "Vacation - Activated Script: Movie Time"
 - id: automation.vacation_goodnight
   alias: Vacation - Goodnight
-  description: 'Activate Scipt to mock occupied. Script: Goodnight'
+  description: "Activate Scipt to mock occupied. Script: Goodnight"
   trigger:
-  - platform: time
-    at: 01:56:00
+    - platform: time
+      at: 01:56:00
   condition:
-  - condition: state
-    entity_id: input_boolean.vacation_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.goodnight
-  - service: notify.mobile_app_davecom
-    data:
-      message: 'Vacation - Activated Script: Goodnight'
+    - service: script.turn_on
+      entity_id: script.goodnight
+    - service: notify.mobile_app_davecom
+      data:
+        message: "Vacation - Activated Script: Goodnight"
 - id: automation.relay_hello
   alias: Test Assistant Relay
   description: Assistant Relay - Broadcast
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: test_relay
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: test_relay
   action:
-  - service: rest_command.assistant_broadcast
-    data:
-      command: Why hello there
+    - service: rest_command.assistant_broadcast
+      data:
+        command: Why hello there
 - id: automation.relay_tv_on
   alias: Turn on the TV
   description: Assistant Relay - TV On
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: tv_on
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: tv_on
   action:
-  - service: script.turn_on
-    entity_id: script.turn_tv_on_and_ambient
+    - service: script.turn_on
+      entity_id: script.turn_tv_on_and_ambient
 - id: automation.relay_tv_off
   alias: Turn off the TV
   description: Assistant Relay - TV Off
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: tv_off
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: tv_off
   action:
-  - service: rest_command.assistant_relay
-    data:
-      command: Turn off the TV
+    - service: rest_command.assistant_relay
+      data:
+        command: Turn off the TV
 - id: automation.doorbell_battery_below_30
   alias: doorbell battery below 30
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.front_door_battery
-    below: 30
+    - platform: numeric_state
+      entity_id: sensor.front_door_battery
+      below: 30
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Doorbell battery below 30%
+    - service: notify.mobile_app_davecom
+      data:
+        message: Doorbell battery below 30%
 - id: automation.doorbell_battery_below_10
   alias: doorbell battery below 10
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.front_door_battery
-    below: 10
+    - platform: numeric_state
+      entity_id: sensor.front_door_battery
+      below: 10
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Doorbell battery below 10%
+    - service: notify.mobile_app_davecom
+      data:
+        message: Doorbell battery below 10%
 - id: automation.doorbell_battery_fully_charged
   alias: doorbell battery fully charged
-  description: ''
+  description: ""
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.front_door_battery
-    above: 99
+    - platform: numeric_state
+      entity_id: sensor.front_door_battery
+      above: 99
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Doorbell is fully charged
+    - service: notify.mobile_app_davecom
+      data:
+        message: Doorbell is fully charged
 - id: automation.doorbell_ding_save_recording
   alias: Save the video when the doorbell is pushed
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_ding
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_ding
+      to: "on"
   action:
-  - service: downloader.download_file
-    data:
-      url: '{{ state_attr(''camera.front_door'', ''video_url'') }}'
-      subdir: '{{state_attr(''camera.front_door'', ''friendly_name'')}}'
-      filename: '{{state_attr(''camera.front_door'', ''friendly_name'')}}'
+    - service: downloader.download_file
+      data:
+        url: "{{ state_attr('camera.front_door', 'video_url') }}"
+        subdir: "{{state_attr('camera.front_door', 'friendly_name')}}"
+        filename: "{{state_attr('camera.front_door', 'friendly_name')}}"
 - id: automation.doorbell_motion_flash
   alias: Doorbell motion flash
   description: Flash lights red when Doorbell motion detected
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_motion
+      from: "off"
+      to: "on"
   condition:
-  - condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.delivery_mode
-      state: 'on'
-    - condition: state
-      entity_id: sun.sun
-      state: above_horizon
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.delivery_mode
+          state: "on"
+        - condition: state
+          entity_id: sun.sun
+          state: above_horizon
   action:
-  - service: script.turn_on
-    entity_id: script.flash_red
+    - service: script.turn_on
+      entity_id: script.flash_red
   mode: single
 - id: automation.doorbell_motion_flash_sundown
   alias: Doorbell motion flash After Sundown
   description: Flash lights red five times when Doorbell motion detected
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_motion
+      from: "off"
+      to: "on"
   condition:
-  - condition: time
-    after: '17:00:00'
-    before: '21:00'
-  - condition: state
-    entity_id: input_boolean.delivery_mode
-    state: 'on'
+    - condition: time
+      after: "17:00:00"
+      before: "21:00"
+    - condition: state
+      entity_id: input_boolean.delivery_mode
+      state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.flash_red_5
+    - service: script.turn_on
+      entity_id: script.flash_red_5
   mode: single
 - id: automation.doorbell_motion_flash_night
   alias: Doorbell motion flash At Night
   description: Flash lights red twice when Doorbell motion detected
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_motion
+      from: "off"
+      to: "on"
   condition:
-  - condition: time
-    after: '21:00:00'
-    before: '22:30'
-  - condition: state
-    entity_id: input_boolean.delivery_mode
-    state: 'on'
+    - condition: time
+      after: "21:00:00"
+      before: "22:30"
+    - condition: state
+      entity_id: input_boolean.delivery_mode
+      state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.flash_red_2
+    - service: script.turn_on
+      entity_id: script.flash_red_2
   mode: single
 - id: automation.doorbell_motion_notify_if_away
   alias: Notify on Doorbell motion If away
   description: Flash lights red twice when Doorbell motion detected
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_motion
+      from: "off"
+      to: "on"
   condition:
-  - condition: state
-    entity_id: device_tracker.davecom
-    state: away
-  - condition: time
-    after: 08:00:00
-    before: '21:00:00'
+    - condition: state
+      entity_id: device_tracker.davecom
+      state: away
+    - condition: time
+      after: 08:00:00
+      before: "21:00:00"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: Motion detected at Front Door!
-      message: Tap to view cameras
+    - service: notify.mobile_app_davecom
       data:
-        url: /lovelace/3
+        title: Motion detected at Front Door!
+        message: Tap to view cameras
+        data:
+          url: /lovelace/3
 - id: automation.doorbell_motion_night
   alias: Notify on Doorbell motion at night
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_motion
+      from: "off"
+      to: "on"
   condition:
-  - condition: time
-    after: 03:30:00
-    before: 07:00:00
+    - condition: time
+      after: 03:30:00
+      before: 07:00:00
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Motion detected at Front Door!
+    - service: notify.mobile_app_davecom
+      data:
+        message: Motion detected at Front Door!
 - id: automation.doorbell_motion_critical_notification
   alias: Send critical notification for Doorbell motion detected
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_motion
+      from: "off"
+      to: "on"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: MOTION ALERT
-      message: Motion detected at front door!
+    - service: notify.mobile_app_davecom
       data:
-        push:
-          sound:
-            name: stargate_warning_alarm.wav
-            critical: 1
-            volume: 0.1
+        title: MOTION ALERT
+        message: Motion detected at front door!
+        data:
+          push:
+            sound:
+              name: stargate_warning_alarm.wav
+              critical: 1
+              volume: 0.1
 - id: automation.doorbell_ding_critical_notification
   alias: Critical Notify for Doorbell ring
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_ding
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_ding
+      from: "off"
+      to: "on"
   condition:
-  - condition: state
-    entity_id: input_boolean.cinema_mode
-    state: 'off'
+    - condition: state
+      entity_id: input_boolean.cinema_mode
+      state: "off"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: DaveCave Alert
-      message: Somebody rang the doorbell!
+    - service: notify.mobile_app_davecom
       data:
-        push:
-          sound:
-            name: stargate_warning_alarm.wav
-            critical: 1
-            volume: 0.4
+        title: DaveCave Alert
+        message: Somebody rang the doorbell!
+        data:
+          push:
+            sound:
+              name: stargate_warning_alarm.wav
+              critical: 1
+              volume: 0.4
   mode: single
 - id: automation.doorbell_ding_flash
   alias: Doorbell ding flash
   description: Flash lights red when Doorbell dings
   trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_ding
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.front_door_ding
+      from: "off"
+      to: "on"
   condition:
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: device_tracker.davecom
-      state: home
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: device_tracker.davecom
+          state: home
+        - condition: state
+          entity_id: input_boolean.vacation_mode
+          state: "on"
   action:
-  - service: script.turn_on
-    entity_id: script.flash_red
-  - service: notify.mobile_app_davecom
-    data:
-      title: Somebody rang the Doorbell!
-      message: Tap to view cameras
+    - service: script.turn_on
+      entity_id: script.flash_red
+    - service: notify.mobile_app_davecom
       data:
-        url: /lovelace/3
+        title: Somebody rang the Doorbell!
+        message: Tap to view cameras
+        data:
+          url: /lovelace/3
 - id: automation.notify_motion_detect
   alias: Notify on motion detected when away
   description: If motion detected when phone set to away, send notification to phone
   trigger:
-  - platform: state
-    entity_id: binary_sensor.living_room_motion_detected
-    from: 'off'
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.living_room_amcrest_motion_detected
-    from: 'off'
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.living_room_person_motion
-    from: 'off'
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.front_door_sensor_status
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.living_room_motion_detected
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.living_room_amcrest_motion_detected
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.living_room_person_motion
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_status
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.bathroom_sensor_motion_detected
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.amcrest_living_room_motion_detected
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.amcrest_bedroom_motion_detected
+      from: "off"
+      to: "on"
   condition:
-  - condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
-    - condition: state
-      entity_id: input_boolean.ignore_motion
-      state: 'off'
-    - condition: state
-      entity_id: input_boolean.cinema_mode
-      state: 'off'
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.vacation_mode
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.ignore_motion
+          state: "off"
+        - condition: state
+          entity_id: input_boolean.cinema_mode
+          state: "off"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: DaveCave Security Alert
-      message: WARNING! Motion detected in Living Room!
+    - service: notify.mobile_app_davecom
       data:
-        push:
-          sound:
-            name: stargate_warning_alarm.wav
-            critical: 1
-            volume: 0.3
+        title: DaveCave Security Alert
+        message: WARNING! Unexpected Motion!
+        data:
+          push:
+            sound:
+              name: stargate_warning_alarm.wav
+              critical: 1
+              volume: 0.5
   mode: single
 - id: automation.cinema_mode_on
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: cinema_mode_on
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: cinema_mode_on
   action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.cinema_mode
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.cinema_mode
 - id: automation.cinema_mode_off
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: cinema_mode_off
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: cinema_mode_off
   action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.cinema_mode
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.cinema_mode
 - id: automation.morning
   alias: Morning - Automation
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: morning
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: morning
   action:
-  - service: script.turn_on
-    entity_id: script.morning
+    - service: script.turn_on
+      entity_id: script.morning
 - id: automation.evening
   alias: Evening - Automation
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: evening
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: evening
   action:
-  - service: script.turn_on
-    entity_id: script.evening
+    - service: script.turn_on
+      entity_id: script.evening
 - id: automation.goodnight
   alias: Goodnight - Automation
-  description: ''
+  description: ""
   variables:
-    script: "{%- if is_state(\"input_boolean.guest_mode\", \"on\")  -%}\n      script.goodnight_lock_door_bedroom_lights_only\n\
+    script:
+      "{%- if is_state(\"input_boolean.guest_mode\", \"on\")  -%}\n      script.goodnight_lock_door_bedroom_lights_only\n\
       \    {%- else -%}\n      script.goodnight\n    {%- endif %}"
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: goodnight
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: goodnight
   action:
-  - service: script.turn_on
-    data:
-      entity_id: '{{ script }}'
+    - service: script.turn_on
+      data:
+        entity_id: "{{ script }}"
 - id: automation.spotify_goodnight
   alias: Spotify Goodnight - Automation
-  description: ''
+  description: ""
   variables:
-    script: "{%- if is_state(\"input_boolean.guest_mode\", \"on\")  -%}\n      script.goodnight_lock_door_bedroom_lights_only\n\
+    script:
+      "{%- if is_state(\"input_boolean.guest_mode\", \"on\")  -%}\n      script.goodnight_lock_door_bedroom_lights_only\n\
       \    {%- else -%}\n      script.goodnight\n    {%- endif %}"
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: spotify_goodnight
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: spotify_goodnight
   action:
-  - service: script.turn_on
-    data:
-      entity_id: '{{ script }}'
-  - service: script.turn_on
-    entity_id: script.spotify_relax_shuffle
+    - service: script.turn_on
+      data:
+        entity_id: "{{ script }}"
+    - service: script.turn_on
+      entity_id: script.spotify_relax_shuffle
 - id: automation.normal
   alias: Normal - Automation
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: normal
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: normal
   action:
-  - service: script.turn_on
-    entity_id: script.normal
+    - service: script.turn_on
+      entity_id: script.normal
 - id: automation.movie_time
   alias: Movie Time - Action
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: movie_time
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: movie_time
   action:
-  - service: script.turn_on
-    entity_id: script.movie_time
+    - service: script.turn_on
+      entity_id: script.movie_time
 - id: automation.sexy_time
   alias: Sexy Time - Automation
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: sexy_time
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: sexy_time
   action:
-  - service: script.turn_on
-    entity_id: script.sexy_time
+    - service: script.turn_on
+      entity_id: script.sexy_time
 - id: automation.dinner_time
   alias: Dinner Time - Automation
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: dinner
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: dinner
   action:
-  - service: script.turn_on
-    entity_id: script.dinner_time
+    - service: script.turn_on
+      entity_id: script.dinner_time
 - id: automation.toilet
   alias: Toilet - Automation
-  description: ''
+  description: ""
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: toilet
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: toilet
   action:
-  - service: script.turn_on
-    entity_id: script.toilet
+    - service: script.turn_on
+      entity_id: script.toilet
 - id: automation.turn_bed_light_on_when_goodnight_triggered
   alias: Bed light on when goodnight triggered
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: script.goodnight_relax_playlist
-    to: 'off'
-    from: 'on'
-  - platform: state
-    entity_id: script.goodnight
-    to: 'off'
-    from: 'on'
+    - platform: state
+      entity_id: script.goodnight_relax_playlist
+      to: "off"
+      from: "on"
+    - platform: state
+      entity_id: script.goodnight
+      to: "off"
+      from: "on"
   condition:
-  - condition: state
-    entity_id: input_boolean.ebony_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.ebony_mode
+      state: "on"
   action:
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-  - service: light.turn_on
-    data:
-      brightness_pct: 2
-    target:
-      entity_id: light.bed
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 5
-      milliseconds: 0
-  - service: light.turn_on
-    data:
-      color_name: purple
-    target:
-      entity_id: light.bed
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 10
+        milliseconds: 0
+    - service: light.turn_on
+      data:
+        brightness_pct: 2
+      target:
+        entity_id: light.bed
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 5
+        milliseconds: 0
+    - service: light.turn_on
+      data:
+        color_name: purple
+      target:
+        entity_id: light.bed
   mode: single
 - id: automation.check_ebony_home_every_30_mins
   alias: Check Ebony home every 30 minutes
-  description: ''
+  description: ""
   trigger:
-  - platform: time_pattern
-    minutes: '30'
+    - platform: time_pattern
+      minutes: "30"
   condition:
-  - condition: state
-    entity_id: device_tracker.ebonycom
-    state: home
+    - condition: state
+      entity_id: device_tracker.ebonycom
+      state: home
   action:
-  - service: input_boolean.turn_on
-    target:
-      entity_id: input_boolean.ebony_mode
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.ebony_mode
   mode: single
 - id: automation.nightlight
   alias: Nightlight
   description: Nightlight if motion detected and lights off
   trigger:
-  - platform: state
-    entity_id: binary_sensor.living_room_person_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.living_room_person_motion
+      from: "off"
+      to: "on"
   condition:
-  - condition: state
-    entity_id: light.kitchen_east
-    state: 'off'
-  - condition: state
-    entity_id: light.kitchen_west
-    state: 'off'
-  - condition: state
-    entity_id: light.tv
-    state: 'off'
-  - condition: state
-    entity_id: input_boolean.guest_mode
-    state: 'off'
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    - condition: state
+      entity_id: light.kitchen_east
+      state: "off"
+    - condition: state
+      entity_id: light.kitchen_west
+      state: "off"
+    - condition: state
+      entity_id: light.tv
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
   action:
-  - service: scene.create
-    data:
-      scene_id: before
-      snapshot_entities:
-      - light.chandelier
-      - light.tv
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.desk
-      - light.hallway
-      - light.bedroom
-      - light.bed
-  - service: light.turn_on
-    target:
-      entity_id:
-      - light.kitchen_east
-      - light.kitchen_west
-      - light.tv
-    data:
-      transition: 10
-      brightness_pct: 15
-  - service: light.turn_on
-    data:
-      brightness_pct: 15
-    target:
-      entity_id: light.bed
-  - delay:
-      hours: 0
-      minutes: 1
-      seconds: 0
-      milliseconds: 0
-  - service: scene.turn_on
-    target:
-      entity_id: scene.before
-    data:
-      transition: 10
+    - service: scene.create
+      data:
+        scene_id: before
+        snapshot_entities:
+          - light.chandelier
+          - light.tv
+          - light.kitchen_east
+          - light.kitchen_west
+          - light.desk
+          - light.hallway
+          - light.bedroom
+          - light.bed
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.kitchen_east
+          - light.kitchen_west
+          - light.tv
+      data:
+        transition: 10
+        brightness_pct: 15
+    - service: light.turn_on
+      data:
+        brightness_pct: 15
+      target:
+        entity_id: light.bed
+    - delay:
+        hours: 0
+        minutes: 1
+        seconds: 0
+        milliseconds: 0
+    - service: scene.turn_on
+      target:
+        entity_id: scene.before
+      data:
+        transition: 10
   mode: restart
-- id: '1633322207312'
+- id: "1633322207312"
   alias: androidcam1 motion was detected
   description: androidcam1 Detected Motion
   trigger:
-  - platform: state
-    entity_id: binary_sensor.androidcam1_motion_active
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.androidcam1_motion_active
+      to: "on"
   condition:
-  - condition: state
-    entity_id: light.bedroom
-    state: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
+    - condition: state
+      entity_id: light.bedroom
+      state: "off"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 10
+        milliseconds: 0
   action:
-  - service: light.turn_on
-    data:
-      brightness_pct: 50
-    target:
-      entity_id: light.bathroom
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 20
-      milliseconds: 0
-  - service: light.turn_off
-    target:
-      entity_id: light.bathroom
+    - service: light.turn_on
+      data:
+        brightness_pct: 50
+      target:
+        entity_id: light.bathroom
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 20
+        milliseconds: 0
+    - service: light.turn_off
+      target:
+        entity_id: light.bathroom
   mode: restart
-- id: '1633322353084'
+- id: "1633322353084"
   alias: androidcam2 motion was detected
   description: androidcam2 Detected Motion
   trigger:
-  - platform: state
-    entity_id: binary_sensor.androidcam2_motion_active
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.androidcam2_motion_active
+      from: "off"
+      to: "on"
   condition: []
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: 'androidcam2 detected motion! '
+    - service: notify.mobile_app_davecom
+      data:
+        message: "androidcam2 detected motion! "
   mode: single
-- id: '1633322390464'
+- id: "1633322390464"
   alias: androidcam3 motion was detected
   description: androidcam3 Detected Motion
   trigger:
-  - platform: state
-    entity_id: binary_sensor.androidcam3_motion_active
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.androidcam3_motion_active
+      from: "off"
+      to: "on"
   condition: []
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: 'androidcam3 detected motion! '
+    - service: notify.mobile_app_davecom
+      data:
+        message: "androidcam3 detected motion! "
   mode: single
-- id: '1633401777499'
+- id: "1633401777499"
   alias: Notify if important sensors become unavailable
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: binary_sensor.androidcam1_motion_active,binary_sensor.androidcam2_motion_active,binary_sensor.androidcam3_motion_active,binary_sensor.window_living_room_south_status,binary_sensor.living_room_person_motion,binary_sensor.bathroom_sensor_motion_detected,binary_sensor.front_door_sensor_status,binary_sensor.closet_door_is_open
-    to: unavailable
-    for:
-      hours: 0
-      minutes: 5
-      seconds: 0
-      milliseconds: 0
+    - platform: state
+      entity_id: binary_sensor.androidcam1_motion_active,binary_sensor.androidcam2_motion_active,binary_sensor.androidcam3_motion_active,binary_sensor.window_living_room_south_status,binary_sensor.living_room_person_motion,binary_sensor.bathroom_sensor_motion_detected,binary_sensor.front_door_sensor_status,binary_sensor.closet_door_is_open
+      to: unavailable
+      for:
+        hours: 0
+        minutes: 5
+        seconds: 0
+        milliseconds: 0
   condition: []
   action:
-  - service: notify.mobile_app_davecom
-    data_template:
-      message: '{{ trigger.to_state.attributes.friendly_name }} is unavailable!'
+    - service: notify.mobile_app_davecom
+      data_template:
+        message: "{{ trigger.to_state.attributes.friendly_name }} is unavailable!"
   mode: parallel
   max: 10
-- id: '1634242712912'
+- id: "1634242712912"
   alias: Ebony arrive Noodle House
-  description: ''
+  description: ""
   trigger:
-  - platform: zone
-    entity_id: device_tracker.ebonycom
-    zone: zone.noodle_house
-    event: enter
-  condition:
-  - condition: not
-    conditions:
-    - condition: zone
-      entity_id: device_tracker.davecom
+    - platform: zone
+      entity_id: device_tracker.ebonycom
       zone: zone.noodle_house
-  action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Ebony entered Noodle House
-  mode: single
-- id: '1634242807069'
-  alias: Ebony left Noodle House
-  description: ''
-  trigger:
-  - platform: zone
-    entity_id: device_tracker.ebonycom
-    zone: zone.noodle_house
-    event: leave
+      event: enter
   condition:
-  - condition: numeric_state
-    entity_id: sensor.drive_time_dave_to_ebony
-    above: '10'
+    - condition: not
+      conditions:
+        - condition: zone
+          entity_id: device_tracker.davecom
+          zone: zone.noodle_house
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Ebony left Noodle House
+    - service: notify.mobile_app_davecom
+      data:
+        message: Ebony entered Noodle House
   mode: single
-- id: '1634257958319'
+- id: "1634242807069"
+  alias: Ebony left Noodle House
+  description: ""
+  trigger:
+    - platform: zone
+      entity_id: device_tracker.ebonycom
+      zone: zone.noodle_house
+      event: leave
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.drive_time_dave_to_ebony
+      above: "10"
+  action:
+    - service: notify.mobile_app_davecom
+      data:
+        message: Ebony left Noodle House
+  mode: single
+- id: "1634257958319"
   alias: Non Critical Notify on motion detected when away
   description: If motion detected when phone set to away, send notification to phone
   trigger:
-  - platform: state
-    entity_id: binary_sensor.living_room_motion_detected
-    from: 'off'
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.living_room_amcrest_motion_detected
-    from: 'off'
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.living_room_person_motion
-    from: 'off'
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.living_room_motion_detected
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.living_room_amcrest_motion_detected
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.living_room_person_motion
+      from: "off"
+      to: "on"
   condition:
-  - condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
-    - condition: state
-      entity_id: input_boolean.ignore_motion
-      state: 'off'
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.vacation_mode
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.ignore_motion
+          state: "off"
+        - condition: state
+          entity_id: input_boolean.cinema_mode
+          state: "on"
+  action:
+    - service: notify.mobile_app_davecom
+      data:
+        message: Motion detected in Living Room!
+        title: DaveCave Security Alert
+  mode: single
+- id: "1634258735058"
+  alias: Non Critical Notify for Doorbell ring
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.front_door_ding
+      from: "off"
+      to: "on"
+  condition:
     - condition: state
       entity_id: input_boolean.cinema_mode
-      state: 'on'
+      state: "on"
   action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Motion detected in Living Room!
-      title: DaveCave Security Alert
+    - service: notify.mobile_app_davecom
+      data:
+        message: Somebody rang the doorbell!
+        title: DaveCave Alert
   mode: single
-- id: '1634258735058'
-  alias: Non Critical Notify for Doorbell ring
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_ding
-    from: 'off'
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: input_boolean.cinema_mode
-    state: 'on'
-  action:
-  - service: notify.mobile_app_davecom
-    data:
-      message: Somebody rang the doorbell!
-      title: DaveCave Alert
-  mode: single
-- id: '1634416051914'
+- id: "1634416051914"
   alias: Notify focus Davecom
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: binary_sensor.davecom_focus
-    from: 'off'
-    to: 'on'
-  condition: []
-  action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: Davecom Update
-      message: 'Focus: On'
-  mode: single
-- id: '1634452355795'
-  alias: Bathroom Nightlight Automation
-  description: ''
-  trigger:
-  - type: motion
-    platform: device
-    device_id: f57ff60d732a1ddfbc5b03367cfccfe1
-    entity_id: binary_sensor.bathroom_sensor_motion_detected
-    domain: binary_sensor
-  condition:
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: light.bathroom
-      state: 'off'
-    - condition: state
-      entity_id: script.1634706735025
-      state: 'on'
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  action:
-  - service: script.turn_on
-    target:
-      entity_id: script.1634706735025
-  mode: restart
-- id: '1634455893672'
-  alias: Turn Fan off when Morning script triggered
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: script.morning
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: input_boolean.guest_mode
-    state: 'off'
-  - condition: state
-    entity_id: input_boolean.ebony_mode
-    state: 'off'
-  action:
-  - service: script.restart_fan
-  mode: single
-- id: '1634467875517'
-  alias: Goodnight bedroom only automation
-  description: ''
-  trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
-      actionName: goodnight_bedroom_only
-  condition: []
-  action:
-  - service: script.turn_on
-    target:
-      entity_id: script.goodnight_lock_door_bedroom_lights_only
-  mode: single
-- id: '1635200973642'
-  alias: Notify Front Door Open
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_sensor_status
-    from: 'off'
-    to: 'on'
-  condition: []
-  action:
-  - service: notify.mobile_app_davecom
-    data:
-      title: Front Door
-      message: Open
-  mode: single
-- id: '1635201193281'
-  alias: Front Door Auto Lock
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.front_door_sensor_status
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
-  - platform: state
-    entity_id: binary_sensor.front_door_sensor_status
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-      milliseconds: 0
-  - platform: state
-    entity_id: binary_sensor.front_door_sensor_status
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 5
-      seconds: 0
-      milliseconds: 0
-  condition:
-  - condition: state
-    entity_id: input_boolean.auto_lock
-    state: 'on'
-  action:
-  - service: script.turn_on
-    target:
-      entity_id: script.lock_door_if_closed
-  mode: single
-- id: '1635642915951'
-  alias: Automated Daily Backup
-  description: ''
-  use_blueprint:
-    path: vorion/create-automated-backups-every-day.yaml
-    input:
-      trigger_time: '22:00:00'
-      send_notification: true
-      notify_device: f16bc6af1ad411eba7b95561d82128b5
-- id: '1635681009289'
-  alias: Bedroom monitor off with TV
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: media_player.bedroom_tv
-    from: 'on'
-    to: 'off'
-  condition: []
-  action:
-  - service: switch.turn_off
-    target:
-      entity_id: switch.bedroom_monitor
-  mode: single
-- id: '1636848684976'
-  alias: Set LED strip colour at sundown
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: '0'
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      color_name: purple
-    target:
-      entity_id:
-      - light.bathroom
-      - light.bed
-  mode: single
-- id: '1636857389095'
-  alias: Daily Backup
-  description: ''
-  use_blueprint:
-    path: vorion/create-automated-backups-every-day.yaml
-    input:
-      trigger_time: '22:00:00'
-      send_notification: true
-      notify_device: f16bc6af1ad411eba7b95561d82128b5
-- id: '1638339109760'
-  alias: Set Group Selected Room Lights
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: input_select.selectable_room
-  condition: []
-  action:
-  - service: group.set
-    data_template:
-      object_id: selected_room_lights
-      entities: '{{ (''light.'' ~ (states(''input_select.selectable_room'').lower()))
-        | replace('' '', ''_'') ~''_lights'' }}'
-  mode: single
-- id: '1638339810402'
-  alias: Set Group Selected Individual Lights
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: input_select.selectable_light
-  condition: []
-  action:
-  - service: group.set
-    data_template:
-      object_id: selected_individual_lights
-      entities: light.{{ (states('input_select.selectable_light').lower()) }}
-  mode: single
-- id: '1638431824196'
-  alias: When Closet Door Opened
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.closet_door_is_open
-    from: 'off'
-    to: 'on'
-  condition: []
-  action:
-  - service: light.turn_on
-    target:
-      entity_id: light.closet
-    data:
-      transition: 3
-      brightness_pct: 60
-      rgb_color:
-      - 255
-      - 236
-      - 218
-  mode: single
-- id: '1638431961429'
-  alias: When Closet Door Closed
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.closet_door_is_open
-    to: 'off'
-    from: 'on'
-  condition: []
-  action:
-  - service: light.turn_off
-    target:
-      entity_id: light.closet
-  mode: single
-- id: '1638433676651'
-  alias: Closet Light Timer
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: light.closet
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
-  - platform: state
-    entity_id: light.closet
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 30
-      seconds: 0
-      milliseconds: 0
-  condition:
-  - condition: state
-    entity_id: binary_sensor.closet_door_is_open
-    state: 'off'
-  action:
-  - service: light.turn_off
-    target:
-      entity_id: light.closet
-  - service: notify.mobile_app_davecom
-    data:
-      message: Closet Light turned off following timer
-  mode: single
-- id: '1638774217943'
-  alias: Kitchen Nightlight Automation
-  description: ''
-  trigger:
-  - type: motion
-    platform: device
-    device_id: e029b91ae756e4a47218136f5291c744
-    entity_id: binary_sensor.kitchen_sensor_motion_detected
-    domain: binary_sensor
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  - condition: state
-    entity_id: light.kitchen_lights
-    state: 'off'
-  action:
-  - service: light.turn_on
-    target:
-      entity_id: light.kitchen_lights
-    data:
-      brightness_pct: 20
-  - wait_for_trigger:
     - platform: state
-      entity_id: media_player.living_room_tv
-      to: playing
-    continue_on_timeout: true
-    timeout: 00:00:60
-  - service: light.turn_off
-    target:
-      entity_id: light.kitchen_lights
-    data:
-      transition: 5
+      entity_id: binary_sensor.davecom_focus
+      from: "off"
+      to: "on"
+  condition: []
+  action:
+    - service: notify.mobile_app_davecom
+      data:
+        title: Davecom Update
+        message: "Focus: On"
+  mode: single
+- id: "1634452355795"
+  alias: Bathroom Nightlight Automation
+  description: ""
+  trigger:
+    - type: motion
+      platform: device
+      device_id: f57ff60d732a1ddfbc5b03367cfccfe1
+      entity_id: binary_sensor.bathroom_sensor_motion_detected
+      domain: binary_sensor
+  condition:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: light.bathroom
+          state: "off"
+        - condition: state
+          entity_id: script.1634706735025
+          state: "on"
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+  action:
+    - service: script.turn_on
+      target:
+        entity_id: script.1634706735025
   mode: restart
+- id: "1634455893672"
+  alias: Turn Fan off when Morning script triggered
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: script.morning
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.ebony_mode
+      state: "off"
+  action:
+    - service: script.restart_fan
+  mode: single
+- id: "1634467875517"
+  alias: Goodnight bedroom only automation
+  description: ""
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: goodnight_bedroom_only
+  condition: []
+  action:
+    - service: script.turn_on
+      target:
+        entity_id: script.goodnight_lock_door_bedroom_lights_only
+  mode: single
+- id: "1635200973642"
+  alias: Notify Front Door Open
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_status
+      from: "off"
+      to: "on"
+  condition: []
+  action:
+    - service: notify.mobile_app_davecom
+      data:
+        title: Front Door
+        message: Open
+  mode: single
+- id: "1635201193281"
+  alias: Front Door Auto Lock
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_status
+      from: "on"
+      to: "off"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_status
+      from: "on"
+      to: "off"
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+        milliseconds: 0
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_status
+      from: "on"
+      to: "off"
+      for:
+        hours: 0
+        minutes: 5
+        seconds: 0
+        milliseconds: 0
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_lock
+      state: "on"
+  action:
+    - service: script.turn_on
+      target:
+        entity_id: script.lock_door_if_closed
+  mode: single
+- id: "1635642915951"
+  alias: Automated Daily Backup
+  description: ""
+  use_blueprint:
+    path: vorion/create-automated-backups-every-day.yaml
+    input:
+      trigger_time: "22:00:00"
+      send_notification: true
+      notify_device: f16bc6af1ad411eba7b95561d82128b5
+- id: "1635681009289"
+  alias: Bedroom monitor off with TV
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: media_player.bedroom_tv
+      from: "on"
+      to: "off"
+  condition: []
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.bedroom_monitor
+  mode: single
+- id: "1636848684976"
+  alias: Set LED strip colour at sundown
+  description: ""
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "0"
+  condition: []
+  action:
+    - service: light.turn_on
+      data:
+        color_name: purple
+      target:
+        entity_id:
+          - light.bathroom
+          - light.bed
+  mode: single
+- id: "1636857389095"
+  alias: Daily Backup
+  description: ""
+  use_blueprint:
+    path: vorion/create-automated-backups-every-day.yaml
+    input:
+      trigger_time: "22:00:00"
+      send_notification: true
+      notify_device: f16bc6af1ad411eba7b95561d82128b5
+- id: "1638339109760"
+  alias: Set Group Selected Room Lights
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: input_select.selectable_room
+  condition: []
+  action:
+    - service: group.set
+      data_template:
+        object_id: selected_room_lights
+        entities:
+          "{{ expand(('group.' ~ (states('input_select.selectable_room').lower()))
+          | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(',
+          ') }}"
+  # - service: notify.mobile_app_davecom
+  #   data_template:
+  #     message: '{{trigger.event.data.entity_id}}'
+  mode: single
+- id: "1638339810402"
+  alias: Set Group Selected Individual Lights
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: input_select.selectable_light
+  condition: []
+  action:
+    - service: group.set
+      data_template:
+        object_id: selected_individual_lights
+        entities: light.{{ (states('input_select.selectable_light').lower()) }}
+  mode: single
+- id: "1638431824196"
+  alias: When Closet Door Opened
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.closet_door_is_open
+      from: "off"
+      to: "on"
+  condition: []
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.closet
+      data:
+        transition: 3
+        brightness_pct: 60
+        rgb_color:
+          - 255
+          - 236
+          - 218
+  mode: single
+- id: "1638431961429"
+  alias: When Closet Door Closed
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.closet_door_is_open
+      to: "off"
+      from: "on"
+  condition: []
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.closet
+  mode: single
+- id: "1638433676651"
+  alias: Closet Light Timer
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: light.closet
+      to: "on"
+      for:
+        hours: 0
+        minutes: 10
+        seconds: 0
+        milliseconds: 0
+    - platform: state
+      entity_id: light.closet
+      to: "on"
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+        milliseconds: 0
+  condition:
+    - condition: state
+      entity_id: binary_sensor.closet_door_is_open
+      state: "off"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.closet
+    - service: notify.mobile_app_davecom
+      data:
+        message: Closet Light turned off following timer
+  mode: single
+- id: "1638774217943"
+  alias: Kitchen Nightlight Automation
+  description: ""
+  trigger:
+    - type: motion
+      platform: device
+      device_id: e029b91ae756e4a47218136f5291c744
+      entity_id: binary_sensor.kitchen_sensor_motion_detected
+      domain: binary_sensor
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: light.kitchen_lights
+      state: "off"
+    - condition: state
+      entity_id: input_boolean.ignore_motion
+      state: "off"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.kitchen_lights
+      data:
+        brightness_pct: 20
+    - wait_for_trigger:
+        - platform: state
+          entity_id: media_player.living_room_tv
+          to: playing
+      continue_on_timeout: true
+      timeout: 00:00:60
+    - service: light.turn_off
+      target:
+        entity_id: light.kitchen_lights
+      data:
+        transition: 5
+  mode: restart
+- id: "1639531372962"
+  alias: Intruder - Window Open
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.window_living_room_south_status
+      from: "off"
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.security_mode
+      state: "on"
+  action:
+    - service: lifx.effect_pulse
+      target:
+        entity_id:
+          - light.bedroom
+          - light.tv
+          - light.kitchen_east
+          - light.hallway
+      data:
+        color_name: blue
+        brightness: 155
+        period: 1
+        cycles: 2
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 1
+        milliseconds: 0
+    - service: lifx.effect_pulse
+      target:
+        entity_id:
+          - light.bedroom
+          - light.tv
+          - light.kitchen_west
+          - light.kitchen_east
+          - light.hallway
+      data:
+        color_name: blue
+        brightness: 155
+        period: 1
+        cycles: 2
+  mode: single

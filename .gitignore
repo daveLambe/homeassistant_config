@@ -1,8 +1,14 @@
 appdaemon
 *.db*
+*.log*
+*.log.*
+*.fault
+*.sqlite
 *.xml
 deps
-home-assistant.log
+downloads*
+frigate.yml
+home-assistant.log*
 home-assistant_v2.db*
 themes
 tts
