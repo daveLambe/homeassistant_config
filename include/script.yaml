@@ -1,0 +1,832 @@
+script:
+  critical_notify_davecom:
+    alias: Send critical notification to Davecom
+    mode: restart
+    sequence:
+      - service: notify.mobile_app_davecom
+        data_template:
+          title: "{{ with_title }}"
+          message: "{{ with_message }}"
+          data:
+            push:
+              sound:
+                name: finns_girl_scream.wav
+                critical: 1
+                volume: 1.0
+  send_critical_notification:
+    alias: Send critical notification
+    mode: restart
+    sequence:
+      - service: notify.mobile_app_davecom
+        data:
+          title: EMERGENCY
+          message: The house is on fire and the cat's stuck in the dryer!
+          data:
+            push:
+              sound:
+                name: finns_girl_scream.wav
+                critical: 1
+                volume: 1.0
+  send_email_notification:
+    alias: Send email notification
+    mode: restart
+    sequence:
+      - service: notify.dave_lambe_gmail
+        data:
+          title: Home Assistant Priority Notifier
+          message: Important event in Home Assistant
+  cast_street_to_tv:
+    alias: Cast Street to TV
+    mode: restart
+    sequence:
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: camera.play_stream
+        data:
+          media_player: media_player.living_room_chromecast
+        target:
+          entity_id: camera.street
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
+        data:
+          is_volume_muted: true
+  stop_cast_to_tv:
+    alias: Stop Cast To TV
+    mode: restart
+    sequence:
+      - service: media_player.turn_off
+        entity_id: media_player.living_room_chromecast
+  cast_dashboard:
+    alias: Cast Dashboard
+    mode: restart
+    sequence:
+      - data:
+          entity_id: media_player.living_room_chromecast
+          dashboard_path: lovelace-cast
+          view_path: cast
+        service: cast.show_lovelace_view
+  light_strip_on:
+    alias: Light strip on with brightness and colour delay
+    mode: restart
+    sequence:
+      - service: light.turn_on
+        data_template:
+          rgb_color:
+            - "{{ r }}"
+            - "{{ g }}"
+            - "{{ b }}"
+          entity_id: "{{ with_entity }}"
+      - delay: 00:03
+      - service: light.turn_on
+        data_template:
+          entity_id: "{{ with_entity }}"
+          brightness: "{ with_brightness }"
+  open_cameras:
+    alias: Send Notification
+    sequence:
+      - service: notify.mobile_app_davecom
+        data:
+          title: Motion Detected!
+          message: Tap to view cameras
+          data:
+            url: /lovelace/cameras
+  spotify_relax_shuffle:
+    alias: Spotify Relax Shuffle
+    sequence:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_speaker
+          volume_level: 0.22
+      - service: spotcast.start
+        data:
+          entity_id: media_player.bedroom_speaker
+          uri: spotify:playlist:7wIxtPuEq6mL9LP3QDV6ak
+          random_song: true
+          shuffle: true
+  spotify_relax_shuffle_living_room:
+    alias: Spotify Relax Shuffle Living Room
+    sequence:
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_speaker
+          volume_level: 0.1
+      - service: spotcast.start
+        data:
+          entity_id: media_player.living_room_speaker
+          uri: spotify:playlist:7wIxtPuEq6mL9LP3QDV6ak
+          random_song: true
+          shuffle: true
+      - delay: 00:01
+      - service: media_player.media_stop
+        data:
+          entity_id: media_player.living_room_speaker
+  living_room_speaker_volume_10_percent:
+    sequence:
+      - service: media_player.turn_on
+        data:
+          entity_id: media_player.living_room_speaker
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_speaker
+          volume_level: 0.1
+  tv_on:
+    alias: Turn TV on
+    mode: single
+    sequence:
+      - service: rest_command.assistant_relay
+        data:
+          command: Turn on Living Room TV
+  tv_off:
+    alias: Turn TV off
+    mode: single
+    sequence:
+      - service: rest_command.assistant_relay
+        data:
+          command: Turn off Living Room TV
+  bathroom_lights_on:
+    alias: Turn Bathroom Lights Strip on
+    mode: single
+    sequence:
+      - service: rest_command.assistant_relay
+        data:
+          command: Turn Bathroom Lights Strip on
+  bathroom_lights_off:
+    alias: Turn Bathroom Lights Strip off
+    mode: single
+    sequence:
+      - service: rest_command.assistant_relay
+        data:
+          command: Turn Bathroom Lights Strip off
+  google_say_alarm_on:
+    alias: Alarm On
+    sequence:
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.living_room_speaker
+          message: Setting the alarm
+  google_say_alarm_off:
+    alias: Alarm Off
+    sequence:
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.living_room_speaker
+          message: Security system disarmed
+  lock_door:
+    alias: Lock the door
+    mode: restart
+    sequence:
+      - service: rest_command.assistant_relay
+        data:
+          command: Lock the door
+    icon: mdi:door-closed-lock
+  restart_door_lock_bridge:
+    alias: Restart Door Lock Bridge
+    mode: restart
+    sequence:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.door_lock_bridge
+      - delay: 00:00:05
+      - service: switch.turn_on
+        data:
+          entity_id: switch.door_lock_bridge
+    icon: mdi:door-closed
+  restart_fan:
+    alias: Restart Fan
+    mode: restart
+    sequence:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.fan
+      - delay: 00:00:05
+      - service: switch.turn_on
+        data:
+          entity_id: switch.fan
+  enable_motion_rec:
+    alias: Enable Motion Recording
+    mode: single
+    sequence:
+      - service: amcrest.enable_motion_recording
+        data:
+          entity_id: camera.living_room
+      - service: notify.notify
+        data:
+          message: Motion Recording enabled on DaveCamAlpha
+  disable_motion_rec:
+    alias: Disable Motion Recording
+    mode: single
+    sequence:
+      - service: amcrest.disable_motion_recording
+        data:
+          entity_id: camera.living_room
+      - service: notify.notify
+        data:
+          message: Motion Recording disabled on DaveCamAlpha
+  flash_red:
+    alias: Flash Red
+    mode: single
+    sequence:
+      - service: lifx.effect_pulse
+        data:
+          color_name: red
+          period: 0.5
+          cycles: 10
+          brightness: 230
+        target:
+          entity_id:
+            - light.kitchen_east
+            - light.kitchen_west
+            - light.chandelier
+            - light.tv
+  flash_red_2:
+    alias: Flash Red Twice
+    mode: single
+    sequence:
+      - service: lifx.effect_pulse
+        data:
+          entity_id:
+            light.kitchen_east, light.kitchen_west, light.chandelier, light.hallway,
+            light.bedroom, light.tv_lights
+          color_name: red
+          period: 0.5
+          cycles: 2
+  flash_red_5:
+    alias: Flash Red Five Times
+    mode: single
+    sequence:
+      - service: lifx.effect_pulse
+        data:
+          entity_id:
+            light.kitchen_east, light.kitchen_west, light.chandelier, light.hallway,
+            light.bedroom, light.tv_lights
+          color_name: red
+          period: 0.5
+          cycles: 5
+  test_bathroom:
+    alias: Test Bathroom Light
+    mode: single
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          brightness_pct: 100
+      - delay: 00:00:01
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          color_name: purple
+  test_bathroom_2:
+    alias: Test Bathroom Light 2
+    mode: single
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          brightness_pct: 20
+      - delay: 00:00:01
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          color_name: red
+  morning:
+    alias: Morning
+    mode: single
+    sequence:
+      - variables:
+          scene:
+            "{% set state = states('sensor.time') %} {% set dave_morning_time = '05:30'\
+            \ < state < '07:45' %} {% set ebony_home = (states('device_tracker.ebonycom')\
+            \ == 'home') %} {% set ebony_mode_on = (states('input_boolean.ebony_mode')\
+            \ == 'on' ) %}\n{% if dave_morning_time and ebony_mode_on %}\n    scene.morning_darker\n\
+            {% else %}\n    scene.morning\n{% endif %}\n"
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: "{{ scene }}"
+          transition: 180
+      - delay: 00:00:02
+      - service: light.turn_on
+        data:
+          entity_id: light.govee
+          brightness_pct: 60
+      - service: script.turn_on
+        target:
+          entity_id: script.turn_tv_on_and_ambient
+      - delay: 00:00:05
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_speaker
+          volume_level: 0.4
+      - delay:
+          minutes: 3
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+  turn_fan_off_if_ebony_not_home:
+    alias: Turn fan off if Ebony not home
+    mode: restart
+    sequence:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.fan
+      - delay: 00:00:05
+      - service: switch.turn_on
+        data:
+          entity_id: switch.fan
+      - condition: state
+        entity_id: input_boolean.ebony_mode
+        state: "off"
+  goodnight:
+    alias: Goodnight
+    mode: restart
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.goodnight
+          transition: 10.0
+      - service: rest_command.assistant_relay
+        data:
+          command: Turn off Living Room TV
+      - service: rest_command.assistant_relay
+        data:
+          command: Lock the door
+      - delay: 00:00:12
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+  goodnight_relax_playlist:
+    alias: Goodnight Relax Playlist
+    mode: restart
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.goodnight
+          transition: 10.0
+      - service: rest_command.assistant_relay
+        data:
+          command: Lock the door
+      - delay: 00:00:12
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_speaker
+          volume_level: 0.22
+      - service: spotcast.start
+        data:
+          entity_id: media_player.bedroom_speaker
+          uri: spotify:playlist:7wIxtPuEq6mL9LP3QDV6ak
+          random_song: true
+          shuffle: true
+  evening:
+    alias: Evening
+    mode: restart
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.evening
+          transition: 10.0
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          brightness_pct: 60
+      - delay: 00:00:01
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          rgb_color:
+            - 255
+            - 147
+            - 41
+      - delay: 00:00:12
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+  normal:
+    alias: Normal
+    mode: restart
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.normal
+          transition: 10.0
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          brightness_pct: 80
+      - delay: 00:00:01
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          rgb_color:
+            - 255
+            - 147
+            - 41
+      - delay: 00:00:12
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+  movie_time:
+    alias: Movie Time
+    mode: single
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.movie_time
+          transition: 5.0
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: input keyevent 126
+      - delay: 00:00:04
+      - service: light.turn_off
+        data:
+          entity_id: light.bathroom
+      - service: light.turn_on
+        data:
+          entity_id: light.bed
+          rgb_color:
+            - 194
+            - 25
+            - 252
+      - delay: 00:00:05
+      - service: lifx.set_state
+        data:
+          entity_id:
+            light.chandelier, light.hallway, light.tv_lights, light.kitchen_east,
+            light.kitchen_west, light.bedroom
+          rgb_color:
+            - 194
+            - 25
+            - 252
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_speaker
+          volume_level: 0.2
+      - delay: 00:00:10
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+  dinner_and_a_movie:
+    alias: Dinner and a Movie
+    mode: single
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.dinner_and_a_movie
+          transition: 5.0
+      - delay: 00:00:04
+      - service: light.turn_off
+        data:
+          entity_id: light.bathroom
+      - service: light.turn_on
+        data:
+          entity_id: light.bed
+          rgb_color:
+            - 194
+            - 25
+            - 252
+      - delay: 00:00:05
+      - service: lifx.set_state
+        data:
+          entity_id:
+            light.chandelier, light.hallway, light.tv_lights, light.kitchen_east,
+            light.kitchen_west, light.bedroom
+          rgb_color:
+            - 194
+            - 25
+            - 252
+      - delay: 00:00:06
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+  sexy_time:
+    alias: Sexy Time
+    mode: restart
+    sequence:
+      - service: scene.turn_on
+        data:
+          entity_id: scene.sexy_time
+          transition: 5.0
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          brightness_pct: 60
+      - delay: 00:00:01
+      - service: light.turn_on
+        data:
+          entity_id: light.bathroom
+          rgb_color:
+            - 169
+            - 6
+            - 204
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_speaker
+          volume_level: 0.4
+      - service: spotcast.start
+        data:
+          entity_id: media_player.bedroom_speaker
+          uri: spotify:playlist:2InXYfqrKsiL2bTU7ZLkPp
+          random_song: true
+          shuffle: true
+  dinner:
+    alias: Dinner Time
+    mode: restart
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.dinner
+          transition: 5
+      - delay: 00:00:05
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+    icon: mdi:food-turkey
+  toilet:
+    alias: Toilet
+    mode: restart
+    sequence:
+      - service: scene.turn_on
+        data:
+          entity_id: scene.toilet
+          transition: 5.0
+      - delay: 00:00:02
+      - service: light.turn_on
+        data:
+          entity_id: light.govee
+          brightness_pct: 30
+  cast_driveway_to_tv:
+    alias: Cast Driveway to TV
+    sequence:
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: camera.play_stream
+        data:
+          media_player: media_player.living_room_chromecast
+        target:
+          entity_id: camera.driveway
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
+        data:
+          is_volume_muted: true
+    mode: restart
+  goodnight_lock_door_bedroom_lights_only:
+    alias: Goodnight Lock Door and Bedroom Lights Only
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: light.turn_off
+        data:
+          transition: 10
+        target:
+          entity_id:
+            - light.bedroom
+            - light.bed
+      - service: rest_command.assistant_relay
+        data:
+          command: Lock the door
+      - delay: 00:00:12
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+    mode: restart
+  "1634706735025":
+    alias: Bathroom Nightlight Script
+    sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.bathroom
+        data:
+          brightness_pct: 66
+      - wait_for_trigger:
+          - platform: state
+            entity_id: binary_sensor.bathroom_sensor_motion_detected
+            to: "off"
+            for:
+              hours: 0
+              minutes: 1
+              seconds: 45
+              milliseconds: 0
+        continue_on_timeout: false
+      - service: light.turn_off
+        target:
+          entity_id: light.bathroom
+    mode: single
+  create_driveway_camera_link:
+    alias: Create temporary camera link for Driveway
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_driveway
+          open_limit: 2
+          time_to_live: 500
+      - service: persistent_notification.create
+        data:
+          message:
+            <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Driveway
+            Camera</a>
+    mode: single
+  create_street_camera_link:
+    alias: Create temporary camera link for Street
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_street
+          open_limit: 2
+          time_to_live: 500
+      - service: persistent_notification.create
+        data:
+          message:
+            <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Street
+            Camera</a>
+    mode: single
+  create_living_room_camera_link:
+    alias: Create temporary camera link for Living Room
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_living_room
+          open_limit: 2
+          time_to_live: 500
+      - service: persistent_notification.create
+        data:
+          message:
+            <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Living
+            Room Camera</a>
+    mode: single
+  dashcast_driveway:
+    alias: DashCast Driveway camera
+    sequence:
+      - service: webrtc.dash_cast
+        entity_id: media_player.living_room_chromecast
+        data:
+          url: !secret cam_rtsp_driveway
+    mode: single
+  dashcast_street:
+    alias: DashCast Street camera
+    sequence:
+      - service: webrtc.dash_cast
+        entity_id: media_player.living_room_chromecast
+        data:
+          url: !secret cam_rtsp_street
+    mode: single
+  dashcast_living_room:
+    alias: DashCast Living Room camera
+    sequence:
+      - service: webrtc.dash_cast
+        entity_id: media_player.living_room_chromecast
+        data:
+          url: !secret cam_rtsp_living_room
+  lock_door_if_closed:
+    alias: Lock door if closed
+    mode: single
+    sequence:
+      - condition: state
+        entity_id: binary_sensor.front_door_sensor_status
+        state: "off"
+      - service: script.turn_on
+        data:
+          entity_id: script.lock_door
+    icon: mdi:door-closed-lock
+  set_living_room_tv_ambient_mode:
+    sequence:
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: HOME
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: BACK
+    mode: single
+    alias: Set Living Room TV Ambient Mode
+    icon: mdi:wallpaper
+  turn_tv_on_and_ambient:
+    alias: Turn TV on and Ambient
+    sequence:
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: POWER
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 5
+          milliseconds: 0
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: HOME
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: BACK
+    mode: single
+    icon: mdi:wallpaper
+  create_temporary_camera_link_for_driveway:
+    alias: Create temporary camera link for Driveway
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_street
+          open_limit: 2
+          time_to_live: 500
+      - service: persistent_notification.create
+        data:
+          message:
+            <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Street
+            Camera</a>
+    mode: single
+  restart_blanket:
+    alias: Restart Blanket
+    sequence:
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.blanket
+      - delay: 00:00:05
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.blanket
+    mode: restart
+  unlock_the_door:
+    alias: Unlock the door
+    sequence:
+      - service: rest_command.assistant_relay
+        data:
+          command: Unlock the door
+    mode: restart
+    icon: mdi:door-open

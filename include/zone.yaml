@@ -1,0 +1,31 @@
+zone:
+  - name: "Home"
+    latitude: !secret zone_davecave_lat
+    longitude: !secret zone_davecave_long
+    radius: 100
+    icon: mdi:home
+
+  - name: "DaveCave"
+    latitude: !secret zone_davecave_lat
+    longitude: !secret zone_davecave_long
+    radius: 100
+    icon: mdi:home
+    passive: true
+
+  - name: "Noodle House"
+    latitude: !secret zone_noodle_house_lat
+    longitude: !secret zone_noodle_house_long
+    radius: 100
+    icon: mdi:noodles
+
+  - name: "Deandre"
+    latitude: !secret zone_deandre_lat
+    longitude: !secret zone_deandre_long
+    radius: 100
+    icon: mdi:campfire
+
+  - name: "Jaz"
+    latitude: !secret zone_jaz_lat
+    longitude: !secret zone_jaz_long
+    radius: 100
+    icon: mdi:glasses

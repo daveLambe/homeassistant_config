@@ -62,11 +62,11 @@ homeassistant:
 default_config:
 
 # group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-camera: !include cameras.yaml
-zone: !include zones.yaml
+# automation: !include automations.yaml
+# script: !include scripts.yaml
+# scene: !include scenes.yaml
+# camera: !include cameras.yaml
+# zone: !include zones.yaml
 
 # Hope that path works
 # frontend:
@@ -77,8 +77,8 @@ logger:
   logs:
     homeassistant.components.websocket_api: fatal
     homeassistant.components.camera: fatal
-    amcrest: debug
-    homeassistant.components.amcrest: debug
+    # amcrest: debug
+    # homeassistant.components.amcrest: debug
 
 zwave:
   usb_path: /dev/ttyUSB0
@@ -110,9 +110,9 @@ browser_mod:
   prefix: "browser_"
   devices:
     ac39bba2-5650e008:
-      name: "DaveBook Pro"
+      name: "browser_davebook_pro"
     0d518399-1bf39487:
-      name: "DaveCom"
+      name: "browser_davecom"
 
 # Text to speech
 tts:
@@ -195,6 +195,8 @@ lovelace:
     - url: /browser_mod.js
       type: module
     - url: /hacsfiles/light-popup-card/light-popup-card.js
+      type: module
+    - url: /hacsfiles/bar-card/bar-card.js
       type: module
     # lovelace-settings:
     #   title: "Guest"
