@@ -1,0 +1,227 @@
+# lovelace_gen
+
+title: Cameras
+id: cameras
+path: cameras
+theme: ios-dark-mode
+icon: 'mdi:camera'
+cards:
+
+# Working View
+
+  - entity: camera.outdoor_side_stream
+    type: picture-entity
+    name: "Outdoor Side Stream"
+    camera_image: camera.outdoor_side_stream
+    camera_view: live
+    show_state: false
+    
+  - entity: camera.outdoor_corner_stream
+    type: picture-entity
+    name: "Outdoor Corner Stream"
+    camera_image: camera.outdoor_corner_stream
+    camera_view: live
+    show_state: false
+
+#   - entity: camera.living_room_camera_generic
+  - entity: camera.living_room_camera
+    type: picture-entity
+    name: "Living Room"
+    camera_image: camera.living_room_camera
+    camera_view: live
+    show_state: false
+    
+  - entity: camera.bedroom
+    type: picture-entity
+    name: "Bedroom"
+    camera_image: camera.bedroom
+    camera_view: live
+    show_state: false
+    
+  - entity: camera.front_door
+    type: picture-entity
+    name: "Front Door"
+    show_state: false
+
+  - entity: camera.outdoor_side
+    type: picture-entity
+    name: "Outdoor - Side"
+    camera_image: camera.outdoor_side
+    camera_view: live
+    show_state: false
+    
+  - entity: camera.outdoor_corner
+    type: picture-entity
+    name: "Outdoor - Corner"
+    camera_image: camera.outdoor_corner
+    camera_view: live
+    show_state: false
+    
+# End Working View
+
+
+
+
+
+  # - entity: camera.test
+  #   type: picture-entity
+  #   name: "Test"
+  #   camera_image: camera.test
+  #   # camera_image: camera.living_room_camera_generic
+  #   # camera_image: camera.living_room
+  #   camera_view: live
+  #   show_state: false
+
+# Before Test
+  # - type: entities
+  #   entities:
+  #     - entity: camera.living_room
+  #     - entity: camera.roof
+  #     - entity: camera.front_door
+  #     - entity: camera.outdoor
+  #     - entity: camera.nanny
+  #     - entity: camera.outdoor_camera
+  #   title: Cameras
+  #   theme: slate_red
+#   - camera_image: camera.living_room
+#     camera_view: live
+#     elements:
+#       - icon: 'mdi:arrow-up'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 50px
+#           right: 25px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: up
+#         type: icon
+#       - icon: 'mdi:arrow-down'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 0px
+#           right: 25px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: down
+#         type: icon
+#       - icon: 'mdi:arrow-left'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 25px
+#           right: 50px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: left
+#         type: icon
+#       - icon: 'mdi:arrow-right'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 25px
+#           right: 0px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: right
+#         type: icon
+#       - icon: 'mdi:arrow-top-left'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 50px
+#           right: 50px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: left_up
+#         type: icon
+#       - icon: 'mdi:arrow-top-right'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 50px
+#           right: 0px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: right_up
+#         type: icon
+#       - icon: 'mdi:arrow-bottom-left'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 0px
+#           right: 50px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: left_down
+#         type: icon
+#       - icon: 'mdi:arrow-bottom-right'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 0px
+#           right: 0px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: right_down
+#         type: icon
+#       - hold_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: zoom_out
+#         icon: 'mdi:magnify'
+#         style:
+#           background: 'rgba(255, 255, 255, 0.25)'
+#           bottom: 25px
+#           right: 25px
+#         tap_action:
+#           action: call-service
+#           service: amcrest.ptz_control
+#           service_data:
+#             entity_id: camera.living_room
+#             movement: zoom_in
+#         type: icon
+#     entity: camera.living_room
+#     type: picture-elements
+#   - type: picture-entity
+#     entity: camera.roof
+#     camera_view: live
+#     show_state: false
+#     theme: slate_red
+#     show_name: true
+#     camera_image: camera.roof
+#   - type: picture-entity
+#     entity: camera.outdoor
+#     camera_view: live
+#     show_state: false
+#     theme: slate_red
+#     show_name: true
+#     camera_image: camera.outdoor
+#   - type: picture-entity
+#     entity: camera.front_door
+#     show_state: false
+#     theme: slate_red
+#     show_name: true
+#     camera_image: camera.roof
+#     camera_view: live
+# # path: default_view
+# # title: Home

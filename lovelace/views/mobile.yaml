@@ -1,0 +1,655 @@
+# lovelace_gen
+
+title: Mobile
+id: mobile
+path: mobile
+icon: "mdi:cellphone"
+theme: ios-dark-mode
+cards:
+  - type: vertical-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: >
+              <h1><font color="#D12531">Lights</font></h1>
+            card_mod:
+              style: |
+                ha-card {
+                  text-align: center;
+                }
+
+          # Change Room Color Card
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                # title: "Lights"
+                show_header_toggle: false
+                theme: slate_red
+                entities:
+                  # Change Individual Room
+                  - type: section
+                    label: "Change Individual Room.."
+                  - entity: group.selected_room_lights
+                    name: "On/Off"
+                    state_color: true
+                  - entity: input_select.selectable_room
+                    name: "Room.."
+                    icon: "mdi:floor-plan"
+
+                  - type: "custom:rgb-light-card"
+                    entity: light.selected_room
+                    justify: "around"
+                    colors:
+                      - label: "Morning"
+                        brightness: 181
+                        color_temp: 200
+                      - label: "Evening"
+                        brightness: 90
+                        color_temp: 370
+                      - hs_color: [286, 97]
+                      # - hs_color: [300, 100]
+                      - hs_color: [0, 100]
+                      # - hs_color: [120, 100]
+                      - hs_color: [220, 100]
+                      - type: call-service
+                        label: "Off"
+                        icon_color: rgba(255, 0, 0, 0)
+                        service: light.turn_off
+                        service_data:
+                          entity_id: light.selected_room
+
+                  - type: "custom:slider-entity-row"
+                    # entity: input_number.current_room_brightness
+                    entity: light.selected_room
+                    full_row: true
+                    step: 1
+                    hide_state: true
+
+                  # Change Individual Light
+                  - type: section
+                    label: "Change Individual Light.."
+                  - entity: group.selected_individual_lights
+                    name: "On/Off"
+                    state_color: true
+                  - entity: input_select.selectable_light
+                    name: "Light.."
+                    icon: "mdi:lightbulb"
+
+                  - type: "custom:rgb-light-card"
+                    entity: light.selected_light
+                    justify: "around"
+                    colors:
+                      - label: "Morning"
+                        brightness: 181
+                        color_temp: 200
+                      - label: "Evening"
+                        brightness: 90
+                        color_temp: 370
+                      - hs_color: [286, 97]
+                      # - hs_color: [300, 100]
+                      - hs_color: [0, 100]
+                      # - hs_color: [120, 100]
+                      - hs_color: [220, 100]
+                      - type: call-service
+                        label: "Off"
+                        icon_color: rgba(255, 0, 0, 0)
+                        service: light.turn_off
+                        service_data:
+                          entity_id: light.selected_light
+
+                  - type: "custom:slider-entity-row"
+                    # entity: input_number.current_light_brightness
+                    entity: light.selected_light
+                    full_row: true
+                    step: 1
+                    hide_state: true
+
+      - type: markdown
+        content: >
+          <h1><font color="#D12531">Scenes</font></h1>
+        card_mod:
+          style: |
+            ha-card {
+              text-align: center;
+            }
+
+      - type: grid
+        # title: Scenes
+        cards:
+          - name: Morning
+            entity: script.morning
+            deep_press: true
+            # entity: script.morning
+            icon: "mdi:white-balance-sunny"
+            # show_state: false
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.morning
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.morning
+            theme: ios-dark-mode
+            type: button
+          - name: Evening
+            entity: script.evening
+            deep_press: true
+            icon: "mdi:weather-sunset"
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.evening
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.evening
+            theme: ios-dark-mode
+            type: button
+          - name: "Off"
+            entity: script.goodnight
+            deep_press: true
+            icon: "mdi:moon-waxing-crescent"
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.goodnight
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.goodnight
+            theme: ios-dark-mode
+            type: button
+          - name: Movie Time
+            entity: script.movie_time
+            deep_press: true
+            icon: "mdi:video-vintage"
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.movie_time
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.movie_time
+            theme: ios-dark-mode
+            type: button
+          - name: Normal
+            entity: script.normal
+            deep_press: true
+            icon: "mdi:brightness-5"
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.normal
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.normal
+            theme: ios-dark-mode
+            type: button
+          - name: Sexy Time
+            entity: script.sexy_time
+            deep_press: true
+            icon: "mdi:heart-pulse"
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.sexy_time
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.sexy_time
+            theme: ios-dark-mode
+            type: button
+          - name: Toilet
+            entity: script.toilet
+            deep_press: true
+            icon: "mdi:flashlight"
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.toilet
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.toilet
+            theme: ios-dark-mode
+            type: button
+          - name: "Dinner and a Movie"
+            icon: "mdi:food-fork-drink"
+            entity: script.dinner_and_a_movie
+            deep_press: true
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.dinner_and_a_movie
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.dinner_and_a_movie
+            theme: ios-dark-mode
+            type: button
+          - name: Dinner
+            entity: script.dinner
+            deep_press: true
+            icon: "mdi:food-fork-drink"
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.dinner
+            double_tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.dinner
+            theme: ios-dark-mode
+            type: button
+
+      #   - entities:
+      #       - switch.kettle
+      #     title: Kitchen
+      #     type: entities
+
+      - type: markdown
+        content: >
+          <h1><font color="#D12531">Device Control</font></h1>
+        card_mod:
+          style: |
+            ha-card {
+              text-align: center;
+            }
+
+      - type: grid
+        # title: Device Control
+        theme: ios-dark-mode
+        cards:
+          - type: button
+            entity: switch.ipad_charger
+            name: iPad Charger
+            show_state: true
+            tap_action:
+              action: toggle
+          - type: button
+            entity: switch.fan
+            name: Fan
+            show_state: true
+            tap_action:
+              action: toggle
+          - type: button
+            entity: switch.blanket
+            name: Heated Blanket
+            show_state: true
+            tap_action:
+              action: toggle
+          - type: button
+            name: Lock Door
+            icon: "mdi:door-closed-lock"
+            show_state: false
+            state_color: false
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.lock_door
+          - type: button
+            entity: switch.bedroom_monitor
+            show_state: true
+            name: "Monitor"
+            tap_action:
+              action: toggle
+          #   - type: button
+          #     name: ""
+          #     show_state: false
+          - type: button
+            entity: switch.kettle
+            name: Kettle
+            # icon: 'mdi:beach'
+            show_state: true
+            tap_action:
+              action: toggle
+
+  # Cast Camera to TV
+  - type: markdown
+    content: >
+      <h1><font color="#D12531">Security</font></h1>
+    card_mod:
+      style: |
+        ha-card {
+          text-align: center;
+        }
+  - type: entities
+    # title: "Security"
+    show_header_toggle: false
+    theme: slate_red
+    entities:
+      - type: section
+        label: "Cast Camera to TV.."
+      - entity: input_select.selectable_camera
+  #   - type: picture-entity
+  # entity: camera.front_door
+  # name: "Front Door"
+  # show_state: false
+
+  # Media
+  - type: markdown
+    content: >
+      <h1><font color="#D12531">Media</font></h1>
+    card_mod:
+      style: |
+        ha-card {
+          text-align: center;
+        }
+  - type: entities
+    theme: slate_red
+    entities:
+      - type: section
+
+      - type: "custom:mini-media-player"
+        entity: media_player.living_room_tv
+        name: "Living Room TV"
+        toggle_power: false
+        group: true
+        icon: mdi:television
+        artwork: cover
+        idle:
+          when_idle: true
+          when_standby: true
+        hide:
+          volume: false
+          source: true
+          power_state: false
+
+      - type: section
+
+      - type: "custom:mini-media-player"
+        entity: media_player.living_room_speaker
+        name: "Living Room Speaker"
+        toggle_power: false
+        group: true
+        icon: mdi:google-home
+        artwork: cover
+        idle:
+          when_idle: true
+          when_standby: true
+        hide:
+          volume: false
+          source: true
+          power_state: false
+
+      - type: section
+
+      - type: "custom:mini-media-player"
+        entity: media_player.wall_speaker
+        name: "Wall Speaker"
+        toggle_power: false
+        # tts:
+        #   platform: alexa
+        #   type: announce
+        # type: tts
+        group: true
+        icon: "mdi:amazon-alexa"
+        icon_state: true
+        artwork: cover
+        info: short
+        idle_view:
+          when_idle: true
+          when_standby: true
+        hide:
+          volume: false
+          source: true
+          power_state: false
+          controls: true
+          state_label:
+            true
+            # - name: Crooners Playlist
+            #   type: service
+            #   id: spotcast.start
+            #   data:
+            #     entity_id: media_player.googlehome1234
+            #     uri: spotify:playlist:37i9dQZF1DX9XiAcF7t1s5
+
+      - type: section
+
+      - type: "custom:mini-media-player"
+        entity: media_player.bedroom_tv
+        name: "Bedroom TV"
+        toggle_power: false
+        group: true
+        icon: mdi:google-chrome
+        artwork: cover
+        idle:
+          when_idle: true
+          when_standby: true
+        hide:
+          volume: false
+          source: true
+          power_state: false
+        shortcuts:
+          columns: 4
+          buttons:
+            - name: "Monitor - Toggle Power"
+              type: service
+              id: switch.toggle
+              data:
+                entity_id: switch.bedroom_monitor
+
+      - type: section
+
+      - type: "custom:mini-media-player"
+        # type: media-control
+        entity: media_player.bedroom_speaker
+        name: "Bedroom Speaker"
+        toggle_power: false
+        group: true
+        icon: mdi:google-home
+        artwork: cover
+        idle:
+          when_idle: true
+          when_standby: true
+        hide:
+          volume: false
+          source: true
+          power_state: false
+
+      # - type: section
+
+      # - type: "custom:mini-media-player"
+      #   entity: media_player.living_room_tv
+      #   name: "Living Room TV"
+      #   toggle_power: false
+      #   group: true
+      #   icon: mdi:television
+      #   artwork: cover
+      #   idle:
+      #     when_idle: true
+      #     when_standby: true
+      #   hide:
+      #     volume: false
+      #     source: true
+      #     power_state: false
+
+      # - type: section
+
+      # - type: "custom:mini-media-player"
+      #   entity: media_player.living_room_speaker
+      #   name: "Living Room Speaker"
+      #   toggle_power: false
+      #   group: true
+      #   icon: mdi:google-home
+      #   artwork: cover
+      #   idle:
+      #     when_idle: true
+      #     when_standby: true
+      #   hide:
+      #     volume: false
+      #     source: true
+      #     power_state: false
+
+      # - type: section
+
+      # - type: "custom:mini-media-player"
+      #   entity: media_player.wall_speaker
+      #   name: "Wall Speaker"
+      #   toggle_power: false
+      #   idle:
+      #     when_idle: true
+      #     when_standby: true
+      #   # tts:
+      #   #   platform: alexa
+      #   group: true
+      #   icon: mdi:speaker
+      #   artwork: cover
+      #   hide:
+      #     volume: false
+      #     source: true
+      #     power_state: false
+
+      # - type: section
+
+      # - type: "custom:mini-media-player"
+      #   entity: media_player.bedroom_tv
+      #   name: "Bedroom TV"
+      #   toggle_power: false
+      #   group: true
+      #   icon: mdi:google-chrome
+      #   artwork: cover
+      #   idle:
+      #     when_idle: true
+      #     when_standby: true
+      #   hide:
+      #     volume: false
+      #     source: true
+      #     power_state: false
+
+      # - type: section
+
+      # - type: "custom:mini-media-player"
+      #   # type: media-control
+      #   entity: media_player.bedroom_speaker
+      #   name: "Bedroom Speaker"
+      #   toggle_power: false
+      #   group: true
+      #   icon: mdi:google-home
+      #   artwork: cover
+      #   idle:
+      #     when_idle: true
+      #     when_standby: true
+      #   hide:
+      #     volume: false
+      #     source: true
+      #     power_state: false
+
+      # title: "Media"
+      # theme: slate_red
+      # entities:
+      #   - type: "custom:mini-media-player"
+      #     # type: media-control
+      #     entity: media_player.living_room_tv
+      #     name: "TV"
+      #     group: true
+      #     icon: mdi:spotify
+      #     artwork: cover
+      #     hide:
+      #       volume: false
+      #       source: true
+      #       power_state: false
+      #   - type: section
+
+      #     # theme: slate_red
+      #   - type: "custom:mini-media-player"
+      #     # type: media-control
+      #     entity: media_player.living_room_speaker
+      #     name: "Living Room Speaker"
+      #     group: true
+      #     icon: mdi:spotify
+      #     artwork: cover
+      #     hide:
+      #       volume: false
+      #       source: true
+      #       power_state: false
+      #   - type: section
+
+      #   - type: "custom:mini-media-player"
+      #     # type: media-control
+      #     entity: media_player.bedroom_speaker
+      #     name: "Bedroom Speaker"
+      #     group: true
+      #     icon: mdi:spotify
+      #     artwork: cover
+      #     hide:
+      #       volume: false
+      #       source: true
+      #       power_state: false
+      #   - type: section
+
+      #     # theme: slate_red
+      #   - type: "custom:mini-media-player"
+      #     # type: media-control
+      #     entity: media_player.everywhere
+      #     name: "Everywhere"
+      #     group: true
+      #     icon: mdi:spotify
+      #     artwork: cover
+      #     hide:
+      #       volume: false
+      #       source: true
+      #       power_state: false
+
+      - type: "custom:scheduler-card"
+        title: false
+        time_step: 5
+        domains:
+          - light
+          - switch
+        groups:
+          - name: "Lights"
+            icon: "mdi:lightbulb-variant"
+            include:
+              - light
+          - name: "Switches"
+            icon: "mdi:power"
+            include:
+              - switch
+          - name: "Settings"
+            icon: "mdi:cog-box"
+            include:
+              - input_boolean
+          - name: "Media"
+            icon: "mdi:cog-box"
+            include:
+              - media_player
+          - name: "Scripts"
+            icon: "mdi:cog-box"
+            include:
+              - script
+
+      # - type: "custom:scheduler-card"
+      #   include:
+      #     - light
+      #     - switch
+      #     - script
+      #     - sensor
+      #     - media_player
+      #     - input_boolean
+      #     - zone
+      #     - camera
+      #     - scene

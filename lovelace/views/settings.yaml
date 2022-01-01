@@ -1,0 +1,147 @@
+# lovelace_gen
+
+title: Settings
+id: settings
+path: settings
+theme: ios-dark-mode
+icon: "mdi:cog"
+panel: true
+cards:
+  # - type: grid
+  # path: "settings.settings_grid"
+  # title: Settings
+  # theme: ios-dark-mode
+  # cards:
+  - type: vertical-stack
+    cards:
+      - type: entities
+        title: Security Info
+        entities:
+          - type: section
+            label: Last Opened
+          - entity: binary_sensor.front_door_sensor_status
+            name: "Front Door"
+            secondary_info: last-changed
+          - entity: binary_sensor.window_living_room_south_status
+            name: Living Room (South) Window
+            secondary_info: last-changed
+
+          - type: section
+            label: Last Detected Person
+          - entity: binary_sensor.livingroom_person_motion
+            name: "Living Room"
+            secondary_info: last-changed
+
+          - type: section
+            label: Last Detected Motion
+          - entity: binary_sensor.amcrest_living_room_motion_detected
+            name: "Living Room"
+            secondary_info: last-changed
+          - entity: binary_sensor.kitchen_sensor_motion_detected
+            name: "Kitchen"
+            secondary_info: last-changed
+          # - entity: binary_sensor.amcrest_bedroom_motion_detected
+          #   name: "Bedroom"
+          # secondary_info: last-changed
+          - entity: sensor.front_door_last_motion
+            name: "Front Door"
+
+          - type: section
+            label: Camera Status
+          - entity: binary_sensor.amcrest_living_room_online
+            name: "Living Room Camera"
+          # - entity: binary_sensor.amcrest_bedroom_online
+          #   name: "Bedroom Camera"
+
+          # - type: section
+          #   label: Windows - Last Opened
+          # - entity: binary_sensor.window_living_room_south_status
+          #   name: Living Room (South)
+
+      - type: grid
+        cards:
+          - entity: input_boolean.vacation_mode
+            type: button
+            # type: "custom:button-card"
+            name: Vacation
+            icon: "mdi:beach"
+            show_state: true
+            tap_action:
+              action: toggle
+          - entity: input_boolean.stay_dark
+            type: button
+            name: Stay Dark
+            icon: "mdi:theme-light-dark"
+            show_state: true
+            tap_action:
+              action: toggle
+          - entity: input_boolean.delivery_mode
+            type: button
+            name: Delivery Mode
+            icon: "mdi:truck-delivery-outline"
+            show_state: true
+            tap_action:
+              action: toggle
+          - entity: input_boolean.ebony_mode
+            type: button
+            name: Ebony
+            icon: "mdi:details"
+            show_state: true
+            tap_action:
+              action: toggle
+            # theme: ios-dark-mode
+          - entity: input_boolean.ignore_motion
+            type: button
+            name: "Ignore Motion"
+            icon: "mdi:camera"
+            show_state: true
+            tap_action:
+              action: toggle
+          - entity: input_boolean.auto_lock
+            type: button
+            name: "Autho Lock"
+            icon: "mdi:shield-lock"
+            show_state: true
+            tap_action:
+              action: toggle
+          - entity: input_boolean.guest_mode
+            type: button
+            name: "Guest Mode"
+            icon: "mdi:bed"
+            show_state: true
+            tap_action:
+              action: toggle
+          - entity: input_boolean.cinema_mode
+            type: button
+            name: "Cinema Mode"
+            icon: "mdi:theater"
+            show_state: true
+            tap_action:
+              action: toggle
+          - entity: input_boolean.notify_proximity
+            type: button
+            name: "Proximity Notifications"
+            icon: "mdi:map"
+            show_state: true
+            tap_action:
+              action: toggle
+      - type: entities
+        title: Home Info
+        entities:
+          # - type: section
+          #   label: Last Opened
+          - entity: sensor.time
+            name: "Time"
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.living_room
+          # - type: picture-entity
+          #   entity: camera.front_door
+          #   name: "Front Door"
+          #   show_state: false
+          # - type: "custom:webrtc-camera"
+          #   entity: camera.webrtc_street
+          # - type: "custom:webrtc-camera"
+          #   entity: camera.webrtc_driveway
+          # - type: "custom:webrtc-camera"
+          #   entity: camera.webrtc_backdoor
+          # url: "rtsp://user:pass@192.168.42.227/live"

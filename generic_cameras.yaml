@@ -1,0 +1,49 @@
+- name: "Living Room Camera Generic"
+  platform: generic
+  still_image_url: !secret camera_input_living_room_generic_still_image_url
+  stream_source: !secret camera_input_living_room_generic_stream_source
+  username: !secret amcrest_username
+  password: !secret amcrest_password
+  authentication: digest
+
+- name: "Driveway"
+  platform: generic
+  still_image_url: !secret camera_input_driveway_generic_still_image_url
+  stream_source: !secret camera_input_driveway_generic_stream_source
+  username: !secret amcrest_username
+  password: !secret amcrest_password
+  authentication: digest
+
+- name: "Bedroom"
+  platform: ffmpeg
+  input: !secret camera_input_bedroom
+  extra_arguments: -pred 1 -q:v 2
+
+- name: "Street"
+  platform: ffmpeg
+  input: !secret camera_input_street
+  extra_arguments: -pred 1 -q:v 2
+  
+# Streamable
+- name: "Street Stream"
+  platform: generic
+  still_image_url: !secret camera_input_street_still_image_url
+  stream_source: !secret camera_input_street_stream_source
+
+- name: "Driveway Stream"
+  platform: generic
+  still_image_url: !secret camera_input_driveway_generic_still_image_url
+  stream_source: !secret camera_input_driveway_generic_stream_source
+
+#   - host: !secret ip_amcrest_driveway
+#     stream_source: rtsp
+#     resolution: low
+#     name: "Driveway"
+#     username: !secret amcrest_username
+#     password: !secret amcrest_password
+#     # port: 80
+#     binary_sensors:
+#       - motion_detected
+#       - online
+#     sensors:
+#       - sdcard

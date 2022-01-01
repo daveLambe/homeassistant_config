@@ -1,0 +1,45 @@
+title: Surveillance
+id: surveillance
+path: surveillance
+theme: ios-dark-mode
+icon: mdi:cctv
+# panel: true
+cards:
+  - type: grid
+    columns: 2
+    # title: Settings
+    # theme: ios-dark-mode
+    cards:
+      # - type: "custom:webrtc-camera"
+      - type: picture-entity
+        camera_view: live
+        entity: camera.webrtc_street
+      # - type: "custom:webrtc-camera"
+      - type: picture-entity
+        camera_view: live
+        entity: camera.webrtc_driveway
+      # - type: "custom:webrtc-camera"
+      - type: picture-entity
+        camera_view: live
+        entity: camera.webrtc_backdoor
+      - type: picture-entity
+        entity: camera.front_door
+        name: "Front Door"
+        show_state: false
+
+  # - type: "custom:surveillance-card"
+  #   thumb_interval: 15
+  #   update_interval: 2
+  #   recording_duration: 10
+  #   show_capture_buttons: true
+  #   focus_motion: true
+  #   cameras:
+  #   #   - entity: camera.living_room
+  #       # motion_entity: binary_sensor.living_room_motion_detected
+  #   #   - entity: camera.bedroom
+  #     - entity: camera.outdoor_side
+  #       motion_entity: binary_sensor.outdoor_side_motion_detected
+  #     - entity: camera.outdoor_corner
+  #       motion_entity: binary_sensor.outdoor_corner_motion_detected
+  #     - entity: camera.front_door
+  #       motion_entity: binary_sensor.front_door_motion

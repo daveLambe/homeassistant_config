@@ -1,0 +1,49 @@
+# lovelace_gen
+
+title: Cast
+path: cast
+theme: ios-dark-mode
+icon: mdi:cctv
+panel: true
+cards:
+  - type: "custom:frigate-card"
+    camera_entity: camera.driveway
+    frigate_url: http://frigate
+    # live_provider: webrtc
+    # webrtc:
+    # entity: camera.front_door_rtsp
+
+  # - type: horizontal-stack
+  #   cards:
+  #     - type: grid
+  #       cards:
+
+  # - type: picture-entity
+  #   entity: camera.outdoor_side_camera_generic
+  #   name: "Outdoor - Side"
+  #   camera_image: camera.outdoor_side_camera_generic
+  #   camera_view: live
+  #   show_state: false
+  #   - type: picture-entity
+  #     entity: camera.outdoor_corner
+  #     name: "Outdoor - Corner"
+  #     camera_image: camera.outdoor_corner
+  #     camera_view: live
+  #     show_state: false
+
+  #   - type: "custom:surveillance-card"
+  #     thumb_interval: 15
+  #     update_interval: 2
+  #     recording_duration: 10
+  #     show_capture_buttons: true
+  #     focus_motion: true
+  #     cameras:
+  #     #   - entity: camera.living_room
+  #         # motion_entity: binary_sensor.living_room_motion_detected
+  #     #   - entity: camera.bedroom
+  #       - entity: camera.outdoor_side
+  #         motion_entity: binary_sensor.outdoor_side_motion_detected
+  #       - entity: camera.outdoor_corner
+  #         motion_entity: binary_sensor.outdoor_corner_motion_detected
+  #       - entity: camera.front_door
+  #         motion_entity: binary_sensor.front_door_motion
