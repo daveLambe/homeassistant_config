@@ -1,4 +1,3 @@
-appdaemon
 *.db*
 *.log*
 *.log.*
@@ -18,3 +17,11 @@ secrets.yaml
 .cloud
 .HA_VERSION
 .storage
+OZW_Log.txt
+appdaemon*
+appdaemon.yaml
+blueprints*
+govee_learning.yaml
+media*
+rtsp2webrtc_v5_amd64
+wyze-bridge/
