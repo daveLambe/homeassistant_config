@@ -511,14 +511,16 @@ light:
               color_temp: 153
           - action: call-service
             service: light.turn_on
-            color: "#d5b08d"
+            # color: "#d5b08d"
+            hs_color: [286, 97]
             service_data:
               entity_id: >
                 [[[ return entity.entity_id ]]]
               color_temp: 326
           - action: call-service
             service: light.turn_on
-            color: "#ce944b"
+            # color: "#ce944b"
+            hs_color: [0, 100]
             service_data:
               entity_id: >
                 [[[ return entity.entity_id ]]]
@@ -560,10 +562,10 @@ person:
   state_display: >
     [[[
       if (variables.state === 'home') {
-        return 'And';
+        return 'Home';
       }
       if (variables.state === 'not_home') {
-        return 'No';
+        return 'Away';
       }
       return variables.state;
     ]]]
@@ -687,7 +689,7 @@ conditional_media:
   state_display: >
     [[[
       if (entity.attributes.media_title === 'Nothing playing' || entity.attributes.media_title === 'No title' && variables.state === 'paused') {
-        return 'Inget spelas';
+        return 'Nothing playing';
       }
       return entity.attributes.media_title === 'No title' && variables.state === 'playing' ? 'No title' : entity.attributes.media_title;
     ]]]

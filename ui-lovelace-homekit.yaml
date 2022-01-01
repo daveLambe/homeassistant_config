@@ -115,7 +115,7 @@ views:
             name: TV Light
             template:
               - light
-              - icon_shade
+              - icon_tv
 
           - type: custom:button-card
             entity: media_player.living_room_chromecast
@@ -249,16 +249,17 @@ views:
           #       # ]]]
 
           - type: custom:button-card
-            entity: switch.bedroom_monitor
-            name: Monitor
-            hold_action: !include popup/vardagsrum_playstation.yaml
+            entity: media_player.bedroom_tv
+            name: "TV\u00B2"
+            # hold_action: !include popup/vardagsrum_playstation.yaml
+            hold_action: !include popup/sovrum_tv2.yaml
             template:
               - base
-              - icon_ps5
+              - icon_tv
               - loader
 
           - type: custom:button-card
-            entity: media_player.living_room_chromecast
+            entity: switch.bedroom_monitor
             name: "TV\u00B2"
             hold_action: !include popup/sovrum_tv2.yaml
             template:
@@ -302,7 +303,7 @@ views:
                   - type: conditional
                     conditions:
                       - entity: input_select.conditional_media
-                        state: Senast nedladdat
+                        state: Last Downloaded
                     card:
                       type: custom:button-card
                       entity: sensor.plex_recently_added
@@ -322,7 +323,7 @@ views:
                       entity: media_player.living_room_chromecast
                       template:
                         - conditional_media
-                        - icon_apple_tv
+                        - icon_tv
 
                   - type: conditional
                     conditions:
@@ -333,7 +334,7 @@ views:
                       entity: media_player.bedroom_tv
                       template:
                         - conditional_media
-                        - icon_apple_tv
+                        - icon_tv
 
                   - type: conditional
                     conditions:
@@ -365,14 +366,14 @@ views:
                     name: Living Room
                     template:
                       - media
-                      - icon_apple_tv
+                      - icon_tv
 
                   - type: custom:button-card
                     name: Bedroom
                     entity: media_player.bedroom_tv
                     template:
                       - media
-                      - icon_apple_tv
+                      - icon_tv
 
                   - type: custom:button-card
                     entity: media_player.spotify_dave_lambe
