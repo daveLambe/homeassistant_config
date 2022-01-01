@@ -238,7 +238,7 @@ template:
         #   {%- endif %}
         battery: |
           {% set entities = states.sensor 
-            | selectattr('entity_id', 'search', 'battery')
+            | selectattr('entity_id', 'search', 'battery_level')
             | rejectattr('entity_id', 'search', 'iphone')
             | rejectattr('entity_id', 'search', 'dixel')
             | map(attribute = 'entity_id') | list %}
