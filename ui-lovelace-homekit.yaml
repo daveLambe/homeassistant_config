@@ -72,7 +72,10 @@ views:
             cards:
               - type: button
                 icon: mdi:cog
-                tap_action: !include popup/sidebar_vacuum.yaml
+                # tap_action: !include popup/sidebar_vacuum.yaml
+                tap_action:
+                  action: navigate
+                  navigation_path: /ccab4aaf_frigate/dashboard
                 hold_action:
                   action: none
 
@@ -470,7 +473,7 @@ views:
 
       #################################################
       #                                               #
-      #                     HEMMA                     #
+      #                     HOME                      #
       #                                               #
       #################################################
 

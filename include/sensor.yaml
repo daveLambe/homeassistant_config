@@ -46,6 +46,19 @@ sensor:
       selected_light_rgb_color:
         value_template: "{{ states.light.all_lights.attributes.rgb_color }}"
 
+      dave_last_updated:
+        value_template: "{{ relative_time( states.device_tracker.davecom.last_changed ) }}"
+
+      dave_last_updated_time:
+        value_template: "{{ as_timestamp( states.device_tracker.davecom.last_changed ) | timestamp_custom('%H:%M') }}"
+
+      ebony_last_updated:
+        value_template: "{{ relative_time( states.device_tracker.ebonycom.last_changed ) }}"
+
+      ebony_last_updated_time:
+        value_template: "{{ as_timestamp( states.device_tracker.ebonycom.last_changed ) | timestamp_custom('%H:%M') }}"
+
+
   # - platform: sql
   #   db_url: !secret recorder_db_url
   #   queries:
@@ -160,23 +173,23 @@ sensor:
   #     {% endif %}
   #   scan_interval: 86400
 
-  # - platform: rest
-  #   name: hass_release_notes
-  #   resource: https://api.github.com/repos/home-assistant/core/releases/latest
-  #   value_template: >
-  #     {{ value_json.name }}
-  #   json_attributes:
-  #     - body
-  #   scan_interval: 21600
+  - platform: rest
+    name: hass_release_notes
+    resource: https://api.github.com/repos/home-assistant/core/releases/latest
+    value_template: >
+      {{ value_json.name }}
+    json_attributes:
+      - body
+    scan_interval: 21600
 
-  # - platform: rest
-  #   name: hass_release_notes_rc
-  #   resource: https://api.github.com/repos/home-assistant/core/releases?per_page=1
-  #   value_template: >
-  #     {{ value_json[0].name }}
-  #   json_attributes:
-  #     - body
-  #   scan_interval: 21600
+  - platform: rest
+    name: hass_release_notes_rc
+    resource: https://api.github.com/repos/home-assistant/core/releases?per_page=1
+    value_template: >
+      {{ value_json[0].name }}
+    json_attributes:
+      - body
+    scan_interval: 21600
 
   # - platform: dnsip
 

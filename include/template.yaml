@@ -394,7 +394,7 @@ template:
     - unique_id: hass_version
       icon: mdi:home-assistant
       state: >
-        {{ 'Senaste' if states('sensor.hass_version_installed') == 
+        {{ 'Latest' if states('sensor.hass_version_installed') ==
         states('sensor.hass_version_latest') else states('sensor.hass_version_latest') }}
       attributes:
         friendly_name: >

@@ -364,7 +364,7 @@ cards:
       - type: section
 
       - type: "custom:mini-media-player"
-        entity: media_player.living_room_tv
+        entity: media_player.living_room_chromecast
         name: "Living Room TV"
         toggle_power: false
         group: true
