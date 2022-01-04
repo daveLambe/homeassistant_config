@@ -71,7 +71,7 @@ views:
           - type: grid
             cards:
               - type: button
-                icon: mdi:cog
+                icon: mdi:cctv
                 # tap_action: !include popup/sidebar_vacuum.yaml
                 tap_action:
                   action: navigate

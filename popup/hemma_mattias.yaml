@@ -52,7 +52,7 @@ browser_mod:
           class: content
         entities:
           - entity: person.dave
-            secondary_info: last-changed
+            # secondary_info: last-changed
 
       - type: history-graph
         entities:
@@ -75,10 +75,15 @@ browser_mod:
           #   icon: mdi:bluetooth
           #   style: *state
 
-          # - entity: device_tracker.davecom
-          #   name: Position
-          #   icon: custom:iphone-modern
-          #   style: *state
+          - entity: sensor.dave_last_update
+            name: Last Location Update
+            icon: custom:iphone-modern
+            style: *state
+
+          - entity: sensor.dave_last_change
+            name: Last Location Change
+            icon: custom:iphone-modern
+            style: *state
 
       - type: custom:button-card
         name: Play Audio on DaveCom
