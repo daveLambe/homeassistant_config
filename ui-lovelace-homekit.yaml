@@ -298,6 +298,51 @@ views:
                 rotate: 80
                 depth: 300
             cards:
+              - type: grid
+                columns: 2
+                cards:
+                  - type: custom:button-card
+                    entity: media_player.living_room_chromecast
+                    name: Living Room TV
+                    template:
+                      - media
+                      - icon_tv
+
+                  - type: custom:button-card
+                    entity: media_player.living_room_speaker
+                    name: Living Room Speaker
+                    template:
+                      - media
+                      - icon_nest_mini
+
+                  - type: custom:button-card
+                    name: Bedroom TV
+                    entity: media_player.bedroom_tv
+                    template:
+                      - media
+                      - icon_tv
+
+                  - type: custom:button-card
+                    entity: media_player.bedroom_speaker
+                    name: Bedroom Speaker
+                    template:
+                      - media
+                      - icon_nest_mini
+
+                  # - type: custom:button-card
+                  #   entity: media_player.spotify_dave_lambe
+                  #   name: Spotify
+                  #   template:
+                  #     - media
+                  #     - icon_spotify
+
+                  # - type: custom:button-card
+                  #   entity: media_player.wall_speaker
+                  #   name: Wall Speaker
+                  #   template:
+                  #     - media
+                  #     - icon_nest_mini
+
               - type: horizontal-stack
                 cards:
                   - type: conditional
@@ -379,51 +424,6 @@ views:
                         - conditional_media
                         - recently_downloaded
                         - icon_plex
-
-              - type: grid
-                columns: 2
-                cards:
-                  - type: custom:button-card
-                    entity: media_player.living_room_chromecast
-                    name: Living Room TV
-                    template:
-                      - media
-                      - icon_tv
-
-                  - type: custom:button-card
-                    entity: media_player.living_room_speaker
-                    name: Living Room Speaker
-                    template:
-                      - media
-                      - icon_nest_mini
-
-                  - type: custom:button-card
-                    name: Bedroom TV
-                    entity: media_player.bedroom_tv
-                    template:
-                      - media
-                      - icon_tv
-
-                  - type: custom:button-card
-                    entity: media_player.bedroom_speaker
-                    name: Bedroom Speaker
-                    template:
-                      - media
-                      - icon_nest_mini
-
-                  # - type: custom:button-card
-                  #   entity: media_player.spotify_dave_lambe
-                  #   name: Spotify
-                  #   template:
-                  #     - media
-                  #     - icon_spotify
-
-                  # - type: custom:button-card
-                  #   entity: media_player.wall_speaker
-                  #   name: Wall Speaker
-                  #   template:
-                  #     - media
-                  #     - icon_nest_mini
 
       #################################################
       #                                               #
