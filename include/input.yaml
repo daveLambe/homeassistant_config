@@ -82,6 +82,18 @@ input_select:
       - Home
       - Noodle House
       - Work
+
+  conditional_media:
+    initial: Living Room TV
+    options:
+      - Living Room TV
+      - Living Room Speaker
+      - Bedroom TV
+      - Bedroom Speaker
+      - Spotify
+      - Wall Speaker
+      - Last Downloaded
+
 # input_boolean:
 #   laundry_display:
 
@@ -105,13 +117,3 @@ input_select:
 #     min: 1
 #     max: 12
 #     unit_of_measurement: h
-
-# input_select:
-#   conditional_media:
-#     initial: Senast nedladdat
-#     options:
-#       - Senast nedladdat
-#       - Vardagsrum
-#       - Sovrum
-#       - Spotify
-#       - Google Nest Mini

@@ -303,21 +303,7 @@ views:
                   - type: conditional
                     conditions:
                       - entity: input_select.conditional_media
-                        state: Last Downloaded
-                    card:
-                      type: custom:button-card
-                      entity: sensor.plex_recently_added
-                      tap_action:
-                        action: none
-                      template:
-                        - conditional_media
-                        - recently_downloaded
-                        - icon_plex
-
-                  - type: conditional
-                    conditions:
-                      - entity: input_select.conditional_media
-                        state: Living Room
+                        state: Living Room TV
                     card:
                       type: custom:button-card
                       entity: media_player.living_room_chromecast
@@ -328,13 +314,46 @@ views:
                   - type: conditional
                     conditions:
                       - entity: input_select.conditional_media
-                        state: Bedroom
+                        state: Living Room Speaker
+                    card:
+                      type: custom:button-card
+                      entity: media_player.living_room_speaker
+                      template:
+                        - icon_nest_mini
+                        - conditional_media
+
+                  - type: conditional
+                    conditions:
+                      - entity: input_select.conditional_media
+                        state: Bedroom TV
                     card:
                       type: custom:button-card
                       entity: media_player.bedroom_tv
                       template:
                         - conditional_media
                         - icon_tv
+
+                  - type: conditional
+                    conditions:
+                      - entity: input_select.conditional_media
+                        state: Bedroom Speaker
+                    card:
+                      type: custom:button-card
+                      entity: media_player.bedroom_speaker
+                      template:
+                        - conditional_media
+                        - icon_nest_mini
+
+                  - type: conditional
+                    conditions:
+                      - entity: input_select.conditional_media
+                        state: Wall Speaker
+                    card:
+                      type: custom:button-card
+                      entity: media_player.wall_speaker
+                      template:
+                        - conditional_media
+                        - icon_nest_mini
 
                   - type: conditional
                     conditions:
@@ -350,44 +369,61 @@ views:
                   - type: conditional
                     conditions:
                       - entity: input_select.conditional_media
-                        state: Speaker
+                        state: Last Downloaded
                     card:
                       type: custom:button-card
-                      entity: media_player.bedroom_speaker
+                      entity: sensor.plex_recently_added
+                      tap_action:
+                        action: none
                       template:
                         - conditional_media
-                        - icon_nest_mini
+                        - recently_downloaded
+                        - icon_plex
 
               - type: grid
                 columns: 2
                 cards:
                   - type: custom:button-card
                     entity: media_player.living_room_chromecast
-                    name: Living Room
+                    name: Living Room TV
                     template:
                       - media
                       - icon_tv
 
                   - type: custom:button-card
-                    name: Bedroom
+                    entity: media_player.living_room_speaker
+                    name: Living Room Speaker
+                    template:
+                      - media
+                      - icon_nest_mini
+
+                  - type: custom:button-card
+                    name: Bedroom TV
                     entity: media_player.bedroom_tv
                     template:
                       - media
                       - icon_tv
 
                   - type: custom:button-card
-                    entity: media_player.spotify_dave_lambe
-                    name: Spotify
-                    template:
-                      - media
-                      - icon_spotify
-
-                  - type: custom:button-card
-                    entity: media_player.wall_speaker
-                    name: Wall Speaker
+                    entity: media_player.bedroom_speaker
+                    name: Bedroom Speaker
                     template:
                       - media
                       - icon_nest_mini
+
+                  # - type: custom:button-card
+                  #   entity: media_player.spotify_dave_lambe
+                  #   name: Spotify
+                  #   template:
+                  #     - media
+                  #     - icon_spotify
+
+                  # - type: custom:button-card
+                  #   entity: media_player.wall_speaker
+                  #   name: Wall Speaker
+                  #   template:
+                  #     - media
+                  #     - icon_nest_mini
 
       #################################################
       #                                               #
