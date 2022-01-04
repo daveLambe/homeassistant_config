@@ -1,32 +1,4 @@
 automation:
-  - id: automation.ebony_birthday
-    alias: Ebony Birthday
-    trigger:
-      - platform: time
-        at: 00:00:00
-    action:
-      - service: script.turn_on
-        entity_id: script.play_happy_birthday_on_bedroom_speaker
-      - service: notify.mobile_app_ebonycom
-        data:
-          message: HAPPY BIRTHDAY!!!
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 5
-          milliseconds: 0
-      - service: notify.mobile_app_ebonycom
-        data:
-          message: You beautiful woman!
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 5
-          milliseconds: 0
-      - service: notify.mobile_app_ebonycom
-        data:
-          message: I LOVE YOU
-    mode: single
   - id: automation.notify_windows_goodnight
     alias: Notify if a window is open when Goodnight script triggered
     trigger:
@@ -1375,7 +1347,7 @@ automation:
             entity_id: light.bathroom
             state: "off"
           - condition: state
-            entity_id: script.1634706735025
+            entity_id: script.bathroom_nightlight_script
             state: "on"
       - condition: state
         entity_id: sun.sun
@@ -1383,7 +1355,7 @@ automation:
     action:
       - service: script.turn_on
         target:
-          entity_id: script.1634706735025
+          entity_id: script.bathroom_nightlight_script
     mode: restart
   - id: "1634455893672"
     alias: Turn Fan off when Morning script triggered

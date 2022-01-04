@@ -115,23 +115,6 @@ script:
           uri: spotify:playlist:7wIxtPuEq6mL9LP3QDV6ak
           random_song: true
           shuffle: true
-  play_happy_birthday_on_bedroom_speaker:
-    alias: Play Happy Birthday on Bedroom Speaker
-    sequence:
-      - service: media_player.volume_set
-        data:
-          entity_id: media_player.bedroom_speaker
-          volume_level: 0.30
-      - delay: 00:00:03
-      - service: spotcast.start
-        data:
-          entity_id: media_player.bedroom_speaker
-          uri: spotify:playlist:3Y2aMMAuLM3nqjGEtccnAm
-          random_song: true
-          shuffle: true
-      - delay: 00:00:30
-      - service: media_player.turn_off
-        entity_id: media_player.bedroom_speaker
   spotify_relax_shuffle_living_room:
     alias: Spotify Relax Shuffle Living Room
     sequence:
@@ -657,7 +640,7 @@ script:
         data:
           entity_id: input_boolean.ignore_motion
     mode: restart
-  "1634706735025":
+  bathroom_nightlight_script:
     alias: Bathroom Nightlight Script
     sequence:
       - service: light.turn_on
