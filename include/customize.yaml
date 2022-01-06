@@ -7,6 +7,13 @@ homeassistant:
     #                                                  #
     ####################################################
 
+# font-awesome
+# to get a solid heart, use fas:heart
+# to get a heart outline, use far:heart
+# to get the github logo, use fab:github
+
+# https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free
+
     media_player.spotify:
       friendly_name: Spotify
     switch.kettle:
@@ -71,6 +78,15 @@ homeassistant:
       icon: mdi:flashlight
     script.dinner_and_a_movie:
       icon: mdi:food-fork-drink
+    # sensor
+    sensor.dave_last_update:
+      icon: fas:search-location
+    sensor.dave_last_change:
+      icon: fas:search-location
+    sensor.ebony_last_update:
+      icon: fas:search-location
+    sensor.ebony_last_change:
+      icon: fas:search-location
     # #light
     # light.vardagsrum_group:
     #   friendly_name: Belysning

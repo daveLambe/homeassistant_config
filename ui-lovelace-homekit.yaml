@@ -70,12 +70,34 @@ views:
 
           - type: grid
             cards:
+              # - type: button
+              #   icon: mdi:cctv
+              #   # tap_action: !include popup/sidebar_vacuum.yaml
+              #   tap_action:
+              #     action: navigate
+              #     navigation_path: /ccab4aaf_frigate/dashboard
+              #   hold_action:
+              #     action: none
+
               - type: button
                 icon: mdi:cctv
-                # tap_action: !include popup/sidebar_vacuum.yaml
                 tap_action:
-                  action: navigate
-                  navigation_path: /ccab4aaf_frigate/dashboard
+                  action: fire-dom-event
+                  browser_mod:
+                    command: popup
+                    title: Frigate
+                    style: >
+                      :host .content {
+                        width: 75em;
+                      }
+                    card:
+                      type: iframe
+                      url: /ccab4aaf_frigate/dashboard
+                      aspect_ratio: 65%
+                      style: |
+                        ha-card {
+                          border-radius: 0 0 1em 1em;
+                        }
                 hold_action:
                   action: none
 
@@ -516,14 +538,22 @@ views:
           #     - base
           #     - icon_away
 
-          - type: custom:button-card
-            entity: script.morning
-            name: Morning
-            hold_action:
-              action: none
-            template:
-              - base
-              - icon_away
+          # - type: custom:button-card
+          #   entity: script.morning
+          #   name: Morning
+          #   hold_action:
+          #     action: none
+          #   template:
+          #     - base
+          #     - icon_away
+          
+          - type: button
+            entity: group.selected_room_lights
+            name: Selected Room Lights
+            tap_action: !include popup/all_lights.yaml
+            # template:
+            #   - light
+              # - icon_hue
 
           - type: custom:button-card
             entity: script.goodnight

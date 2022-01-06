@@ -74,7 +74,7 @@ browser_mod:
         triggers_update:
           - sensor.hass_version_latest
           - sensor.hass_version_latest_beta
-        name: Uppdatera HASS
+        name: Update HASS
         icon: mdi:update
         styles:
           card:
@@ -126,7 +126,7 @@ browser_mod:
 
       - type: custom:button-card
         entity: sensor.hacs
-        name: Öppna HACS
+        name: Open HACS
         icon: mdi:open-in-new
         styles:
           card:

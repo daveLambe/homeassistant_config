@@ -511,16 +511,14 @@ light:
               color_temp: 153
           - action: call-service
             service: light.turn_on
-            # color: "#d5b08d"
-            hs_color: [286, 97]
+            color: "#c319fc"
             service_data:
               entity_id: >
                 [[[ return entity.entity_id ]]]
               color_temp: 326
           - action: call-service
             service: light.turn_on
-            # color: "#ce944b"
-            hs_color: [0, 100]
+            color: "#fc1919"
             service_data:
               entity_id: >
                 [[[ return entity.entity_id ]]]
