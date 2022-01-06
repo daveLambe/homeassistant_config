@@ -15,8 +15,8 @@ homeassistant:
 default_config:
 
 # group: !include groups.yaml
-# automation: !include automations.yaml
-# script: !include scripts.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
 # scene: !include scenes.yaml
 # camera: !include cameras.yaml
 # zone: !include zones.yaml
