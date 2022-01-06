@@ -75,15 +75,15 @@ browser_mod:
           #   icon: mdi:bluetooth
           #   style: *state
 
-          - entity: sensor.dave_last_update
-            name: Last Location Update
-            icon: custom:iphone-modern
-            style: *state
+      - entity: sensor.dave_last_update
+        name: Last Location Update
+        icon: custom:iphone-modern
+        style: *state
 
-          - entity: sensor.dave_last_change
-            name: Last Location Change
-            icon: custom:iphone-modern
-            style: *state
+      - entity: sensor.dave_last_change
+        name: Last Location Change
+        icon: custom:iphone-modern
+        style: *state
 
       - type: custom:button-card
         name: Play Audio on DaveCom
