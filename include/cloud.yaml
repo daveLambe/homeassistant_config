@@ -1,0 +1,114 @@
+cloud:
+  google_actions:
+    filter:
+      # include_domains:
+        # - light
+        # - camera
+        # - media_player
+        # - script
+        # - input_boolean
+        # - group
+      exclude_domains:
+        - light
+        - script
+        - scene
+        - switch
+        - input_select
+        - input_boolean
+        - media_player
+        - camera
+        - sensor
+        - group
+      include_entities:
+        - light.all_lights
+        - light.living_room_lights
+        - light.kitchen_lights
+        - light.bedroom_lights
+        - light.lightning_bolts
+        - light.chandelier
+        - light.tv
+        - light.lightning_purple_1
+        - light.lightning_purple_2
+        - light.lightning_red
+        - light.kitchen_east
+        - light.kitchen_west
+        - light.bedroom
+        - light.bed
+        - light.hallway
+        - light.bathroom
+        - switch.kettle
+        - input_boolean.delivery_mode
+        - input_boolean.vacation_mode
+      exclude_entities:
+        - lock.door
+    entity_config:
+      light.living_room_lights:
+        name: Living Room Lights
+        room: Living Room
+      light.kitchen_lights:
+        name: Kitchen Lights
+        room: Kitchen
+      light.bedroom_lights:
+        name: Bedroom Lights
+        room: Bedroom
+      light.lightning_bolts:
+        name: Lightning Bolts
+        room: Living Room
+      light.chandellier:
+        name: chandelier
+        aliases:
+          - chandelier
+          - the chandelier
+          - ceiling light
+        room: "Living Room"
+      light.tv:
+        name: TV
+        room: Living Room
+      light.lightning_purple_1:
+        name: Lightning Purple 1
+        room: Living Room
+      light.lightning_purple_2:
+        name: Lightning Purple 2
+        room: Living Room
+      light.lightning_red:
+        name: Lightning Red
+        room: Living Room
+      light.kitchen_east:
+        name: Kitchen East
+        room: Kitchen
+      light.kitchen_west:
+        name: Kitchen West
+        room: Kitchen
+      light.bedroom:
+        name: Bedroom Light
+        room: Bedroom
+      light.bed:
+        name: Bed Light
+        room: Bedroom
+      light.hallway:
+        name: Hallway Light
+        room: Hallway
+      light.bathroom:
+        name: Bathroom Light
+        room: Bathroom
+      switch.kettle:
+        name: Kettle
+        aliases:
+          - The Kettle
+          - The Kettle
+          - Teapot
+        room: "Kitchen"
+      input_boolean.delivery_mode:
+        name: Delivery Mode
+        room: Living Room
+      input_boolean.vacation_mode:
+        name: Vacation Mode
+        room: Living Room
+      # media_player.living_room_chromecast:
+      #   name: "Screen"
+      #   aliases:
+      #     - "On Screen"
+      #     - "Screen Media Player"
+      #     - "Security Screen"
+      #   room: "Living Room"
+      #       - light.all_lights

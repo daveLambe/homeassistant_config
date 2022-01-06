@@ -1,0 +1,44 @@
+# {{ expand(''group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights'')|map(attribute='entity_id')|list|join(', ') }}
+
+# {{ expand(''group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights'')|map(attribute='entity_id')|list|join(', ') }}
+# {{ (''light.'' ~ (states(''input_select.selectable_room'').lower()))
+#         | replace('' '', ''_'') ~''_lights'' }}
+
+# Output group entitity_ids as readable list
+# {{ expand('group.all_lights')|map(attribute='entity_id')|list|join(', ') }}
+
+# Output group names as readable list
+# {{ expand('group.all_lights')|map(attribute='name')|list|join(', ') }}
+
+# - data_template: >
+#     {% if is_state('input_boolean.your_input_boolean_here', 'on') %}
+#       notify.all_iphones
+#     {% else %}
+#       notify.some_iphones
+#     {% endif %}
+
+# service: group.set
+# data:
+#   object_id: selected_room_lights
+#   entities: >-
+#     {{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace('
+#     ', '_') ~'_lights' }}
+
+# service: group.set
+# data:
+#   object_id: light_group
+#   entities: >-
+#     {{ expand('group.kitchen_lights')|map(attribute='entity_id')|list|join(', ') }}
+
+# <<< Is this it? >>>
+# {{ expand('group.light_group') |map(attribute='entity_id')|list }}
+# {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list }}
+# {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(', ') }}
+# <<< Is this it? >>>
+
+# Taken from Dev Tools - I think the working one
+# service: group.set
+# data:
+#   object_id: light_group
+#   entities: >-
+#     {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(', ') }}

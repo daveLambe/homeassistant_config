@@ -1,0 +1,85 @@
+# android_ip_webcam:
+#   - host: !secret ip_androidcam1
+#     port: 8080
+#     username: !secret androidcam_username
+#     password: !secret androidcam_password
+#     name: androidcam1
+#     motion_sensor: true
+#     sensors:
+#       - audio_connections
+#       - battery_level
+#       - battery_temp
+#       - battery_voltage
+#       - light
+#       - motion
+#       - pressure
+#       - proximity
+#       - sound
+#       - video_connections
+#     switches:
+#       - exposure_lock
+#       - ffc
+#       - focus
+#       - gps_active
+#       - motion_detect
+#       - night_vision
+#       - overlay
+#       - torch
+#       - whitebalance_lock
+#       - video_recording
+#   - host: !secret ip_androidcam2
+#     port: 8080
+#     username: !secret androidcam_username
+#     password: !secret androidcam_password
+#     name: androidcam2
+#     motion_sensor: true
+#     sensors:
+#       - audio_connections
+#       - battery_level
+#       - battery_temp
+#       - battery_voltage
+#       - light
+#       - motion
+#       - pressure
+#       - proximity
+#       - sound
+#       - video_connections
+#     switches:
+#       - exposure_lock
+#       - ffc
+#       - focus
+#       - gps_active
+#       - motion_detect
+#       - night_vision
+#       - overlay
+#       - torch
+#       - whitebalance_lock
+#       - video_recording
+#   - host: !secret ip_androidcam3
+#     port: 8080
+#     username: !secret androidcam_username
+#     password: !secret androidcam_password
+#     name: androidcam3
+#     motion_sensor: true
+#     sensors:
+#       - audio_connections
+#       - battery_level
+#       - battery_temp
+#       - battery_voltage
+#       - light
+#       - motion
+#       - pressure
+#       - proximity
+#       - sound
+#       - video_connections
+#     switches:
+#       - exposure_lock
+#       - ffc
+#       - focus
+#       - gps_active
+#       - motion_detect
+#       - night_vision
+#       - overlay
+#       - torch
+#       - whitebalance_lock
+#       - video_recording
