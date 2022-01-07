@@ -79,25 +79,31 @@ views:
               #   hold_action:
               #     action: none
 
+              # - type: button
+              #   icon: mdi:cctv
+              #   tap_action:
+              #     action: fire-dom-event
+              #     browser_mod:
+              #       command: popup
+              #       title: Frigate
+              #       style: >
+              #         :host .content {
+              #           width: 75em;
+              #         }
+              #       card:
+              #         type: iframe
+              #         url: /ccab4aaf_frigate/dashboard
+              #         aspect_ratio: 65%
+              #         style: |
+              #           ha-card {
+              #             border-radius: 0 0 1em 1em;
+              #           }
+              #   hold_action:
+              #     action: none
+                  
               - type: button
                 icon: mdi:cctv
-                tap_action:
-                  action: fire-dom-event
-                  browser_mod:
-                    command: popup
-                    title: Frigate
-                    style: >
-                      :host .content {
-                        width: 75em;
-                      }
-                    card:
-                      type: iframe
-                      url: /ccab4aaf_frigate/dashboard
-                      aspect_ratio: 65%
-                      style: |
-                        ha-card {
-                          border-radius: 0 0 1em 1em;
-                        }
+                tap_action: !include popup/sidebar_security.yaml
                 hold_action:
                   action: none
 
@@ -551,6 +557,16 @@ views:
             entity: group.selected_room_lights
             name: Selected Room Lights
             tap_action: !include popup/all_lights.yaml
+            hold_action:
+              action: none
+            # template:
+            #   - light
+              # - icon_hue
+
+          # - type: button
+            # entity: group.selected_room_lights
+            # name: Cameras
+            # tap_action: !include popup/frigate_cards.yaml
             # template:
             #   - light
               # - icon_hue

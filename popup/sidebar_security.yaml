@@ -1,0 +1,247 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: " "
+  style:
+    .: |
+      :host .content {
+        width: calc(385px + 385px + 385px);
+        max-width: 90vw;
+      }
+    layout-card:
+      $grid-layout$:
+        hui-entities-card:
+          $: |
+            .card-content {
+              padding: 1.5em 2.7em 2.3em 2em;
+            }
+            ha-card {
+              animation: border 1s forwards;
+              border-radius: 0;
+            }
+            @keyframes border {
+              0%, 100% {
+                border-right: 1px solid rgba(0, 0, 0, 0.3);
+              }
+            }
+            /* phone */
+            @media screen and (max-width: 800px) {
+              ha-card {
+                animation: none;
+              }
+            }
+          $hui-horizontal-stack-card$: |
+            #root {
+              justify-content: space-evenly;
+              margin-top: 1.9em;
+              margin-left: 0.8em;
+            }
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: repeat(3, 1fr)
+      grid-template-rows: 1fr
+      grid-template-areas: |
+        "info indoor outdoor"
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-template-columns: 1fr
+          grid-template-rows: repeat(3, 1fr)
+          grid-template-areas: |
+            "info"
+            "indoor"
+            "outdoor"
+    cards:
+      #################################################
+      #                                               #
+      #                HOME ASSISTANT                 #
+      #                                               #
+      #################################################
+
+      - type: entities
+        view_layout:
+          grid-area: info
+        title: Security Status
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: section
+            label: Last Opened
+          - entity: binary_sensor.front_door_sensor_status
+            name: "Front Door"
+            secondary_info: last-changed
+          - entity: binary_sensor.window_living_room_south_status
+            name: Living Room (South) Window
+            secondary_info: last-changed
+
+          # - type: section
+          #   label: Last Detected Person
+          # - entity: binary_sensor.livingroom_person_motion
+          #   name: "Living Room"
+          #   secondary_info: last-changed
+
+          # - type: section
+          #   label: Last Detected Motion
+          # - entity: binary_sensor.amcrest_living_room_motion_detected
+          #   name: "Living Room"
+          #   secondary_info: last-changed
+          # - entity: binary_sensor.kitchen_sensor_motion_detected
+          #   name: "Kitchen"
+          #   secondary_info: last-changed
+          # - entity: binary_sensor.amcrest_bedroom_motion_detected
+          #   name: "Bedroom"
+          # secondary_info: last-changed
+          # - entity: sensor.front_door_last_motion
+          #   name: "Front Door"
+
+          - type: section
+            label: Camera Status
+          - entity: binary_sensor.amcrest_living_room_online
+            name: "Living Room Camera"
+            
+            
+      - type: entities
+        view_layout:
+          grid-area: indoor
+        title: Inside
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: section
+            label: Last Detected Person
+          - entity: binary_sensor.livingroom_person_motion
+            name: "Living Room"
+            secondary_info: last-changed
+
+          - type: section
+            label: Last Detected Motion
+          - entity: binary_sensor.amcrest_living_room_motion_detected
+            name: "Living Room"
+            secondary_info: last-changed
+          - entity: binary_sensor.kitchen_sensor_motion_detected
+            name: "Kitchen"
+            secondary_info: last-changed
+
+          - type: 'custom:frigate-card'
+            camera_entity: camera.livingroom
+            menu:
+              mode: hover-right
+            live:
+              provider: webrtc
+              webrtc:
+                entity: camera.webrtc_livingroom
+                
+      - type: entities
+        view_layout:
+          grid-area: outdoor
+        title: Outside
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: section
+            label: Last Detected Motion
+          - entity: sensor.front_door_last_motion
+            name: "Front Door"
+
+          - type: 'custom:frigate-card'
+            camera_entity: camera.street
+            menu:
+              mode: hover-right
+            live:
+              provider: webrtc
+              webrtc:
+                entity: camera.webrtc_street
+
+          - type: 'custom:frigate-card'
+            camera_entity: camera.street
+            menu:
+              mode: hover-right
+            live:
+              provider: webrtc
+              webrtc:
+                entity: camera.webrtc_driveway
+
+          - type: 'custom:frigate-card'
+            camera_entity: camera.driveway
+            menu:
+              mode: hover-right
+            live:
+              provider: webrtc
+              webrtc:
+                entity: camera.webrtc_driveway
+
+
+
+
+
+
+
+
+# action: fire-dom-event
+# browser_mod:
+#   command: popup
+#   title: Cameras
+#   style:
+#     .: |
+#       :host .content {
+#         width: 60em;
+#         height: 100%;
+#         padding: 2.1em 1.9em 1.9em 2.7em;
+#       }
+#     hui-grid-card:
+#       $: |
+#         button-card:nth-child(2), button-card:nth-child(4) {
+#           margin: 0.5em 0 3em 0.4em;
+#         }
+#         #root {
+#           grid-gap: 0 !important;
+#         }
+#   card:
+#     type: grid
+#     columns: 2
+#     square: false
+#     cards:
+#       - type: 'custom:frigate-card'
+#         camera_entity: camera.livingroom
+#         live:
+#           provider: webrtc
+#           webrtc:
+#             entity: camera.webrtc_livingroom
+            
+#       - type: 'custom:frigate-card'
+#         camera_entity: camera.street
+#         live:
+#           provider: webrtc
+#           webrtc:
+#             entity: camera.webrtc_street
+            
+#       - type: 'custom:frigate-card'
+#         camera_entity: camera.driveway
+#         live:
+#           provider: webrtc
+#           webrtc:
+#             entity: camera.webrtc_driveway
+            
+#       - type: 'custom:frigate-card'
+#         camera_entity: camera.backdoor
+#         live:
+#           provider: webrtc
+#           webrtc:
+#             entity: camera.webrtc_backdoor
