@@ -185,7 +185,7 @@ browser_mod:
             live:
               provider: webrtc
               webrtc:
-                entity: camera.cam_rtsp_backdoor
+                entity: camera.webrtc_backdoor
 
 
 

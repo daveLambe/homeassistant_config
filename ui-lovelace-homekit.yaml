@@ -9,7 +9,7 @@ views:
       grid-template-columns: repeat(4, 1fr) 0
       grid-template-rows: 0 repeat(2, fit-content(100%)) 0fr
       grid-template-areas: |
-        "sidebar  .           .       .         ."
+        "sidebar  .           .        .        ."
         "sidebar  livingroom  kitchen  bedroom  ."
         "sidebar  media       other    home     ."
         "sidebar  footer      footer   footer   ."
@@ -115,12 +115,15 @@ views:
 
               - type: button
                 icon: mdi:arrow-up-bold-circle-outline
-                tap_action: !include popup/sidebar_update.yaml
-                hold_action:
+                tap_action:
                   action: call-service
-                  service: homeassistant.update_entity
-                  service_data:
-                    entity_id: sensor.hacs
+                  service: frontend.reload_themes
+                # tap_action: !include popup/sidebar_update.yaml
+                # hold_action:
+                #   action: call-service
+                #   service: homeassistant.update_entity
+                #   service_data:
+                #     entity_id: sensor.hacs
 
       #################################################
       #                                               #
