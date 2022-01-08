@@ -11,12 +11,13 @@ frontend:
       card-background-color: '#1c1c1c'
       # primary-color: '#03a9f4'
       primary-color: "#d32f2f"
-      app-header-text-color: var(--primary-text-color)
+      app-header-text-color: var(--primary-background-color)
       # app-header-background-color: '#101e24'
       app-header-background-color: var(--primary-color)
       table-row-background-color: var(--primary-background-color)
       table-row-alternative-background-color: var(--secondary-background-color)
       sidebar-background-color: var(--card-background-color)
+      sidebar-icon-color: "#d3d3d3"
       # divider-color: rgba(225, 225, 225, 0.12)
       divider-color: var(--primary-color)
 

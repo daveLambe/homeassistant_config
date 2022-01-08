@@ -179,13 +179,13 @@ browser_mod:
                 entity: camera.webrtc_driveway
 
           - type: 'custom:frigate-card'
-            camera_entity: camera.driveway
+            camera_entity: camera.backdoor
             menu:
               mode: hover-right
             live:
               provider: webrtc
               webrtc:
-                entity: camera.webrtc_driveway
+                entity: camera.cam_rtsp_backdoor
 
 
 
