@@ -22,6 +22,14 @@ browser_mod:
         entities:
           - entity: person.ebony
             secondary_info: last-changed
+            
+          - entity: sensor.dave_last_update
+            name: Last Location Update
+            icon: custom:iphone-modern
+
+          - entity: sensor.dave_last_change
+            name: Last Location Change
+            icon: custom:iphone-modern
 
       - type: history-graph
         entities:
@@ -55,6 +63,12 @@ browser_mod:
               state-badge {
                 color: {{ '#3182b7' if is_state(config.entity, 'on') else '#3c3f3f' }};
               }
+
+      - type: map
+        default_zoom: 16
+        dark_mode: true
+        entities:
+          - device_tracker.ebonycom
 
           # - entity: device_tracker.ebonycom
           #   name: Position

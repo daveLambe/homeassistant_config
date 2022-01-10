@@ -52,12 +52,11 @@ browser_mod:
           class: content
         entities:
           - entity: person.dave
-            # secondary_info: last-changed
+            secondary_info: last-changed
             
           - entity: sensor.dave_last_update
             name: Last Location Update
             icon: custom:iphone-modern
-            # style: *state
 
           - entity: sensor.dave_last_change
             name: Last Location Change
@@ -73,8 +72,7 @@ browser_mod:
         entities:
           - entity: device_tracker.davecom
             name: Location
-            icon: custom:iphone-modern
-            # icon: mdi:wifi
+            icon: mdi:home
             style: &state |
               state-badge {
                 color: {{ '#3182b7' if is_state(config.entity, 'home') else '#3c3f3f' }};
