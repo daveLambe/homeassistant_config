@@ -53,6 +53,13 @@ browser_mod:
         entities:
           - entity: person.dave
             secondary_info: last-changed
+
+          - type: attribute
+            entity: device_tracker.davecom
+            attribute: last-updated
+
+          - entity: device_tracker.davecom
+            
             
           - entity: sensor.dave_last_update
             name: Last Location Update

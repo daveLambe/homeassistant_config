@@ -84,6 +84,9 @@ browser_mod:
 
           - entity: sensor.uptime
 
+          - entity: sensor.front_door_battery
+            name: Doorbell Battery %
+
           - type: custom:bar-card
             width: 55%
             height: 2em

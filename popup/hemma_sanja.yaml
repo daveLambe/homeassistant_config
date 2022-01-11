@@ -23,11 +23,11 @@ browser_mod:
           - entity: person.ebony
             secondary_info: last-changed
             
-          - entity: sensor.dave_last_update
+          - entity: sensor.ebony_last_update
             name: Last Location Update
             icon: custom:iphone-modern
 
-          - entity: sensor.dave_last_change
+          - entity: sensor.ebony_last_change
             name: Last Location Change
             icon: custom:iphone-modern
 
