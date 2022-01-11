@@ -109,8 +109,8 @@ views:
         cards:
 
           - type: custom:button-card
-            entity: light.vardagsrum_group #hue_group
-            name: Belysning
+            entity: light.tv #hue_group
+            name: TV
             template:
               - light
               - icon_hue
@@ -443,8 +443,8 @@ views:
         cards:
 
           - type: custom:button-card
-            entity: person.matte
-            name: Mattias
+            entity: person.dave
+            name: Dave
             triggers_update:
               - sensor.matte_last_changed
             tap_action:
@@ -456,8 +456,8 @@ views:
             template: person
 
           - type: custom:button-card
-            entity: person.sanja
-            name: Sanja
+            entity: person.ebony
+            name: Ebony
             triggers_update:
               - sensor.sanja_last_changed
             tap_action:
