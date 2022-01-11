@@ -92,13 +92,13 @@ lovelace:
       show_in_sidebar: true
       require_admin: false
       mode: yaml
-    lovelace-guest:
-      title: "Guest"
-      icon: "mdi:account-group-outline"
-      filename: ui-lovelace-guest.yaml
-      show_in_sidebar: false
-      require_admin: false
-      mode: yaml
+    # lovelace-guest:
+    #   title: "Guest"
+    #   icon: "mdi:account-group-outline"
+    #   filename: ui-lovelace-guest.yaml
+    #   show_in_sidebar: false
+    #   require_admin: false
+    #   mode: yaml
     lovelace-main:
       title: "V2"
       icon: mdi:hexagram
@@ -110,6 +110,13 @@ lovelace:
       title: "HomeKit"
       icon: mdi:apple-ios
       filename: ui-lovelace-homekit.yaml
+      show_in_sidebar: false
+      require_admin: true
+      mode: yaml
+    lovelace-example:
+      title: "Example"
+      icon: mdi:apple-ios
+      filename: ui-lovelace-example.yaml
       show_in_sidebar: false
       require_admin: true
       mode: yaml
