@@ -17,6 +17,12 @@ zone:
     longitude: !secret zone_noodle_house_long
     radius: 100
     icon: mdi:noodles
+    
+  - name: "Ebony Work"
+    latitude: !secret zone_ebony_work_lat
+    longitude: !secret zone_ebony_work_long
+    radius: 100
+    icon: mdi:coffee
 
   - name: "Deandre"
     latitude: !secret zone_deandre_lat
@@ -24,8 +30,14 @@ zone:
     radius: 100
     icon: mdi:campfire
 
-  - name: "Jaz"
+  - name: "Daycare"
     latitude: !secret zone_jaz_lat
     longitude: !secret zone_jaz_long
     radius: 100
-    icon: mdi:glasses
+    icon: mdi:baby-bottle-outline
+
+  - name: "Wayside (Lambe House)"
+    latitude: !secret zone_wayside_lat
+    longitude: !secret zone_wayside_long
+    radius: 100
+    icon: mdi:sheep

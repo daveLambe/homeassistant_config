@@ -54,22 +54,23 @@ browser_mod:
           - entity: person.dave
             secondary_info: last-changed
 
-          - type: attribute
+          - type: custom:button-card
             entity: device_tracker.davecom
-            attribute: last-updated
+            name: Location Last Changed
+            show_last_changed: true
 
-          - entity: device_tracker.davecom
+          # - entity: device_tracker.davecom
             
             
-          - entity: sensor.dave_last_update
-            name: Last Location Update
-            icon: custom:iphone-modern
+          # - entity: sensor.dave_last_update
+          #   name: Last Location Update
+          #   icon: custom:iphone-modern
 
-          - entity: sensor.dave_last_change
-            name: Last Location Change
-            icon: custom:iphone-modern
+          # - entity: sensor.dave_last_change
+          #   name: Last Location Change
+          #   icon: custom:iphone-modern
             # style: *state
-
+            
       - type: history-graph
         entities:
           - entity: person.dave
@@ -83,6 +84,22 @@ browser_mod:
             style: &state |
               state-badge {
                 color: {{ '#3182b7' if is_state(config.entity, 'home') else '#3c3f3f' }};
+              }
+
+          - entity: sensor.davecom_battery_state
+            name: Charging
+            icon: mdi:power-plug
+            style: |
+              state-badge {
+                color: {{ '#3182b7' if is_state(config.entity, 'charging') else '#3c3f3f' }};
+              }
+
+          - entity: sensor.davecom_connection_type
+            name: WIFI
+            icon: mdi:wifi
+            style: |
+              state-badge {
+                color: {{ '#3182b7' if is_state(config.entity, 'Wi-Fi') else '#3c3f3f' }};
               }
 
           # - entity: device_tracker.davecom

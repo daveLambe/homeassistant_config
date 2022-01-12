@@ -519,7 +519,7 @@ views:
             name: Dave
             triggers_update:
               - sensor.matte_last_changed
-            tap_action: !include popup/hemma_mattias.yaml
+            tap_action: !include popup/person_dave.yaml
             hold_action:
               action: none
             variables:
