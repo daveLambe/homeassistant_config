@@ -21,15 +21,33 @@ browser_mod:
           class: content
         entities:
           - entity: person.ebony
-            secondary_info: last-changed
+            secondary_info: none
             
-          - entity: sensor.ebony_last_update
-            name: Last Location Update
-            icon: custom:iphone-modern
+          - type: custom:button-card
+            entity: person.ebony
+            # name: >
+            #   [[[ return 'Location Last Changed: ' + states[entity.entity_id].last_changed ]]]
+            name: "Location Last Changed:"
+            show_last_changed: true
+            show_icon: false
+            layout: icon_name_state
 
-          - entity: sensor.ebony_last_change
-            name: Last Location Change
-            icon: custom:iphone-modern
+          - type: custom:button-card
+            entity: device_tracker.ebonycom
+            name: "Location Last Updated:"
+            # name: >
+            #   [[[ return 'Last Updated: ' + states[entity.entity_id].last_changed ]]]
+            show_last_changed: true
+            show_icon: false
+            layout: icon_name_state
+            
+          # - entity: sensor.ebony_last_update
+          #   name: Last Location Update
+          #   icon: custom:iphone-modern
+
+          # - entity: sensor.ebony_last_change
+          #   name: Last Location Change
+          #   icon: custom:iphone-modern
 
       - type: history-graph
         entities:

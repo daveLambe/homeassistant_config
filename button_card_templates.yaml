@@ -562,6 +562,9 @@ person:
       if (variables.state === 'home') {
         return 'Home';
       }
+      if (variables.state === 'Ebony Work') {
+        return 'Work';
+      }
       if (variables.state === 'not_home') {
         return 'Away';
       }

@@ -56,17 +56,21 @@ browser_mod:
 
           - type: custom:button-card
             entity: person.dave
-            name: >
-              [[[ return 'Location Last Changed: ' + states[entity.entity_id].last_changed ]]]
+            # name: >
+            #   [[[ return 'Location Last Changed: ' + states[entity.entity_id].last_changed ]]]
+            name: "Location Last Changed:"
             show_last_changed: true
             show_icon: false
+            layout: icon_name_state
 
           - type: custom:button-card
             entity: device_tracker.davecom
-            name: >
-              [[[ return 'Last Updated: ' + states[entity.entity_id].last_changed ]]]
+            name: "Location Last Updated:"
+            # name: >
+            #   [[[ return 'Last Updated: ' + states[entity.entity_id].last_changed ]]]
             show_last_changed: true
             show_icon: false
+            layout: icon_name_state
 
               # let time = c => {
               #   let s = (c/1e3), m = (c/6e4), h = (c/36e5), d = (c/864e5);
