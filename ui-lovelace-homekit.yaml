@@ -538,6 +538,43 @@ views:
               retain: sensor.sanja_last_changed
             template: person
 
+          - type: custom:button-card
+            entity: light.selected_room
+            name: Selected Room Lights
+            template:
+              - light
+              - icon_hue
+
+          - type: custom:button-card
+            entity: >
+              [[[
+                var entity_id = 'input_select.selectable_room';
+                return states[entity_id] === undefined ? 'Fail' : 'light.' + states[entity_id].state.toLowerCase().replace(/ /g, "_") + '_lights';
+              ]]]
+            name: >
+              [[[
+                var entity_id = 'input_select.selectable_room';
+                return states[entity_id] === undefined ? 'Fail' : states[entity_id].state + ' Lights';
+              ]]]
+            template:
+              - light
+              - icon_hue
+              
+              
+          # let room = states[input_select.selectable_room].state.toLowerCase().replace(/ /g, "_");
+          # return 'light.' + room + '_lights';
+
+          # - type: custom:button-card
+          #   entity: script.goodnight
+          #   name: Goodnight
+          #   hold_action:
+          #     action: none
+          #   template:
+          #     - base
+          #     - icon_home
+              
+              
+
           # - type: custom:button-card
           #   entity: script.home_leave
           #   name: Stäng allt
@@ -555,16 +592,6 @@ views:
           #   template:
           #     - base
           #     - icon_away
-          
-          - type: custom:button-card
-            entity: light.selected_room
-            name: Selected Room Lights
-           # tap_action: !include popup/all_lights.yaml
-           # hold_action:
-            #  action: none
-            template:
-              - light
-              - icon_hue
 
           # - type: button
             # entity: group.selected_room_lights
@@ -573,15 +600,6 @@ views:
             # template:
             #   - light
               # - icon_hue
-
-          - type: custom:button-card
-            entity: script.goodnight
-            name: Goodnight
-            hold_action:
-              action: none
-            template:
-              - base
-              - icon_home
 
       #################################################
       #                                               #
