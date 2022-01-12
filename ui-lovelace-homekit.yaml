@@ -518,7 +518,7 @@ views:
             entity: person.dave
             name: Dave
             triggers_update:
-              - sensor.matte_last_changed
+              - device_tracker.davecom
             tap_action: !include popup/person_dave.yaml
             hold_action:
               action: none
@@ -530,7 +530,7 @@ views:
             entity: person.ebony
             name: Ebony
             triggers_update:
-              - sensor.sanja_last_changed
+              - device_tracker.ebonycom
             tap_action: !include popup/hemma_sanja.yaml
             hold_action:
               action: none

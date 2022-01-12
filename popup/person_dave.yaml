@@ -52,12 +52,26 @@ browser_mod:
           class: content
         entities:
           - entity: person.dave
-            secondary_info: last-changed
+            secondary_info: none
+
+          - type: custom:button-card
+            entity: person.dave
+            name: >
+              [[[ return 'Location Last Changed: ' + states[entity.entity_id].last_changed ]]]
+            show_last_changed: true
+            show_icon: false
 
           - type: custom:button-card
             entity: device_tracker.davecom
-            name: Location Last Changed
+            name: >
+              [[[ return 'Last Updated: ' + states[entity.entity_id].last_changed ]]]
             show_last_changed: true
+            show_icon: false
+
+              # let time = c => {
+              #   let s = (c/1e3), m = (c/6e4), h = (c/36e5), d = (c/864e5);
+              #   return s < 60 ? parseInt(s) + 's' : m < 60 ? parseInt(m) + 'm' : h < 24 ? parseInt(h) + 'h' : parseInt(d) + 'd';
+              # };
 
           # - entity: device_tracker.davecom
             
@@ -91,7 +105,7 @@ browser_mod:
             icon: mdi:power-plug
             style: |
               state-badge {
-                color: {{ '#3182b7' if is_state(config.entity, 'charging') else '#3c3f3f' }};
+                color: {{ '#3182b7' if is_state(config.entity, 'Charging') else '#3c3f3f' }};
               }
 
           - entity: sensor.davecom_connection_type
