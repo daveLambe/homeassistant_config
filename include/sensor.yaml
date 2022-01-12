@@ -46,21 +46,21 @@ sensor:
       selected_light_rgb_color:
         value_template: "{{ states.light.all_lights.attributes.rgb_color }}"
 
-      dave_last_change:
-        value_template: >
-          {{ relative_time(states.device_tracker.davecom.last_changed) }}
+      # dave_last_change:
+      #   value_template: >
+      #     {{ relative_time(states.device_tracker.davecom.last_changed) }}
 
-      dave_last_update:
-        value_template: >
-          {{ relative_time(states.device_tracker.davecom.last_updated) }}
+      # dave_last_update:
+      #   value_template: >
+      #     {{ relative_time(states.device_tracker.davecom.last_updated) }}
 
-      ebony_last_change:
-        value_template: >
-          {{ relative_time(states.device_tracker.ebonycom.last_changed) }}
+      # ebony_last_change:
+      #   value_template: >
+      #     {{ relative_time(states.device_tracker.ebonycom.last_changed) }}
 
-      ebony_last_update:
-        value_template: >
-          {{ relative_time(states.device_tracker.ebonycom.last_updated) }}
+      # ebony_last_update:
+      #   value_template: >
+      #     {{ relative_time(states.device_tracker.ebonycom.last_updated) }}
 
       # ebony_last_change:
       #   device_class: timestamp

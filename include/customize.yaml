@@ -79,13 +79,13 @@ homeassistant:
     script.dinner_and_a_movie:
       icon: mdi:food-fork-drink
     # sensor
-    sensor.dave_last_update:
+    sensor.dave_last_changed:
       icon: fas:search-location
-    sensor.dave_last_change:
+    sensor.dave_last_updated:
       icon: fas:search-location
-    sensor.ebony_last_update:
+    sensor.ebony_last_changed:
       icon: fas:search-location
-    sensor.ebony_last_change:
+    sensor.ebony_last_updated:
       icon: fas:search-location
     # #light
     # light.vardagsrum_group:

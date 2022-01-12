@@ -391,6 +391,38 @@ template:
     #   attributes:
     #     friendly_name: Systemhälsa
 
+    - unique_id: dave_last_changed
+      device_class: timestamp
+      state: >
+        {% set ts_zoned = as_timestamp(states.person.dave.last_changed) | timestamp_custom('%Y-%m-%dT%H:%M:%S%z') %}
+        {{ ts_zoned[:-2] ~ ':' ~ ts_zoned[-2:] }}
+      attributes:
+        friendly_name: Dave last changed
+
+    - unique_id: dave_last_updated
+      device_class: timestamp
+      state: >
+        {% set ts_zoned = as_timestamp(states.device_tracker.davecom.last_changed) | timestamp_custom('%Y-%m-%dT%H:%M:%S%z') %}
+        {{ ts_zoned[:-2] ~ ':' ~ ts_zoned[-2:] }}
+      attributes:
+        friendly_name: Dave last updated
+
+    - unique_id: ebony_last_changed
+      device_class: timestamp
+      state: >
+        {% set ts_zoned = as_timestamp(states.person.ebony.last_changed) | timestamp_custom('%Y-%m-%dT%H:%M:%S%z') %}
+        {{ ts_zoned[:-2] ~ ':' ~ ts_zoned[-2:] }}
+      attributes:
+        friendly_name: Ebony last changed
+
+    - unique_id: ebony_last_updated
+      device_class: timestamp
+      state: >
+        {% set ts_zoned = as_timestamp(states.device_tracker.ebonycom.last_changed) | timestamp_custom('%Y-%m-%dT%H:%M:%S%z') %}
+        {{ ts_zoned[:-2] ~ ':' ~ ts_zoned[-2:] }}
+      attributes:
+        friendly_name: Ebony last updated
+
     - unique_id: hass_version
       icon: mdi:home-assistant
       state: >
