@@ -556,15 +556,15 @@ views:
           #     - base
           #     - icon_away
           
-          - type: button
-            entity: group.selected_room_lights
+          - type: custom:button-card
+            entity: light.selected_room
             name: Selected Room Lights
-            tap_action: !include popup/all_lights.yaml
-            hold_action:
-              action: none
-            # template:
-            #   - light
-              # - icon_hue
+           # tap_action: !include popup/all_lights.yaml
+           # hold_action:
+            #  action: none
+            template:
+              - light
+              - icon_hue
 
           # - type: button
             # entity: group.selected_room_lights
