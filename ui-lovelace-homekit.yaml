@@ -539,8 +539,8 @@ views:
             template: person
 
           - type: custom:button-card
-            entity: light.selected_room
-            name: Selected Room Lights
+            entity: light.all_lights
+            name: All Lights
             template:
               - light
               - icon_hue
@@ -548,8 +548,9 @@ views:
           - type: custom:button-card
             entity: >
               [[[
-                var entity_id = 'input_select.selectable_room';
-                return states[entity_id] === undefined ? 'Fail' : 'light.' + states[entity_id].state.toLowerCase().replace(/ /g, "_") + '_lights';
+                let entity_id = 'input_select.selectable_room';
+                let room_light = 'light.' + states[entity_id].state.toLowerCase().replace(/ /g, "_") + '_lights';
+                return states[room_light].entity_id;
               ]]]
             name: >
               [[[
@@ -559,6 +560,66 @@ views:
             template:
               - light
               - icon_hue
+              
+          - type: horizontal-stack
+            cards:
+
+              - type: conditional
+                conditions:
+                  - entity: input_select.selectable_room
+                    state: All
+                card:
+                  type: custom:button-card
+                  entity: light.all_lights
+                  tap_action:
+                    action: none
+                  template:
+                    - light
+                    - icon_hue
+
+              - type: conditional
+                conditions:
+                  - entity: input_select.selectable_room
+                    state: Living Room
+                card:
+                  type: custom:button-card
+                  entity: light.living_room_lights
+                  template:
+                    - light
+                    - icon_hue
+
+              - type: conditional
+                conditions:
+                  - entity: input_select.selectable_room
+                    state: Kitchen
+                card:
+                  type: custom:button-card
+                  entity: light.kitchen_lights
+                  template:
+                    - light
+                    - icon_hue
+
+              - type: conditional
+                conditions:
+                  - entity: input_select.selectable_room
+                    state: Living Room And Kitchen
+                card:
+                  type: custom:button-card
+                  entity: light.living_room_and_kitchen_lights
+                  template:
+                    - light
+                    - icon_hue
+
+              - type: conditional
+                conditions:
+                  - entity: input_select.selectable_room
+                    state: Bedroom
+                card:
+                  type: custom:button-card
+                  entity: light.bedroom_lights
+                  template:
+                    - light
+                    - icon_hue
               
               
           # let room = states[input_select.selectable_room].state.toLowerCase().replace(/ /g, "_");
