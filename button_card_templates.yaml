@@ -164,10 +164,10 @@ base:
 #################################################
 container:
   color_type: label-card
-  color: dimgray
+  color: var(--primary-background-color)
   styles:
     card:
-      - color: "#9da0a2"
+      - background-color: var(--primary-background-color)
       - border-radius: 0.6em
       - padding: 1em 1.4em 1em 1.2em
       - width: max-content
@@ -673,6 +673,15 @@ light:
                 smooth_color_wheel: true
                 persist_features: true
                 consolidate_entities: false
+                
+# light_custom:
+#   template:
+#     - base
+#     - circle
+#   aspect_ratio: 3/1
+#   variables:
+#     circle_input: >
+#       [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
 
 light_selected:
   template:
