@@ -54,32 +54,6 @@ browser_mod:
           - entity: person.dave
             secondary_info: none
 
-          - type: custom:button-card
-            entity: person.dave
-            # name: >
-            #   [[[ return 'Location Last Changed: ' + states[entity.entity_id].last_changed ]]]
-            name: "Location Last Changed:"
-            show_last_changed: true
-            show_icon: false
-            # layout: icon_name_state
-
-          - type: custom:button-card
-            entity: device_tracker.davecom
-            name: "Location Last Updated:"
-            # name: >
-            #   [[[ return 'Location last updated: ' + states[entity.entity_id].last_changed ]]]
-            show_last_changed: true
-            show_icon: false
-            # layout: icon_name_state
-
-              # let time = c => {
-              #   let s = (c/1e3), m = (c/6e4), h = (c/36e5), d = (c/864e5);
-              #   return s < 60 ? parseInt(s) + 's' : m < 60 ? parseInt(m) + 'm' : h < 24 ? parseInt(h) + 'h' : parseInt(d) + 'd';
-              # };
-
-          # - entity: device_tracker.davecom
-            
-            
           # - entity: sensor.dave_last_update
           #   name: Last Location Update
           #   icon: custom:iphone-modern
@@ -88,10 +62,28 @@ browser_mod:
           #   name: Last Location Change
           #   icon: custom:iphone-modern
             # style: *state
-            
+
       - type: history-graph
         entities:
           - entity: person.dave
+
+      - type: entities
+        card_mod:
+          class: content
+        entities:
+          - type: custom:button-card
+            entity: person.dave
+            name: "Last Change:"
+            icon: mdi:map-marker-alert-outline
+            show_last_changed: true
+            template: icon_name
+
+          - type: custom:button-card
+            entity: device_tracker.davecom
+            name: "Last Update:"
+            icon: mdi:map-marker-check-outline
+            show_last_changed: true
+            template: icon_name
 
       - type: glance
         show_state: false
@@ -120,13 +112,6 @@ browser_mod:
                 color: {{ '#3182b7' if is_state(config.entity, 'Wi-Fi') else '#3c3f3f' }};
               }
 
-          # - entity: device_tracker.davecom
-          #   name: Bluetooth
-          #   icon: mdi:bluetooth
-          #   style: *state
-
-
-
       - type: custom:button-card
         name: Play Audio on DaveCom
         icon: mdi:volume-high
@@ -147,5 +132,6 @@ browser_mod:
       - type: map
         default_zoom: 16
         dark_mode: true
+        hours_to_show: 24
         entities:
           - device_tracker.davecom
