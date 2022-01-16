@@ -84,7 +84,7 @@ views:
                   tap_action:
                     action: none
                   template:
-                    - light
+                    - light_selected
                     - icon_hue
 
               - type: conditional
