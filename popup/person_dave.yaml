@@ -66,22 +66,39 @@ browser_mod:
       - type: history-graph
         entities:
           - entity: person.dave
+          
+      - type: custom:button-card
+        # entity: person.dave
+        entity: sensor.dave_last_changed_formatted
+        name: "Last Change:"
+        icon: mdi:map-marker-alert-outline
+        styles:
+          card:
+            - width: max-content
+        # show_last_changed: true
+        template: icon_name_state
 
       - type: entities
-        card_mod:
-          class: content
+        # card_mod:
+        #   class: content
         entities:
           - type: custom:button-card
             entity: person.dave
             name: "Last Change:"
             icon: mdi:map-marker-alert-outline
-            show_last_changed: true
-            template: icon_name
+            styles:
+              card:
+                - width: max-content
+            # show_last_changed: true
+            template: icon_name_state
 
           - type: custom:button-card
             entity: device_tracker.davecom
             name: "Last Update:"
             icon: mdi:map-marker-check-outline
+            styles:
+              card:
+                - width: max-content
             show_last_changed: true
             template: icon_name
 

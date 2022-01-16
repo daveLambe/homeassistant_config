@@ -58,6 +58,86 @@ views:
           - type: custom:button-card
             entity: sensor.template_sidebar
             template: sidebar_template
+            
+          - type: entities
+            entities:
+              - entity: input_select.selectable_room
+                name: "Select Room.."
+                icon: "mdi:floor-plan"
+                
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: All
+            card:
+              type: "custom:slider-entity-row"
+              entity: light.all_lights
+              step: 1
+              name: " "
+              grow: true
+
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Living Room
+            card:
+              type: "custom:slider-entity-row"
+              entity: light.living_room_lights
+              step: 1
+              name: " "
+              grow: true
+
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Kitchen
+            card:
+              type: "custom:slider-entity-row"
+              entity: light.kitchen_lights
+              step: 1
+              name: " "
+              grow: true
+
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Living Room And Kitchen
+            card:
+              type: "custom:slider-entity-row"
+              entity: light.living_room_and_kitchen_lights
+              step: 1
+              name: " "
+              grow: true
+
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Bedroom
+            card:
+              type: "custom:slider-entity-row"
+              entity: light.bedroom_lights
+              step: 1
+              name: " "
+              grow: true
+
+          - type: "custom:rgb-light-card"
+            entity: light.all_lights
+            justify: "around"
+            colors:
+              - brightness: 181
+                color_temp: 200
+                icon_color: '#FFFFFF'
+              - brightness: 90
+                color_temp: 370
+              - hs_color: [286, 97]
+              - hs_color: [0, 100]
+              - hs_color: [220, 100]
+              - type: call-service
+                label: "Off"
+                icon_color: 'center no-repeat url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20version%3D%221.1%22%20id%3D%22mdi-lightbulb%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23d32f2f%22%20d%3D%22M12%2C2A7%2C7%200%200%2C0%205%2C9C5%2C11.38%206.19%2C13.47%208%2C14.74V17A1%2C1%200%200%2C0%209%2C18H15A1%2C1%200%200%2C0%2016%2C17V14.74C17.81%2C13.47%2019%2C11.38%2019%2C9A7%2C7%200%200%2C0%2012%2C2M9%2C21A1%2C1%200%200%2C0%2010%2C22H14A1%2C1%200%200%2C0%2015%2C21V20H9V21Z%22%20%2F%3E%3C%2Fsvg%3E"), #111111'
+                service: light.turn_off
+                service_data:
+                  entity_id: light.selected_room
 
           # - type: conditional
           #   conditions:
@@ -73,103 +153,107 @@ views:
           #   cards:
 
       # Container: Selectable Room
-          - type: custom:button-card
-            name: Master Light Control
-            template: container
-            custom_fields:
-              buttons:
-                card:
-                  type: vertical-stack
-                  cards:
-                    - type: entities
-                      show_header_toggle: false
-                      entities:
-                        - entity: input_select.selectable_room
-                          name: "Select Room.."
-                          icon: "mdi:floor-plan"
+          # - type: custom:button-card
+          #   name: Master Light Control
+          #   template: container
+          #   custom_fields:
+          #     buttons:
+          #       card:
+          #         type: vertical-stack
+          #         cards:
+          #           - type: entities
+          #             show_header_toggle: false
+          #             entities:
+          #               - entity: input_select.selectable_room
+          #                 name: "Select Room.."
+          #                 icon: "mdi:floor-plan"
+                          
+          #               - type: conditional
+          #                 conditions:
+          #                   - entity: input_select.selectable_room
+          #                     state: All
+          #                 card:
+          #                   - type: "custom:slider-entity-row"
+          #                     entity: light.all_lights
+          #                     step: 1
 
-                        - type: "custom:slider-entity-row"
-                          entity: light.all_lights
-                          step: 1
-
-                        - type: "custom:rgb-light-card"
-                          entity: light.all_lights
-                          justify: "around"
-                          colors:
-                            - label: "Morning"
-                              brightness: 181
-                              color_temp: 200
-                            - label: "Evening"
-                              brightness: 90
-                              color_temp: 370
-                            - hs_color: [286, 97]
-                            - hs_color: [0, 100]
-                            - hs_color: [220, 100]
-                            - type: call-service
-                              label: "Off"
-                              icon_color: rgba(255, 0, 0, 0)
-                              service: light.turn_off
-                              service_data:
-                                entity_id: light.all_lights
+          #               - type: "custom:rgb-light-card"
+          #                 entity: light.all_lights
+          #                 justify: "around"
+          #                 colors:
+          #                   - brightness: 181
+          #                     color_temp: 200
+          #                     icon_color: '#FFFFFF'
+          #                   - brightness: 90
+          #                     color_temp: 370
+          #                   - hs_color: [286, 97]
+          #                   - hs_color: [0, 100]
+          #                   - hs_color: [220, 100]
+          #                   - type: call-service
+          #                     label: "Off"
+          #                     icon_color: 'center no-repeat url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20version%3D%221.1%22%20id%3D%22mdi-lightbulb%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23d32f2f%22%20d%3D%22M12%2C2A7%2C7%200%200%2C0%205%2C9C5%2C11.38%206.19%2C13.47%208%2C14.74V17A1%2C1%200%200%2C0%209%2C18H15A1%2C1%200%200%2C0%2016%2C17V14.74C17.81%2C13.47%2019%2C11.38%2019%2C9A7%2C7%200%200%2C0%2012%2C2M9%2C21A1%2C1%200%200%2C0%2010%2C22H14A1%2C1%200%200%2C0%2015%2C21V20H9V21Z%22%20%2F%3E%3C%2Fsvg%3E"), #111111'
+          #                     service: light.turn_off
+          #                     service_data:
+          #                       entity_id: light.selected_room
 
       # Conditional: Selectable Room
 
-          - type: conditional
-            conditions:
-              - entity: input_select.selectable_room
-                state: All
-            card:
-              type: custom:button-card
-              entity: light.all_lights
-              tap_action:
-                action: none
-              template:
-                - light_selected
-                - icon_hue
+          # - type: conditional
+          #   conditions:
+          #     - entity: input_select.selectable_room
+          #       state: All
+          #   card:
+          #     type: custom:button-card
+          #     entity: light.all_lights
+          #     tap_action:
+          #       action: none
+          #     template:
+          #       - light_selected
+          #       - icon_hue
 
-          - type: conditional
-            conditions:
-              - entity: input_select.selectable_room
-                state: Living Room
-            card:
-              type: custom:button-card
-              entity: light.living_room_lights
-              template:
-                - light
-                - icon_hue
+          # - type: conditional
+          #   conditions:
+          #     - entity: input_select.selectable_room
+          #       state: Living Room
+          #   card:
+          #     type: custom:button-card
+          #     entity: light.living_room_lights
+          #     template:
+          #       - light
+          #       - icon_hue
 
-          - type: conditional
-            conditions:
-              - entity: input_select.selectable_room
-                state: Kitchen
-            card:
-              type: custom:button-card
-              entity: light.kitchen_lights
-              template:
-                - light
-                - icon_hue
+          # - type: conditional
+          #   conditions:
+          #     - entity: input_select.selectable_room
+          #       state: Kitchen
+          #   card:
+          #     type: custom:button-card
+          #     entity: light.kitchen_lights
+          #     template:
+          #       - light
+          #       - icon_hue
 
-          - type: conditional
-            conditions:
-              - entity: input_select.selectable_room
-                state: Living Room And Kitchen
-            card:
-              type: custom:button-card
-              entity: light.living_room_and_kitchen_lights
-              template:
-                - light
-                - icon_hue
+          # - type: conditional
+          #   conditions:
+          #     - entity: input_select.selectable_room
+          #       state: Living Room And Kitchen
+          #   card:
+          #     type: custom:button-card
+          #     entity: light.living_room_and_kitchen_lights
+          #     template:
+          #       - light
+          #       - icon_hue
 
-          - type: conditional
-            conditions:
-              - entity: input_select.selectable_room
-                state: Bedroom
-            card:
-              type: custom:button-card
-              entity: light.bedroom_lights
-              template:
-                - light
-                - icon_hue
+          # - type: conditional
+          #   conditions:
+          #     - entity: input_select.selectable_room
+          #       state: Bedroom
+          #   card:
+          #     type: custom:button-card
+          #     entity: light.bedroom_lights
+          #     template:
+          #       - light
+          #       - icon_hue
                 
                 
       # Conditional: Selectable Light
