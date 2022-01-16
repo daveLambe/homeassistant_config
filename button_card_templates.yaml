@@ -159,6 +159,60 @@ base:
 
 #################################################
 #                                               #
+#                    CONTAINER                  #
+#                                               #
+#################################################
+container:
+  color_type: label-card
+  color: dimgray
+  styles:
+    card:
+      - color: "#9da0a2"
+      - border-radius: 0.6em
+      - padding: 1em 1.4em 1em 1.2em
+      - width: max-content
+      - font-size: 1.06em
+      - font-weight: 500
+      - letter-spacing: 0.015em
+      - background: "#FFFFFF10"
+    name:
+      - border-radius: 0.4em 0.4em 0 0
+      - padding: 0.1em
+      - width: 100%
+      - font-weight: bold
+    grid:
+      - grid-template-areas: '"i" "n" "buttons"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    custom_fields:
+      buttons:
+        - background-color: 'rgba(0,0,0,0.3)'
+        - margin: 0
+        - padding: 0.3em
+
+example_container:
+  color_type: label-card
+  color: dimgray
+  styles:
+    card:
+      - padding: 0
+    name:
+      - border-radius: 0.4em 0.4em 0 0
+      - padding: 0.1em
+      - width: 100%
+      - font-weight: bold
+    grid:
+      - grid-template-areas: '"i" "n" "buttons"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+    custom_fields:
+      buttons:
+        - background-color: 'rgba(0,0,0,0.3)'
+        - margin: 0
+        - padding: 0.3em
+
+#################################################
+#                                               #
 #                    SIDEBAR                    #
 #                                               #
 #################################################
@@ -624,6 +678,7 @@ light_selected:
   template:
     - base
     - circle
+  aspect_ratio: 3/1
   variables:
     circle_input: >
       [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
