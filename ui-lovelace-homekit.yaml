@@ -69,160 +69,160 @@ views:
           #     template: laundry
 
           # - type: grid
-          - type: horizontal-stack
-            cards:
-            
-          # Conditional: Selectable Room
+          # - type: horizontal-stack
+          #   cards:
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_room
-                    state: All
-                card:
-                  type: custom:button-card
-                  entity: light.all_lights
-                  tap_action:
-                    action: none
-                  template:
-                    - light_selected
-                    - icon_hue
+      # Conditional: Selectable Room
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_room
-                    state: Living Room
-                card:
-                  type: custom:button-card
-                  entity: light.living_room_lights
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: All
+            card:
+              type: custom:button-card
+              entity: light.all_lights
+              tap_action:
+                action: none
+              template:
+                - light_selected
+                - icon_hue
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_room
-                    state: Kitchen
-                card:
-                  type: custom:button-card
-                  entity: light.kitchen_lights
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Living Room
+            card:
+              type: custom:button-card
+              entity: light.living_room_lights
+              template:
+                - light
+                - icon_hue
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_room
-                    state: Living Room And Kitchen
-                card:
-                  type: custom:button-card
-                  entity: light.living_room_and_kitchen_lights
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Kitchen
+            card:
+              type: custom:button-card
+              entity: light.kitchen_lights
+              template:
+                - light
+                - icon_hue
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_room
-                    state: Bedroom
-                card:
-                  type: custom:button-card
-                  entity: light.bedroom_lights
-                  template:
-                    - light
-                    - icon_hue
-                    
-                    
-          # Conditional: Selectable Light
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Living Room And Kitchen
+            card:
+              type: custom:button-card
+              entity: light.living_room_and_kitchen_lights
+              template:
+                - light
+                - icon_hue
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: Chandelier
-                card:
-                  type: custom:button-card
-                  entity: light.chandelier
-                  tap_action:
-                    action: none
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_room
+                state: Bedroom
+            card:
+              type: custom:button-card
+              entity: light.bedroom_lights
+              template:
+                - light
+                - icon_hue
+                
+                
+      # Conditional: Selectable Light
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: TV
-                card:
-                  type: custom:button-card
-                  entity: light.tv
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: Chandelier
+            card:
+              type: custom:button-card
+              entity: light.chandelier
+              tap_action:
+                action: none
+              template:
+                - light
+                - icon_hue
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: Kitchen East
-                card:
-                  type: custom:button-card
-                  entity: light.kitchen_east
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: TV
+            card:
+              type: custom:button-card
+              entity: light.tv
+              template:
+                - light
+                - icon_hue
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: Kitchen West
-                card:
-                  type: custom:button-card
-                  entity: light.kitchen_west
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: Kitchen East
+            card:
+              type: custom:button-card
+              entity: light.kitchen_east
+              template:
+                - light
+                - icon_hue
 
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: Bedroom
-                card:
-                  type: custom:button-card
-                  entity: light.bedroom
-                  template:
-                    - light
-                    - icon_hue
-                    
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: Bed
-                card:
-                  type: custom:button-card
-                  entity: light.bed
-                  template:
-                    - light
-                    - icon_hue
-                    
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: Hallway
-                card:
-                  type: custom:button-card
-                  entity: light.hallway
-                  template:
-                    - light
-                    - icon_hue
-                    
-              - type: conditional
-                conditions:
-                  - entity: input_select.selectable_light
-                    state: Bathroom
-                card:
-                  type: custom:button-card
-                  entity: light.bathroom
-                  template:
-                    - light
-                    - icon_hue
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: Kitchen West
+            card:
+              type: custom:button-card
+              entity: light.kitchen_west
+              template:
+                - light
+                - icon_hue
+
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: Bedroom
+            card:
+              type: custom:button-card
+              entity: light.bedroom
+              template:
+                - light
+                - icon_hue
+                
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: Bed
+            card:
+              type: custom:button-card
+              entity: light.bed
+              template:
+                - light
+                - icon_hue
+                
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: Hallway
+            card:
+              type: custom:button-card
+              entity: light.hallway
+              template:
+                - light
+                - icon_hue
+                
+          - type: conditional
+            conditions:
+              - entity: input_select.selectable_light
+                state: Bathroom
+            card:
+              type: custom:button-card
+              entity: light.bathroom
+              template:
+                - light
+                - icon_hue
             
 
           - type: grid
