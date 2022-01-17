@@ -22,24 +22,56 @@ browser_mod:
         entities:
           - entity: person.ebony
             secondary_info: none
-            
-          - type: custom:button-card
-            entity: person.ebony
-            # name: >
-            #   [[[ return 'Location Last Changed: ' + states[entity.entity_id].last_changed ]]]
-            name: "Location Last Changed:"
-            show_last_changed: true
-            show_icon: false
-            # layout: icon_name_state
 
-          - type: custom:button-card
-            entity: device_tracker.ebonycom
-            name: "Location Last Updated:"
-            # name: >
-            #   [[[ return 'Last Updated: ' + states[entity.entity_id].last_changed ]]]
-            show_last_changed: true
-            show_icon: false
-            # layout: icon_name_state
+      - type: history-graph
+        entities:
+          - entity: person.ebony
+        hours_to_show: 24
+        refresh_interval: 0
+
+      - type: custom:button-card
+        entity: person.ebony
+        name: >
+          [[[
+            let entity_id = 'sensor.ebony_last_changed_formatted';
+            return states[entity_id] === undefined ? null : 'Last Change: ' +  states[entity_id].state;
+          ]]]
+        icon: mdi:map-marker-alert-outline
+        styles:
+          card:
+            - width: max-content
+        template: icon_name
+
+      - type: custom:button-card
+        entity: device_tracker.ebonycom
+        name: >
+          [[[
+            let entity_id = 'sensor.ebony_last_updated_formatted';
+            return states[entity_id] === undefined ? null : 'Last Change: ' +  states[entity_id].state;
+          ]]]
+        icon: mdi:map-marker-alert-outline
+        styles:
+          card:
+            - width: max-content
+        template: icon_name
+
+          # - type: custom:button-card
+          #   entity: person.ebony
+          #   # name: >
+          #   #   [[[ return 'Location Last Changed: ' + states[entity.entity_id].last_changed ]]]
+          #   name: "Location Last Changed:"
+          #   show_last_changed: true
+          #   show_icon: false
+          #   # layout: icon_name_state
+
+          # - type: custom:button-card
+          #   entity: device_tracker.ebonycom
+          #   name: "Location Last Updated:"
+          #   # name: >
+          #   #   [[[ return 'Last Updated: ' + states[entity.entity_id].last_changed ]]]
+          #   show_last_changed: true
+          #   show_icon: false
+          #   # layout: icon_name_state
             
           # - entity: sensor.ebony_last_update
           #   name: Last Location Update
@@ -48,12 +80,6 @@ browser_mod:
           # - entity: sensor.ebony_last_change
           #   name: Last Location Change
           #   icon: custom:iphone-modern
-
-      - type: history-graph
-        entities:
-          - entity: person.ebony
-        hours_to_show: 24
-        refresh_interval: 0
 
       - type: glance
         show_state: false
@@ -85,6 +111,7 @@ browser_mod:
       - type: map
         default_zoom: 16
         dark_mode: true
+        hours_to_show: 24
         entities:
           - device_tracker.ebonycom
 
