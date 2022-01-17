@@ -21,7 +21,7 @@ browser_mod:
           class: content
         entities:
           - entity: person.ebony
-            secondary_info: none
+            secondary_info: last-changed
 
       - type: history-graph
         entities:
