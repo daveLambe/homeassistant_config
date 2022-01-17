@@ -109,12 +109,12 @@ template:
         greet: |
           <b>
           {%- set time = now().hour %}
-          {%- if time <= 1 -%} Good Night {{'\U0001F611'}}
-          {%- elif time <= 3 -%} Good Night {{'\U0001F62A'}}
-          {%- elif time <= 5 -%} Good Night {{'\U0001F634'}}
-          {%- elif time <= 7 -%} Good Morning {{'\U0001F4A9'}}
-          {%- elif time <= 9 -%} Good Morning {{'\u2615\uFE0F'}}
-          {%- elif time <= 10 -%} Good Morning {{'\U0001F642'}}
+          {%- if time <= 1 -%} Good Night {{'\U000FE014'}}
+          {%- elif time <= 3 -%} Good Night {{'\U000FE014'}}
+          {%- elif time <= 5 -%} Good Night {{'\U000FE014'}}
+          {%- elif time <= 7 -%} Good Morning {{'\u2600\uFE0F'}}
+          {%- elif time <= 9 -%} Good Morning {{'\u2600\uFE0F'}}
+          {%- elif time <= 10 -%} Good Morning {{'\u2600\uFE0F'}}
           {%- elif time <= 13 -%} Good Afternoon {{'\U0001F60A'}}
           {%- elif time <= 15 -%} Good Afternoon {{'\U0001F60E'}}
           {%- elif time <= 17 -%} Good Afternoon {{'\U0001F44B\U0001F3FB'}}
