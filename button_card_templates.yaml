@@ -1218,7 +1218,7 @@ icon_name_state:
   show_state: true
   styles:
     grid:
-      - grid-template-areas: '"i n"'
+      - grid-template-areas: '"i n s"'
       - grid-column-gap: 0.3em
     name:
       - font-size: 1.06em
@@ -1228,6 +1228,26 @@ icon_name_state:
       - border-radius: 0.6em
       - padding: 1em 1.4em 1em 1.2em
       - width: max-content
+      - font-size: 1.06em
+      - font-weight: 500
+      - letter-spacing: 0.015em
+      - background: "#FFFFFF10"
+
+icon_name_last_changed:
+  size: 1.4em
+  color: "#9da0a2"
+  show_last_changed: true
+  styles:
+    grid:
+      - grid-template-areas: '"i n l"'
+      - grid-column-gap: 0.3em
+    name:
+      - font-size: 1.06em
+      - letter-spacing: 0.015em
+    card:
+      - color: "#9da0a2"
+      - border-radius: 0.6em
+      - padding: 1em 1.4em 1em 1.2em
       - font-size: 1.06em
       - font-weight: 500
       - letter-spacing: 0.015em

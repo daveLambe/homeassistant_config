@@ -813,7 +813,7 @@ views:
             name: Ebony
             triggers_update:
               - device_tracker.ebonycom
-            tap_action: !include popup/hemma_sanja.yaml
+            tap_action: !include popup/person_ebony.yaml
             hold_action:
               action: none
             variables:
