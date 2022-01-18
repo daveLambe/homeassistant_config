@@ -1761,3 +1761,27 @@ automation:
           entity_id: input_select.conditional_media
         data:
           option: Living Room TV
+  - id: automation.notify_ebony_work_arrived
+    alias: Notify Ebony Work Arrived
+    trigger:
+      - platform: state
+        entity_id: device_tracker.ebonycom
+        to: ebony work
+        for: 00:01:00
+    action:
+      - service: notify.mobile_app_davecom
+        data:
+          title: "Location Update"
+          message: Ebony is at work
+  - id: automation.notify_ebony_work_departed
+    alias: Notify Ebony Work Departed
+    trigger:
+      - platform: state
+        entity_id: device_tracker.ebonycom
+        from: ebony work
+        for: 00:03:00
+    action:
+      - service: notify.mobile_app_davecom
+        data:
+          title: "Location Update"
+          message: Ebony left work
