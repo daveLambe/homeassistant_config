@@ -394,6 +394,47 @@ circle:
 
 #################################################
 #                                               #
+#                    SLIDER                     #
+#                                               #
+#################################################
+
+slider:
+  custom_fields:
+    slider:
+      card:
+        type: custom:mod-card
+        card:
+          type: custom:slider-entity-row
+          full_row: true
+          hide_state: true
+          entity: "[[[ return entity.entity_id ]]]"
+  styles:
+    custom_fields:
+      slider:
+        - justify-self: center
+        - align-items: center
+        - filter: opacity(50%)
+        - background-color: pink
+        - width: 60%
+        - margin: 6% 6% 0 0
+        - overflow: unset
+
+
+      # - overflow: unset
+      # - box-shadow: none
+    # custom_fields:
+    #   slider:
+    #     - justify-self: start
+    #     - width: 100%
+    #     - margin-bottom: 1%
+    #     - margin-left: 14%
+        
+    # card:
+    #   - justify-self: start
+
+
+#################################################
+#                                               #
 #                    LOADER                     #
 #                                               #
 #################################################
@@ -756,27 +797,196 @@ light_selected:
                 persist_features: true
                 consolidate_entities: true
 
-light_slider:
+
+
+slide_light:
   template:
-    - light
+    - base
+    - circle
+    - slider
+  variables:
+    circle_input: >
+      [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
   show_state: false
-  # state_display: >
-  #   [[[ if (variables.state === true) return 'Unknown'; ]]]
-  tap_action:
-    action: toggle
-    haptic: medium
   styles:
     grid:
       - grid-template-areas: |
           "icon    circle"
           "n       n"
           "slider  slider"
-      # - grid-template-columns: repeat(2, 1fr)
-      # - grid-template-rows: auto repeat(2, min-content)
       - grid-template-columns: repeat(2, 1fr)
-      - grid-template-rows: repeat(3, fit-content(100%))
+      - grid-template-rows: 1fr repeat(2, min-content)
       - gap: 2%
       - align-items: start
+    card:
+      - box-shadow: none
+      - overflow: unset
+
+light_slider:
+  variables:
+    state: >
+      [[[ return entity === undefined || entity.state; ]]]
+    timeout: >
+      [[[ return entity === undefined || Date.now() - Date.parse(entity.last_changed); ]]]
+    consider_on: >
+      [[[ return ['on', 'home', 'cool', 'fan_only', 'playing'].indexOf(entity === undefined || entity.state) !== -1; ]]]
+  aspect_ratio: 1/1
+  show_state: true
+  show_icon: true
+  state_display: >
+    [[[ if (variables.state === true) return 'Unknown'; ]]]
+  show_state: false
+  styles:
+    grid:
+      - grid-template-areas: '"i" "n" "slider"'
+      - grid-template-columns: 100%
+      - grid-template-rows: min-content min-content 1fr
+    name:
+      - justify-self: start
+      - line-height: 115%
+      - padding: 10%
+    card:
+      - box-shadow: none;
+      - overflow: unset
+      - font-family: Sf Display
+      - border-radius: var(--custom-button-card-border-radius)
+      - -webkit-tap-highlight-color: rgba(0,0,0,0)
+      - transition: none
+      - --mdc-ripple-color: >
+          [[[
+            return variables.consider_on ?
+              'rgb(0, 0, 0)' :
+              'rgba(255, 255, 255, 0.3)';
+          ]]]
+      - color: >
+          [[[
+            return variables.consider_on ?
+              'rgba(0, 0, 0, 0.6)' :
+              'rgba(255, 255, 255, 0.3)';
+          ]]]
+      - background-color: >
+          [[[
+            return variables.consider_on ?
+              'rgba(255, 255, 255, 0.8)' :
+              'rgba(115, 115, 115, 0.2)';
+          ]]]
+    custom_fields:
+      slider:
+        - padding: 0%
+        # - justify-self: start
+        - overflow: unset
+        - margin: 0%
+        # - align-self: left
+  extra_styles: |
+    [[[
+      if (entity) {
+        let hs = entity.attributes.hs_color == undefined,
+          h = hs || entity.attributes.hs_color[0],
+          s = hs || entity.attributes.hs_color[1],
+          l_min = 28,
+          l_max = 48,
+          l_calc = 
+            entity.attributes.brightness / 2.54 * (l_max - l_min) / 100 + l_min;
+        var light_color = 
+          entity.attributes.color_mode === 'color_temp'
+            ? `hsl(204, 58%, ${l_calc}%);`
+            : `hsl(${h}, ${s}%, ${l_calc}%);`;
+      }
+      return `
+        svg {
+          --light-color:
+          ${ variables.state === 'on' && entity.attributes.brightness != undefined
+              ? light_color
+              : variables.state === 'on' && entity.attributes.brightness == undefined
+              ? 'var(--state-icon-active-color);'
+              : 'var(--state-icon-color);'
+          }
+        }
+        #container {
+          text-align: left !important;
+        }
+        #name, #state {
+          font-size: 1.34vw;
+          letter-spacing: 0.05vw;
+        }
+        #slider, #sliderContainer, #sliderBar {
+          background-color: rgb(255, 0, 0);
+          height: 20px;
+          width: 80px;
+          padding-top: 0px;
+          padding-bottom: 0px;
+        }
+        ha-slider {
+          background-color: rgb(0, 255, 255);
+          width: 80px;
+        }
+        /* portrait */
+        @media screen and (max-width: 1200px) {
+          #name, #state {
+            font-size: 2vw;
+            letter-spacing: 0.05vw;
+          }
+          #slider, #sliderContainer, #sliderBar {
+            background-color: rgb(0, 255, 0);
+            height: 15px;
+            width: 60px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+          }
+          ha-slider {
+            background-color: rgb(255, 255, 0);
+            width: 60px;
+          }
+        }
+        /* phone */
+        @media screen and (max-width: 800px) {
+          #name, #state {
+            font-size: 3.1vw;
+            letter-spacing: 0.12vw;
+          }
+          #slider, #sliderContainer, #sliderBar {
+            background-color: rgb(0, 0, 255);
+            height: 10px;
+            width: 40px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+          }
+          ha-slider {
+            background-color: rgb(255, 0, 255);
+            width: 40px;
+          }
+        }
+        @keyframes card_bounce {
+          0% {
+            transform: scale(1);
+          }
+          15% {
+            transform: scale(0.9);
+          }
+          25% {
+            transform: scale(1);
+          }
+          30% {
+            transform: scale(0.98);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `
+    ]]]
+  tap_action:
+    action: toggle
+    haptic: medium
+  custom_fields:
+    slider:
+      card:
+        full_row: true
+        hide_state: true
+        type: 'custom:slider-entity-row'
+        entity: >
+          [[[ return entity.entity_id ]]]
+      # overflow: unset
     # grid:
     #   - grid-template-areas: '"i" "n" "slider"'
     #   - grid-template-columns: 100%
@@ -811,19 +1021,6 @@ light_slider:
     #           'rgba(255, 255, 255, 0.8)' :
     #           'rgba(115, 115, 115, 0.2)';
     #       ]]]
-    custom_fields:
-      slider:
-        - justify-self: start
-        - line-height: 115%
-  custom_fields:
-    slider:
-      card:
-        full_row: true
-        hide_state: true
-        type: 'custom:slider-entity-row'
-        entity: >
-          [[[ return entity.entity_id ]]]
-      overflow: unset
       
 light_slider_original:
   variables:
@@ -842,17 +1039,24 @@ light_slider_original:
     action: toggle
     haptic: medium
   styles:
+    custom_fields:
+      slider:
+        - justify-self: start
+        - overflow: unset
     grid:
-      - grid-template-areas: '"i" "n" "slider"'
-      - grid-template-columns: 100%
-      - grid-template-rows: min-content min-content 1fr
+      - grid-template-areas: '"i circle" "n" "slider"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: 1fr min-content min-content
+      - gap: 2%
+      - align-items: start
     name:
       - justify-self: start
       - line-height: 115%
-    state:
-      - justify-self: start
-      - line-height: 115%
+    # state:
+    #   - justify-self: start
+    #   - line-height: 115%
     card:
+      - overflow: unset
       - font-family: Sf Display
       - border-radius: var(--custom-button-card-border-radius)
       - -webkit-tap-highlight-color: rgba(0,0,0,0)
@@ -879,7 +1083,7 @@ light_slider_original:
   custom_fields:
     slider:
       card:
-        full_row: true
+        # full_row: true
         hide_state: true
         type: 'custom:slider-entity-row'
         entity: >

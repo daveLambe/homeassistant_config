@@ -433,12 +433,88 @@ views:
           #     - light
           #     - icon_tv
 
+          # - type: custom:button-card
+          #   template:
+          #     - slide_light
+          #     - icon_hue
+          #   entity: light.tv
+          #   name: TV Light
+          #   custom_fields:
+          #     slider:
+          #       card:
+          #         type: custom:mod-card
+          #         card:
+          #           type: custom:slider-entity-row
+          #           entity: >
+          #             [[[ return entity.entity_id ]]]
+          #           full_row: true
+          #           hide_state: true
+          #         style: |
+          #           ha-card, ha-slider {
+          #             --ha-card-background: pink;
+          #           }
+
           - type: custom:button-card
             entity: light.tv
-            name: TV Light
-            template:
-              - light_slider
-              - icon_hue
+            name: TV
+            icon: mdi:television
+            # aspect_ratio: 1/1 //Break it for some reason
+            # size: 40%
+            styles:
+              card:
+                - background-color: rgb(3, 169, 244)
+                - box-shadow: none
+                - alignt-items: start
+                - overflow: unset
+              name:
+                - color: white
+                - justify-self: start
+              label:
+                - color: pink
+              icon:
+                - color: red
+              custom_fields:
+                slider:
+                  - justify-self: center
+                  - align-items: center
+                  - filter: opacity(50%)
+                  - background-color: pink
+                  - width: 60%
+                  - margin: 6% 6% 0 0
+                  - overflow: unset
+              grid:
+                - grid-template-areas: '"n" "i" "slider"'
+                - grid-template-columns: 1fr
+                - grid-template-rows: min-content fr min-content
+            custom_fields:
+              slider:
+                card:
+                  type: custom:mod-card
+                  card:
+                    type: custom:slider-entity-row
+                    full_row: true
+                    hide_state: true
+                    entity: "[[[ return entity.entity_id ]]]"
+            extra_styles: |
+              #container {
+                text-align: left !important;
+              }
+              #name {
+                font-size: 1.34vw;
+                letter-spacing: 0.05vw;
+              }
+              .wrapper {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex: 100 1 0%;
+                  height: 20px;
+                  width: auto;
+              }
+              ha-slider {
+                background-color: rgb(0, 255, 255);
+                width: 65%;
+              }
 
           - type: custom:button-card
             entity: media_player.living_room_chromecast
@@ -543,8 +619,8 @@ views:
             entity: light.bedroom
             name: Bedroom
             template:
-              - light
-              - icon_lamp
+              - slide_light
+              - icon_hue
 
           - type: custom:button-card
             entity: light.bed

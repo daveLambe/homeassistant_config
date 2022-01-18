@@ -42,3 +42,39 @@
 #   object_id: light_group
 #   entities: >-
 #     {{ expand(('group.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(', ') }}
+
+
+    # slider-entity-row:
+    #   $: |
+    #     ha-slider {   
+    #       height: 37px;
+    #       border: 1px solid rgba(255, 255,255, 0.8);
+    #       box-shadow: inset 3px 3px 10px 5px rgba(0,0,0, 0.1), inset -3px -3px 10px 5px rgba(255,255,255, 0.4);
+    #       border-radius: 10px;
+    #       padding: 0px 12px 10px 2px;
+    #       color: black;
+    #       paper-progress-container-color: black;
+    #       paper-progress-height: 1px;
+    #       --paper-progress-container-color: rgba(0, 0, 0, 0.0);
+    #       --paper-progress-height: 0px;
+    #      }
+
+    # slider-entity-row:
+    #   $:
+    #     ha-slider:
+    #       $:
+    #         '#sliderKnob': >
+    #           .slider-knob {border-radius: 7px} .slider-knob {padding: 40px 40px
+    #           0px 0px} .slider-knob {border: 1px solid rgba(100, 100,100, 0.4)}
+    #           .slider-knob {background-color: rgba(255, 255,255, 0.9)}
+    #           .slider-knob {width: 0px}    .slider-knob {height: 0px}     
+    #           .slider-knob {box-shadow: inset 2px 2px 2px 1px rgba(0,0,0, 0.05),
+    #           inset -2px -2px 7px 1px rgba(255,255,255, 0.9)} .slider-knob-inner
+    #           {border: 0px} .slider-knob-inner {background-color: rgba(0, 0,0,
+    #           0.0)} .slider-knob-inner::after  {background-color: rgba(0, 0,0,
+    #           0.0)} .slider-knob-inner::before  {background-color: rgba(0, 0,0,
+    #           0.6)} .slider-knob-inner::before  {border: 0px)}
+    #         paper-progress:
+    #           $: >
+    #             #progressContainer {background-color: rgba(0, 0, 0, 0.0)}
+    #             #primaryProgress {background-color: rgba(0, 0, 0, 0.0)}
