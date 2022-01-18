@@ -391,6 +391,15 @@ template:
     #   attributes:
     #     friendly_name: Systemhälsa
 
+    - unique_id: bathroom_occupancy
+      icon: mdi:paper-roll
+      state: >
+        {{ 'Occupied' if states('binary_sensor.bathroom_sensor_occupancy') ==
+        'on' else 'Unoccupied' }}
+      attributes:
+        friendly_name: >
+          Bathroom Status
+
     - unique_id: dave_last_changed
       device_class: timestamp
       state: >

@@ -757,6 +757,8 @@ light_selected:
                 consolidate_entities: true
 
 light_slider:
+  template:
+    - light
   variables:
     state: >
       [[[ return entity === undefined || entity.state; ]]]
@@ -765,18 +767,27 @@ light_slider:
     consider_on: >
       [[[ return ['on', 'home', 'cool', 'fan_only', 'playing'].indexOf(entity === undefined || entity.state) !== -1; ]]]
   aspect_ratio: 1/1
-  show_state: true
+  show_state: false
   show_icon: false
-  state_display: >
-    [[[ if (variables.state === true) return 'Unknown'; ]]]
+  # state_display: >
+  #   [[[ if (variables.state === true) return 'Unknown'; ]]]
   tap_action:
     action: toggle
     haptic: medium
   styles:
     grid:
-      - grid-template-areas: '"i" "n" "slider"'
-      - grid-template-columns: 100%
-      - grid-template-rows: min-content min-content 1fr
+      - grid-template-areas: |
+          "icon    circle"
+          "n       n"
+          "slider  slider"
+      - grid-template-columns: repeat(2, 1fr)
+      - grid-template-rows: auto repeat(2, min-content)
+      - gap: 2%
+      - align-items: start
+    # grid:
+    #   - grid-template-areas: '"i" "n" "slider"'
+    #   - grid-template-columns: 100%
+    #   - grid-template-rows: min-content min-content 1fr
     name:
       - justify-self: start
       - line-height: 115%
