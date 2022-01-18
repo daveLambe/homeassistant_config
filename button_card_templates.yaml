@@ -759,6 +759,73 @@ light_selected:
 light_slider:
   template:
     - light
+  show_state: false
+  # state_display: >
+  #   [[[ if (variables.state === true) return 'Unknown'; ]]]
+  tap_action:
+    action: toggle
+    haptic: medium
+  styles:
+    grid:
+      - grid-template-areas: |
+          "icon    circle"
+          "n       n"
+          "slider  slider"
+      # - grid-template-columns: repeat(2, 1fr)
+      # - grid-template-rows: auto repeat(2, min-content)
+      - grid-template-columns: repeat(2, 1fr)
+      - grid-template-rows: repeat(3, fit-content(100%))
+      - gap: 2%
+      - align-items: start
+    # grid:
+    #   - grid-template-areas: '"i" "n" "slider"'
+    #   - grid-template-columns: 100%
+    #   - grid-template-rows: min-content min-content 1fr
+    # name:
+    #   - justify-self: start
+    #   - line-height: 115%
+    # state:
+    #   - justify-self: start
+    #   - line-height: 115%
+    # card:
+    #   - font-family: Sf Display
+    #   - border-radius: var(--custom-button-card-border-radius)
+    #   - -webkit-tap-highlight-color: rgba(0,0,0,0)
+    #   - transition: none
+    #   - padding: 10%
+    #   - --mdc-ripple-color: >
+    #       [[[
+    #         return variables.consider_on ?
+    #           'rgb(0, 0, 0)' :
+    #           'rgba(255, 255, 255, 0.3)';
+    #       ]]]
+    #   - color: >
+    #       [[[
+    #         return variables.consider_on ?
+    #           'rgba(0, 0, 0, 0.6)' :
+    #           'rgba(255, 255, 255, 0.3)';
+    #       ]]]
+    #   - background-color: >
+    #       [[[
+    #         return variables.consider_on ?
+    #           'rgba(255, 255, 255, 0.8)' :
+    #           'rgba(115, 115, 115, 0.2)';
+    #       ]]]
+    custom_fields:
+      slider:
+        - justify-self: start
+        - line-height: 115%
+  custom_fields:
+    slider:
+      card:
+        full_row: true
+        hide_state: true
+        type: 'custom:slider-entity-row'
+        entity: >
+          [[[ return entity.entity_id ]]]
+      overflow: unset
+      
+light_slider_original:
   variables:
     state: >
       [[[ return entity === undefined || entity.state; ]]]
@@ -776,18 +843,9 @@ light_slider:
     haptic: medium
   styles:
     grid:
-      - grid-template-areas: |
-          "icon    circle"
-          "n       n"
-          "slider  slider"
-      - grid-template-columns: repeat(2, 1fr)
-      - grid-template-rows: auto repeat(2, min-content)
-      - gap: 2%
-      - align-items: start
-    # grid:
-    #   - grid-template-areas: '"i" "n" "slider"'
-    #   - grid-template-columns: 100%
-    #   - grid-template-rows: min-content min-content 1fr
+      - grid-template-areas: '"i" "n" "slider"'
+      - grid-template-columns: 100%
+      - grid-template-rows: min-content min-content 1fr
     name:
       - justify-self: start
       - line-height: 115%
