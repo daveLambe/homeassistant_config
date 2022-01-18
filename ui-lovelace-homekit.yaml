@@ -426,12 +426,17 @@ views:
               - light
               - icon_hue
 
+          # - type: custom:button-card
+          #   entity: light.tv
+          #   name: TV Light
+          #   template:
+          #     - light
+          #     - icon_tv
+
           - type: custom:button-card
             entity: light.tv
             name: TV Light
-            template:
-              - light
-              - icon_tv
+            template: light_slider
 
           - type: custom:button-card
             entity: media_player.living_room_chromecast

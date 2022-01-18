@@ -756,6 +756,67 @@ light_selected:
                 persist_features: true
                 consolidate_entities: true
 
+light_slider:
+  variables:
+    state: >
+      [[[ return entity === undefined || entity.state; ]]]
+    timeout: >
+      [[[ return entity === undefined || Date.now() - Date.parse(entity.last_changed); ]]]
+    consider_on: >
+      [[[ return ['on', 'home', 'cool', 'fan_only', 'playing'].indexOf(entity === undefined || entity.state) !== -1; ]]]
+  aspect_ratio: 1/1
+  show_state: true
+  show_icon: false
+  state_display: >
+    [[[ if (variables.state === true) return 'Unknown'; ]]]
+  tap_action:
+    action: toggle
+    haptic: medium
+  styles:
+    grid:
+      - grid-template-areas: '"i" "n" "slider"'
+      - grid-template-columns: 100%
+      - grid-template-rows: min-content min-content 1fr
+    name:
+      - justify-self: start
+      - line-height: 115%
+    state:
+      - justify-self: start
+      - line-height: 115%
+    card:
+      - font-family: Sf Display
+      - border-radius: var(--custom-button-card-border-radius)
+      - -webkit-tap-highlight-color: rgba(0,0,0,0)
+      - transition: none
+      - padding: 10%
+      - --mdc-ripple-color: >
+          [[[
+            return variables.consider_on ?
+              'rgb(0, 0, 0)' :
+              'rgba(255, 255, 255, 0.3)';
+          ]]]
+      - color: >
+          [[[
+            return variables.consider_on ?
+              'rgba(0, 0, 0, 0.6)' :
+              'rgba(255, 255, 255, 0.3)';
+          ]]]
+      - background-color: >
+          [[[
+            return variables.consider_on ?
+              'rgba(255, 255, 255, 0.8)' :
+              'rgba(115, 115, 115, 0.2)';
+          ]]]
+  custom_fields:
+    slider:
+      card:
+        full_row: true
+        hide_state: true
+        type: 'custom:slider-entity-row'
+        entity: >
+          [[[ return entity.entity_id ]]]
+      overflow: unset
+
 #################################################
 #                                               #
 #                    PERSON                     #
