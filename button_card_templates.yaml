@@ -411,12 +411,12 @@ slider:
   styles:
     custom_fields:
       slider:
-        - justify-self: center
-        - align-items: center
+        - position: absolute
+        - bottom: -1%
+        - align-items: start
+        - justify-self: start
         - filter: opacity(50%)
         - background-color: pink
-        - width: 60%
-        - margin: 6% 6% 0 0
         - overflow: unset
 
 
@@ -797,8 +797,6 @@ light_selected:
                 persist_features: true
                 consolidate_entities: true
 
-
-
 slide_light:
   template:
     - base
@@ -811,16 +809,117 @@ slide_light:
   styles:
     grid:
       - grid-template-areas: |
-          "icon    circle"
-          "n       n"
-          "slider  slider"
+          "icon   circle"
+          "n      n"
+          "slider slider"
       - grid-template-columns: repeat(2, 1fr)
-      - grid-template-rows: 1fr repeat(2, min-content)
+      - grid-template-rows: auto 1fr 1fr
       - gap: 2%
       - align-items: start
+    name:
+      - justify-self: start
+      - line-height: 115%
     card:
+      - font-family: Sf Display
+      - border-radius: var(--custom-button-card-border-radius)
+      - -webkit-tap-highlight-color: rgba(0,0,0,0)
+      - transition: none
+      - padding: 10%
       - box-shadow: none
       - overflow: unset
+      - --mdc-ripple-color: >
+          [[[
+            return variables.consider_on ?
+              'rgb(0, 0, 0)' :
+              'rgba(255, 255, 255, 0.3)';
+          ]]]
+      - color: >
+          [[[
+            return variables.consider_on ?
+              'rgba(0, 0, 0, 0.6)' :
+              'rgba(255, 255, 255, 0.3)';
+          ]]]
+      - background-color: >
+          [[[
+            return variables.consider_on ?
+              'rgba(255, 255, 255, 0.8)' :
+              'rgba(115, 115, 115, 0.2)';
+          ]]]
+  extra_styles: |
+    [[[
+      if (entity) {
+        let hs = entity.attributes.hs_color == undefined,
+          h = hs || entity.attributes.hs_color[0],
+          s = hs || entity.attributes.hs_color[1],
+          l_min = 28,
+          l_max = 48,
+          l_calc = 
+            entity.attributes.brightness / 2.54 * (l_max - l_min) / 100 + l_min;
+        var light_color = 
+          entity.attributes.color_mode === 'color_temp'
+            ? `hsl(204, 58%, ${l_calc}%);`
+            : `hsl(${h}, ${s}%, ${l_calc}%);`;
+      }
+      return `
+        svg {
+          --light-color:
+          ${ variables.state === 'on' && entity.attributes.brightness != undefined
+              ? light_color
+              : variables.state === 'on' && entity.attributes.brightness == undefined
+              ? 'var(--state-icon-active-color);'
+              : 'var(--state-icon-color);'
+          }
+        }
+        #container {
+          text-align: left !important;
+        }
+        #slider {
+          bottom: 2%;
+          height: 29%;
+          width: 90%;
+        }
+        #name, #state {
+          font-size: 1.34vw;
+          letter-spacing: 0.05vw;
+        }
+        /* portrait */
+        @media screen and (max-width: 1200px) {
+          #name, #state {
+            font-size: 2vw;
+            letter-spacing: 0.05vw;
+          }
+        }
+        /* phone */
+        @media screen and (max-width: 800px) {
+          #slider {
+            bottom: -5%;
+            height: 40%;
+            width: 111%;
+          }
+          #name, #state {
+            font-size: 3.1vw;
+            letter-spacing: 0.12vw;
+          }
+        }
+        @keyframes card_bounce {
+          0% {
+            transform: scale(1);
+          }
+          15% {
+            transform: scale(0.9);
+          }
+          25% {
+            transform: scale(1);
+          }
+          30% {
+            transform: scale(0.98);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `
+    ]]]
 
 light_slider:
   variables:
