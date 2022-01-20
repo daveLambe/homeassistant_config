@@ -481,7 +481,7 @@ views:
                     "s      s"
                     "slider slider"
                 - grid-template-columns: repeat(2, 1fr)
-                - grid-template-rows: auto repeat(2, min-content)
+                - grid-template-rows: auto fit-content fit-content auto
                 - gap: 2%
                 - align-items: start
               name:
@@ -496,6 +496,8 @@ views:
                 - -webkit-tap-highlight-color: rgba(0,0,0,0)
                 - transition: none
                 - padding: 10%
+                - box-shadow: none
+                - overflow: unset
                 - --mdc-ripple-color: >
                     [[[
                       return variables.consider_on ?
@@ -516,12 +518,22 @@ views:
                     ]]]
               custom_fields:
                 slider:
-                  - justify-self: center
-                  - align-items: center
+                  - position: absolute
+                  - bottom: -1%
+                  - align-items: start
+                  # - margin-left: -14%
+                  # - margin-top: 1%
+                  # - width: 60%
+                  # - min-width: 70px
+                  # - height: 20%
+                  # - left: 1%
+                  - justify-self: start
                   - filter: opacity(50%)
                   - background-color: pink
-                  - width: 60%
-                  - margin: 6% 6% 0 0
+                  # - width: 50%
+                  # - height: 20%
+                  # - margin-left: -10%
+                  # - margin-bottom: 1%
                   - overflow: unset
                 circle:
                   - display: initial
@@ -632,6 +644,11 @@ views:
                   #container {
                     text-align: left !important;
                   }
+                  #slider {
+                    bottom: 2%;
+                    height: 29%;
+                    width: 90%;
+                  }
                   #name, #state {
                     font-size: 1.34vw;
                     letter-spacing: 0.05vw;
@@ -645,6 +662,11 @@ views:
                   }
                   /* phone */
                   @media screen and (max-width: 800px) {
+                    #slider {
+                      bottom: -5%;
+                      height: 40%;
+                      width: 111%;
+                    }
                     #name, #state {
                       font-size: 3.1vw;
                       letter-spacing: 0.12vw;
