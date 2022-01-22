@@ -421,11 +421,12 @@ views:
         cards:
           
           - type: custom:button-card
-            entity: light.living_room_lights #living_room_lights
-            name: Living Room
             template:
               - slide_light
               - icon_hue
+            entity: light.living_room_lights #living_room_lights
+            name: Living Room
+            tap_action: !include popup/lights_livingroom.yaml
 
           - type: custom:button-card
             entity: light.tv #living_room_lights

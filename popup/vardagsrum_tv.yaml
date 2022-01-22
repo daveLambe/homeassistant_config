@@ -22,7 +22,7 @@ browser_mod:
           class: content
         entities:
           - entity: media_player.living_room_chromecast
-            name: Living Room Chromecase
+            name: Living Room Chromecast
             secondary_info: last-changed
 
           - entity: automation.tv_on_lights
