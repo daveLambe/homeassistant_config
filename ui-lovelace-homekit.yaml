@@ -419,258 +419,272 @@ views:
           grid-area: livingroom
         columns: 2
         cards:
-
-          # Original/Working light button-card
-          # - type: custom:button-card
-          #   entity: light.living_room_lights #living_room_lights
-          #   name: Lights
-          #   template:
-          #     - light
-          #     - icon_hue
-
-        # Slide light without templates
+          
+          - type: custom:button-card
+            entity: light.living_room_lights #living_room_lights
+            name: Living Room
+            template:
+              - slide_light
+              - icon_hue
 
           - type: custom:button-card
             entity: light.tv #living_room_lights
-            name: Living Room
-            variables:
-              circle_input: >
-                [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
-            aspect_ratio: 1/1
-            show_state: false
-            show_icon: false
-            state_display: >
-              [[[ if (variables.state === true) return 'Unknown'; ]]]
-            tap_action:
-              ui_sound_tablet: |
-                [[[
-                  let screensaver = states['switch.galaxy_tab_a_screensaver'] === undefined || 
-                    states['switch.galaxy_tab_a_screensaver'].state;
+            name: TV LED
+            template:
+              - slide_light
+              - icon_hue
 
-                  if (variables.state === 'off' && screensaver === 'off') {
-                    hass.callService('media_player', 'play_media', {
-                      entity_id: 'media_player.browser_9c06ce87_d1cf313c',
-                      media_content_id: '/local/sound/on.m4a',
-                      media_content_type: 'music'
-                    });
-                  }
-                  if (variables.state === 'on' && screensaver === 'off') {
-                    hass.callService('media_player', 'play_media', {
-                      entity_id: 'media_player.browser_9c06ce87_d1cf313c',
-                      media_content_id: '/local/sound/off.m4a',
-                      media_content_type: 'music'
-                    });
-                  }
-                ]]]
-              animation_card: |
-                [[[
-                  let time = 900;
-                  this.shadowRoot.getElementById('card').style.animation =
-                    `card_bounce ${time}ms cubic-bezier(0.22, 1, 0.36, 1)`,
-                    window.setTimeout(() => {
-                      this.shadowRoot.getElementById('card').style.animation = 'none'
-                    }, time);
-                ]]]
-              action: toggle
-              haptic: medium
-            styles:
-              grid:
-                - grid-template-areas: |
-                    "icon   circle"
-                    "n      n"
-                    "slider slider"
-                - grid-template-columns: repeat(2, 1fr)
-                - grid-template-rows: auto 1fr 1fr
-                - gap: 4%
-                - align-items: start
-              name:
-                - justify-self: start
-                - line-height: 115%
-              state:
-                - justify-self: start
-                - line-height: 115%
-              card:
-                - font-family: Sf Display
-                - border-radius: var(--custom-button-card-border-radius)
-                - -webkit-tap-highlight-color: rgba(0,0,0,0)
-                - transition: none
-                - padding: 10%
-                #- box-shadow: none
-                - overflow: unset
-                - --mdc-ripple-color: >
-                    [[[
-                      return variables.consider_on ?
-                        'rgb(0, 0, 0)' :
-                        'rgba(255, 255, 255, 0.3)';
-                    ]]]
-                - color: >
-                    [[[
-                      return variables.consider_on ?
-                        'rgba(0, 0, 0, 0.6)' :
-                        'rgba(255, 255, 255, 0.3)';
-                    ]]]
-                - background-color: >
-                    [[[
-                      return variables.consider_on ?
-                        'rgba(255, 255, 255, 0.8)' :
-                        'rgba(115, 115, 115, 0.2)';
-                    ]]]
-              custom_fields:
-                slider:
-                  - position: absolute
-                  - bottom: 3%
-                  - align-items: center
-                  - justify-self: start
-                  - filter: opacity(50%)
-                  - overflow: unset
-                  - box-shadow: none
-                  - background-color: pink
-                circle:
-                  - display: initial
-                  - width: 90%
-                  - letter-spacing: 0.03vw
-                  - margin: -6% -6% 0 0
-                  - justify-self: end
-                  - opacity: 1
-                icon:
-                  - width: 77%
-                  - margin-left: -14%
-                  - margin-top: 1%
-            custom_fields:
-              slider:
-                card:
-                  type: custom:mod-card
-                  card:
-                    type: custom:slider-entity-row
-                    full_row: true
-                    hide_state: true
-                    entity: "[[[ return entity.entity_id ]]]"
-              circle: >
-                [[[
-                  if (variables.state === 'on') {
-                    let input = variables.circle_input,
-                      radius = 20.5,
-                      circumference = radius * 2 * Math.PI;
-                    return `
-                      <svg viewBox="0 0 50 50">
-                        <style>
-                          circle {
-                            transform: rotate(-90deg);
-                            transform-origin: 50% 50%;
-                            stroke-dasharray: ${circumference};
-                            stroke-dashoffset: ${circumference - input / 100 * circumference};
-                          }
-                          tspan {
-                            font-size: 10px;
-                          }
-                        </style>
-                        <circle cx="25" cy="25" r="${radius}" stroke="#b2b2b2" stroke-width="1.5" fill="none" />
-                        <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle" dominant-baseline="middle">${input}<tspan font-size="10">%</tspan></text>
-                      </svg>
-                    `;
-                  }
-                ]]]
-              icon: >
-                [[[
-                  let state = variables.state === 'on' && variables.timeout < 2000 ? 'on' : null;
-                  return `
-                    <svg viewBox="0 0 50 50">
-                      <style>
-                        @keyframes on {
-                          0% {
-                            transform: scale(0.85);
-                          }
-                          20% {
-                            transform: scale(1.1);
-                          }
-                          40% {
-                            transform: scale(0.95);
-                          }
-                          60% {
-                            transform: scale(1.03);
-                          }
-                          80% {
-                            transform: scale(0.97);
-                          }
-                          100% {
-                            transform: scale(1);
-                          }
-                        }
-                        .on {
-                          animation: on 0.8s;
-                          transform-origin: center;
-                        }
-                      </style>
-                      <path fill="#9da0a2" d="M27.4 47.3h-4.9s-.7.1-.7.8.4.9.7.9h4.9c.3 0 .7-.1.7-.9s-.7-.8-.7-.8zm3.3-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-3H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9s-.9-.8-.9-.8zm5.2-23.2c-3.3-5.3-7-5.6-10.9-5.6-3.8 0-8.4.4-10.9 5.6-.1.1-.1.3.1.7.4.8 3.3 7.2 3.2 18.8 0 1.1-.1 1.6 0 1.7 0 .1 0 .7 1.1.7h13c1 0 1-.5 1.1-.7v-1.7c-.1-11.6 2.8-18 3.2-18.8.1-.4.1-.5.1-.7"/>
-                      <path class="${state}" fill="var(--light-color)" d="M14.1 15.3c3.4-.3 7-.4 10.9-.4 3.8 0 7.5.2 10.9.4.4-.4.7-.8.9-1.1C39 8.5 38.9 6.5 38.9 6c-.2-4.4-8.4-5-12.1-5h0-3.4c-3.7 0-12 .5-12.1 5 0 .5-.1 2.5 2.1 8.2 0 .3.3.8.7 1.1z"/>
-                    </svg>
-                  `;
-                ]]]
-            extra_styles: |
-              [[[
-                if (entity) {
-                  let hs = entity.attributes.hs_color == undefined,
-                    h = hs || entity.attributes.hs_color[0],
-                    s = hs || entity.attributes.hs_color[1],
-                    l_min = 28,
-                    l_max = 48,
-                    l_calc = 
-                      entity.attributes.brightness / 2.54 * (l_max - l_min) / 100 + l_min;
-                  var light_color = 
-                    entity.attributes.color_mode === 'color_temp'
-                      ? `hsl(204, 58%, ${l_calc}%);`
-                      : `hsl(${h}, ${s}%, ${l_calc}%);`;
-                }
-                return `
-                  svg {
-                    --light-color:
-                    ${ variables.state === 'on' && entity.attributes.brightness != undefined
-                        ? light_color
-                        : variables.state === 'on' && entity.attributes.brightness == undefined
-                        ? 'var(--state-icon-active-color);'
-                        : 'var(--state-icon-color);'
-                    }
-                  }
-                  #container {
-                    text-align: left !important;
-                  }
-                  #name, #state {
-                    font-size: 1.34vw;
-                    letter-spacing: 0.05vw;
-                  }
-                  /* portrait */
-                  @media screen and (max-width: 1200px) {
-                    #name, #state {
-                      font-size: 2vw;
-                      letter-spacing: 0.05vw;
-                    }
-                  }
-                  /* phone */
-                  @media screen and (max-width: 800px) {
-                    #name, #state {
-                      font-size: 3.1vw;
-                      letter-spacing: 0.12vw;
-                    }
-                  }
-                  @keyframes card_bounce {
-                    0% {
-                      transform: scale(1);
-                    }
-                    15% {
-                      transform: scale(0.9);
-                    }
-                    25% {
-                      transform: scale(1);
-                    }
-                    30% {
-                      transform: scale(0.98);
-                    }
-                    100% {
-                      transform: scale(1);
-                    }
-                  }
-                `
-              ]]]
+        # Slide light without templates
+          # - type: custom:button-card
+          #   entity: light.tv #living_room_lights
+          #   name: Living Room
+          #   variables:
+          #     circle_input: >
+          #       [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
+          #   aspect_ratio: 1/1
+          #   show_state: false
+          #   show_icon: false
+          #   state_display: >
+          #     [[[ if (variables.state === true) return 'Unknown'; ]]]
+          #   tap_action:
+          #     ui_sound_tablet: |
+          #       [[[
+          #         let screensaver = states['switch.galaxy_tab_a_screensaver'] === undefined || 
+          #           states['switch.galaxy_tab_a_screensaver'].state;
+
+          #         if (variables.state === 'off' && screensaver === 'off') {
+          #           hass.callService('media_player', 'play_media', {
+          #             entity_id: 'media_player.browser_9c06ce87_d1cf313c',
+          #             media_content_id: '/local/sound/on.m4a',
+          #             media_content_type: 'music'
+          #           });
+          #         }
+          #         if (variables.state === 'on' && screensaver === 'off') {
+          #           hass.callService('media_player', 'play_media', {
+          #             entity_id: 'media_player.browser_9c06ce87_d1cf313c',
+          #             media_content_id: '/local/sound/off.m4a',
+          #             media_content_type: 'music'
+          #           });
+          #         }
+          #       ]]]
+          #     animation_card: |
+          #       [[[
+          #         let time = 900;
+          #         this.shadowRoot.getElementById('card').style.animation =
+          #           `card_bounce ${time}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+          #           window.setTimeout(() => {
+          #             this.shadowRoot.getElementById('card').style.animation = 'none'
+          #           }, time);
+          #       ]]]
+          #     action: toggle
+          #     haptic: medium
+          #   styles:
+          #     grid:
+          #       - grid-template-areas: |
+          #           "icon   circle"
+          #           "n      n"
+          #           "slider slider"
+          #       - grid-template-columns: repeat(2, 1fr)
+          #       - grid-template-rows: auto 1fr 1fr
+          #       - gap: 4%
+          #       - align-items: start
+          #     name:
+          #       - justify-self: start
+          #       - line-height: 115%
+          #     state:
+          #       - justify-self: start
+          #       - line-height: 115%
+          #     card:
+          #       - font-family: Sf Display
+          #       - border-radius: var(--custom-button-card-border-radius)
+          #       - -webkit-tap-highlight-color: rgba(0,0,0,0)
+          #       - transition: none
+          #       - padding: 5%
+          #       - box-shadow: none
+          #       - overflow: unset
+          #       - --mdc-ripple-color: >
+          #           [[[
+          #             return variables.consider_on ?
+          #               'rgb(0, 0, 0)' :
+          #               'rgba(255, 255, 255, 0.3)';
+          #           ]]]
+          #       - color: >
+          #           [[[
+          #             return variables.consider_on ?
+          #               'rgba(0, 0, 0, 0.6)' :
+          #               'rgba(255, 255, 255, 0.3)';
+          #           ]]]
+          #       - background-color: >
+          #           [[[
+          #             return variables.consider_on ?
+          #               'rgba(255, 255, 255, 0.8)' :
+          #               'rgba(115, 115, 115, 0.2)';
+          #           ]]]
+          #     custom_fields:
+          #       slider:
+          #         - position: absolute
+          #         - bottom: -3%
+          #         - align-items: start
+          #         - justify-self: start
+          #         - filter: opacity(50%)
+          #         - overflow: unset
+          #         - box-shadow: none
+          #         - background-color: pink
+          #       circle:
+          #         - display: initial
+          #         - width: 90%
+          #         - letter-spacing: 0.03vw
+          #         - margin: -6% -6% 0 0
+          #         - justify-self: end
+          #         - opacity: 1
+          #       icon:
+          #         - width: 77%
+          #         - margin-left: -14%
+          #         - margin-top: 1%
+          #   custom_fields:
+          #     slider:
+          #       card:
+          #         type: custom:mod-card
+          #         card:
+          #           type: custom:slider-entity-row
+          #           full_row: true
+          #           hide_state: true
+          #           entity: "[[[ return entity.entity_id ]]]"
+          #     circle: >
+          #       [[[
+          #         if (variables.state === 'on') {
+          #           let input = variables.circle_input,
+          #             radius = 20.5,
+          #             circumference = radius * 2 * Math.PI;
+          #           return `
+          #             <svg viewBox="0 0 50 50">
+          #               <style>
+          #                 circle {
+          #                   transform: rotate(-90deg);
+          #                   transform-origin: 50% 50%;
+          #                   stroke-dasharray: ${circumference};
+          #                   stroke-dashoffset: ${circumference - input / 100 * circumference};
+          #                 }
+          #                 tspan {
+          #                   font-size: 10px;
+          #                 }
+          #               </style>
+          #               <circle cx="25" cy="25" r="${radius}" stroke="#b2b2b2" stroke-width="1.5" fill="none" />
+          #               <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle" dominant-baseline="middle">${input}<tspan font-size="10">%</tspan></text>
+          #             </svg>
+          #           `;
+          #         }
+          #       ]]]
+          #     icon: >
+          #       [[[
+          #         let state = variables.state === 'on' && variables.timeout < 2000 ? 'on' : null;
+          #         return `
+          #           <svg viewBox="0 0 50 50">
+          #             <style>
+          #               @keyframes on {
+          #                 0% {
+          #                   transform: scale(0.85);
+          #                 }
+          #                 20% {
+          #                   transform: scale(1.1);
+          #                 }
+          #                 40% {
+          #                   transform: scale(0.95);
+          #                 }
+          #                 60% {
+          #                   transform: scale(1.03);
+          #                 }
+          #                 80% {
+          #                   transform: scale(0.97);
+          #                 }
+          #                 100% {
+          #                   transform: scale(1);
+          #                 }
+          #               }
+          #               .on {
+          #                 animation: on 0.8s;
+          #                 transform-origin: center;
+          #               }
+          #             </style>
+          #             <path fill="#9da0a2" d="M27.4 47.3h-4.9s-.7.1-.7.8.4.9.7.9h4.9c.3 0 .7-.1.7-.9s-.7-.8-.7-.8zm3.3-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-3H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9s-.9-.8-.9-.8zm5.2-23.2c-3.3-5.3-7-5.6-10.9-5.6-3.8 0-8.4.4-10.9 5.6-.1.1-.1.3.1.7.4.8 3.3 7.2 3.2 18.8 0 1.1-.1 1.6 0 1.7 0 .1 0 .7 1.1.7h13c1 0 1-.5 1.1-.7v-1.7c-.1-11.6 2.8-18 3.2-18.8.1-.4.1-.5.1-.7"/>
+          #             <path class="${state}" fill="var(--light-color)" d="M14.1 15.3c3.4-.3 7-.4 10.9-.4 3.8 0 7.5.2 10.9.4.4-.4.7-.8.9-1.1C39 8.5 38.9 6.5 38.9 6c-.2-4.4-8.4-5-12.1-5h0-3.4c-3.7 0-12 .5-12.1 5 0 .5-.1 2.5 2.1 8.2 0 .3.3.8.7 1.1z"/>
+          #           </svg>
+          #         `;
+          #       ]]]
+          #   extra_styles: |
+          #     [[[
+          #       if (entity) {
+          #         let hs = entity.attributes.hs_color == undefined,
+          #           h = hs || entity.attributes.hs_color[0],
+          #           s = hs || entity.attributes.hs_color[1],
+          #           l_min = 28,
+          #           l_max = 48,
+          #           l_calc = 
+          #             entity.attributes.brightness / 2.54 * (l_max - l_min) / 100 + l_min;
+          #         var light_color = 
+          #           entity.attributes.color_mode === 'color_temp'
+          #             ? `hsl(204, 58%, ${l_calc}%);`
+          #             : `hsl(${h}, ${s}%, ${l_calc}%);`;
+          #       }
+          #       return `
+          #         svg {
+          #           --light-color:
+          #           ${ variables.state === 'on' && entity.attributes.brightness != undefined
+          #               ? light_color
+          #               : variables.state === 'on' && entity.attributes.brightness == undefined
+          #               ? 'var(--state-icon-active-color);'
+          #               : 'var(--state-icon-color);'
+          #           }
+          #         }
+          #         #container {
+          #           text-align: left !important;
+          #         }
+          #         #slider {
+          #           background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
+          #         }
+          #         #name, #state {
+          #           font-size: 1.34vw;
+          #           letter-spacing: 0.05vw;
+          #         }
+          #         /* portrait */
+          #         @media screen and (max-width: 1200px) {
+          #           #slider {
+          #             background-image: linear-gradient(to right,rgb(255,255,255),rgb(100,180,255),rgb(255,136,13));
+          #           }
+          #           #name, #state {
+          #             font-size: 2vw;
+          #             letter-spacing: 0.05vw;
+          #           }
+          #         }
+          #         /* phone */
+          #         @media screen and (max-width: 800px) {
+          #           #slider {
+          #             background-image: linear-gradient(to right,rgb(255,136,13),rgb(255,255,255),rgb(100,180,255));
+          #           }
+          #           #name, #state {
+          #             font-size: 3.1vw;
+          #             letter-spacing: 0.12vw;
+          #           }
+          #         }
+          #         @keyframes card_bounce {
+          #           0% {
+          #             transform: scale(1);
+          #           }
+          #           15% {
+          #             transform: scale(0.9);
+          #           }
+          #           25% {
+          #             transform: scale(1);
+          #           }
+          #           30% {
+          #             transform: scale(0.98);
+          #           }
+          #           100% {
+          #             transform: scale(1);
+          #           }
+          #         }
+          #       `
+          #     ]]]
 
 
           # - type: custom:button-card
@@ -701,67 +715,66 @@ views:
           #             --ha-card-background: pink;
           #           }
 
-          - type: custom:button-card
-            entity: light.tv
-            name: TV
-            icon: mdi:television
-            # aspect_ratio: 1/1 //Break it for some reason
-            # size: 40%
-            styles:
-              card:
-                - background-color: rgb(3, 169, 244)
-                - box-shadow: none
-                - alignt-items: start
-                - overflow: unset
-              name:
-                - color: white
-                - justify-self: start
-              label:
-                - color: pink
-              icon:
-                - color: red
-              custom_fields:
-                slider:
-                  - justify-self: center
-                  - align-items: center
-                  - filter: opacity(50%)
-                  - background-color: pink
-                  - width: 60%
-                  - margin: 6% 6% 0 0
-                  - overflow: unset
-              grid:
-                - grid-template-areas: '"n" "i" "slider"'
-                - grid-template-columns: 1fr
-                - grid-template-rows: min-content fr min-content
-            custom_fields:
-              slider:
-                card:
-                  type: custom:mod-card
-                  card:
-                    type: custom:slider-entity-row
-                    full_row: true
-                    hide_state: true
-                    entity: "[[[ return entity.entity_id ]]]"
-            extra_styles: |
-              #container {
-                text-align: left !important;
-              }
-              #name {
-                font-size: 1.34vw;
-                letter-spacing: 0.05vw;
-              }
-              .wrapper {
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  flex: 100 1 0%;
-                  height: 20px;
-                  width: auto;
-              }
-              #slider {
-                background-color: rgb(0, 255, 255);
-                width: 85%;
-              }
+          # - type: custom:button-card
+          #   entity: light.tv
+          #   name: TV
+          #   icon: mdi:television
+          #   # aspect_ratio: 1/1 //Break it for some reason
+          #   # size: 40%
+          #   styles:
+          #     card:
+          #       - background-color: rgb(3, 169, 244)
+          #       - box-shadow: none
+          #       - alignt-items: start
+          #       - overflow: unset
+          #     name:
+          #       - color: white
+          #       - justify-self: start
+          #     label:
+          #       - color: pink
+          #     icon:
+          #       - color: red
+          #     custom_fields:
+          #       slider:
+          #         - justify-self: center
+          #         - align-items: center
+          #         - filter: opacity(50%)
+          #         - background-color: pink
+          #         - width: 60%
+          #         - margin: 6% 6% 0 0
+          #         - overflow: unset
+          #     grid:
+          #       - grid-template-areas: '"n" "i" "slider"'
+          #       - grid-template-columns: 1fr
+          #       - grid-template-rows: min-content fr min-content
+          #   custom_fields:
+          #     slider:
+          #       card:
+          #         type: custom:mod-card
+          #         card:
+          #           type: custom:slider-entity-row
+          #           full_row: true
+          #           hide_state: true
+          #           entity: "[[[ return entity.entity_id ]]]"
+          #   extra_styles: |
+          #     #container {
+          #       text-align: left !important;
+          #     }
+          #     #name {
+          #       font-size: 1.34vw;
+          #       letter-spacing: 0.05vw;
+          #     }
+          #     .wrapper {
+          #         display: flex;
+          #         align-items: center;
+          #         justify-content: center;
+          #         flex: 100 1 0%;
+          #         height: 20px;
+          #         width: auto;
+          #     }
+          #     #slider {
+          #       width: 85%;
+          #     }
 
           - type: custom:button-card
             entity: media_player.living_room_chromecast
@@ -774,18 +787,14 @@ views:
               ]]]
             hold_action: !include popup/vardagsrum_tv.yaml
             template:
-              - base
+              - media
               - icon_tv
-              - loader
 
           - type: custom:button-card
-            entity: switch.kettle
-            name: Kettle
-            hold_action: !include popup/vardagsrum_balkong.yaml
+            entity: light.lightning_bolts
+            name: Lightning
             template:
-              - base
-              - icon_hue
-              - loader
+              - light
 
       #################################################
       #                                               #
@@ -807,31 +816,31 @@ views:
               - icon_hue
 
           - type: custom:button-card
+            entity: switch.kettle
+            name: Kettle
+            # triggers_update:
+            #   - lock.dator
+            #   - script.home_leave
+            # hold_action: !include popup/studio_dator.yaml
+            template:
+              - base
+              # - icon_imac
+              # - loader
+              # - lock
+
+          - type: custom:button-card
             entity: light.kitchen_west
-            name: Kitchen (Left)
+            name: Left
             template:
               - light
               - icon_spot
 
           - type: custom:button-card
             entity: light.kitchen_east
-            name: Kitchen (Right)
+            name: Right
             template:
               - light
               - icon_spot
-
-          - type: custom:button-card
-            entity: switch.kettle
-            name: Kettle
-            triggers_update:
-              - lock.dator
-              - script.home_leave
-            hold_action: !include popup/studio_dator.yaml
-            template:
-              - base
-              - icon_imac
-              - loader
-              - lock
 
           # - type: custom:button-card
           #   entity: switch.wemo_monitors
@@ -872,22 +881,24 @@ views:
           - type: custom:button-card
             entity: light.bed
             name: Bed LEDs
-            show_state: false
             template:
-              - light
-              - slider
-              - icon_lamp
-            styles:
-              grid:
-                # - position: relative
-                - grid-template-areas: |
-                    "icon   circle"
-                    "n      n"
-                    "slider slider"
-                - grid-template-columns: repeat(2, 1fr)
-                - grid-template-rows: auto 1fr 1fr
-                - gap: 4%
-                - align-items: start
+              - slide_light
+              - icon_hue
+            # template:
+            #   - light
+            #   - slider
+            #   - icon_lamp
+            # styles:
+            #   grid:
+            #     # - position: relative
+            #     - grid-template-areas: |
+            #         "icon   circle"
+            #         "n      n"
+            #         "slider slider"
+            #     - grid-template-columns: repeat(2, 1fr)
+            #     - grid-template-rows: auto 1fr 1fr
+            #     - gap: 4%
+            #     - align-items: start
 
           # - type: custom:button-card
           #   entity: light.bed
@@ -916,22 +927,20 @@ views:
 
           - type: custom:button-card
             entity: media_player.bedroom_tv
-            name: "TV\u00B2"
+            name: "TV"
             # hold_action: !include popup/vardagsrum_playstation.yaml
             hold_action: !include popup/sovrum_tv2.yaml
             template:
-              - base
+              - media
               - icon_tv
-              - loader
 
           - type: custom:button-card
             entity: switch.bedroom_monitor
-            name: "TV\u00B2"
+            name: "Monitor"
             hold_action: !include popup/sovrum_tv2.yaml
             template:
               - base
               - icon_tv
-              - loader
 
       #################################################
       #                                               #
@@ -1111,9 +1120,8 @@ views:
               - icon_bathroom
 
           - type: custom:button-card
-            # entity: fan.studio_wemo
             entity: switch.fan
-            name: "Fan\u00B2"
+            name: "Fan"
             hold_action: !include popup/studio_flakt.yaml
             template:
               - base
@@ -1125,14 +1133,15 @@ views:
             name: Hallway
             template:
               - light
-              - icon_closet
+              - icon_spot
+              
 
           - type: custom:button-card
             entity: light.closet
             name: Closet
             template:
               - light
-              - icon_spot
+              - icon_closet
 
       #################################################
       #                                               #

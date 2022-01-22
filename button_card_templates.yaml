@@ -412,13 +412,12 @@ slider:
     custom_fields:
       slider:
         - position: absolute
-        - bottom: 3%
-        - align-items: center
+        - bottom: -3%
+        - align-items: start
         - justify-self: start
         - filter: opacity(50%)
         - overflow: unset
         - box-shadow: none
-        - background-color: pink
 
 
 #################################################
@@ -796,7 +795,6 @@ slide_light:
   show_state: false
   styles:
     grid:
-      # - position: relative
       - grid-template-areas: |
           "icon   circle"
           "n      n"
@@ -808,16 +806,12 @@ slide_light:
     name:
       - justify-self: start
       - line-height: 115%
-    custom_fields:
-     slider:
-       - justify-self: start
-       - line-height: 115%
     card:
       - font-family: Sf Display
       - border-radius: var(--custom-button-card-border-radius)
       - -webkit-tap-highlight-color: rgba(0,0,0,0)
       - transition: none
-      - padding: 10%
+      - padding: 5%
       - box-shadow: none
       - overflow: unset
       - --mdc-ripple-color: >
@@ -866,21 +860,12 @@ slide_light:
         #container {
           text-align: left !important;
         }
-        paper-progress#sliderBar {
-          background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
-        }
-        #slider {
-          background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
-        }
         #name, #state {
           font-size: 1.34vw;
           letter-spacing: 0.05vw;
         }
         /* portrait */
         @media screen and (max-width: 1200px) {
-          #slider {
-            background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
-          }
           #name, #state {
             font-size: 2vw;
             letter-spacing: 0.05vw;
@@ -888,9 +873,6 @@ slide_light:
         }
         /* phone */
         @media screen and (max-width: 800px) {
-          #slider {
-            background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
-          }
           #name, #state {
             font-size: 3.1vw;
             letter-spacing: 0.12vw;
@@ -1079,109 +1061,6 @@ light_slider:
         type: 'custom:slider-entity-row'
         entity: >
           [[[ return entity.entity_id ]]]
-      # overflow: unset
-    # grid:
-    #   - grid-template-areas: '"i" "n" "slider"'
-    #   - grid-template-columns: 100%
-    #   - grid-template-rows: min-content min-content 1fr
-    # name:
-    #   - justify-self: start
-    #   - line-height: 115%
-    # state:
-    #   - justify-self: start
-    #   - line-height: 115%
-    # card:
-    #   - font-family: Sf Display
-    #   - border-radius: var(--custom-button-card-border-radius)
-    #   - -webkit-tap-highlight-color: rgba(0,0,0,0)
-    #   - transition: none
-    #   - padding: 10%
-    #   - --mdc-ripple-color: >
-    #       [[[
-    #         return variables.consider_on ?
-    #           'rgb(0, 0, 0)' :
-    #           'rgba(255, 255, 255, 0.3)';
-    #       ]]]
-    #   - color: >
-    #       [[[
-    #         return variables.consider_on ?
-    #           'rgba(0, 0, 0, 0.6)' :
-    #           'rgba(255, 255, 255, 0.3)';
-    #       ]]]
-    #   - background-color: >
-    #       [[[
-    #         return variables.consider_on ?
-    #           'rgba(255, 255, 255, 0.8)' :
-    #           'rgba(115, 115, 115, 0.2)';
-    #       ]]]
-      
-light_slider_original:
-  variables:
-    state: >
-      [[[ return entity === undefined || entity.state; ]]]
-    timeout: >
-      [[[ return entity === undefined || Date.now() - Date.parse(entity.last_changed); ]]]
-    consider_on: >
-      [[[ return ['on', 'home', 'cool', 'fan_only', 'playing'].indexOf(entity === undefined || entity.state) !== -1; ]]]
-  aspect_ratio: 1/1
-  show_state: false
-  show_icon: false
-  # state_display: >
-  #   [[[ if (variables.state === true) return 'Unknown'; ]]]
-  tap_action:
-    action: toggle
-    haptic: medium
-  styles:
-    custom_fields:
-      slider:
-        - justify-self: start
-        - overflow: unset
-    grid:
-      - grid-template-areas: '"i circle" "n" "slider"'
-      - grid-template-columns: 1fr
-      - grid-template-rows: 1fr min-content min-content
-      - gap: 2%
-      - align-items: start
-    name:
-      - justify-self: start
-      - line-height: 115%
-    # state:
-    #   - justify-self: start
-    #   - line-height: 115%
-    card:
-      - overflow: unset
-      - font-family: Sf Display
-      - border-radius: var(--custom-button-card-border-radius)
-      - -webkit-tap-highlight-color: rgba(0,0,0,0)
-      - transition: none
-      - padding: 10%
-      - --mdc-ripple-color: >
-          [[[
-            return variables.consider_on ?
-              'rgb(0, 0, 0)' :
-              'rgba(255, 255, 255, 0.3)';
-          ]]]
-      - color: >
-          [[[
-            return variables.consider_on ?
-              'rgba(0, 0, 0, 0.6)' :
-              'rgba(255, 255, 255, 0.3)';
-          ]]]
-      - background-color: >
-          [[[
-            return variables.consider_on ?
-              'rgba(255, 255, 255, 0.8)' :
-              'rgba(115, 115, 115, 0.2)';
-          ]]]
-  custom_fields:
-    slider:
-      card:
-        # full_row: true
-        hide_state: true
-        type: 'custom:slider-entity-row'
-        entity: >
-          [[[ return entity.entity_id ]]]
-      overflow: unset
 
 #################################################
 #                                               #
