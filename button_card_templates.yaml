@@ -412,25 +412,13 @@ slider:
     custom_fields:
       slider:
         - position: absolute
-        - bottom: -1%
-        - align-items: start
+        - bottom: 3%
+        - align-items: center
         - justify-self: start
         - filter: opacity(50%)
-        - background-color: pink
         - overflow: unset
-
-
-      # - overflow: unset
-      # - box-shadow: none
-    # custom_fields:
-    #   slider:
-    #     - justify-self: start
-    #     - width: 100%
-    #     - margin-bottom: 1%
-    #     - margin-left: 14%
-        
-    # card:
-    #   - justify-self: start
+        - box-shadow: none
+        - background-color: pink
 
 
 #################################################
@@ -808,17 +796,22 @@ slide_light:
   show_state: false
   styles:
     grid:
+      # - position: relative
       - grid-template-areas: |
           "icon   circle"
           "n      n"
           "slider slider"
       - grid-template-columns: repeat(2, 1fr)
       - grid-template-rows: auto 1fr 1fr
-      - gap: 2%
+      - gap: 4%
       - align-items: start
     name:
       - justify-self: start
       - line-height: 115%
+    custom_fields:
+     slider:
+       - justify-self: start
+       - line-height: 115%
     card:
       - font-family: Sf Display
       - border-radius: var(--custom-button-card-border-radius)
@@ -873,10 +866,11 @@ slide_light:
         #container {
           text-align: left !important;
         }
+        paper-progress#sliderBar {
+          background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
+        }
         #slider {
-          bottom: 2%;
-          height: 29%;
-          width: 90%;
+          background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
         }
         #name, #state {
           font-size: 1.34vw;
@@ -884,6 +878,9 @@ slide_light:
         }
         /* portrait */
         @media screen and (max-width: 1200px) {
+          #slider {
+            background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
+          }
           #name, #state {
             font-size: 2vw;
             letter-spacing: 0.05vw;
@@ -892,9 +889,7 @@ slide_light:
         /* phone */
         @media screen and (max-width: 800px) {
           #slider {
-            bottom: -5%;
-            height: 40%;
-            width: 111%;
+            background-image: linear-gradient(to right,rgb(100,180,255),rgb(255,255,255),rgb(255,136,13));
           }
           #name, #state {
             font-size: 3.1vw;

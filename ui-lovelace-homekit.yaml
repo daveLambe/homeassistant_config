@@ -431,13 +431,13 @@ views:
         # Slide light without templates
 
           - type: custom:button-card
-            entity: light.living_room_lights #living_room_lights
+            entity: light.tv #living_room_lights
             name: Living Room
             variables:
               circle_input: >
                 [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
             aspect_ratio: 1/1
-            show_state: true
+            show_state: false
             show_icon: false
             state_display: >
               [[[ if (variables.state === true) return 'Unknown'; ]]]
@@ -478,11 +478,10 @@ views:
                 - grid-template-areas: |
                     "icon   circle"
                     "n      n"
-                    "s      s"
                     "slider slider"
                 - grid-template-columns: repeat(2, 1fr)
-                - grid-template-rows: auto fit-content fit-content auto
-                - gap: 2%
+                - grid-template-rows: auto 1fr 1fr
+                - gap: 4%
                 - align-items: start
               name:
                 - justify-self: start
@@ -496,7 +495,7 @@ views:
                 - -webkit-tap-highlight-color: rgba(0,0,0,0)
                 - transition: none
                 - padding: 10%
-                - box-shadow: none
+                #- box-shadow: none
                 - overflow: unset
                 - --mdc-ripple-color: >
                     [[[
@@ -519,22 +518,13 @@ views:
               custom_fields:
                 slider:
                   - position: absolute
-                  - bottom: -1%
-                  - align-items: start
-                  # - margin-left: -14%
-                  # - margin-top: 1%
-                  # - width: 60%
-                  # - min-width: 70px
-                  # - height: 20%
-                  # - left: 1%
+                  - bottom: 3%
+                  - align-items: center
                   - justify-self: start
                   - filter: opacity(50%)
-                  - background-color: pink
-                  # - width: 50%
-                  # - height: 20%
-                  # - margin-left: -10%
-                  # - margin-bottom: 1%
                   - overflow: unset
+                  - box-shadow: none
+                  - background-color: pink
                 circle:
                   - display: initial
                   - width: 90%
@@ -644,11 +634,6 @@ views:
                   #container {
                     text-align: left !important;
                   }
-                  #slider {
-                    bottom: 2%;
-                    height: 29%;
-                    width: 90%;
-                  }
                   #name, #state {
                     font-size: 1.34vw;
                     letter-spacing: 0.05vw;
@@ -662,11 +647,6 @@ views:
                   }
                   /* phone */
                   @media screen and (max-width: 800px) {
-                    #slider {
-                      bottom: -5%;
-                      height: 40%;
-                      width: 111%;
-                    }
                     #name, #state {
                       font-size: 3.1vw;
                       letter-spacing: 0.12vw;
@@ -778,9 +758,9 @@ views:
                   height: 20px;
                   width: auto;
               }
-              ha-slider {
+              #slider {
                 background-color: rgb(0, 255, 255);
-                width: 65%;
+                width: 85%;
               }
 
           - type: custom:button-card
@@ -892,9 +872,29 @@ views:
           - type: custom:button-card
             entity: light.bed
             name: Bed LEDs
+            show_state: false
             template:
               - light
+              - slider
               - icon_lamp
+            styles:
+              grid:
+                # - position: relative
+                - grid-template-areas: |
+                    "icon   circle"
+                    "n      n"
+                    "slider slider"
+                - grid-template-columns: repeat(2, 1fr)
+                - grid-template-rows: auto 1fr 1fr
+                - gap: 4%
+                - align-items: start
+
+          # - type: custom:button-card
+          #   entity: light.bed
+          #   name: Bed LEDs
+          #   template:
+          #     - light
+          #     - icon_lamp
 
           # - type: custom:button-card
           #   entity: climate.ac
