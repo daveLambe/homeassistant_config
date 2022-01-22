@@ -700,15 +700,6 @@ light:
                 smooth_color_wheel: true
                 persist_features: true
                 consolidate_entities: false
-                
-# light_custom:
-#   template:
-#     - base
-#     - circle
-#   aspect_ratio: 3/1
-#   variables:
-#     circle_input: >
-#       [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
 
 light_selected:
   template:
@@ -921,7 +912,7 @@ light_slider:
       - line-height: 115%
       - padding: 10%
     card:
-      - box-shadow: none;
+      - box-shadow: none
       - overflow: unset
       - font-family: Sf Display
       - border-radius: var(--custom-button-card-border-radius)

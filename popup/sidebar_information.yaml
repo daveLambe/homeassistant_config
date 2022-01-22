@@ -186,8 +186,7 @@ browser_mod:
                 icon: mdi:battery
                 name: Doorbell Battery
 
-          - entity: sensor.bathroom_occupancy
-          # - entity: binary_sensor.bathroom_sensor_occupancy
+          - entity: sensor.template_bathroom_occupancy
             icon: mdi:paper-roll
             name: Bathroom Occupancy
 

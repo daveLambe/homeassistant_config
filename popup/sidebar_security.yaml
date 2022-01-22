@@ -78,7 +78,7 @@ browser_mod:
             name: "Front Door"
             secondary_info: last-changed
           - entity: binary_sensor.window_living_room_south_status
-            name: Living Room (South) Window
+            name: Living Room Window (S)
             secondary_info: last-changed
 
           # - type: section
