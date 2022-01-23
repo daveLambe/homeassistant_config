@@ -426,6 +426,9 @@ slider:
 #################################################
 
 popup_light:
+  show_name: false
+  show_state: false
+  show_icon: false
   custom_fields:
     popup_light:
       card:
@@ -496,14 +499,7 @@ popup_light:
   styles:
     custom_fields:
       popup_light:
-        # - position: absolute
         - overflow: unset
-    card:
-      - overflow: unset
-    grid:
-      - grid-template-areas: '"popup_light"'
-      - grid-template-columns: 1fr
-      - grid-template-rows: 1fr
 
 #################################################
 #                                               #
