@@ -402,12 +402,13 @@ main:
       .main-title {
         margin-top: 5px;
         font-family: SF Text;
+        color: #d32f2f;
         letter-spacing: 0.005em;
       }
 
       mwc-icon-button {
         margin-top: -2px;
-        color: #9e9e9e;
+        color: #d32f2f;
       }
 
     "mwc-icon-button":

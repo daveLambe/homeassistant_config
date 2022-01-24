@@ -18,12 +18,21 @@ browser_mod:
       $grid-layout$:
         hui-entities-card:
           $: |
-            .card-content {
-              padding: 1.5em 2.7em 2.3em 2em;
+            .header .card-header {
+              font-family: SF Text;
+              letter-spacing: 0.005em;
+              font-size: 1.6em;
+              align-self: center;
+              text-align: center;
+              font-weight: 500;
+              padding: 1em 0 0 1.68em;
+              line-height: initial;
+              cursor: default;
             }
             ha-card {
               border-right: 1.5px solid rgba(0, 0, 0, 0.2);
               border-radius: 0;
+              align-self: center;
               transition: none;
             }
             /* phone */
@@ -31,6 +40,7 @@ browser_mod:
               ha-card {
                 border-right: none;
                 border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                align-self: center;
               }
             }
           $hui-horizontal-stack-card:

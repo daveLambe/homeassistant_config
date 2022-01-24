@@ -396,10 +396,10 @@ views:
 
               - type: button
                 icon: mdi:arrow-up-bold-circle-outline
-                tap_action: !include popup/sidebar_update.yaml
-                # tap_action:
-                #   action: call-service
-                #   service: frontend.reload_themes
+                # tap_action: !include popup/sidebar_update.yaml
+                tap_action:
+                  action: call-service
+                  service: frontend.reload_themes
                 
                 # hold_action:
                 #   action: call-service
