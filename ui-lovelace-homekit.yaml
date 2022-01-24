@@ -425,7 +425,7 @@ views:
               - slide_light
               - icon_hue
             entity: light.living_room_lights #living_room_lights
-            name: Living Room
+            name: Lights
             tap_action: !include popup/lights_livingroom.yaml
 
           - type: custom:button-card
@@ -809,12 +809,20 @@ views:
           grid-area: kitchen
         columns: 2
         cards:
+          # - type: custom:button-card
+          #   entity: light.kitchen_lights
+          #   name: Spotlights
+          #   template:
+          #     - light
+          #     - icon_hue
+          
           - type: custom:button-card
-            entity: light.kitchen_lights
-            name: Spotlights
             template:
-              - light
+              - slide_light
               - icon_hue
+            entity: light.kitchen_lights #kitchen_lights
+            name: Lights
+            tap_action: !include popup/lights_kitchen.yaml
 
           - type: custom:button-card
             entity: switch.kettle
@@ -872,12 +880,20 @@ views:
           grid-area: bedroom
         columns: 2
         cards:
+          # - type: custom:button-card
+          #   entity: light.bedroom
+          #   name: Bedroom
+          #   template:
+          #     - slide_light
+          #     - icon_hue
+          
           - type: custom:button-card
-            entity: light.bedroom
-            name: Bedroom
             template:
               - slide_light
               - icon_hue
+            entity: light.bedroom_lights #bedroom_lights
+            name: Lights
+            tap_action: !include popup/lights_bedroom.yaml
 
           - type: custom:button-card
             entity: light.bed
@@ -1179,6 +1195,14 @@ views:
             variables:
               retain: sensor.sanja_last_changed
             template: person
+            
+          - type: custom:button-card
+            template:
+              - light
+              - icon_hue
+            entity: light.all_lights_except_lightning_bolts_and_closet #all_lights_except_lightning_bolts_and_closet
+            name: Master Light Control
+            tap_action: !include popup/lights_main.yaml
 
           # - type: custom:button-card
           #   entity: light.all_lights

@@ -489,13 +489,13 @@ popup_light:
                   entity: >
                     [[[ return entity.entity_id ]]]
                   brightness: true
-                  color_temp: true
+                  color_temp: false
                   full_width_sliders: false
                   hide_header: true
                   show_slider_percent: true
                   smooth_color_wheel: true
                   persist_features: true
-                  consolidate_entities: false
+                  consolidate_entities: true
   styles:
     custom_fields:
       popup_light:

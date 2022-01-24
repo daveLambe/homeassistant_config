@@ -86,6 +86,7 @@ browser_mod:
             ha-card {
               margin: 0px !important;
               text-align: center;
+              align-self: center;
             }
             h1 {
               text-align: center;
@@ -95,9 +96,6 @@ browser_mod:
             }
         entities:
           - type: custom:button-card
-            show_name: false
-            show_state: false
-            show_icon: false
             entity: light.living_room_lights
             template: popup_light
 
@@ -114,9 +112,6 @@ browser_mod:
             }
         entities:
           - type: custom:button-card
-            show_name: false
-            show_state: false
-            show_icon: false
             entity: light.chandelier
             template: popup_light
 
@@ -154,7 +149,7 @@ browser_mod:
           - entity: light.lightning_red
           - entity: light.lightning_purple_1
           - entity: light.lightning_purple_2
-      
+
       # - type: custom:light-popup-card
       #   view_layout:
       #     grid-area: all
