@@ -18,8 +18,16 @@ browser_mod:
       $grid-layout$:
         hui-entities-card:
           $: |
-            .card-content {
-              padding: 1.5em 2.7em 2.3em 2em;
+            .header .card-header {
+              font-family: SF Text;
+              letter-spacing: 0.005em;
+              font-size: 1.6em;
+              align-self: center;
+              text-align: center;
+              font-weight: 500;
+              padding: 1em 0 0 1.68em;
+              line-height: initial;
+              cursor: default;
             }
             ha-card {
               border-right: 1.5px solid rgba(211, 47, 47, 0.2);
@@ -54,11 +62,10 @@ browser_mod:
         #phone
         "(max-width: 800px)":
           grid-template-columns: 1fr
-          grid-template-rows: repeat(4, 1fr)
+          grid-template-rows: repeat(2, 1fr)
           grid-template-areas: |
-            "all"
-            "left"
-            "right"
+            "all all"
+            "left right"
     cards:
       #################################################
       #                                               #
@@ -76,13 +83,6 @@ browser_mod:
           style: |
             ha-card {
               margin: 0px !important;
-              text-align: center;
-            }
-            h1 {
-              text-align: center;
-            }
-            .header, .card-header {
-              text-align: center;
             }
         entities:
           - type: custom:button-card
@@ -92,7 +92,7 @@ browser_mod:
       - type: entities
         view_layout:
           grid-area: left
-        title: Spotlight - Left (West)
+        title: Left (West)
         show_header_toggle: false
         card_mod:
           class: header
@@ -108,7 +108,7 @@ browser_mod:
       - type: entities
         view_layout:
           grid-area: right
-        title: Spotlight - Right (East)
+        title: Right (East)
         show_header_toggle: false
         card_mod:
           class: header

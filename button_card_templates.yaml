@@ -429,6 +429,7 @@ popup_light:
   show_name: false
   show_state: false
   show_icon: false
+  tap_action: none
   custom_fields:
     popup_light:
       card:
@@ -449,7 +450,7 @@ popup_light:
           sliderColor: "#c7c7c7"
           sliderTrackColor: rgba(25, 25, 25, 0.9)
           displayType: slider
-          actionSize: 4.5em
+          actionSize: 3.0em
           actionsInARow: 2
           actions:
             - action: call-service

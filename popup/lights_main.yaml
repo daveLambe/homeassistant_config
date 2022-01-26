@@ -18,8 +18,16 @@ browser_mod:
       $grid-layout$:
         hui-entities-card:
           $: |
-            .card-content {
-              padding: 1.5em 2.7em 2.3em 2em;
+            .header .card-header {
+              font-family: SF Text;
+              letter-spacing: 0.005em;
+              font-size: 1.6em;
+              align-self: center;
+              text-align: center;
+              font-weight: 500;
+              padding: 1em 0 0 1.68em;
+              line-height: initial;
+              cursor: default;
             }
             ha-card {
               border-right: 1.5px solid rgba(211, 47, 47, 0.2);
@@ -41,6 +49,7 @@ browser_mod:
                 justify-content: space-evenly;
                 margin-top: 1.9em;
                 max-width: 82vw; /* iphonex */
+              }
               }
   card:
     type: custom:layout-card
@@ -152,9 +161,6 @@ browser_mod:
         entities:
           - type: custom:button-card
             entity: light.hallway
-            template: popup_light
-          - type: custom:button-card
-            entity: light.bathroom
             template: popup_light
             
       - type: entities

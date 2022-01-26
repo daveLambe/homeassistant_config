@@ -18,8 +18,16 @@ browser_mod:
       $grid-layout$:
         hui-entities-card:
           $: |
-            .card-content {
-              padding: 1.5em 2.7em 2.3em 2em;
+            .header .card-header {
+              font-family: SF Text;
+              letter-spacing: 0.005em;
+              font-size: 1.6em;
+              align-self: center;
+              text-align: center;
+              font-weight: 500;
+              padding: 1em 0 0 1.68em;
+              line-height: initial;
+              cursor: default;
             }
             ha-card {
               border-right: 1.5px solid rgba(211, 47, 47, 0.2);
@@ -54,12 +62,10 @@ browser_mod:
         #phone
         "(max-width: 800px)":
           grid-template-columns: 1fr
-          grid-template-rows: repeat(4, 1fr)
+          grid-template-rows: repeat(2, 1fr)
           grid-template-areas: |
-            "all"
-            "bedroom"
-            "bed"
-            "closet"
+            "all bedroom"
+            "bed closet"
     cards:
       #################################################
       #                                               #
@@ -75,15 +81,9 @@ browser_mod:
         card_mod:
           class: header
           style: |
-            ha-card {
-              margin: 0px !important;
-              text-align: center;
-            }
-            h1 {
-              text-align: center;
-            }
             .header, .card-header {
               text-align: center;
+              color: blue;
             }
         entities:
           - type: custom:button-card
