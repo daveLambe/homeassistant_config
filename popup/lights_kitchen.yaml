@@ -22,25 +22,23 @@ browser_mod:
               font-family: SF Text;
               letter-spacing: 0.005em;
               font-size: 1.6em;
-              align-self: center;
-              text-align: center;
               font-weight: 500;
-              padding: 1em 0 0 1.68em;
+              padding-left: 0;
               line-height: initial;
               cursor: default;
             }
             ha-card {
-              border-right: 1.5px solid rgba(211, 47, 47, 0.2);
+              align-items: center;
+              border-right: 2.5px solid rgba(211, 47, 47, 0.6);
               border-radius: 0;
-              align-self: center;
               transition: none;
             }
             /* phone */
             @media screen and (max-width: 800px) {
               ha-card {
-                border-right: none;
-                border-bottom: 1.5px solid rgba(211, 47, 47, 0.2);
                 align-self: center;
+                border-right: none;
+                border-bottom: 2.5px solid rgba(211, 47, 47, 0.6);
               }
             }
           $hui-horizontal-stack-card:
@@ -61,7 +59,7 @@ browser_mod:
       mediaquery:
         #phone
         "(max-width: 800px)":
-          grid-template-columns: 1fr
+          grid-template-columns: 1fr 1fr
           grid-template-rows: repeat(2, 1fr)
           grid-template-areas: |
             "all all"

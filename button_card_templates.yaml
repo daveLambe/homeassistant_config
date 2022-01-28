@@ -434,10 +434,44 @@ popup_light:
     popup_light:
       card:
         type: custom:mod-card
-        style: |
-          ha-card {
-            box-shadow: none;
-          }
+        style:
+          .: |
+            ha-card {
+              box-shadow: none;
+              align-items: center;
+              width: 100%;
+            }
+          ha-card>light-popup-card$: |
+            #popup {
+              margin: -2em 0 2.5em 0;
+              isolation: isolate;
+            }
+
+            input[type=range] {
+              cursor: grab;
+            }
+
+            #brightnessValue {
+              color: rgba(255, 255, 255, 0.8);
+              margin: -10vh 0 0 0;
+              font-size: 2em;
+              font-weight: 400;
+              position: absolute;
+              z-index: 1;
+              font-family: SF Display;
+              letter-spacing: 0.02em;
+              pointer-events: none;
+              mix-blend-mode: difference;
+              text-align: center;
+            }
+
+            #popup>div.range-holder>input[type=range] {
+              --slider-thumb-color: #b4b4b4 !important;
+            }
+
+            #popup>div.range-holder>input[type=range]::-webkit-slider-thumb {
+              cursor: grabbing;
+            }
         card:
           type: custom:light-popup-card
           entity: >
@@ -449,6 +483,7 @@ popup_light:
           borderRadius: 1.7em
           sliderColor: "#c7c7c7"
           sliderTrackColor: rgba(25, 25, 25, 0.9)
+          sliderColoredByLight: true
           displayType: slider
           actionSize: 3.0em
           actionsInARow: 2
@@ -501,6 +536,8 @@ popup_light:
     custom_fields:
       popup_light:
         - overflow: unset
+        - height: 100%
+        - width: 100%
 
 #################################################
 #                                               #

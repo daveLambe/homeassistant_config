@@ -1,0 +1,357 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Living Room Lights
+  style:
+    .: |
+      :host .content {
+        width: calc(385px + 385px + 385px);
+        max-width: 90vw;
+      }
+      /* phone */
+      @media screen and (max-width: 800px) {
+        :host .content {
+          max-width: 100vw;
+        }
+      }
+    layout-card:
+      $grid-layout$:
+        hui-entities-card:
+          .: |
+            #root {
+              align-content: center;
+            }
+          $: |
+            .header .card-header {
+              font-family: SF Text;
+              letter-spacing: 0.005em;
+              font-size: 1.6em;
+              align-self: center;
+              text-align: center;
+              font-weight: 500;
+              padding: 1em 0 0 1.68em;
+              line-height: initial;
+              cursor: default;
+            }
+            :host .content {
+              align-items: center;
+            }
+            ha-card {
+              border-right: 2.5px solid rgba(211, 47, 47, 0.6);
+              border-radius: 0;
+              transition: none;
+            }
+            /* phone */
+            @media screen and (max-width: 800px) {
+              ha-card {
+                border-right: none;
+                border-bottom: 2.5px solid rgba(211, 47, 47, 0.6);
+              }
+            }
+          $light-popup-card$: |
+            #popup {
+              margin: -2em 0 2.5em 0;
+              isolation: isolate;
+            }
+
+            input[type=range] {
+              cursor: grab;
+            }
+
+            #brightnessValue {
+              color: rgba(255, 255, 255, 0.8);
+              margin: -10vh 0 0 0;
+              font-size: 2em;
+              font-weight: 400;
+              position: absolute;
+              z-index: 1;
+              font-family: SF Display;
+              letter-spacing: 0.02em;
+              pointer-events: none;
+              mix-blend-mode: difference;
+              text-align: center;
+            }
+
+            #popup>div.range-holder>input[type=range] {
+              --slider-thumb-color: #b4b4b4 !important;
+            }
+
+            #popup>div.range-holder>input[type=range]::-webkit-slider-thumb {
+              cursor: grabbing;
+            }
+          $hui-horizontal-stack-card:
+            $: |
+              #root {
+                justify-content: space-evenly;
+                margin-top: 1.9em;
+                max-width: 82vw; /* iphonex */
+              }
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: repeat(4, 1fr)
+      grid-template-rows: 1fr
+      grid-template-areas: |
+        "all chandelier tv lightning"
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-template-columns: 1fr
+          grid-template-rows: repeat(3, 1fr)
+          grid-template-areas: |
+            "all chandelier"
+            "tv tv"
+            "lightning lightning"
+    cards:
+      #################################################
+      #                                               #
+      #                HOME ASSISTANT                 #
+      #                                               #
+      #################################################
+
+##### Old - Without popup light button-template - Styling covered here ####
+
+      - type: entities
+        view_layout:
+          grid-area: all
+        title: All
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: custom:light-popup-card
+            entity: >
+              [[[ return entity.entity_id ]]]
+            icon: none
+            fullscreen: false
+            brightnessWidth: 130px
+            brightnessHeight: 360px
+            borderRadius: 1.7em
+            sliderColor: "#c7c7c7"
+            sliderTrackColor: rgba(25, 25, 25, 0.9)
+            sliderColoredByLight: true
+            displayType: slider
+            actionSize: 3.0em
+            actionsInARow: 2
+            actions:
+              - action: call-service
+                service: light.turn_on
+                color: "#d8d9e1"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 153
+              - action: call-service
+                service: light.turn_on
+                color: "#c319fc"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 326
+              - action: call-service
+                service: light.turn_on
+                color: "#fc1919"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 500
+              - action: fire-dom-event
+                image: >-
+                  data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
+                  50 50"%3E%3Cstyle%3Esvg%7Bbackground:radial-gradient(circle,rgba(255,255,
+                  255,1) 0%25,rgba(255,255,255,0) 80%25),conic-gradient(%237827e6,%23e622e7,
+                  %23e40588,%23e41919,%23e5691e,%23e8e22e,%237de629,%2334e828,%2333e75c,
+                  %2334e8e0,%23207de5,%231227e5,%237827e6)%7D%3C/style%3E%3C/svg%3E
+                browser_mod:
+                  command: popup
+                  title: >
+                    [[[ return entity.attributes.friendly_name ]]]
+                  card:
+                    type: custom:light-entity-card
+                    entity: >
+                      [[[ return entity.entity_id ]]]
+                    brightness: true
+                    color_temp: false
+                    full_width_sliders: false
+                    hide_header: true
+                    show_slider_percent: true
+                    smooth_color_wheel: true
+                    persist_features: true
+                    consolidate_entities: true
+          # - type: custom:button-card
+          #   entity: light.living_room_lights
+          #   template: popup_light
+
+      - type: entities
+        view_layout:
+          grid-area: chandelier
+        title: Chandelier
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: custom:light-popup-card
+            entity: >
+              [[[ return entity.entity_id ]]]
+            icon: none
+            fullscreen: false
+            brightnessWidth: 130px
+            brightnessHeight: 360px
+            borderRadius: 1.7em
+            sliderColor: "#c7c7c7"
+            sliderTrackColor: rgba(25, 25, 25, 0.9)
+            sliderColoredByLight: true
+            displayType: slider
+            actionSize: 3.0em
+            actionsInARow: 2
+            actions:
+              - action: call-service
+                service: light.turn_on
+                color: "#d8d9e1"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 153
+              - action: call-service
+                service: light.turn_on
+                color: "#c319fc"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 326
+              - action: call-service
+                service: light.turn_on
+                color: "#fc1919"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 500
+              - action: fire-dom-event
+                image: >-
+                  data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
+                  50 50"%3E%3Cstyle%3Esvg%7Bbackground:radial-gradient(circle,rgba(255,255,
+                  255,1) 0%25,rgba(255,255,255,0) 80%25),conic-gradient(%237827e6,%23e622e7,
+                  %23e40588,%23e41919,%23e5691e,%23e8e22e,%237de629,%2334e828,%2333e75c,
+                  %2334e8e0,%23207de5,%231227e5,%237827e6)%7D%3C/style%3E%3C/svg%3E
+                browser_mod:
+                  command: popup
+                  title: >
+                    [[[ return entity.attributes.friendly_name ]]]
+                  card:
+                    type: custom:light-entity-card
+                    entity: >
+                      [[[ return entity.entity_id ]]]
+                    brightness: true
+                    color_temp: false
+                    full_width_sliders: false
+                    hide_header: true
+                    show_slider_percent: true
+                    smooth_color_wheel: true
+                    persist_features: true
+                    consolidate_entities: true
+          # - type: custom:button-card
+          #   entity: light.chandelier
+          #   template: popup_light
+
+      - type: entities
+        view_layout:
+          grid-area: tv
+        title: TV
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: custom:light-popup-card
+            entity: >
+              [[[ return entity.entity_id ]]]
+            icon: none
+            fullscreen: false
+            brightnessWidth: 130px
+            brightnessHeight: 360px
+            borderRadius: 1.7em
+            sliderColor: "#c7c7c7"
+            sliderTrackColor: rgba(25, 25, 25, 0.9)
+            sliderColoredByLight: true
+            displayType: slider
+            actionSize: 3.0em
+            actionsInARow: 2
+            actions:
+              - action: call-service
+                service: light.turn_on
+                color: "#d8d9e1"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 153
+              - action: call-service
+                service: light.turn_on
+                color: "#c319fc"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 326
+              - action: call-service
+                service: light.turn_on
+                color: "#fc1919"
+                service_data:
+                  entity_id: >
+                    [[[ return entity.entity_id ]]]
+                  color_temp: 500
+              - action: fire-dom-event
+                image: >-
+                  data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
+                  50 50"%3E%3Cstyle%3Esvg%7Bbackground:radial-gradient(circle,rgba(255,255,
+                  255,1) 0%25,rgba(255,255,255,0) 80%25),conic-gradient(%237827e6,%23e622e7,
+                  %23e40588,%23e41919,%23e5691e,%23e8e22e,%237de629,%2334e828,%2333e75c,
+                  %2334e8e0,%23207de5,%231227e5,%237827e6)%7D%3C/style%3E%3C/svg%3E
+                browser_mod:
+                  command: popup
+                  title: >
+                    [[[ return entity.attributes.friendly_name ]]]
+                  card:
+                    type: custom:light-entity-card
+                    entity: >
+                      [[[ return entity.entity_id ]]]
+                    brightness: true
+                    color_temp: false
+                    full_width_sliders: false
+                    hide_header: true
+                    show_slider_percent: true
+                    smooth_color_wheel: true
+                    persist_features: true
+                    consolidate_entities: true
+          # - type: custom:button-card
+            # entity: light.tv
+            # template: popup_light
+
+      - type: entities
+        view_layout:
+          grid-area: lightning
+        title: Lightning Bolts
+        show_header_toggle: false
+        card_mod:
+          class: content
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - entity: light.lightning_bolts
+            name: "Lightning (All)"
+            icon: "mdi:lightning-bolt-circle"
+          - entity: light.lightning_red
+          - entity: light.lightning_purple_1
+          - entity: light.lightning_purple_2
