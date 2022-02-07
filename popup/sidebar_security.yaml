@@ -51,12 +51,12 @@ browser_mod:
       mediaquery:
         #phone
         "(max-width: 800px)":
-          grid-template-columns: 1fr
+          grid-template-columns: 1fr 1fr
           grid-template-rows: repeat(3, 1fr)
           grid-template-areas: |
-            "info"
-            "indoor"
-            "outdoor"
+            "info info"
+            "indoor indoor"
+            "outdoor outdoor"
     cards:
       #################################################
       #                                               #
@@ -78,12 +78,45 @@ browser_mod:
         entities:
           - type: section
             label: Last Opened
-          - entity: binary_sensor.front_door_sensor_status
+          - type: section
+            label: Doors
+          - entity: binary_sensor.front_door_is_open
             name: "Front Door"
             secondary_info: last-changed
-          - entity: binary_sensor.window_living_room_south_status
-            name: Living Room Window (S)
+          - entity: binary_sensor.back_door_is_open
+            name: "Back Door"
             secondary_info: last-changed
+          - type: section
+            label: Windows
+          - entity: binary_sensor.living_room_window_south_is_open
+            name: Living Room South
+            secondary_info: last-changed
+          - entity: binary_sensor.living_room_window_west_left_is_open
+            name: Living Room West (Left)
+            secondary_info: last-changed
+          - entity: binary_sensor.living_room_window_west_right_is_open
+            name: Living Room West (Right)
+            secondary_info: last-changed
+          - entity: binary_sensor.kitchen_window_north_is_open
+            name: Kitchen North
+            secondary_info: last-changed
+          - entity: binary_sensor.kitchen_window_west_left_is_open
+            name: Kitchen West (Left)
+            secondary_info: last-changed
+          - entity: binary_sensor.kitchen_window_west_right_is_open
+            name: Kitchen West (Right)
+            secondary_info: last-changed
+          - entity: binary_sensor.bedroom_window_east_is_open
+            name: Bedroom East
+            secondary_info: last-changed
+          - entity: binary_sensor.bedroom_window_west_is_open
+            name: Bedroom West
+            secondary_info: last-changed
+          - entity: binary_sensor.bathroom_window_is_open
+            name: Bathroom
+            secondary_info: last-changed
+
+
 
           # - type: section
           #   label: Last Detected Person
@@ -109,8 +142,7 @@ browser_mod:
             label: Camera Status
           - entity: binary_sensor.amcrest_living_room_online
             name: "Living Room Camera"
-            
-            
+
       - type: entities
         view_layout:
           grid-area: indoor
@@ -134,11 +166,11 @@ browser_mod:
           - entity: binary_sensor.amcrest_living_room_motion_detected
             name: "Living Room"
             secondary_info: last-changed
-          - entity: binary_sensor.kitchen_sensor_motion_detected
+          - entity: binary_sensor.kitchen_motion_detected
             name: "Kitchen"
             secondary_info: last-changed
 
-          - type: 'custom:frigate-card'
+          - type: "custom:frigate-card"
             camera_entity: camera.livingroom
             menu:
               mode: hover-right
@@ -146,7 +178,7 @@ browser_mod:
               provider: webrtc
               webrtc:
                 entity: camera.webrtc_livingroom
-                
+
       - type: entities
         view_layout:
           grid-area: outdoor
@@ -164,7 +196,7 @@ browser_mod:
           - entity: sensor.front_door_last_motion
             name: "Front Door"
 
-          - type: 'custom:frigate-card'
+          - type: "custom:frigate-card"
             camera_entity: camera.street
             menu:
               mode: hover-right
@@ -173,7 +205,7 @@ browser_mod:
               webrtc:
                 entity: camera.webrtc_street
 
-          - type: 'custom:frigate-card'
+          - type: "custom:frigate-card"
             camera_entity: camera.street
             menu:
               mode: hover-right
@@ -182,7 +214,7 @@ browser_mod:
               webrtc:
                 entity: camera.webrtc_driveway
 
-          - type: 'custom:frigate-card'
+          - type: "custom:frigate-card"
             camera_entity: camera.backdoor
             menu:
               mode: hover-right
@@ -190,14 +222,6 @@ browser_mod:
               provider: webrtc
               webrtc:
                 entity: camera.webrtc_backdoor
-
-
-
-
-
-
-
-
 # action: fire-dom-event
 # browser_mod:
 #   command: popup
@@ -228,21 +252,21 @@ browser_mod:
 #           provider: webrtc
 #           webrtc:
 #             entity: camera.webrtc_livingroom
-            
+
 #       - type: 'custom:frigate-card'
 #         camera_entity: camera.street
 #         live:
 #           provider: webrtc
 #           webrtc:
 #             entity: camera.webrtc_street
-            
+
 #       - type: 'custom:frigate-card'
 #         camera_entity: camera.driveway
 #         live:
 #           provider: webrtc
 #           webrtc:
 #             entity: camera.webrtc_driveway
-            
+
 #       - type: 'custom:frigate-card'
 #         camera_entity: camera.backdoor
 #         live:

@@ -5,8 +5,8 @@ homeassistant:
   latitude: !secret zone_davecave_lat
   longitude: !secret zone_davecave_long
   time_zone: "America/Los_Angeles"
-  temperature_unit: C
-  unit_system: metric
+  temperature_unit: F
+  unit_system: imperial
   currency: USD
   packages: !include_dir_named include
   allowlist_external_dirs:
@@ -195,7 +195,7 @@ lock:
   - platform: template
     name: Door
     value_template: >
-      {{ states('binary_sensor.front_door_sensor_status') }}
+      {{ states('binary_sensor.front_door_is_open') }}
     lock:
       service: script.turn_on
       entity_id: script.lock_door_if_closed
@@ -203,17 +203,17 @@ lock:
       service: script.turn_on
       entity_id: script.unlock_the_door
 
-alert:
-  front_door:
-    name: Front Door is open
-    # done_message: Garage is closed
-    entity_id: input_boolean.front_door_sensor_status
-    state: "on"
-    repeat: 5
-    # can_acknowledge: true
-    skip_first: true
-    notifiers:
-      - mobile_app_davecom
+# alert:
+#   front_door:
+#     name: Front Door is open
+#     # done_message: Garage is closed
+#     entity_id: input_boolean.front_door_sensor_status
+#     state: "on"
+#     repeat: 5
+#     # can_acknowledge: true
+#     skip_first: true
+#     notifiers:
+#       - mobile_app_davecom
 
 proximity:
   home:

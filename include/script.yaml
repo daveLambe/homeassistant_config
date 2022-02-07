@@ -361,9 +361,13 @@ script:
         data:
           entity_id: scene.goodnight
           transition: 10.0
-      - service: rest_command.assistant_relay
+      # - service: rest_command.assistant_relay
+      #   data:
+      #     command: Turn off Living Room TV
+      - service: androidtv.adb_command
         data:
-          command: Turn off Living Room TV
+          entity_id: media_player.living_room_tv
+          command: POWER
       - service: rest_command.assistant_relay
         data:
           command: Lock the door
@@ -389,6 +393,10 @@ script:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.ignore_motion
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: POWER
       - service: media_player.volume_set
         data:
           entity_id: media_player.bedroom_speaker
@@ -650,7 +658,7 @@ script:
           brightness_pct: 66
       - wait_for_trigger:
           - platform: state
-            entity_id: binary_sensor.bathroom_sensor_motion_detected
+            entity_id: binary_sensor.bathroom_motion_detected
             to: "off"
             for:
               hours: 0
@@ -741,7 +749,7 @@ script:
     mode: single
     sequence:
       - condition: state
-        entity_id: binary_sensor.front_door_sensor_status
+        entity_id: binary_sensor.front_door_is_open
         state: "off"
       - service: script.turn_on
         data:

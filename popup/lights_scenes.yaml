@@ -1,0 +1,81 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: "Set Lighting Scene"
+  style:
+    .: |
+      :host .content {
+        width: calc(385px + 385px + 385px);
+        max-width: 90vw;
+      }
+      /* phone */
+      @media screen and (max-width: 800px) {
+        :host .content {
+          max-width: 100vw;
+        }
+      }
+    layout-card:
+      $grid-layout$:
+        hui-entities-card:
+          $: |
+            .header .card-header {
+              font-family: SF Text;
+              letter-spacing: 0.005em;
+              font-size: 1.6em;
+              font-weight: 500;
+              padding-left: 0;
+              line-height: initial;
+              cursor: default;
+            }
+            ha-card {
+              align-items: center;
+              border-right: 2.5px solid rgba(211, 47, 47, 0.6);
+              border-radius: 0;
+              transition: none;
+            }
+            /* phone */
+            @media screen and (max-width: 800px) {
+              ha-card {
+                align-self: center;
+                border-right: none;
+                border-bottom: 2.5px solid rgba(211, 47, 47, 0.6);
+              }
+            }
+          $hui-horizontal-stack-card:
+            $: |
+              #root {
+                justify-content: space-evenly;
+                margin-top: 1.9em;
+                max-width: 82vw; /* iphonex */
+              }
+  card:
+    type: grid
+    columns: 3
+    cards:
+      - type: "custom:button-card"
+        entity: script.morning
+        name: "Morning"
+      - type: "custom:button-card"
+        entity: script.evening
+        name: "Evening"
+      - type: "custom:button-card"
+        entity: script.goodnight
+        name: "Goodnight"
+      - type: "custom:button-card"
+        entity: script.movie_time
+        name: "Movie Time"
+      - type: "custom:button-card"
+        entity: script.toilet
+        name: "Intermission"
+      - type: "custom:button-card"
+        entity: script.sexy_time
+        name: "Sexy Time"
+      - type: "custom:button-card"
+        entity: script.normal
+        name: "Normal"
+      - type: "custom:button-card"
+        entity: script.dinner
+        name: "Dinner"
+      - type: "custom:button-card"
+        entity: script.dinner_and_a_movie
+        name: "Dinner And a Movie"

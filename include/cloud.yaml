@@ -39,6 +39,9 @@ cloud:
         - switch.kettle
         - input_boolean.delivery_mode
         - input_boolean.vacation_mode
+        - script.movie_time
+        - script.sexy_time
+        - script.toilet
       exclude_entities:
         - lock.door
     entity_config:

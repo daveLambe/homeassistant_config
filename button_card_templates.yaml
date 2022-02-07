@@ -501,14 +501,14 @@ popup_light:
               service_data:
                 entity_id: >
                   [[[ return entity.entity_id ]]]
-                color_temp: 326
+                rgb_color: [194, 25, 252]
             - action: call-service
               service: light.turn_on
-              color: "#fc1919"
+              color: "#ff1012"
               service_data:
                 entity_id: >
                   [[[ return entity.entity_id ]]]
-                color_temp: 500
+                rgb_color: [255, 16, 18]
             - action: fire-dom-event
               image: >-
                 data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
@@ -588,7 +588,7 @@ climate:
       [[[
         if (entity && entity.attributes.temperature && entity.attributes.current_temperature) {
           let input = variables.circle_input == null ? ' ' : `${parseInt(variables.circle_input)}<tspan font-size="10">°C</tspan>`,
-            stroke_color = variables.state === 'cool' || variables.state === 'fan_only' ? '#b2b2b2' : 'none',
+            stroke_color = variables.state === 'heat' || variables.state === 'fan_only' ? '#b2b2b2' : 'none',
             fill_color = variables.state === 'off' ? 'rgba(255,255,255,0.04)' : 'none';
           return `
             <svg viewBox="0 0 50 50">
@@ -781,7 +781,7 @@ light:
             service_data:
               entity_id: >
                 [[[ return entity.entity_id ]]]
-              color_temp: 200
+              color_temp: 153
           - action: call-service
             service: light.turn_on
             color: "#c319fc"
@@ -791,11 +791,11 @@ light:
               rgb_color: [194, 25, 252]
           - action: call-service
             service: light.turn_on
-            color: "#ffa557"
+            color: "#ff1012"
             service_data:
               entity_id: >
                 [[[ return entity.entity_id ]]]
-              color_temp: 370
+              rgb_color: [255, 16, 18]
           - action: fire-dom-event
             image: >-
               data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
@@ -2218,7 +2218,7 @@ icon_climate:
         - width: 78%
         - margin-left: -10%
         - fill: >
-            [[[ return variables.state === 'cool' || variables.state === 'fan_only' ? '#5daeea' : '#9da0a2'; ]]]
+            [[[ return variables.state === 'heat' || variables.state === 'fan_only' ? '#5daeea' : '#9da0a2'; ]]]
   custom_fields:
     icon: >
       <svg viewBox="0 0 50 50">

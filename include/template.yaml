@@ -1,49 +1,49 @@
 template:
   # select:
-    #   - name: vacuum_speed
-    #     state: >
-    #       {% set fan_speed = state_attr('vacuum.morty', 'fan_speed') %}
-    #       {{ 'Standard' if fan_speed == None else fan_speed }}
-    #     options: >
-    #       {% set fan_speed_list = state_attr('vacuum.morty', 'fan_speed_list') %}
-    #       {{ ['Standard'] if fan_speed_list == None else fan_speed_list }}
-    #     select_option:
-    #       service: vacuum.set_fan_speed
-    #       target:
-    #         entity_id: vacuum.morty
-    #       data:
-    #         fan_speed: >
-    #           {{ option }}
+  #   - name: vacuum_speed
+  #     state: >
+  #       {% set fan_speed = state_attr('vacuum.morty', 'fan_speed') %}
+  #       {{ 'Standard' if fan_speed == None else fan_speed }}
+  #     options: >
+  #       {% set fan_speed_list = state_attr('vacuum.morty', 'fan_speed_list') %}
+  #       {{ ['Standard'] if fan_speed_list == None else fan_speed_list }}
+  #     select_option:
+  #       service: vacuum.set_fan_speed
+  #       target:
+  #         entity_id: vacuum.morty
+  #       data:
+  #         fan_speed: >
+  #           {{ option }}
 
-    #   - name: hdmi_bravia
-    #     state: >
-    #       {% set source = state_attr('media_player.sony_bravia_tv', 'source') %}
-    #       {{ 'HDMI' if source == None else source }}
-    #     options: >
-    #       {% set source_list = state_attr('media_player.sony_bravia_tv', 'source_list') %}
-    #       {{ ['HDMI'] if source_list == None else source_list }}
-    #     select_option:
-    #       service: media_player.select_source
-    #       target:
-    #         entity_id: media_player.sony_bravia_tv
-    #       data:
-    #         source: >
-    #           {{ option }}
+  #   - name: hdmi_bravia
+  #     state: >
+  #       {% set source = state_attr('media_player.sony_bravia_tv', 'source') %}
+  #       {{ 'HDMI' if source == None else source }}
+  #     options: >
+  #       {% set source_list = state_attr('media_player.sony_bravia_tv', 'source_list') %}
+  #       {{ ['HDMI'] if source_list == None else source_list }}
+  #     select_option:
+  #       service: media_player.select_source
+  #       target:
+  #         entity_id: media_player.sony_bravia_tv
+  #       data:
+  #         source: >
+  #           {{ option }}
 
-    #   - name: hdmi_samsung
-    #     state: >
-    #       {% set source = state_attr('media_player.samsung_tv', 'source') %}
-    #       {{ 'Apple' if source == None else source }}
-    #     options: >
-    #       {% set source_list = state_attr('media_player.samsung_tv', 'source_list') %}
-    #       {{ ['Apple'] if source_list == None else source_list }}
-    #     select_option:
-    #       service: media_player.select_source
-    #       target:
-    #         entity_id: media_player.samsung_tv
-    #       data:
-    #         source: >
-    #           {{ option }}
+  #   - name: hdmi_samsung
+  #     state: >
+  #       {% set source = state_attr('media_player.samsung_tv', 'source') %}
+  #       {{ 'Apple' if source == None else source }}
+  #     options: >
+  #       {% set source_list = state_attr('media_player.samsung_tv', 'source_list') %}
+  #       {{ ['Apple'] if source_list == None else source_list }}
+  #     select_option:
+  #       service: media_player.select_source
+  #       target:
+  #         entity_id: media_player.samsung_tv
+  #       data:
+  #         source: >
+  #           {{ option }}
 
   binary_sensor:
     #   - unique_id: laundry_time_trigger
@@ -115,13 +115,13 @@ template:
           {%- elif time <= 7 -%} Good Morning {{'\u2600\uFE0F'}}
           {%- elif time <= 9 -%} Good Morning {{'\u2600\uFE0F'}}
           {%- elif time <= 10 -%} Good Morning {{'\u2600\uFE0F'}}
-          {%- elif time <= 13 -%} Good Afternoon {{'\U0001F60A'}}
-          {%- elif time <= 15 -%} Good Afternoon {{'\U0001F60E'}}
-          {%- elif time <= 17 -%} Good Afternoon {{'\U0001F44B\U0001F3FB'}}
-          {%- elif time <= 19 -%} Good Evening {{'\U0001F44B\U0001F3FB'}}
-          {%- elif time <= 22 -%} Good Evening {{'\U0001F60C'}}
-          {%- elif time <= 23 -%} Good Evening {{'\U0001F974'}}
-          {%- else %} Good Evening {{'\U0001F974'}}
+          {%- elif time <= 13 -%} Good Afternoon
+          {%- elif time <= 15 -%} Good Afternoon
+          {%- elif time <= 17 -%} Good Afternoon
+          {%- elif time <= 19 -%} Good Evening
+          {%- elif time <= 22 -%} Good Evening
+          {%- elif time <= 23 -%} Good Evening
+          {%- else %} Good Evening
           {%- endif -%}
           </b>
         active: |
@@ -247,6 +247,37 @@ template:
             {%- if loop.first %} {{-'\u26A0\uFE0F'}} {% else %} {{ '\n' }} {{-'\u26A0\uFE0F'}} {% endif -%}
             {{ state_attr(sensor, 'friendly_name') }} {{ states(sensor) }}%
           {%- endfor %}
+        open_windows: |
+          <b>
+          {%- set windows = [
+            states.binary_sensor.living_room_window_south_is_open,
+            states.binary_sensor.bathroom_window_is_open,
+            states.binary_sensor.bedroom_window_east_is_open,
+            states.binary_sensor.bedroom_window_west_is_open,
+            states.binary_sensor.kitchen_window_north_is_open,
+            states.binary_sensor.kitchen_window_west_right_is_open,
+            states.binary_sensor.living_room_window_west_left_is_open,
+            states.binary_sensor.living_room_window_west_right_is_open
+          ] %}
+
+          {%- set windows_open = windows | selectattr('state','eq','on') | list %}
+          {%- set windows_name = windows | selectattr('state','eq','on') | map(attribute='name') | join(', \n') %}
+
+          {%- if (windows_open | length > 0) -%}
+            {{ windows_name }}
+          {% endif %}
+          </b>
+
+        # {% set entities = states.sensor 
+        #   | selectattr('entity_id', 'search', 'battery_level')
+        #   | rejectattr('entity_id', 'search', 'iphone')
+        #   | rejectattr('entity_id', 'search', 'dixel')
+        #   | map(attribute = 'entity_id') | list %}
+        # {%- for sensor in entities if states(sensor) != 'unknown' and states(sensor) !=
+        # 'unavailable' and states(sensor) != 'None' and states(sensor) | int(default=0) <= 20 %}
+        #   {%- if loop.first %} {{-'\u26A0\uFE0F'}} {% else %} {{ '\n' }} {{-'\u26A0\uFE0F'}} {% endif -%}
+        #   {{ state_attr(sensor, 'friendly_name') }} {{ states(sensor) }}%
+        # {%- endfor %}
         # mathem: |
         #   {%- set start_time = state_attr('calendar.mathem', 'start_time') %}
         #   {%- set end_time = state_attr('calendar.mathem', 'end_time') %}
@@ -277,6 +308,19 @@ template:
         #   {% if is_state('binary_sensor.plex_availability', 'off') -%}
         #     {{-'\u26A0\uFE0F'}} Plex är nere...
         #   {%- endif %}
+        distance_apart: |
+          {%- set distance = states('sensor.drive_time_dave_to_ebony') %}
+          {% if not is_state('sensor.drive_time_dave_to_ebony', 'unknown') %}
+            {%- if distance | int(default=0) >= 4 -%}
+            <b>
+              {{-'\uD83D\uDE97'}} Ebony and Dave are {{ distance }} minutes apart.
+            </b>
+            {% endif %}
+          {% endif %}
+          
+        # {% if is_state('sensor.drive_time_dave_to_ebony', 'off') -%}
+        #   {{-'\u26A0\uFE0F'}} Plex är nere...
+        # {%- endif %}
         # nas: |
         #   {% if is_state('binary_sensor.nas_internet_access', 'off') -%}
         #     {{-'\u26A0\uFE0F'}} Kontrollera NAS internetåtkomst
@@ -394,7 +438,7 @@ template:
     - unique_id: bathroom_occupancy
       icon: mdi:paper-roll
       state: >
-        {{ 'Occupied' if states('binary_sensor.bathroom_sensor_occupancy') ==
+        {{ 'Occupied' if states('binary_sensor.bathroom_occupancy') ==
         'on' else 'Unoccupied' }}
       attributes:
         friendly_name: >

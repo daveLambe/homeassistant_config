@@ -19,10 +19,10 @@ cards:
         entities:
           - type: section
             label: Last Opened
-          - entity: binary_sensor.front_door_sensor_status
+          - entity: binary_sensor.front_door_is_open
             name: "Front Door"
             secondary_info: last-changed
-          - entity: binary_sensor.window_living_room_south_status
+          - entity: binary_sensor.living_room_window_south_is_open
             name: Living Room (South) Window
             secondary_info: last-changed
 
@@ -37,7 +37,7 @@ cards:
           - entity: binary_sensor.amcrest_living_room_motion_detected
             name: "Living Room"
             secondary_info: last-changed
-          - entity: binary_sensor.kitchen_sensor_motion_detected
+          - entity: binary_sensor.kitchen_motion_detected
             name: "Kitchen"
             secondary_info: last-changed
           # - entity: binary_sensor.amcrest_bedroom_motion_detected
@@ -55,7 +55,7 @@ cards:
 
           # - type: section
           #   label: Windows - Last Opened
-          # - entity: binary_sensor.window_living_room_south_status
+          # - entity: binary_sensor.living_room_window_south_is_open
           #   name: Living Room (South)
 
       - type: grid

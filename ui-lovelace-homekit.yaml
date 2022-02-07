@@ -7,26 +7,37 @@ views:
       #default
       grid-gap: var(--custom-layout-card-padding)
       grid-template-columns: repeat(4, 1fr) 0
-      grid-template-rows: 0 repeat(2, fit-content(100%)) 0fr
+      grid-template-rows: 0 repeat(2, fit-content(100%))
       grid-template-areas: |
         "sidebar  .           .        .        ."
         "sidebar  livingroom  kitchen  bedroom  ."
         "sidebar  media       other    home     ."
-        "sidebar  footer      footer   footer   ."
+      # grid-template-areas: |
+      #   "sidebar  .           .        .        ."
+      #   "sidebar  livingroom  kitchen  bedroom  ."
+      #   "sidebar  media       other    home     ."
+      #   "sidebar  footer      footer   footer   ."
       mediaquery:
         #phone
         "(max-width: 800px)":
           grid-gap: calc(var(--custom-layout-card-padding) * 1.7)
           grid-template-columns: 0 repeat(2, 1fr) 0
-          grid-template-rows: 0 repeat(5, fit-content(100%)) 0fr
+          grid-template-rows: 0 repeat(4, fit-content(100%)) 0fr
           grid-template-areas: |
             ".  .           .        ."
             ".  sidebar     sidebar  ."
             ".  livingroom  bedroom  ."
             ".  kitchen     other    ."
             ".  media       home     ."
-            ".  footer      footer   ."
             ".  .           .        ."
+          # grid-template-areas: |
+          #   ".  .           .        ."
+          #   ".  sidebar     sidebar  ."
+          #   ".  livingroom  bedroom  ."
+          #   ".  kitchen     other    ."
+          #   ".  media       home     ."
+          #   ".  footer      footer   ."
+          #   ".  .           .        ."
         #portrait
         "(max-width: 1200px)":
           grid-gap: var(--custom-layout-card-padding)
@@ -37,8 +48,14 @@ views:
             "sidebar  livingroom  bedroom  ."
             "sidebar  kitchen     other    ."
             "sidebar  media       home     ."
-            "sidebar  footer      footer   ."
             "sidebar  .           .        ."
+          # grid-template-areas: |
+          #   "sidebar  .           .        ."
+          #   "sidebar  livingroom  bedroom  ."
+          #   "sidebar  kitchen     other    ."
+          #   "sidebar  media       home     ."
+          #   "sidebar  footer      footer   ."
+          #   "sidebar  .           .        ."
     cards:
       - type: custom:button-card
         styles: #extra_styles fix
@@ -396,10 +413,10 @@ views:
 
               - type: button
                 icon: mdi:arrow-up-bold-circle-outline
-                # tap_action: !include popup/sidebar_update.yaml
-                tap_action:
-                  action: call-service
-                  service: frontend.reload_themes
+                tap_action: !include popup/sidebar_update.yaml
+                # tap_action:
+                #   action: call-service
+                #   service: frontend.reload_themes
                 
                 # hold_action:
                 #   action: call-service
@@ -428,6 +445,25 @@ views:
             name: Lights
             tap_action: !include popup/lights_livingroom.yaml
 
+          - type: custom:button-card
+            entity: climate.thermostat
+            name: Heating
+            hold_action:
+              !include popup/sovrum_klimat.yaml
+            template:
+              - base
+              - icon_climate
+              - climate
+            variables:
+              circle_input: >
+                [[[
+                  if (entity) {
+                    return entity.state == 'heat' ?
+                      entity.attributes.temperature :
+                      entity.attributes.current_temperature;
+                  }
+                ]]]
+
           # - type: custom:button-card
           #   template:
           #     - light
@@ -436,12 +472,12 @@ views:
           #   name: New Lights
           #   tap_action: !include popup/new_lights_livingroom.yaml
 
-          - type: custom:button-card
-            entity: light.tv #living_room_lights
-            name: TV LED
-            template:
-              - light
-              - icon_hue
+          # - type: custom:button-card
+          #   entity: light.tv #living_room_lights
+          #   name: TV LED
+          #   template:
+          #     - light
+          #     - icon_hue
 
         # Slide light without templates
           # - type: custom:button-card
@@ -786,7 +822,7 @@ views:
           #     }
 
           - type: custom:button-card
-            entity: media_player.living_room_chromecast
+            entity: media_player.living_room_tv
             name: TV
             state_display: >
               [[[
@@ -1209,8 +1245,15 @@ views:
               - light
               - icon_hue
             entity: light.all_lights_except_lightning_bolts_and_closet #all_lights_except_lightning_bolts_and_closet
-            name: Master Light Control
+            name: All Lights
             tap_action: !include popup/lights_main.yaml
+
+          - type: custom:button-card
+            template: base
+            show_state: false
+            # entity: light.all_lights_except_lightning_bolts_and_closet #all_lights_except_lightning_bolts_and_closet
+            name: Light Scenes
+            tap_action: !include popup/lights_scenes.yaml
 
           # - type: custom:button-card
           #   entity: light.all_lights
@@ -1439,8 +1482,8 @@ views:
       #                                               #
       #################################################
 
-      - type: custom:button-card
-        view_layout:
-          grid-area: footer
-        entity: sensor.time
-        template: coronavirus
+      # - type: custom:button-card
+      #   view_layout:
+      #     grid-area: footer
+      #   entity: sensor.time
+      #   template: coronavirus

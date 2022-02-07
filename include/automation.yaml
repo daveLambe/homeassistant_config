@@ -7,13 +7,13 @@ automation:
         to: "on"
     condition:
       - condition: state
-        entity_id: binary_sensor.window_living_room_south_status
+        entity_id: binary_sensor.living_room_window_south_is_open
         state: "on"
     action:
       - service: notify.mobile_app_davecom
         data:
           title: Window Alert!
-          message: Living Room window (South) is open
+          message: Living Room Window (South) is open
     mode: single
   - id: automation.vacation_mode_on
     alias: Turn Vacation Mode on
@@ -865,11 +865,11 @@ automation:
         from: "off"
         to: "on"
       - platform: state
-        entity_id: binary_sensor.front_door_sensor_status
+        entity_id: binary_sensor.front_door_is_open
         from: "off"
         to: "on"
       - platform: state
-        entity_id: binary_sensor.bathroom_sensor_motion_detected
+        entity_id: binary_sensor.bathroom_motion_detected
         from: "off"
         to: "on"
       - platform: state
@@ -1214,7 +1214,7 @@ automation:
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.androidcam1_motion_active,binary_sensor.androidcam2_motion_active,binary_sensor.androidcam3_motion_active,binary_sensor.window_living_room_south_status,binary_sensor.living_room_person_motion,binary_sensor.bathroom_sensor_motion_detected,binary_sensor.front_door_sensor_status,binary_sensor.closet_door_is_open
+        entity_id: binary_sensor.androidcam1_motion_active,binary_sensor.androidcam2_motion_active,binary_sensor.androidcam3_motion_active,binary_sensor.living_room_window_south_is_open,binary_sensor.living_room_person_motion,binary_sensor.bathroom_motion_detected,binary_sensor.front_door_is_open,binary_sensor.closet_door_is_open
         to: unavailable
         for:
           hours: 0
@@ -1338,7 +1338,7 @@ automation:
       - type: motion
         platform: device
         device_id: f57ff60d732a1ddfbc5b03367cfccfe1
-        entity_id: binary_sensor.bathroom_sensor_motion_detected
+        entity_id: binary_sensor.bathroom_motion_detected
         domain: binary_sensor
     condition:
       - condition: or
@@ -1393,7 +1393,7 @@ automation:
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_sensor_status
+        entity_id: binary_sensor.front_door_is_open
         from: "off"
         to: "on"
     condition: []
@@ -1408,7 +1408,7 @@ automation:
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_sensor_status
+        entity_id: binary_sensor.front_door_is_open
         from: "on"
         to: "off"
         for:
@@ -1417,7 +1417,7 @@ automation:
           seconds: 0
           milliseconds: 0
       - platform: state
-        entity_id: binary_sensor.front_door_sensor_status
+        entity_id: binary_sensor.front_door_is_open
         from: "on"
         to: "off"
         for:
@@ -1426,7 +1426,7 @@ automation:
           seconds: 0
           milliseconds: 0
       - platform: state
-        entity_id: binary_sensor.front_door_sensor_status
+        entity_id: binary_sensor.front_door_is_open
         from: "on"
         to: "off"
         for:
@@ -1598,7 +1598,7 @@ automation:
       - type: motion
         platform: device
         device_id: e029b91ae756e4a47218136f5291c744
-        entity_id: binary_sensor.kitchen_sensor_motion_detected
+        entity_id: binary_sensor.kitchen_motion_detected
         domain: binary_sensor
     condition:
       - condition: state
@@ -1628,50 +1628,90 @@ automation:
         data:
           transition: 5
     mode: restart
-  - id: "1639531372962"
-    alias: Intruder - Window Open
+  - id: "automation_intruder_alert_window"
+    alias: Intruder Alert - Window
+    mode: single
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.window_living_room_south_status
+        entity_id: binary_sensor.back_door_is_open,binary_sensor.living_room_window_south_is_open,binary_sensor.bathroom_window_is_open,binary_sensor.bedroom_window_east_is_open,binary_sensor.bedroom_window_west_is_open,binary_sensor.kitchen_window_north_is_open,binary_sensor.kitchen_window_west_right_is_open,binary_sensor.kitchen_window_west_left_is_open,binary_sensor.living_room_window_west_left_is_open,binary_sensor.living_room_window_west_right_is_open
         from: "off"
         to: "on"
+        for: 00:00:02
     condition:
       - condition: state
         entity_id: input_boolean.security_mode
         state: "on"
     action:
       - service: lifx.effect_pulse
-        target:
-          entity_id:
-            - light.bedroom
-            - light.tv
-            - light.kitchen_east
-            - light.hallway
         data:
+          entity_id:
+            light.hallway, light.tv_lights
           color_name: blue
-          brightness: 155
-          period: 1
+          period: 0.3
           cycles: 2
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 1
-          milliseconds: 0
+          brightness: 51
       - service: lifx.effect_pulse
-        target:
-          entity_id:
-            - light.bedroom
-            - light.tv
-            - light.kitchen_west
-            - light.kitchen_east
-            - light.hallway
         data:
+          entity_id: light.bedroom
           color_name: blue
-          brightness: 155
-          period: 1
+          period: 0.3
           cycles: 2
-    mode: single
+          brightness: 51
+      - service: notify.mobile_app_davecom
+        data:
+          title: "SECURITY ALERT"
+          message: "{{ trigger.from_state.attributes.friendly_name }}!"
+      - service: notify.mobile_app_ebonycom
+        data:
+          title: "SECURITY ALERT"
+          message: "{{ trigger.from_state.attributes.friendly_name }}!"
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_speaker
+          volume_level: 0.4
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.living_room_speaker
+          message: "{{ trigger.from_state.attributes.friendly_name }}"
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_speaker
+          volume_level: 0.3
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.bedroom_speaker
+          message: "{{ trigger.from_state.attributes.friendly_name }}"
+      # - service: lifx.effect_pulse
+      #   target:
+      #     entity_id:
+      #       - light.bedroom
+      #       - light.tv
+      #       - light.kitchen_east
+      #       - light.hallway
+      #   data:
+      #     color_name: blue
+      #     brightness: 155
+      #     period: 1
+      #     cycles: 2
+      # - delay:
+      #     hours: 0
+      #     minutes: 0
+      #     seconds: 1
+      #     milliseconds: 0
+      # - service: lifx.effect_pulse
+      #   target:
+      #     entity_id:
+      #       - light.bedroom
+      #       - light.tv
+      #       - light.kitchen_west
+      #       - light.kitchen_east
+      #       - light.hallway
+      #   data:
+      #     color_name: blue
+      #     brightness: 155
+      #     period: 1
+      #     cycles: 2
   - id: 'automation.conditional_media_playing'
     alias: Automation Conditional Media Playing
     initial_state: true

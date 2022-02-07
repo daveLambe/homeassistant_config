@@ -3,10 +3,10 @@ input_boolean:
     initial: false
     
   ebony_mode:
-    initial: true
+    initial: false
     
   guest_mode:
-    initial: true
+    initial: false
     
   cinema_mode:
     initial: false
@@ -18,7 +18,7 @@ input_boolean:
     initial: true
 
   security_mode:
-    initial: false
+    initial: true
 
   stay_dark:
     initial: false
