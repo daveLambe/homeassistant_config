@@ -52,17 +52,17 @@ browser_mod:
     type: custom:layout-card
     layout_type: custom:grid-layout
     layout:
-      grid-template-columns: repeat(6, 1fr)
+      grid-template-columns: repeat(7, 1fr)
       grid-template-rows: 1fr
       grid-template-areas: |
-        "all livingroom kitchen bedroom hallway bathroom"
+        "all livingroom kitchen bedroom hallway bathroom scenes"
       mediaquery:
         #phone
         "(max-width: 800px)":
           grid-template-columns: 1fr 1fr
           grid-template-rows: repeat(4, 1fr)
           grid-template-areas: |
-            "all all"
+            "all scenes"
             "livingroom kitchen"
             "bedroom bedroom"
             "hallway bathroom"
@@ -95,6 +95,64 @@ browser_mod:
           - type: custom:button-card
             entity: light.all_lights_except_lightning_bolts_and_closet
             template: popup_light
+
+      - type: grid
+        view_layout:
+          grid-area: scenes
+        title: Scenes
+        # show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        cards:
+          - type: "custom:button-card"
+            entity: script.morning
+            name: "Morning"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.evening
+            name: "Evening"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.goodnight
+            name: "Goodnight"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.movie_time
+            name: "Movie Time"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.toilet
+            name: "Intermission"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.sexy_time
+            name: "Sexy Time"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.normal
+            name: "Normal"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.dinner
+            name: "Dinner"
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: script.dinner_and_a_movie
+            name: "Dinner And a Movie"
+            tap_action:
+              action: toggle
 
       - type: entities
         view_layout:

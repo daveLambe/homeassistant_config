@@ -83,13 +83,13 @@ browser_mod:
             # show_state: true
             tap_action:
               action: toggle
-          - type: "custom:button-card"
-            entity: input_boolean.stay_dark
-            name: Stay Dark
-            icon: "mdi:theme-light-dark"
-            # show_state: true
-            tap_action:
-              action: toggle
+          # - type: "custom:button-card"
+          #   entity: input_boolean.stay_dark
+          #   name: Stay Dark
+          #   icon: "mdi:theme-light-dark"
+          #   # show_state: true
+          #   tap_action:
+          #     action: toggle
             # template: base
           - type: "custom:button-card"
             entity: input_boolean.delivery_mode

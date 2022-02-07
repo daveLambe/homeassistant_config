@@ -55,27 +55,45 @@ browser_mod:
       - type: "custom:button-card"
         entity: script.morning
         name: "Morning"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.evening
         name: "Evening"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.goodnight
         name: "Goodnight"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.movie_time
         name: "Movie Time"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.toilet
         name: "Intermission"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.sexy_time
         name: "Sexy Time"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.normal
         name: "Normal"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.dinner
         name: "Dinner"
+        tap_action:
+          action: toggle
       - type: "custom:button-card"
         entity: script.dinner_and_a_movie
         name: "Dinner And a Movie"
+        tap_action:
+          action: toggle
