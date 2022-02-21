@@ -67,6 +67,8 @@ browser_mod:
       name: "browser_davebook_pro"
     0d518399-1bf39487:
       name: "browser_davecom"
+    d659381b-0008dae5:
+      name: "browser_ipad"
 
 # Text to speech
 tts:

@@ -53,16 +53,17 @@ browser_mod:
     layout_type: custom:grid-layout
     layout:
       grid-template-columns: repeat(7, 1fr)
-      grid-template-rows: 1fr
+      grid-template-rows: 1fr min-content
       grid-template-areas: |
         "all livingroom kitchen bedroom hallway bathroom scenes"
       mediaquery:
         #phone
         "(max-width: 800px)":
           grid-template-columns: 1fr 1fr
-          grid-template-rows: repeat(4, 1fr)
+          grid-template-rows: repeat(5, 1fr)
           grid-template-areas: |
-            "all scenes"
+            "all all"
+            "scenes scenes"
             "livingroom kitchen"
             "bedroom bedroom"
             "hallway bathroom"
@@ -96,61 +97,82 @@ browser_mod:
             entity: light.all_lights_except_lightning_bolts_and_closet
             template: popup_light
 
-      - type: grid
+      # - type: grid
+      #   view_layout:
+      #     grid-area: scenes
+      #   title: Scenes
+      #   # show_header_toggle: false
+      #   card_mod:
+      #     class: header
+      #     style: |
+      #       ha-card {
+      #         margin: 0px !important;
+      #       }
+      #   cards:
+      - type: entities
         view_layout:
           grid-area: scenes
         title: Scenes
-        # show_header_toggle: false
+        show_header_toggle: false
         card_mod:
-          class: header
+          class: content
           style: |
             ha-card {
               margin: 0px !important;
             }
-        cards:
+        entities:
           - type: "custom:button-card"
             entity: script.morning
             name: "Morning"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.evening
             name: "Evening"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.goodnight
             name: "Goodnight"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.movie_time
             name: "Movie Time"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.toilet
             name: "Intermission"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.sexy_time
             name: "Sexy Time"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.normal
             name: "Normal"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.dinner
             name: "Dinner"
+            template: icon_name
             tap_action:
               action: toggle
           - type: "custom:button-card"
             entity: script.dinner_and_a_movie
-            name: "Dinner And a Movie"
+            name: "Dinner & Movie"
+            template: icon_name
             tap_action:
               action: toggle
 

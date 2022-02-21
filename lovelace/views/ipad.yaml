@@ -688,7 +688,7 @@ cards:
                           - type: horizontal-stack
                             cards:
                               - type: "custom:button-card"
-                                entity: switch.kettle
+                                entity: switch.table_lamp
                               - type: "custom:button-card"
                                 entity: switch.blanket
                       - type: button

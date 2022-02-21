@@ -166,31 +166,35 @@ scene:
   - id: "evening"
     name: Evening
     entities:
-      light.all_lights_except_closet:
-        friendly_name: All Lights Except Closet
+      light.chandelier:
+        brightness: 130
+        color_temp: 370
+        state: "on"
+      light.tv:
+        state: "on"
+        brightness_pct: 60
+        rgb_color: [194, 25, 252]
+      light.kitchen_lights:
         brightness: 130
         color_temp: 370
         state: "on"
       light.hallway:
-        #   friendly_name: All Lights
         brightness: 130
         color_temp: 370
         state: "on"
-      # light.all_lights:
-      #   friendly_name: All Lights
-      #   brightness: 90
-      #   color_temp: 370
-      #   state: 'on'
       light.bedroom:
-        friendly_name: Bed Room Light
         brightness: 130
         color_temp: 370
         state: "on"
-      light.lightning_bolts:
-        friendly_name: Lightning Bolts
+      light.bed:
         state: "on"
+        rgb_color: [194, 25, 252]
+        brightness_pct: 70
       light.bathroom:
-        friendly_name: Bathroom Lights
+        state: "on"
+        rgb_color: [194, 25, 252]
+        brightness_pct: 70
+      light.lightning_bolts:
         state: "on"
 
   # Emergency

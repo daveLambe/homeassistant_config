@@ -36,7 +36,7 @@ cloud:
         - light.bed
         - light.hallway
         - light.bathroom
-        - switch.kettle
+        - switch.table_lamp
         - input_boolean.delivery_mode
         - input_boolean.vacation_mode
         - script.movie_time
@@ -94,13 +94,14 @@ cloud:
       light.bathroom:
         name: Bathroom Light
         room: Bathroom
-      switch.kettle:
-        name: Kettle
+      switch.table_lamp:
+        name: Table Lamp
         aliases:
-          - The Kettle
-          - The Kettle
-          - Teapot
-        room: "Kitchen"
+          - Lamp
+          - Puzzle Light
+          - Puzzle Lamp
+          - Living Room Lamp
+        room: "Living Room"
       input_boolean.delivery_mode:
         name: Delivery Mode
         room: Living Room

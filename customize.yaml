@@ -1,5 +1,5 @@
-switch.kettle:
-  icon: mdi:kettle
+switch.table_lamp:
+  icon: mdi:floor-lamp
 switch.blanket:
   icon: mdi:bed-outline
 switch.fan:
@@ -24,6 +24,8 @@ light.chandelier:
   icon: mdi:ceiling-light
 light.bed:
   icon: mdi:bed-king-outline
+light.table_lamp:
+  icon: mdi:floor-lamp
 scene.morning:
   icon: mdi:white-balance-sunny
 scene.evening:

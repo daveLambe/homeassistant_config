@@ -137,9 +137,9 @@ light:
     name: "Lightning Purple 2"
     entity_id: switch.lightning_purple_2
 
-  # - platform: switch
-  #   name: "Lamp"
-  #   entity_id: switch.lamp
+  - platform: switch
+    name: "Table Lamp"
+    entity_id: switch.table_lamp
 
   - platform: group
     name: All Lights

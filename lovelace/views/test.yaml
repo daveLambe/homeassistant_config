@@ -27,7 +27,7 @@ cards:
             entity: light.chandelier
             toggle: true
           - type: "custom:slider-entity-row"
-            entity: light.tv_lights
+            entity: light.tv
             name: TV
             toggle: true
           - entity: light.lightning_bolts
@@ -60,7 +60,7 @@ cards:
             entity: light.chandelier
             toggle: true
           - type: "custom:slider-entity-row"
-            entity: light.tv_lights
+            entity: light.tv
             name: TV
             toggle: true
           - entity: light.lightning_bolts

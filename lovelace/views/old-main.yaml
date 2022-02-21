@@ -245,8 +245,8 @@ cards:
     #     name: ""
     #     show_state: false
       - type: button
-        entity: switch.kettle
-        name: Kettle
+        entity: switch.table_lamp
+        name: Table Lamp
         # icon: 'mdi:beach'
         show_state: true
         tap_action:

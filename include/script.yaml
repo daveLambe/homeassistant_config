@@ -141,20 +141,36 @@ script:
         data:
           entity_id: media_player.living_room_speaker
           volume_level: 0.1
-  tv_on:
+  turn_tv_on:
     alias: Turn TV on
     mode: single
     sequence:
-      - service: rest_command.assistant_relay
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: "off"
+      - service: androidtv.adb_command
         data:
-          command: Turn on Living Room TV
-  tv_off:
+          entity_id: media_player.living_room_tv
+          command: POWER
+      # - service: rest_command.assistant_relay
+      #   data:
+      #     command: Turn on Living Room TV
+  turn_tv_off:
     alias: Turn TV off
     mode: single
     sequence:
-      - service: rest_command.assistant_relay
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: media_player.living_room_tv
+            state: "off"
+      - service: androidtv.adb_command
         data:
-          command: Turn off Living Room TV
+          entity_id: media_player.living_room_tv
+          command: POWER
+      # - service: rest_command.assistant_relay
+      #   data:
+      #     command: Turn off Living Room TV
   bathroom_lights_on:
     alias: Turn Bathroom Lights Strip on
     mode: single
@@ -258,7 +274,7 @@ script:
         data:
           entity_id:
             light.kitchen_east, light.kitchen_west, light.chandelier, light.hallway,
-            light.bedroom, light.tv_lights
+            light.bedroom, light.tv
           color_name: red
           period: 0.5
           cycles: 2
@@ -270,7 +286,7 @@ script:
         data:
           entity_id:
             light.kitchen_east, light.kitchen_west, light.chandelier, light.hallway,
-            light.bedroom, light.tv_lights
+            light.bedroom, light.tv
           color_name: red
           period: 0.5
           cycles: 5
@@ -418,18 +434,18 @@ script:
         data:
           entity_id: scene.evening
           transition: 10.0
-      - service: light.turn_on
-        data:
-          entity_id: light.bathroom
-          brightness_pct: 60
-      - delay: 00:00:01
-      - service: light.turn_on
-        data:
-          entity_id: light.bathroom
-          rgb_color:
-            - 255
-            - 147
-            - 41
+      # - service: light.turn_on
+      #   data:
+      #     entity_id: light.bathroom
+      #     brightness_pct: 60
+      # - delay: 00:00:01
+      # - service: light.turn_on
+      #   data:
+      #     entity_id: light.bathroom
+      #     rgb_color:
+      #       - 255
+      #       - 147
+      #       - 41
       - delay: 00:00:12
       - service: input_boolean.turn_off
         data:
@@ -491,7 +507,7 @@ script:
       - service: lifx.set_state
         data:
           entity_id:
-            light.chandelier, light.hallway, light.tv_lights, light.kitchen_east,
+            light.chandelier, light.hallway, light.tv, light.kitchen_east,
             light.kitchen_west, light.bedroom
           rgb_color:
             - 194
@@ -531,7 +547,7 @@ script:
       - service: lifx.set_state
         data:
           entity_id:
-            light.chandelier, light.hallway, light.tv_lights, light.kitchen_east,
+            light.chandelier, light.hallway, light.tv, light.kitchen_east,
             light.kitchen_west, light.bedroom
           rgb_color:
             - 194
@@ -776,6 +792,9 @@ script:
   turn_tv_on_and_ambient:
     alias: Turn TV on and Ambient
     sequence:
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: "off"
       - service: androidtv.adb_command
         data:
           entity_id: media_player.living_room_tv

@@ -16,8 +16,8 @@ homeassistant:
 
     media_player.spotify:
       friendly_name: Spotify
-    switch.kettle:
-      icon: mdi:kettle
+    switch.table_lamp:
+      icon: mdi:floor-lamp
     switch.blanket:
       icon: mdi:bed-outline
     switch.fan:

@@ -137,11 +137,11 @@ template:
             states.light.lightning_purple_1,
             states.light.lightning_purple_2,
             states.light.lightning_red,
-            states.light.tv
+            states.light.tv,
+            states.light.table_lamp
           ] %}
 
           {%- set switches = [
-            states.switch.kettle,
             states.switch.blanket,
             states.switch.fan,
             states.switch.ipad_charger
@@ -247,17 +247,32 @@ template:
             {%- if loop.first %} {{-'\u26A0\uFE0F'}} {% else %} {{ '\n' }} {{-'\u26A0\uFE0F'}} {% endif -%}
             {{ state_attr(sensor, 'friendly_name') }} {{ states(sensor) }}%
           {%- endfor %}
+        open_doors: |
+          <b>
+          {%- set doors = [
+            states.binary_sensor.front_door_is_open,
+            states.binary_sensor.back_door_is_open
+          ] %}
+
+          {%- set doors_open = doors | selectattr('state','eq','on') | list %}
+          {%- set doors_name = doors | selectattr('state','eq','on') | map(attribute='name') | join(', \n') %}
+
+          {%- if (doors_open | length > 0) -%}
+            {{ doors_name }}
+          {% endif %}
+          </b>
         open_windows: |
           <b>
           {%- set windows = [
             states.binary_sensor.living_room_window_south_is_open,
-            states.binary_sensor.bathroom_window_is_open,
-            states.binary_sensor.bedroom_window_east_is_open,
-            states.binary_sensor.bedroom_window_west_is_open,
+            states.binary_sensor.living_room_window_west_left_is_open,
+            states.binary_sensor.living_room_window_west_right_is_open,
             states.binary_sensor.kitchen_window_north_is_open,
             states.binary_sensor.kitchen_window_west_right_is_open,
-            states.binary_sensor.living_room_window_west_left_is_open,
-            states.binary_sensor.living_room_window_west_right_is_open
+            states.binary_sensor.kitchen_window_west_left_is_open,
+            states.binary_sensor.bedroom_window_east_is_open,
+            states.binary_sensor.bedroom_window_west_is_open,
+            states.binary_sensor.bathroom_window_is_open
           ] %}
 
           {%- set windows_open = windows | selectattr('state','eq','on') | list %}

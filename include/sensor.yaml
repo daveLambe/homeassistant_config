@@ -40,19 +40,19 @@ sensor:
   #   name: dave_last_changed_formatted
   #   value_template: "{{ relative_time(states.person.dave.last_changed) }} ago"
 
-  - platform: template
-    sensors:
-      dave_last_changed_formatted:
-        value_template: "{{ relative_time(states.person.dave.last_changed) }} ago"
+  # - platform: template
+  #   sensors:
+  #     dave_last_changed_formatted:
+  #       value_template: "{{ relative_time(states.person.dave.last_changed) }} ago"
 
-      dave_last_updated_formatted:
-        value_template: "{{ relative_time(states.device_tracker.davecom.last_changed) }} ago"
+  #     dave_last_updated_formatted:
+  #       value_template: "{{ relative_time(states.device_tracker.davecom.last_changed) }} ago"
 
-      ebony_last_changed_formatted:
-        value_template: "{{ relative_time(states.person.ebony.last_changed) }} ago"
+  #     ebony_last_changed_formatted:
+  #       value_template: "{{ relative_time(states.person.ebony.last_changed) }} ago"
 
-      ebony_last_updated_formatted:
-        value_template: "{{ relative_time(states.device_tracker.ebonycom.last_changed) }} ago"
+  #     ebony_last_updated_formatted:
+  #       value_template: "{{ relative_time(states.device_tracker.ebonycom.last_changed) }} ago"
 
   #     selected_light_brightness:
   #       # friendly_name: "Selected Light Brightness"
