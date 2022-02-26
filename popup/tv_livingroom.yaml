@@ -1,0 +1,501 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Living Room TV
+  style:
+    hui-vertical-stack-card:
+      $: |
+        hui-horizontal-stack-card {
+          padding: 0em 2em 2.3em 2em;
+        }
+      $hui-horizontal-stack-card$: |
+        #root {
+          justify-content: space-evenly;
+        }
+  card:
+    type: vertical-stack
+    cards:
+      - type: 'custom:generic-remote-control-card'
+        name: " "
+        remote_template: ccwgtv
+        buttons:
+          top:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 19
+          bottom:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 20
+          ok:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 66
+          clickleft:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 21
+          clickright:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 22
+          volumedown:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 25
+          volumeup:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 24
+          back:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 4
+          assistant:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: am start -a android.intent.action.VIEW -d -n com.google.android.apps.tv.launcherx/.home.HomeActivity
+          mute:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 164
+          youtube:
+            call: media_player.select_source
+            data:
+              entity_id: media_player.living_room_tv
+              source: YouTube
+          netflix:
+            call: media_player.select_source
+            data:
+              entity_id: media_player.living_room_tv
+              source: Netflix
+          home:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 3
+          power:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.living_room_tv
+              command: input keyevent 26
+
+      - type: entities
+        state_color: true
+        show_header_toggle: false
+        card_mod:
+          class: content
+        entities:
+          - entity: media_player.living_room_tv
+            name: TV
+          - entity: media_player.living_room_chromecast
+            name: Chromecast
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            icon: mdi:castle
+            name: Disney+
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+                entity_id: media_player.living_room_tv
+                source: Disney+
+            template: icon_name
+
+          - type: custom:button-card
+            entity: script.set_living_room_tv_ambient_mode
+            name: "Ambient Mode"
+            icon: mdi:wallpaper
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.set_living_room_tv_ambient_mode
+            template: icon_name
+
+          - type: custom:button-card
+            icon: mdi:hulu
+            name: Hulu
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+                entity_id: media_player.living_room_tv
+                source: com.hulu.livingroomplus
+            template: icon_name
+
+
+
+      # - type: entities
+      #   state_color: true
+      #   show_header_toggle: false
+      #   card_mod:
+      #     class: content
+      #   entities:
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_on
+      #           name: 'On'
+      #           tap_action:
+      #             service: script.lounge_tv_on
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_off
+      #           name: 'Off'
+      #           tap_action:
+      #             service: script.lounge_tv_off
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_input_tv
+      #           name: TV
+      #           tap_action:
+      #             service: script.lounge_tv_input_tv
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_input_kodi
+      #           icon: 'mdi:kodi'
+      #           name: Movie
+      #           tap_action:
+      #             service: script.lounge_tv_input_kodi
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_play
+      #           name: Play
+      #           tap_action:
+      #             service: script.lounge_tv_play
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_pause
+      #           name: Pause
+      #           tap_action:
+      #             service: script.lounge_tv_pause
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_stop
+      #           name: Stop
+      #           tap_action:
+      #             service: script.lounge_tv_stop
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_rec
+      #           name: Record
+      #           styles:
+      #             icon:
+      #               - color: red
+      #           tap_action:
+      #             service: script.lounge_tv_rec
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_menu
+      #           name: Menu
+      #           tap_action:
+      #             service: script.lounge_tv_menu
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_rewind
+      #           name: Rewind
+      #           tap_action:
+      #             service: script.lounge_tv_rewind
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_ffwd
+      #           name: F-Forwad
+      #           tap_action:
+      #             service: script.lounge_tv_ffwd
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_ch_up
+      #           name: Ch Up
+      #           tap_action:
+      #             service: script.lounge_tv_ch_up
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_option
+      #           name: Options
+      #           tap_action:
+      #             service: script.lounge_tv_option
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_skip_back
+      #           name: Skip Back
+      #           tap_action:
+      #             service: script.lounge_tv_skip_back
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_skip_fwd
+      #           name: Skip Fwd
+      #           tap_action:
+      #             service: script.lounge_tv_skip_fwd
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_last_ch
+      #           name: Last Ch
+      #           tap_action:
+      #             service: script.lounge_tv_last_ch
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_guide
+      #           name: Guide
+      #           tap_action:
+      #             service: script.lounge_tv_guide
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_info
+      #           icon: 'mdi:information-outline'
+      #           name: Info
+      #           tap_action:
+      #             service: script.lounge_tv_info
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_up
+      #           icon: 'mdi:arrow-up-bold'
+      #           name: Up
+      #           styles:
+      #             card:
+      #               - background: var(--secondary-background-color-alpha)
+      #           tap_action:
+      #             service: script.lounge_tv_up
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_ch_dn
+      #           name: Ch Dn
+      #           tap_action:
+      #             service: script.lounge_tv_ch_dn
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_media
+      #           icon: 'mdi:folder-multiple-image'
+      #           name: Media
+      #           tap_action:
+      #             service: script.lounge_tv_media
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_left
+      #           icon: 'mdi:arrow-left-bold'
+      #           name: Left
+      #           styles:
+      #             card:
+      #               - background: var(--secondary-background-color-alpha)
+      #           tap_action:
+      #             service: script.lounge_tv_left
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_ok
+      #           name: Ok
+      #           tap_action:
+      #             service: script.lounge_tv_ok
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_right
+      #           icon: 'mdi:arrow-right-bold'
+      #           name: Right
+      #           styles:
+      #             card:
+      #               - background: var(--secondary-background-color-alpha)
+      #           tap_action:
+      #             service: script.lounge_tv_right
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_www
+      #           name: Internet
+      #           tap_action:
+      #             service: script.lounge_tv_www
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_return
+      #           name: Return
+      #           tap_action:
+      #             service: script.lounge_tv_return
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_down
+      #           icon: 'mdi:arrow-down-bold'
+      #           name: Down
+      #           styles:
+      #             card:
+      #               - background: var(--secondary-background-color-alpha)
+      #           tap_action:
+      #             service: script.lounge_tv_down
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_exit
+      #           name: Exit
+      #           tap_action:
+      #             service: script.lounge_tv_exit
+      #           template: menu_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+      #     - card_type: horizontal-stack
+      #       cards:
+      #         - entity: script.lounge_tv_red
+      #           name: Red
+      #           styles:
+      #             icon:
+      #               - color: red
+      #           tap_action:
+      #             service: script.lounge_tv_red
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_green
+      #           name: Green
+      #           styles:
+      #             icon:
+      #               - color: '#00ff00'
+      #           tap_action:
+      #             service: script.lounge_tv_green
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_yellow
+      #           name: Yellow
+      #           styles:
+      #             icon:
+      #               - color: yellow
+      #           tap_action:
+      #             service: script.lounge_tv_yellow
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #         - entity: script.lounge_tv_blue
+      #           name: Blue
+      #           styles:
+      #             icon:
+      #               - color: blue
+      #           tap_action:
+      #             service: script.lounge_tv_blue
+      #           template: icon_button
+      #           type: 'custom:button-card'
+      #       type: 'custom:hui-element'
+
+      # - type: 'custom:roku-card'
+      #   entity: media_player.living_room_tv
+      #   tv: true
+      #   apps:
+      #     - image: /local/netflix.webp
+      #       app: Netflix
+      #       tap_action:
+      #         action: call-service
+      #         service: media_player.select_source
+      #         service_data:
+      #           entity_id: media_player.living_room_tv
+      #           source: "com.netflix.ninja"
+      #     - image: /local/hulu.webp
+      #       app: Hulu
+      #       hold_action:
+      #         action: call-service
+      #         service: media_player.select_source
+      #         service_data:
+      #           source: ESPN
+      #           entity_id: media_player.basement_roku
+      #   power:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: POWER
+      #   volume_up:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: VOLUME_UP
+      #   volume_down:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: VOLUME_DOWN
+      #   volume_mute:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: MUTE
+      #   up:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: UP
+      #   down:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: DOWN
+      #   left:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: LEFT
+      #   right:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: RIGHT
+      #   home:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: HOME
+      #   back:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: BACK
+      #   select:
+      #     tap_action:
+      #       action: call-service
+      #       service: androidtv.adb_command
+      #       service_data:
+      #         entity_id: media_player.living_room_tv
+      #         command: CENTER
+            
+            # secondary_info: last-changed
+
+
+          # - entity: script.samsung_tv_energy_saving
+
+          # - entity: select.hdmi_samsung

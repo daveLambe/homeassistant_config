@@ -161,6 +161,12 @@ lovelace:
       type: module
     - url: /hacsfiles/bar-card/bar-card.js
       type: module
+    - url: /hacsfiles/lovelace-hui-element/hui-element.js
+      type: module
+    - url: /hacsfiles/roku-card/roku-card.js
+      type: module
+    - url: /hacsfiles/generic-remote-control-card/generic-remote-control-card.js
+      type: module
     # lovelace-settings:
     #   title: "Guest"
     #   icon: "mdi:cog"
@@ -234,6 +240,11 @@ media_player:
   - platform: androidtv
     name: Living Room TV
     host: !secret living_room_tv_ip
+    screencap: false
+
+  # - platform: androidtv
+  #   name: Living Room TV Ethernet
+  #   host: !secret living_room_tv_eth_ip
 
     # device_class: androidtv
     # host: 192.

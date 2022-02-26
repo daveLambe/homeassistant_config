@@ -857,3 +857,156 @@ script:
           command: Unlock the door
     mode: restart
     icon: mdi:door-open
+  action_notif:
+    alias: Actionable Notification
+    sequence:
+      - service: notify.mobile_app_davecom
+        data:
+          message: "Something happened at home!"
+          data:
+            actions:
+              - action: "ALARM" # The key you are sending for the event
+                title: "Sound Alarm" # The button title
+              - action: "URI" # Must be set to URI if you plan to use a URI
+                title: "Open Url"
+                uri: "https://google.com" # URL to open when action is selected, can also be a lovelace view/dashboard
+  action_open_close:
+    alias: Actionable Open or Close
+    sequence:
+      # inside a automation actions or script sequence
+      - alias: "Set up variables for the actions"
+        variables:
+          # Including an id in the action allows us to identify this script run
+          # and not accidentally trigger for other notification actions
+          action_open: "{{ 'OPEN_' ~ context.id }}"
+          action_close: "{{ 'CLOSE_' ~ context.id }}"
+      - alias: "Ask to close or open the blinds"
+        service: notify.mobile_app_davecom
+        data:
+          message: "The blinds are half-open. Do you want to adjust this?"
+          data:
+            actions:
+              - action: "{{ action_open }}"
+                title: Open
+              - action: "{{ action_close }}"
+                title: Close
+      - alias: "Wait for a response"
+        wait_for_trigger:
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              # waiting for the specific action avoids accidentally continuing
+              # for another script/automation's notification action
+              action: "{{ action_open }}"
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              action: "{{ action_close }}"
+      - alias: "Perform the action"
+        choose:
+          - conditions: "{{ wait.trigger.event.data.action == action_open }}"
+            sequence:
+              - service: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.guest_mode
+          - conditions: "{{ wait.trigger.event.data.action == action_close }}"
+            sequence:
+              - service: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.guest_mode
+  action_guest_mode_on_off:
+    alias: Actionable Notification to turn Guest Mode on or off
+    sequence:
+      # inside a automation actions or script sequence
+      - alias: "Set up variables for the actions"
+        variables:
+          # Including an id in the action allows us to identify this script run
+          # and not accidentally trigger for other notification actions
+          action_on: "{{ 'ON_' ~ context.id }}"
+          action_off: "{{ 'OFF_' ~ context.id }}"
+      - alias: "Ask guest mode on or off"
+        service: notify.mobile_app_davecom
+        data:
+          message: "Guest Mode is still on. Do you want to turn it off?"
+          data:
+            actions:
+              - action: "{{ action_on }}"
+                title: "On"
+              - action: "{{ action_off }}"
+                title: "Off"
+      - alias: "Wait for a response"
+        wait_for_trigger:
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              # waiting for the specific action avoids accidentally continuing
+              # for another script/automation's notification action
+              action: "{{ action_on }}"
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              action: "{{ action_off }}"
+      - alias: "Perform the action"
+        choose:
+          - conditions: "{{ wait.trigger.event.data.action == action_on }}"
+            sequence:
+              - service: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.guest_mode
+          - conditions: "{{ wait.trigger.event.data.action == action_off }}"
+            sequence:
+              - service: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.guest_mode
+  action_security_alert:
+    alias: Actionable Notification with Security Alert
+    mode: restart
+    sequence:
+      # inside a automation actions or script sequence
+      - alias: "Set up variables for the actions"
+        variables:
+          # Including an id in the action allows us to identify this script run
+          # and not accidentally trigger for other notification actions
+          action_alarm: "{{ 'ALARM_' ~ context.id }}"
+          action_cancel: "{{ 'CANCEL_' ~ context.id }}"
+      - alias: "Ask Trigger Alarm or Cancel"
+        service: notify.mobile_app_davecom
+        data:
+          title: "<<<< DaveCave Security Alert >>>> \nUnexpected Motion!"
+          message: "WARNING! Motion detected! Do you want to sound the alarm?"
+          data:
+            push:
+              sound:
+                name: stargate_warning_alarm.wav
+                critical: 1
+                volume: 0.8
+            actions:
+              - action: "{{ action_alarm }}"
+                title: "Sound Alarm!"
+              - action: "{{ action_cancel }}"
+                title: "Cancel"
+      - alias: "Wait for a response"
+        wait_for_trigger:
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              # waiting for the specific action avoids accidentally continuing
+              # for another script/automation's notification action
+              action: "{{ action_alarm }}"
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              action: "{{ action_cancel }}"
+      - alias: "Perform the action"
+        choose:
+          - conditions: "{{ wait.trigger.event.data.action == action_alarm }}"
+            sequence:
+              - service: script.turn_on
+                target:
+                  entity_id: script.flash_red
+          - conditions: "{{ wait.trigger.event.data.action == action_cancel }}"
+            sequence:
+              - service: notify.mobile_app_davecom
+                data:
+                  title: "Security Alert Dismissed."
+                  message: "Go about your business."

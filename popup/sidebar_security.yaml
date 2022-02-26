@@ -55,7 +55,7 @@ browser_mod:
           grid-template-rows: repeat(3, 1fr)
           grid-template-areas: |
             "info info"
-            "indoor indoor"
+            "indoor   indoor"
             "outdoor outdoor"
     cards:
       #################################################
@@ -173,11 +173,25 @@ browser_mod:
           - type: "custom:frigate-card"
             camera_entity: camera.livingroom
             menu:
-              mode: hover-right
+              mode: none
             live:
               provider: webrtc
               webrtc:
                 entity: camera.webrtc_livingroom
+            dimensions:
+              aspect_ratio_mode: dynamic
+              aspect_ratio: '16:9'
+
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.livingroom
+          #   live_provider: webrtc-card
+          #   webrtc_card:
+          #     entity: camera.webrtc_livingroom
+          #   menu:
+          #     mode: none
+            # live:
+            #   webrtc_card:
+            #     ui: true
 
       - type: entities
         view_layout:
@@ -199,16 +213,16 @@ browser_mod:
           - type: "custom:frigate-card"
             camera_entity: camera.street
             menu:
-              mode: hover-right
+              mode: none
             live:
               provider: webrtc
               webrtc:
                 entity: camera.webrtc_street
 
           - type: "custom:frigate-card"
-            camera_entity: camera.street
+            camera_entity: camera.driveway
             menu:
-              mode: hover-right
+              mode: none
             live:
               provider: webrtc
               webrtc:
@@ -217,7 +231,7 @@ browser_mod:
           - type: "custom:frigate-card"
             camera_entity: camera.backdoor
             menu:
-              mode: hover-right
+              mode: none
             live:
               provider: webrtc
               webrtc:

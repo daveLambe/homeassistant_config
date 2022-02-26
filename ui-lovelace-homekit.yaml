@@ -133,7 +133,7 @@ views:
                   return 'On';
                 }
               ]]]
-            hold_action: !include popup/vardagsrum_tv.yaml
+            tap_action: !include popup/tv_livingroom.yaml
             template:
               - media
               - icon_tv
@@ -171,14 +171,22 @@ views:
             tap_action: !include popup/lights_kitchen.yaml
 
           - type: custom:button-card
-            entity: switch.kettle
-            name: Kettle
+            template:
+              - media
+              - icon_tv
+            entity: media_player.living_room_tv
+            name: TV
+            tap_action: !include popup/tv_livingroom.yaml
+
+          # - type: custom:button-card
+            # entity: switch.kettle
+            # name: Kettle
             # triggers_update:
             #   - lock.dator
             #   - script.home_leave
             # hold_action: !include popup/studio_dator.yaml
-            template:
-              - base
+            # template:
+              # - base
               # - icon_imac
               # - loader
               # - lock
@@ -236,6 +244,20 @@ views:
             tap_action: !include popup/lights_bedroom.yaml
 
           - type: custom:button-card
+            entity: media_player.bedroom_tv
+            name: "TV"
+            tap_action: !include popup/tv_bedroom.yaml
+            state_display: >
+              [[[
+                if (variables.state == 'playing') {
+                  return 'On';
+                }
+              ]]]
+            template:
+              - media
+              - icon_tv
+
+          - type: custom:button-card
             entity: light.bed
             name: Bed LEDs
             template:
@@ -243,21 +265,19 @@ views:
               - icon_hue
 
           - type: custom:button-card
-            entity: media_player.bedroom_tv
-            name: "TV"
-            # hold_action: !include popup/vardagsrum_playstation.yaml
-            hold_action: !include popup/sovrum_tv2.yaml
+            entity: media_player.bedroom_speaker
+            name: Bedroom Speaker
             template:
               - media
-              - icon_tv
+              - icon_nest_mini
 
-          - type: custom:button-card
-            entity: switch.bedroom_monitor
-            name: "Monitor"
-            hold_action: !include popup/sovrum_tv2.yaml
-            template:
-              - base
-              - icon_tv
+          # - type: custom:button-card
+          #   entity: switch.bedroom_monitor
+          #   name: "Monitor"
+          #   hold_action: !include popup/sovrum_tv2.yaml
+          #   template:
+          #     - base
+          #     - icon_tv
 
       #################################################
       #                                               #
@@ -294,15 +314,16 @@ views:
                 columns: 2
                 cards:
                   - type: custom:button-card
-                    entity: media_player.living_room_chromecast
-                    name: Living Room TV
+                    entity: media_player.living_room_tv
+                    tap_action: !include popup/tv_livingroom.yaml
+                    name: LR TV
                     template:
                       - media
                       - icon_tv
 
                   - type: custom:button-card
                     entity: media_player.living_room_speaker
-                    name: Living Room Speaker
+                    name: LR Speaker
                     template:
                       - media
                       - icon_nest_mini
@@ -310,13 +331,14 @@ views:
                   - type: custom:button-card
                     name: Bedroom TV
                     entity: media_player.bedroom_tv
+                    tap_action: !include popup/tv_bedroom.yaml
                     template:
                       - media
                       - icon_tv
 
                   - type: custom:button-card
                     entity: media_player.bedroom_speaker
-                    name: Bedroom Speaker
+                    name: BR Speaker
                     template:
                       - media
                       - icon_nest_mini
@@ -343,7 +365,7 @@ views:
                         state: Living Room TV
                     card:
                       type: custom:button-card
-                      entity: media_player.living_room_chromecast
+                      entity: media_player.living_room_tv
                       template:
                         - conditional_media
                         - icon_tv

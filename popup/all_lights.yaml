@@ -185,45 +185,90 @@ browser_mod:
             step: 1
             toggle: true
 
-      - type: grid
+      - type: entities
         view_layout:
           grid-area: scenes
-        title: Set Lighting Scene
-        columns: 3
+        title: Scenes
+        show_header_toggle: false
         card_mod:
           class: header
           style: |
             ha-card {
               margin: 0px !important;
             }
-        cards:
-          - type: "custom:button-card"
-            entity: script.morning
-            name: "Morning"
-          - type: "custom:button-card"
-            entity: script.evening
-            name: "Evening"
-          - type: "custom:button-card"
-            entity: script.goodnight
-            name: "Goodnight"
-          - type: "custom:button-card"
-            entity: script.movie_time
-            name: "Movie Time"
-          - type: "custom:button-card"
-            entity: script.toilet
-            name: "Intermission"
-          - type: "custom:button-card"
-            entity: script.sexy_time
-            name: "Sexy Time"
-          - type: "custom:button-card"
-            entity: script.normal
-            name: "Normal"
-          - type: "custom:button-card"
-            entity: script.dinner
-            name: "Dinner"
-          - type: "custom:button-card"
-            entity: script.dinner_and_a_movie
-            name: "Dinner And a Movie"
+        entities:
+          - light.bed
+          - type: custom:hui-element
+            card_type: grid
+            columns: 3
+            cards:
+              - type: "custom:button-card"
+                entity: script.morning
+                name: "Morning"
+              - type: "custom:button-card"
+                entity: script.evening
+                name: "Evening"
+              - type: "custom:button-card"
+                entity: script.goodnight
+                name: "Goodnight"
+              - type: "custom:button-card"
+                entity: script.movie_time
+                name: "Movie Time"
+              - type: "custom:button-card"
+                entity: script.toilet
+                name: "Intermission"
+              - type: "custom:button-card"
+                entity: script.sexy_time
+                name: "Sexy Time"
+              - type: "custom:button-card"
+                entity: script.normal
+                name: "Normal"
+              - type: "custom:button-card"
+                entity: script.dinner
+                name: "Dinner"
+              - type: "custom:button-card"
+                entity: script.dinner_and_a_movie
+                name: "Dinner And a Movie"
+
+      # - type: grid
+      #   view_layout:
+      #     grid-area: scenes
+      #   title: Set Lighting Scene
+      #   columns: 3
+      #   card_mod:
+      #     class: header
+      #     style: |
+      #       ha-card {
+      #         margin: 0px !important;
+      #       }
+      #   cards:
+      #     - type: "custom:button-card"
+      #       entity: script.morning
+      #       name: "Morning"
+      #     - type: "custom:button-card"
+      #       entity: script.evening
+      #       name: "Evening"
+      #     - type: "custom:button-card"
+      #       entity: script.goodnight
+      #       name: "Goodnight"
+      #     - type: "custom:button-card"
+      #       entity: script.movie_time
+      #       name: "Movie Time"
+      #     - type: "custom:button-card"
+      #       entity: script.toilet
+      #       name: "Intermission"
+      #     - type: "custom:button-card"
+      #       entity: script.sexy_time
+      #       name: "Sexy Time"
+      #     - type: "custom:button-card"
+      #       entity: script.normal
+      #       name: "Normal"
+      #     - type: "custom:button-card"
+      #       entity: script.dinner
+      #       name: "Dinner"
+      #     - type: "custom:button-card"
+      #       entity: script.dinner_and_a_movie
+      #       name: "Dinner And a Movie"
 
 
 # action: fire-dom-event

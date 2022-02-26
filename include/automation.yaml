@@ -886,7 +886,7 @@ automation:
         from: "off"
         to: "on"
       - platform: state
-        entity_id: binary_sensor.living_room_person_motion
+        entity_id: binary_sensor.livingroom_person_motion
         from: "off"
         to: "on"
       - platform: state
@@ -1118,7 +1118,7 @@ automation:
     description: Nightlight if motion detected and lights off
     trigger:
       - platform: state
-        entity_id: binary_sensor.living_room_person_motion
+        entity_id: binary_sensor.livingroom_person_motion
         from: "off"
         to: "on"
     condition:
@@ -1239,7 +1239,7 @@ automation:
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.androidcam1_motion_active,binary_sensor.androidcam2_motion_active,binary_sensor.androidcam3_motion_active,binary_sensor.living_room_window_south_is_open,binary_sensor.living_room_person_motion,binary_sensor.bathroom_motion_detected,binary_sensor.front_door_is_open,binary_sensor.closet_door_is_open
+        entity_id: binary_sensor.androidcam1_motion_active,binary_sensor.androidcam2_motion_active,binary_sensor.androidcam3_motion_active,binary_sensor.living_room_window_south_is_open,binary_sensor.livingroom_person_motion,binary_sensor.bathroom_motion_detected,binary_sensor.front_door_is_open,binary_sensor.closet_door_is_open
         to: unavailable
         for:
           hours: 0
@@ -1302,7 +1302,7 @@ automation:
         from: "off"
         to: "on"
       - platform: state
-        entity_id: binary_sensor.living_room_person_motion
+        entity_id: binary_sensor.livingroom_person_motion
         from: "off"
         to: "on"
     condition:
@@ -1474,7 +1474,7 @@ automation:
     use_blueprint:
       path: vorion/create-automated-backups-every-day.yaml
       input:
-        trigger_time: "22:00:00"
+        trigger_time: "05:00:00"
         send_notification: true
         notify_device: f16bc6af1ad411eba7b95561d82128b5
   - id: "1635681009289"
@@ -1718,6 +1718,79 @@ automation:
         data:
           entity_id: media_player.bedroom_speaker
           message: "{{ trigger.from_state.attributes.friendly_name }}"
+  - id: "automation_intruder_alert_bed_time"
+    alias: Intruder Alert for when sleeping
+    mode: single
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: 
+          - binary_sensor.front_door_is_open
+          - binary_sensor.back_door_is_open
+          - binary_sensor.living_room_window_south_is_open
+          - binary_sensor.living_room_window_west_left_is_open
+          - binary_sensor.living_room_window_west_right_is_open
+          - binary_sensor.kitchen_window_north_is_open
+          - binary_sensor.kitchen_window_west_right_is_open
+          - binary_sensor.kitchen_window_west_left_is_open
+          - binary_sensor.bedroom_window_east_is_open
+          - binary_sensor.bedroom_window_west_is_open
+          - binary_sensor.bathroom_window_is_open
+        from: "off"
+        to: "on"
+        for: 00:00:02
+    condition:
+      - condition: state
+        entity_id: input_boolean.security_mode
+        state: "on"
+      - condition: state
+        entity_id: device_tracker.davecom
+        state: "home"
+      - condition: time
+        after: "23:30:00"
+        before: "06:30:00"
+    action:
+      - service: lifx.effect_pulse
+        data:
+          entity_id:
+            light.hallway, light.tv
+          color_name: blue
+          period: 0.3
+          cycles: 4
+          brightness: 50
+      - service: lifx.effect_pulse
+        data:
+          entity_id: light.bedroom
+          color_name: blue
+          period: 0.3
+          cycles: 4
+          brightness: 50
+      - service: notify.mobile_app_davecom
+        data:
+          title: "SECURITY ALERT"
+          message: "{{ trigger.from_state.attributes.friendly_name }}!"
+          data:
+            push:
+              sound:
+                name: stargate_warning_alarm.wav
+                critical: 1
+                volume: 0.8
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_speaker
+          volume_level: 0.4
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.living_room_speaker
+          message: "{{ trigger.from_state.attributes.friendly_name }}"
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_speaker
+          volume_level: 0.6
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.bedroom_speaker
+          message: "{{ trigger.from_state.attributes.friendly_name }}"
       # - service: lifx.effect_pulse
       #   target:
       #     entity_id:
@@ -1887,3 +1960,82 @@ automation:
         target:
           entity_id: light.tv
     mode: single
+  - id: 'automation.trigger_guest_mode_actionable_notification_script'
+    alias: Trigger Guest Mode Actionable Notification
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: input_boolean.guest_mode
+        from: "off"
+        to: "on"
+        for:
+          hours: 12
+          minutes: 0
+          seconds: 0
+          milliseconds: 0
+    action:
+      - service: script.turn_on
+        entity_id: script.action_guest_mode_on_off
+  - id: 'automation.trigger_security_alert_actionable_notification_script'
+    alias: Trigger Security Alert Actionable Notification
+    description: ""
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: 
+          - binary_sensor.front_door_is_open
+          - binary_sensor.back_door_is_open
+          - binary_sensor.livingroom_person_motion
+          - binary_sensor.kitchen_motion_detected
+          - binary_sensor.living_room_window_south_is_open
+          - binary_sensor.living_room_window_west_left_is_open
+          - binary_sensor.living_room_window_west_right_is_open
+          - binary_sensor.kitchen_window_north_is_open
+          - binary_sensor.kitchen_window_west_right_is_open
+          - binary_sensor.kitchen_window_west_left_is_open
+          - binary_sensor.bedroom_window_east_is_open
+          - binary_sensor.bedroom_window_west_is_open
+          - binary_sensor.bathroom_window_is_open
+          - binary_sensor.bathroom_window_is_open
+        from: "off"
+        to: "on"
+        for: 00:00:02
+    condition:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_boolean.vacation_mode
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.ignore_motion
+            state: "off"
+          - condition: state
+            entity_id: input_boolean.cinema_mode
+            state: "off"
+    action:
+      - service: script.turn_on
+        entity_id: script.action_security_alert
+  - id: automation.security_mode_turn_on_when_goodnight_script
+    alias: Turn Security Mode On When Goodnight Scripts
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: script.goodnight, script.goodnight_relax_playlist, script.goodnight_lock_door_bedroom_lights_only
+        to: "on"
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.security_mode
+  - id: automation.security_mode_turn_off_when_morning
+    alias: Turn Security Mode On When Morning
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: script.morning
+        to: "on"
+      - platform: time
+        at: "07:00:00"
+      - platform: time
+        at: "08:00:00"
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.security_mode
