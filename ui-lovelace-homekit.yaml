@@ -21,9 +21,9 @@ views:
           grid-template-areas: |
             ".  .           .        ."
             ".  sidebar     sidebar  ."
-            ".  livingroom  bedroom  ."
+            ".  livingroom  home     ."
             ".  kitchen     other    ."
-            ".  media       home     ."
+            ".  bedroom     media    ."
             ".  .           .        ."
         #portrait
         "(max-width: 1200px)":
@@ -32,9 +32,9 @@ views:
           grid-template-rows: 0 repeat(3, fit-content(100%)) 0fr
           grid-template-areas: |
             "sidebar  .           .        ."
-            "sidebar  livingroom  bedroom  ."
+            "sidebar  livingroom  home     ."
             "sidebar  kitchen     other    ."
-            "sidebar  media       home     ."
+            "sidebar  bedroom     media    ."
             "sidebar  .           .        ."
     cards:
       - type: custom:button-card
