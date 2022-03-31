@@ -59,6 +59,25 @@ template:
         {{ (installed != latest and installed != 'unknown' and latest != 'unknown')
         or (states('sensor.hacs') != 'unknown' and states('sensor.hacs') | int(default=0) > 0) }}
 
+
+    - unique_id: davecom_on_home_wifi
+      device_class: connectivity
+      icon: mdi:wifi
+      state: >
+        {{ is_state('sensor.davecom_ssid', 'Sauron') or
+        is_state('sensor.davecom_ssid', 'The Lord Of The Pings') }}
+      attributes:
+        friendly_name: Davecom on Home WIFI
+
+    - unique_id: ebonycom_on_home_wifi
+      device_class: connectivity
+      icon: mdi:wifi
+      state: >
+        {{ is_state('sensor.ebonycom_wifi_connection', 'Sauron') or
+        is_state('sensor.ebonycom_wifi_connection', 'The Lord Of The Pings') }}
+      attributes:
+        friendly_name: Ebonycom on Home WIFI
+
     # - unique_id: imac_vpn
     #   device_class: connectivity
     #   icon: >
@@ -276,10 +295,15 @@ template:
           ] %}
 
           {%- set windows_open = windows | selectattr('state','eq','on') | list %}
-          {%- set windows_name = windows | selectattr('state','eq','on') | map(attribute='name') | join(', \n') %}
+          {%- set windows_name = windows | selectattr('state','eq','on') | map(attribute='name') | join('\n') %}
 
           {%- if (windows_open | length > 0) -%}
-            {{ windows_name }}
+            {%- if (windows_open | length == 1) -%}
+              {{ windows_name }}
+            {%- else %}
+              Open Windows:
+              {{ windows_name | regex_replace('Window','') | regex_replace('Is Open','') }}
+            {% endif %}
           {% endif %}
           </b>
 
@@ -326,7 +350,7 @@ template:
         distance_apart: |
           {%- set distance = states('sensor.drive_time_dave_to_ebony') %}
           {% if not is_state('sensor.drive_time_dave_to_ebony', 'unknown') %}
-            {%- if distance | int(default=0) >= 4 -%}
+            {%- if distance | int(default=0) >= 2 -%}
             <b>
               {{-'\uD83D\uDE97'}} Ebony and Dave are {{ distance }} minutes apart.
             </b>

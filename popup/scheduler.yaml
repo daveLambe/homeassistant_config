@@ -1,0 +1,49 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Schedules
+  style:
+    hui-vertical-stack-card:
+      $: |
+        hui-horizontal-stack-card {
+          padding: 0em 2em 2.3em 2em;
+        }
+      $hui-horizontal-stack-card$: |
+        #root {
+          justify-content: space-evenly;
+        }
+  card:
+    type: vertical-stack
+    cards:
+      - type: "custom:scheduler-card"
+        title: false
+        time_step: 5
+        domains:
+          - light
+          - switch
+        groups:
+          - name: "Lights"
+            icon: "mdi:lightbulb-variant"
+            include:
+              - light
+          - name: "Switches"
+            icon: "mdi:power"
+            include:
+              - switch
+          - name: "Settings"
+            icon: "mdi:cog-box"
+            include:
+              - input_boolean
+          - name: "Media"
+            icon: "mdi:cog-box"
+            include:
+              - media_player
+          - name: "Scripts"
+            icon: "mdi:cog-box"
+            include:
+              - script
+          - name: "Thermostat"
+            icon: "mdi:thermostat"
+            include: 
+              - climate
+        standard_configuration: true

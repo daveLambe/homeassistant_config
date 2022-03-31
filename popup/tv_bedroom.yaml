@@ -15,80 +15,115 @@ browser_mod:
   card:
     type: vertical-stack
     cards:
-      # - type: 'custom:generic-remote-control-card'
-      #   name: " "
-      #   remote_template: ccwgtv
-      #   buttons:
-      #     top:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 19
-      #     bottom:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 20
-      #     ok:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 66
-      #     clickleft:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 21
-      #     clickright:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 22
-      #     volumedown:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 25
-      #     volumeup:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 24
-      #     back:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 4
-      #     assistant:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: am start -a android.intent.action.VIEW -d -n com.google.android.apps.tv.launcherx/.home.HomeActivity
-      #     mute:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 164
-      #     youtube:
-      #       call: media_player.select_source
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         source: YouTube
-      #     netflix:
-      #       call: media_player.select_source
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         source: Netflix
-      #     home:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 3
-      #     power:
-      #       call: androidtv.adb_command
-      #       data:
-      #         entity_id: media_player.bedroom_tv
-      #         command: input keyevent 26
+      - type: 'custom:generic-remote-control-card'
+        name: " "
+        remote_template: ccwgtv
+        buttons:
+          top:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 19
+          bottom:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 20
+          ok:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 66
+          clickleft:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 21
+          clickright:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 22
+          volumedown:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 25
+          volumeup:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 24
+          back:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 4
+          assistant:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: am start -a android.intent.action.VIEW -d -n com.google.android.apps.tv.launcherx/.home.HomeActivity
+          mute:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 164
+          youtube:
+            call: media_player.select_source
+            data:
+              entity_id: media_player.bedroom_tv
+              source: YouTube
+          netflix:
+            call: media_player.select_source
+            data:
+              entity_id: media_player.bedroom_tv
+              source: Netflix
+          home:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 3
+          power:
+            call: androidtv.adb_command
+            data:
+              entity_id: media_player.bedroom_tv
+              command: input keyevent 26
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            icon: mdi:castle
+            name: Disney+
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+                entity_id: media_player.bedroom_tv
+                source: Disney+
+            template: icon_name
+
+          - type: custom:button-card
+            entity: script.set_bedroom_tv_ambient_mode
+            name: "Ambient Mode"
+            icon: mdi:wallpaper
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.set_bedroom_tv_ambient_mode
+            template: icon_name
+
+          - type: custom:button-card
+            icon: mdi:hulu
+            name: Hulu
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+                entity_id: media_player.bedroom_tv
+                source: com.hulu.livingroomplus
+            template: icon_name
 
       - type: entities
         state_color: true
@@ -98,47 +133,49 @@ browser_mod:
         entities:
           - entity: media_player.bedroom_tv
             name: TV
+          - entity: media_player.bedroom_chromecast
+            name: Chromecast
           - entity: switch.bedroom_monitor
             name: Monitor
           # - entity: media_player.living_room_chromecast
           #   name: Chromecast
 
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            entity: media_player.bedroom_tv
-            icon: mdi:volume-mute
-            tap_action:
-              action: call-service
-              service: media_player.volume_mute
-              service_data:
-                entity_id: >
-                  [[[ return entity.entity_id; ]]]
-                is_volume_muted: >
-                  [[[ return entity.attributes.is_volume_muted === 'false' ? 'true' : 'false'; ]]]
-            template: icon_only
+      # - type: horizontal-stack
+      #   cards:
+      #     - type: custom:button-card
+      #       entity: media_player.bedroom_tv
+      #       icon: mdi:volume-mute
+      #       tap_action:
+      #         action: call-service
+      #         service: media_player.volume_mute
+      #         service_data:
+      #           entity_id: >
+      #             [[[ return entity.entity_id; ]]]
+      #           is_volume_muted: >
+      #             [[[ return entity.attributes.is_volume_muted === 'false' ? 'true' : 'false'; ]]]
+      #       template: icon_only
 
-          - type: custom:button-card
-            entity: media_player.bedroom_tv
-            icon: mdi:volume-minus
-            tap_action:
-              action: call-service
-              service: media_player.volume_down
-              service_data:
-                entity_id: >
-                  [[[ return entity.entity_id; ]]]
-            template: icon_only
+      #     - type: custom:button-card
+      #       entity: media_player.bedroom_tv
+      #       icon: mdi:volume-minus
+      #       tap_action:
+      #         action: call-service
+      #         service: media_player.volume_down
+      #         service_data:
+      #           entity_id: >
+      #             [[[ return entity.entity_id; ]]]
+      #       template: icon_only
 
-          - type: custom:button-card
-            entity: media_player.bedroom_tv
-            icon: mdi:volume-plus
-            tap_action:
-              action: call-service
-              service: media_player.volume_up
-              service_data:
-                entity_id: >
-                  [[[ return entity.entity_id; ]]]
-            template: icon_only
+      #     - type: custom:button-card
+      #       entity: media_player.bedroom_tv
+      #       icon: mdi:volume-plus
+      #       tap_action:
+      #         action: call-service
+      #         service: media_player.volume_up
+      #         service_data:
+      #           entity_id: >
+      #             [[[ return entity.entity_id; ]]]
+      #       template: icon_only
 
       # - type: horizontal-stack
       #   cards:

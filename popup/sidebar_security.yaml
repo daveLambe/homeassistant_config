@@ -26,6 +26,10 @@ browser_mod:
               border-radius: 0;
               transition: none;
             }
+            button-card {
+              align-self: center !important;
+              padding: 0 0 0 3.5em;
+            }
             /* phone */
             @media screen and (max-width: 800px) {
               ha-card {
@@ -116,28 +120,6 @@ browser_mod:
             name: Bathroom
             secondary_info: last-changed
 
-
-
-          # - type: section
-          #   label: Last Detected Person
-          # - entity: binary_sensor.livingroom_person_motion
-          #   name: "Living Room"
-          #   secondary_info: last-changed
-
-          # - type: section
-          #   label: Last Detected Motion
-          # - entity: binary_sensor.amcrest_living_room_motion_detected
-          #   name: "Living Room"
-          #   secondary_info: last-changed
-          # - entity: binary_sensor.kitchen_sensor_motion_detected
-          #   name: "Kitchen"
-          #   secondary_info: last-changed
-          # - entity: binary_sensor.amcrest_bedroom_motion_detected
-          #   name: "Bedroom"
-          # secondary_info: last-changed
-          # - entity: sensor.front_door_last_motion
-          #   name: "Front Door"
-
           - type: section
             label: Camera Status
           - entity: binary_sensor.amcrest_living_room_online
@@ -171,27 +153,39 @@ browser_mod:
             secondary_info: last-changed
 
           - type: "custom:frigate-card"
-            camera_entity: camera.livingroom
-            menu:
-              mode: none
-            live:
-              provider: webrtc
-              webrtc:
-                entity: camera.webrtc_livingroom
-            dimensions:
-              aspect_ratio_mode: dynamic
-              aspect_ratio: '16:9'
-
-          # - type: "custom:frigate-card"
-          #   camera_entity: camera.livingroom
-          #   live_provider: webrtc-card
-          #   webrtc_card:
-          #     entity: camera.webrtc_livingroom
-          #   menu:
-          #     mode: none
+            cameras:
+              - camera_entity: camera.livingroom
+                title: Living Room
+                live_provider: webrtc-card
+                webrtc_card:
+                  entity: camera.webrtc_livingroom
+              # - webrtc_card:
+              #     entity: camera.webrtc_livingroom
+              #     camera_name: Living Room
+              #     live_provider: webrtc-card
+              #     webrtc_card:
+              #       entity: camera.webrtc_livingroom
             # live:
             #   webrtc_card:
-            #     ui: true
+            #     ui: false
+            #     background: true
+            #   preload: true
+            view:
+              actions:
+                double_tap_action:
+                  action: custom:frigate-card-action
+                  frigate_card_action: fullscreen
+            overrides:
+              - conditions:
+                  camera:
+                    - camera.livingroom
+                    - camera.webrtc_livingroom
+                overrides:
+                  menu:
+                    # mode: none
+                    buttons:
+                      frigate: false
+                      fullscreen: true
 
       - type: entities
         view_layout:
@@ -211,31 +205,212 @@ browser_mod:
             name: "Front Door"
 
           - type: "custom:frigate-card"
-            camera_entity: camera.street
-            menu:
-              mode: none
+            cameras:
+              - camera_entity: camera.street
+                # camera_name: Street
+                live_provider: webrtc-card
+                webrtc_card:
+                  entity: camera.webrtc_street
+              - camera_entity: camera.driveway
+                # camera_name: Driveway
+                live_provider: webrtc-card
+                webrtc_card:
+                  entity: camera.webrtc_driveway
+              - camera_entity: camera.backdoor
+                # camera_name: Backdoor
+                live_provider: webrtc-card
+                webrtc_card:
+                  entity: camera.webrtc_backdoor
             live:
-              provider: webrtc
-              webrtc:
-                entity: camera.webrtc_street
+              webrtc_card:
+                ui: false
+                background: false
+              # preload: true
+            view:
+              actions:
+                double_tap_action:
+                  action: custom:frigate-card-action
+                  frigate_card_action: fullscreen
+            overrides:
+              - conditions:
+                  camera:
+                    - camera.street
+                    - camera.webrtc_street
+                    - camera.driveway
+                    - camera.webrtc_driveway
+                    - camera.backdoor
+                    - camera.webrtc_backdoor
+                overrides:
+                  menu:
+                    # mode: none
+                    buttons:
+                      frigate: false
+                      fullscreen: true
+                # elements:
+                #   - type: icon
+                #     entity: camera.street
+                #     icon: mdi:fullscreen
+                #     style:
+                #       left: 40px
+                #       top: 40px
+                #     tap_action:
+                #       action: custom:frigate-card-action
+                #       frigate_card_action: fullscreen
 
-          - type: "custom:frigate-card"
-            camera_entity: camera.driveway
-            menu:
-              mode: none
-            live:
-              provider: webrtc
-              webrtc:
-                entity: camera.webrtc_driveway
+                      
 
-          - type: "custom:frigate-card"
-            camera_entity: camera.backdoor
-            menu:
-              mode: none
-            live:
-              provider: webrtc
-              webrtc:
-                entity: camera.webrtc_backdoor
+          - type: custom:button-card
+            name: Show Street on TV
+            icon: mdi:cast
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.cast_street_to_tv
+
+          - type: custom:button-card
+            name: Show Driveway on TV
+            icon: mdi:cast
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.cast_driveway_to_tv
+
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.livingroom
+          #   menu:
+          #     mode: none
+          #   live:
+          #     provider: webrtc
+          #     webrtc:
+          #       entity: camera.webrtc_livingroom
+            # dimensions:
+            #   aspect_ratio_mode: dynamic
+            #   aspect_ratio: '16:9'
+
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.livingroom
+          #   live_provider: webrtc-card
+          #   webrtc_card:
+          #     entity: camera.webrtc_livingroom
+          #   menu:
+          #     mode: none
+            # live:
+            #   webrtc_card:
+            #     ui: true
+
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.street
+          #   menu:
+          #     mode: none
+          #   live:
+          #     provider: webrtc
+          #     webrtc:
+          #       entity: camera.webrtc_street
+
+
+
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.driveway
+          #   menu:
+          #     mode: none
+          #   live:
+          #     provider: webrtc
+          #     webrtc:
+          #       entity: camera.webrtc_driveway
+
+
+
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.backdoor
+          #   menu:
+          #     mode: none
+          #   live:
+          #     provider: webrtc
+          #     webrtc:
+          #       entity: camera.webrtc_backdoor
+
+
+
+          # - type: "custom:frigate-card"
+          #   cameras:
+          #     - camera_entity: camera.street
+          #       camera_name: Street
+                # menu:
+                #   mode: none
+                # client_id: frigate-server-2
+                # label: person
+                # frigate_url: http://my-frigate-server/  # Note: Key name change.
+                # zone: office_door
+                # live_provider: webrtc-card  # Note: Key and value name change.
+                # webrtc_card:
+                #   entity: camera.webrtc_street
+                  # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
+              # - camera_entity: camera.driveway
+              #   camera_name: Driveway
+                # menu:
+                #   mode: none
+                # client_id: frigate-server-2
+                # label: person
+                # frigate_url: http://my-frigate-server/  # Note: Key name change.
+                # zone: office_door
+              #   live_provider: webrtc-card  # Note: Key and value name change.
+              #   webrtc_card:
+              #     entity: camera.webrtc_driveway
+              # - camera_entity: camera.backdoor
+              #   camera_name: Backdoor
+                # menu:
+                #   mode: none
+                # client_id: frigate-server-2
+                # label: person
+                # frigate_url: http://my-frigate-server/  # Note: Key name change.
+                # zone: office_door
+                # live_provider: webrtc-card  # Note: Key and value name change.
+                # webrtc_card:
+                #   entity: camera.webrtc_backdoor
+            # overrides:
+              # - conditions:
+              #     [key]: [value]
+                # overrides:
+                #   menu:
+                #     mode: none
+                  # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
+            # live:
+            #   webrtc_card:
+            #       any_other_webrtc_card_option: value
+
+
+# Old Config
+          # - type: "custom:frigate-card"
+          #   camera_entity: camera.backdoor
+          #   menu:
+          #     mode: none
+          #   live:
+          #     provider: webrtc
+          #     webrtc:
+          #       entity: camera.webrtc_backdoor
+
+# New Config
+          # - type: "custom:frigate-card"
+          #   cameras:
+          #     - camera_entity: camera.office
+          #       camera_name: office_door
+          #       client_id: frigate-server-2
+          #       label: person
+          #       frigate_url: http://my-frigate-server/  # Note: Key name change.
+          #       zone: office_door
+          #       live_provider: webrtc-card  # Note: Key and value name change.
+          #       webrtc_card:
+          #         entity: camera.office_rtsp
+          #         url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
+          #   live:
+          #     webrtc_card:
+          #         any_other_webrtc_card_option: value
+
+
 # action: fire-dom-event
 # browser_mod:
 #   command: popup

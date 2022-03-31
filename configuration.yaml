@@ -31,6 +31,7 @@ logger:
   logs:
     homeassistant.components.websocket_api: fatal
     homeassistant.components.camera: fatal
+    custom_components.webrtc: debug
     # amcrest: debug
     # homeassistant.components.amcrest: debug
 
@@ -241,6 +242,10 @@ media_player:
     name: Living Room TV
     host: !secret living_room_tv_ip
     screencap: false
+  - platform: androidtv
+    name: Bedroom TV
+    host: !secret bedroom_tv_ip
+    screencap: false
 
   # - platform: androidtv
   #   name: Living Room TV Ethernet
@@ -277,26 +282,26 @@ amcrest:
     name: "Amcrest Driveway"
     username: !secret amcrest_username
     password: !secret amcrest_password
-    binary_sensors:
-      - online
-      - motion_detected_polled
+    # binary_sensors:
+    #   - online
+    #   - motion_detected_polled
     sensors:
       - sdcard
 
-  # - host: !secret ip_amcrest_bedroom
-  #   name: "Amcrest Bedroom"
-  #   username: !secret amcrest_username
-  #   password: !secret amcrest_password
+ # - host: !secret ip_amcrest_bedroom_2
+   # name: "Amcrest Bedroom New"
+  #  username: !secret amcrest_username
+   # password: !secret amcrest_password
   # stream_source: rtsp, snapshot
   # port: 554, 3777, 80
   # resolution: low, high
-  # binary_sensors:
-  #   - online
-  #   - motion_detected_polled
-  # sensors:
-  #   - sdcard
-  # switches:
-  #   - privacy_mode
+   # binary_sensors:
+   #   - online
+      # - motion_detected_polled
+   # sensors:
+   #   - sdcard
+  #  switches:
+   #   - privacy_mode
 
 spotify:
   client_id: !secret spotify_client_id
@@ -327,16 +332,16 @@ rest_command:
     content_type: "application/json"
     payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
 
-notify:
-  - name: dave_lambe_gmail
-    platform: smtp
-    server: smtp.gmail.com
-    port: 587
-    timeout: 15
-    sender: !secret email_address_dave
-    encryption: starttls
-    username: !secret email_address_dave
-    password: !secret email_address_pw_dave
-    recipient:
-      - !secret email_address_dave
-    sender_name: "Home Assistant Priority Notifier"
+# notify:
+#   - name: dave_lambe_gmail
+#     platform: smtp
+#     server: smtp.gmail.com
+#     port: 587
+#     timeout: 15
+#     sender: !secret email_address_dave
+#     encryption: starttls
+#     username: !secret email_address_dave
+#     password: !secret email_address_pw_dave
+#     recipient:
+#       - !secret email_address_dave
+#     sender_name: "Home Assistant Priority Notifier"

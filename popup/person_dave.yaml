@@ -94,7 +94,7 @@ browser_mod:
                 color: {{ '#3182b7' if is_state(config.entity, 'Charging') else '#3c3f3f' }};
               }
 
-          - entity: sensor.davecom_connection_type
+          - entity: binary_sensor.template_davecom_on_home_wifi
             name: WIFI
             icon: mdi:wifi
             style: |

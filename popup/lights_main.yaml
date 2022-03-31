@@ -60,13 +60,14 @@ browser_mod:
         #phone
         "(max-width: 800px)":
           grid-template-columns: 1fr 1fr
-          grid-template-rows: repeat(5, 1fr)
+          grid-template-rows: repeat(6, 1fr)
           grid-template-areas: |
             "all all"
             "scenes scenes"
             "livingroom kitchen"
             "bedroom bedroom"
             "hallway bathroom"
+            "stove stove"
     cards:
       #################################################
       #                                               #
@@ -254,4 +255,21 @@ browser_mod:
         entities:
           - type: custom:button-card
             entity: light.bathroom
+            template: popup_light
+
+      - type: entities
+        view_layout:
+          grid-area: stove
+        title: " "
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: custom:button-card
+            entity: light.stove
+            name: " "
             template: popup_light

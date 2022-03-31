@@ -9,9 +9,9 @@ views:
       grid-template-columns: repeat(4, 1fr) 0
       grid-template-rows: 0 repeat(2, fit-content(100%))
       grid-template-areas: |
-        "sidebar  .           .        .        ."
-        "sidebar  livingroom  kitchen  bedroom  ."
-        "sidebar  media       other    home     ."
+        "sidebar  .           .        .      ."
+        "sidebar  livingroom  kitchen  home   ."
+        "sidebar  bedroom     other    media  ."
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -171,12 +171,19 @@ views:
             tap_action: !include popup/lights_kitchen.yaml
 
           - type: custom:button-card
+            entity: media_player.wall_speaker
+            name: Wall Speaker
             template:
-              - media
-              - icon_tv
-            entity: media_player.living_room_tv
-            name: TV
-            tap_action: !include popup/tv_livingroom.yaml
+              - popup_media
+              - icon_nest_mini
+
+          # - type: custom:button-card
+          #   template:
+          #     - media
+          #     - icon_tv
+          #   entity: media_player.living_room_tv
+          #   name: TV
+          #   tap_action: !include popup/tv_livingroom.yaml
 
           # - type: custom:button-card
             # entity: switch.kettle
@@ -268,7 +275,7 @@ views:
             entity: media_player.bedroom_speaker
             name: Bedroom Speaker
             template:
-              - media
+              - popup_media
               - icon_nest_mini
 
           # - type: custom:button-card
@@ -318,14 +325,14 @@ views:
                     tap_action: !include popup/tv_livingroom.yaml
                     name: LR TV
                     template:
-                      - media
+                      - popup_media
                       - icon_tv
 
                   - type: custom:button-card
                     entity: media_player.living_room_speaker
                     name: LR Speaker
                     template:
-                      - media
+                      - popup_media
                       - icon_nest_mini
 
                   - type: custom:button-card
@@ -333,29 +340,15 @@ views:
                     entity: media_player.bedroom_tv
                     tap_action: !include popup/tv_bedroom.yaml
                     template:
-                      - media
+                      - popup_media
                       - icon_tv
 
                   - type: custom:button-card
                     entity: media_player.bedroom_speaker
                     name: BR Speaker
                     template:
-                      - media
+                      - popup_media
                       - icon_nest_mini
-
-                  # - type: custom:button-card
-                  #   entity: media_player.spotify_dave_lambe
-                  #   name: Spotify
-                  #   template:
-                  #     - media
-                  #     - icon_spotify
-
-                  # - type: custom:button-card
-                  #   entity: media_player.wall_speaker
-                  #   name: Wall Speaker
-                  #   template:
-                  #     - media
-                  #     - icon_nest_mini
 
               - type: horizontal-stack
                 cards:
@@ -461,7 +454,6 @@ views:
           - type: custom:button-card
             entity: switch.fan
             name: "Fan"
-            hold_action: !include popup/studio_flakt.yaml
             template:
               - base
               - icon_fan2
@@ -476,11 +468,12 @@ views:
               
 
           - type: custom:button-card
-            entity: light.closet
-            name: Closet
+            name: Schedules
+            show_state: false
+            icon: mdi:clock-outline
+            tap_action: !include popup/scheduler.yaml
             template:
-              - light
-              - icon_closet
+              - base
 
       #################################################
       #                                               #

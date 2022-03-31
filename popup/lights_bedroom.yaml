@@ -55,37 +55,21 @@ browser_mod:
       grid-template-columns: repeat(4, 1fr)
       grid-template-rows: 1fr
       grid-template-areas: |
-        "all bedroom bed closet"
+        "bedroom bed all closet"
       mediaquery:
         #phone
         "(max-width: 800px)":
           grid-template-columns: 1fr 1fr
           grid-template-rows: repeat(2, 1fr)
           grid-template-areas: |
-            "all bedroom"
-            "bed closet"
+            "bedroom bed"
+            "all closet"
     cards:
       #################################################
       #                                               #
       #                HOME ASSISTANT                 #
       #                                               #
       #################################################
-
-      - type: entities
-        view_layout:
-          grid-area: all
-        title: All Bedroom
-        show_header_toggle: false
-        card_mod:
-          class: header
-          style: |
-            ha-card {
-              margin: 0px !important;
-            }
-        entities:
-          - type: custom:button-card
-            entity: light.bedroom_lights
-            template: popup_light
 
       - type: entities
         view_layout:
@@ -117,6 +101,22 @@ browser_mod:
         entities:
           - type: custom:button-card
             entity: light.bed
+            template: popup_light
+
+      - type: entities
+        view_layout:
+          grid-area: all
+        title: All Bedroom
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: custom:button-card
+            entity: light.bedroom_lights
             template: popup_light
             
       - type: entities

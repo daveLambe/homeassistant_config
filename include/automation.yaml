@@ -62,6 +62,12 @@ automation:
       - platform: state
         entity_id: device_tracker.ebonycom
         to: home
+      - platform: state
+        entity_id: binary_sensor.template_davecom_on_home_wifi
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.template_ebonycom_on_home_wifi
+        to: "on"
     condition:
       - condition: state
         entity_id: input_boolean.vacation_mode
@@ -187,7 +193,7 @@ automation:
         event: enter
       - platform: zone
         entity_id: device_tracker.davecom
-        zone: zone.jaz
+        zone: zone.daycare
         event: enter
       - platform: state
         entity_id: input_boolean.ebony_mode
@@ -222,7 +228,7 @@ automation:
         event: leave
       - platform: zone
         entity_id: device_tracker.davecom
-        zone: zone.jaz
+        zone: zone.daycare
         event: leave
     condition:
       - condition: template
@@ -251,31 +257,31 @@ automation:
           seconds: 30
       - service: switch.turn_on
         entity_id: switch.blanket
-  - id: automation.turn_heating_on_for_ebony_work
-    alias: Turn Heating On for Ebony Work
-    trigger:
-      - platform: time
-        at: 06:15:00
-    condition:
-      - condition: state
-        entity_id: device_tracker.ebonycom
-        state: home
-    action:
-      - service: climate.turn_on
-        entity_id: climate.thermostat
-      - delay:
-          seconds: 5
-      - service: climate.set_temperature
-        data:
-          temperature: 76
-  - id: automation.turn_heating_off_for_ebony_work
-    alias: Turn Heating Off for Ebony Work
-    trigger:
-      - platform: time
-        at: 07:30:00
-    action:
-      - service: climate.turn_off
-        entity_id: climate.thermostat
+  # - id: automation.turn_heating_on_for_ebony_work
+  #   alias: Turn Heating On for Ebony Work
+  #   trigger:
+  #     - platform: time
+  #       at: 06:15:00
+  #   condition:
+  #     - condition: state
+  #       entity_id: device_tracker.ebonycom
+  #       state: home
+  #   action:
+  #     - service: climate.turn_on
+  #       entity_id: climate.thermostat
+  #     - delay:
+  #         seconds: 5
+  #     - service: climate.set_temperature
+  #       data:
+  #         temperature: 76
+  # - id: automation.turn_heating_off_for_ebony_work
+  #   alias: Turn Heating Off for Ebony Work
+  #   trigger:
+  #     - platform: time
+  #       at: 07:30:00
+  #   action:
+  #     - service: climate.turn_off
+  #       entity_id: climate.thermostat
   - id: automation.proximity_alert_dave_ebony_further
     alias: Proximity Alert Dave/Ebony Further
     description: ""
@@ -867,12 +873,6 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.flash_red
-      - service: notify.mobile_app_davecom
-        data:
-          title: Somebody rang the Doorbell!
-          message: Tap to view cameras
-          data:
-            url: /lovelace/3
   - id: automation.notify_motion_detect
     alias: Notify on motion detected when away
     description: If motion detected when phone set to away, send notification to phone
@@ -920,7 +920,7 @@ automation:
     action:
       - service: notify.mobile_app_davecom
         data:
-          title: DaveCave Security Alert
+          title: "SECURITY ALERT"
           message: WARNING! Unexpected Motion!
           data:
             push:
@@ -1060,44 +1060,44 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.toilet
-  - id: automation.turn_bed_light_on_when_goodnight_triggered
-    alias: Bed light on when goodnight triggered
-    description: ""
-    trigger:
-      - platform: state
-        entity_id: script.goodnight_relax_playlist
-        to: "off"
-        from: "on"
-      - platform: state
-        entity_id: script.goodnight
-        to: "off"
-        from: "on"
-    condition:
-      - condition: state
-        entity_id: input_boolean.ebony_mode
-        state: "on"
-    action:
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 10
-          milliseconds: 0
-      - service: light.turn_on
-        data:
-          brightness_pct: 2
-        target:
-          entity_id: light.bed
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 5
-          milliseconds: 0
-      - service: light.turn_on
-        data:
-          color_name: purple
-        target:
-          entity_id: light.bed
-    mode: single
+  # - id: automation.turn_bed_light_on_when_goodnight_triggered
+  #   alias: Bed light on when goodnight triggered
+  #   description: ""
+  #   trigger:
+  #     - platform: state
+  #       entity_id: script.goodnight_relax_playlist
+  #       to: "off"
+  #       from: "on"
+  #     - platform: state
+  #       entity_id: script.goodnight
+  #       to: "off"
+  #       from: "on"
+  #   condition:
+  #     - condition: state
+  #       entity_id: input_boolean.ebony_mode
+  #       state: "on"
+  #   action:
+  #     - delay:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 10
+  #         milliseconds: 0
+  #     - service: light.turn_on
+  #       data:
+  #         brightness_pct: 2
+  #       target:
+  #         entity_id: light.bed
+  #     - delay:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 5
+  #         milliseconds: 0
+  #     - service: light.turn_on
+  #       data:
+  #         color_name: purple
+  #       target:
+  #         entity_id: light.bed
+  #   mode: single
   - id: automation.check_ebony_home_every_30_mins
     alias: Check Ebony home every 30 minutes
     description: ""
@@ -1321,7 +1321,7 @@ automation:
       - service: notify.mobile_app_davecom
         data:
           message: Motion detected in Living Room!
-          title: DaveCave Security Alert
+          title: "SECURITY ALERT"
     mode: single
   - id: "1634258735058"
     alias: Non Critical Notify for Doorbell ring
@@ -1413,21 +1413,21 @@ automation:
         target:
           entity_id: script.goodnight_lock_door_bedroom_lights_only
     mode: single
-  - id: "1635200973642"
-    alias: Notify Front Door Open
-    description: ""
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.front_door_is_open
-        from: "off"
-        to: "on"
-    condition: []
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          title: Front Door
-          message: Open
-    mode: single
+  # - id: "1635200973642"
+  #   alias: Notify Front Door Open
+  #   description: ""
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.front_door_is_open
+  #       from: "off"
+  #       to: "on"
+  #   condition: []
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         title: Front Door
+  #         message: Open
+  #   mode: single
   - id: "1635201193281"
     alias: Front Door Auto Lock
     description: ""
@@ -1468,15 +1468,6 @@ automation:
         target:
           entity_id: script.lock_door_if_closed
     mode: single
-  - id: "1635642915951"
-    alias: Automated Daily Backup
-    description: ""
-    use_blueprint:
-      path: vorion/create-automated-backups-every-day.yaml
-      input:
-        trigger_time: "05:00:00"
-        send_notification: true
-        notify_device: f16bc6af1ad411eba7b95561d82128b5
   - id: "1635681009289"
     alias: Bedroom monitor off with TV
     description: ""
@@ -1508,15 +1499,6 @@ automation:
             - light.bathroom
             - light.bed
     mode: single
-  - id: "1636857389095"
-    alias: Daily Backup
-    description: ""
-    use_blueprint:
-      path: vorion/create-automated-backups-every-day.yaml
-      input:
-        trigger_time: "22:00:00"
-        send_notification: true
-        notify_device: f16bc6af1ad411eba7b95561d82128b5
   - id: "1638339109760"
     alias: Set Group Selected Room Lights
     description: ""
@@ -1653,7 +1635,7 @@ automation:
         data:
           transition: 5
     mode: restart
-  - id: "automation_intruder_alert_window"
+  - id: "automation.intruder_alert_window"
     alias: Intruder Alert - Window
     mode: single
     description: ""
@@ -1661,6 +1643,7 @@ automation:
       - platform: state
         entity_id: 
           - binary_sensor.back_door_is_open
+          - binary_sensor.front_door_is_open
           - binary_sensor.living_room_window_south_is_open
           - binary_sensor.living_room_window_west_left_is_open
           - binary_sensor.living_room_window_west_right_is_open
@@ -1694,10 +1677,20 @@ automation:
           period: 0.3
           cycles: 2
           brightness: 51
+      # - service: notify.mobile_app_davecom
+      #   data:
+      #     title: "SECURITY ALERT"
+      #     message: "{{ trigger.from_state.attributes.friendly_name }}!"
       - service: notify.mobile_app_davecom
         data:
           title: "SECURITY ALERT"
           message: "{{ trigger.from_state.attributes.friendly_name }}!"
+          data:
+            push:
+              sound:
+                name: navi_listen.wav
+                critical: 1
+                volume: 0.3
       - service: notify.mobile_app_ebonycom
         data:
           title: "SECURITY ALERT"
@@ -1772,9 +1765,9 @@ automation:
           data:
             push:
               sound:
-                name: stargate_warning_alarm.wav
+                name: navi_listen.wav
                 critical: 1
-                volume: 0.8
+                volume: 0.1
       - service: media_player.volume_set
         data:
           entity_id: media_player.living_room_speaker
@@ -1942,24 +1935,24 @@ automation:
         data:
           title: "Location Update"
           message: Ebony left work
-  - id: automation.ebony_morning_time
-    alias: Ebony Morning Time
-    description: "Turn some lights on for Ebony Work Routine"
-    trigger:
-      - platform: time
-        at: 06:20:00
-    condition:
-      - condition: state
-        entity_id: device_tracker.ebonycom
-        state: home
-    action:
-      - service: light.turn_on
-        data:
-          rgb_color: [194, 25, 252]
-          brightness_pct: 30
-        target:
-          entity_id: light.tv
-    mode: single
+  # - id: automation.ebony_morning_time
+  #   alias: Ebony Morning Time
+  #   description: "Turn some lights on for Ebony Work Routine"
+  #   trigger:
+  #     - platform: time
+  #       at: 06:20:00
+  #   condition:
+  #     - condition: state
+  #       entity_id: device_tracker.ebonycom
+  #       state: home
+  #   action:
+  #     - service: light.turn_on
+  #       data:
+  #         rgb_color: [194, 25, 252]
+  #         brightness_pct: 30
+  #       target:
+  #         entity_id: light.tv
+  #   mode: single
   - id: 'automation.trigger_guest_mode_actionable_notification_script'
     alias: Trigger Guest Mode Actionable Notification
     description: ""
@@ -2022,6 +2015,8 @@ automation:
       - platform: state
         entity_id: script.goodnight, script.goodnight_relax_playlist, script.goodnight_lock_door_bedroom_lights_only
         to: "on"
+      - platform: time
+        at: "22:30:00"
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.security_mode
@@ -2039,3 +2034,26 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.security_mode
+  - id: automation.send_water_reminder
+    alias: Send Ebony Reminder to Drink Water Via Push Notification
+    trigger:
+      - platform: time_pattern
+        hours: '/2'
+        minutes: 0
+        seconds: 0
+    condition:
+      - condition: time
+        after: "11:59:00"
+        before: "19:00:00"
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+    action:
+      - service: notify.mobile_app_ebonycom
+        data:
+          title: Reminder
+          message: "Don't forget to hydrate! 😊"
+    mode: single

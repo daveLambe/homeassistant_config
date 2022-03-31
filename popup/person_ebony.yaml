@@ -60,7 +60,7 @@ browser_mod:
                 color: {{ '#3182b7' if is_state(config.entity, 'on') else '#3c3f3f' }};
               }
 
-          - entity: binary_sensor.ebonycom_wifi_state
+          - entity: binary_sensor.template_ebonycom_on_home_wifi
             name: WIFI
             icon: mdi:wifi
             style: |

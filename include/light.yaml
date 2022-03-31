@@ -1,129 +1,129 @@
 light:
-  - platform: template
-    lights:
-      selected_light:
-        friendly_name: "Selected Light"
-        unique_id: "light.selected_light"
-        level_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'brightness') }}
-        value_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'brightness')|int > 0 }}
-        temperature_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'color_temp') }}
-        color_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'hs_color') }}
-        min_mireds_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'min_mireds') }}
-        max_mireds_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'max_mireds') }}
-        effect_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'effect') }}
-        effect_list_template: >
-          {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
-          {{ state_attr(light, 'effect_list') }}
-        turn_on:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-        turn_off:
-          service: light.turn_off
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-        set_level:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-            brightness: "{{ brightness }}"
-        set_temperature:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-            color_temp: "{{ color_temp }}"
-        set_white_value:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-            white: "{{ white }}"
-        set_color:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-            hs_color: "{{ hs_color }}"
-        set_effect:
-          service: light.turn_on
-          data_template:
-            entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
-            effect: "{{ effect }}"
-        supports_transition_template: "{{ true }}"
+  # - platform: template
+  #   lights:
+  #     selected_light:
+  #       friendly_name: "Selected Light"
+  #       unique_id: "light.selected_light"
+  #       level_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'brightness') }}
+  #       value_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'brightness')|int > 0 }}
+  #       temperature_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'color_temp') }}
+  #       color_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'hs_color') }}
+  #       min_mireds_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'min_mireds') }}
+  #       max_mireds_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'max_mireds') }}
+  #       effect_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'effect') }}
+  #       effect_list_template: >
+  #         {% set light = ('light.' ~ (states('input_select.selectable_light').lower())) | replace(' ', '_') %}
+  #         {{ state_attr(light, 'effect_list') }}
+  #       turn_on:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+  #       turn_off:
+  #         service: light.turn_off
+  #         data_template:
+  #           entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+  #       set_level:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+  #           brightness: "{{ brightness }}"
+  #       set_temperature:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+  #           color_temp: "{{ color_temp }}"
+  #       set_white_value:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+  #           white: "{{ white }}"
+  #       set_color:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+  #           hs_color: "{{ hs_color }}"
+  #       set_effect:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "light.{{ (states('input_select.selectable_light').lower()) }}"
+  #           effect: "{{ effect }}"
+  #       supports_transition_template: "{{ true }}"
 
-      selected_room:
-        friendly_name: "Selected Room"
-        unique_id: "light.selected_room"
-        level_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'brightness') }}
-        value_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'brightness')|int > 0 }}
-        temperature_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'color_temp') }}
-        color_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'hs_color') }}
-        min_mireds_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'min_mireds') }}
-        max_mireds_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'max_mireds') }}
-        effect_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'effect') }}
-        effect_list_template: >
-          {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
-          {{ state_attr(room, 'effect_list') }}
-        turn_on:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-        turn_off:
-          service: light.turn_off
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-        set_level:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-            brightness: "{{ brightness }}"
-        set_temperature:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-            color_temp: "{{ color_temp }}"
-        set_white_value:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-            white: "{{ white }}"
-        set_color:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-            hs_color: "{{ hs_color }}"
-        set_effect:
-          service: light.turn_on
-          data_template:
-            entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
-            effect: "{{ effect }}"
-        supports_transition_template: "{{ true }}"
+  #     selected_room:
+  #       friendly_name: "Selected Room"
+  #       unique_id: "light.selected_room"
+  #       level_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'brightness') }}
+  #       value_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'brightness')|int > 0 }}
+  #       temperature_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'color_temp') }}
+  #       color_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'hs_color') }}
+  #       min_mireds_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'min_mireds') }}
+  #       max_mireds_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'max_mireds') }}
+  #       effect_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'effect') }}
+  #       effect_list_template: >
+  #         {% set room = ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' %}
+  #         {{ state_attr(room, 'effect_list') }}
+  #       turn_on:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+  #       turn_off:
+  #         service: light.turn_off
+  #         data_template:
+  #           entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+  #       set_level:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+  #           brightness: "{{ brightness }}"
+  #       set_temperature:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+  #           color_temp: "{{ color_temp }}"
+  #       set_white_value:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+  #           white: "{{ white }}"
+  #       set_color:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+  #           hs_color: "{{ hs_color }}"
+  #       set_effect:
+  #         service: light.turn_on
+  #         data_template:
+  #           entity_id: "{{ ('light.' ~ (states('input_select.selectable_room').lower())) | replace(' ', '_') ~'_lights' }}"
+  #           effect: "{{ effect }}"
+  #       supports_transition_template: "{{ true }}"
 
   - platform: switch
     name: "Lightning Red"

@@ -90,17 +90,6 @@ browser_mod:
               entity_id: media_player.living_room_tv
               command: input keyevent 26
 
-      - type: entities
-        state_color: true
-        show_header_toggle: false
-        card_mod:
-          class: content
-        entities:
-          - entity: media_player.living_room_tv
-            name: TV
-          - entity: media_player.living_room_chromecast
-            name: Chromecast
-
       - type: horizontal-stack
         cards:
           - type: custom:button-card
@@ -136,7 +125,16 @@ browser_mod:
                 source: com.hulu.livingroomplus
             template: icon_name
 
-
+      - type: entities
+        state_color: true
+        show_header_toggle: false
+        card_mod:
+          class: content
+        entities:
+          - entity: media_player.living_room_tv
+            name: TV
+          - entity: media_player.living_room_chromecast
+            name: Chromecast
 
       # - type: entities
       #   state_color: true

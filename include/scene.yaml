@@ -6,7 +6,7 @@ scene:
       light.all_lights_except_closet:
         friendly_name: All Lights Except Closet
         state: "on"
-        brightness: 181
+        brightness: 195
         color_temp: 200
       # light.living_room_lights:
       #   friendly_name: Living Room Lights
@@ -167,23 +167,23 @@ scene:
     name: Evening
     entities:
       light.chandelier:
-        brightness: 130
+        brightness: 100
         color_temp: 370
         state: "on"
       light.tv:
         state: "on"
-        brightness_pct: 60
+        brightness_pct: 70
         rgb_color: [194, 25, 252]
       light.kitchen_lights:
-        brightness: 130
+        brightness: 100
         color_temp: 370
         state: "on"
       light.hallway:
-        brightness: 130
+        brightness: 100
         color_temp: 370
         state: "on"
       light.bedroom:
-        brightness: 130
+        brightness: 100
         color_temp: 370
         state: "on"
       light.bed:
@@ -233,8 +233,7 @@ scene:
         rgb_color: [192, 144, 255]
         state: "on"
       light.bedroom:
-        brightness_pct: 30
-        friendly_name: Bed Room Light
+        brightness_pct: 20
         rgb_color: [192, 144, 255]
         state: "on"
       light.lightning_bolts:
@@ -295,10 +294,11 @@ scene:
       # light.bedroom:
       #   state: 'off'
       light.bathroom:
-        friendly_name: Bathroom Lights
         state: "off"
       light.lightning_bolts:
         friendly_name: Lightning Bolts
+        state: "off"
+      light.table_lamp:
         state: "off"
       # light.lamp:
       #   friendly_name: Lamp
@@ -331,7 +331,6 @@ scene:
     name: Dinner
     entities:
       light.bedroom:
-        friendly_name: Bed Room Light
         brightness: 91
         color_temp: 363
         state: "on"
@@ -356,12 +355,10 @@ scene:
         color_temp: 370
         state: "on"
       light.tv:
-        friendly_name: TV Lights
         brightness: 109
         color_temp: 370
         state: "on"
       light.bathroom:
-        friendly_name: Bathroom Lights
         state: "on"
       light.lightning_bolts:
         friendly_name: Lightning Bolts

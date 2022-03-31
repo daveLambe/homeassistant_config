@@ -108,7 +108,7 @@ script:
       - service: media_player.volume_set
         data:
           entity_id: media_player.bedroom_speaker
-          volume_level: 0.22
+          volume_level: 0.20
       - service: spotcast.start
         data:
           entity_id: media_player.bedroom_speaker
@@ -168,6 +168,17 @@ script:
         data:
           entity_id: media_player.living_room_tv
           command: POWER
+  play_tv_if_paused:
+    alias: Press Play on Living Room TV If Currently Paused
+    mode: single
+    sequence:
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: "paused"
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.living_room_tv
+          command: input keyevent 126
       # - service: rest_command.assistant_relay
       #   data:
       #     command: Turn off Living Room TV
@@ -334,15 +345,22 @@ script:
         data:
           entity_id: "{{ scene }}"
           transition: 180
-      - delay: 00:00:02
+      - delay: 00:00:03
+      # - service: light.turn_on
+      #   data:
+      #     entity_id: light.govee
+      #     brightness_pct: 75
       - service: light.turn_on
         data:
           entity_id: light.govee
-          brightness_pct: 60
+          rgb_color:
+            - 116
+            - 202
+            - 255
       - service: script.turn_on
         target:
           entity_id: script.turn_tv_on_and_ambient
-      - delay: 00:00:05
+      # - delay: 00:00:05
       - service: media_player.volume_set
         data:
           entity_id: media_player.living_room_speaker
@@ -380,13 +398,19 @@ script:
       # - service: rest_command.assistant_relay
       #   data:
       #     command: Turn off Living Room TV
-      - service: androidtv.adb_command
-        data:
-          entity_id: media_player.living_room_tv
-          command: POWER
+      # - service: androidtv.adb_command
+      #   data:
+      #     entity_id: media_player.living_room_tv
+      #     command: POWER
       - service: rest_command.assistant_relay
         data:
           command: Lock the door
+      - service: climate.turn_off
+        data:
+          entity_id: climate.thermostat
+      - service: script.turn_on
+        data:
+          entity_id: script.turn_tv_off
       - delay: 00:00:12
       - service: input_boolean.turn_off
         data:
@@ -405,24 +429,26 @@ script:
       - service: rest_command.assistant_relay
         data:
           command: Lock the door
-      - delay: 00:00:12
-      - service: input_boolean.turn_off
+      - service: climate.turn_off
         data:
-          entity_id: input_boolean.ignore_motion
-      - service: androidtv.adb_command
+          entity_id: climate.thermostat
+      - service: script.turn_on
         data:
-          entity_id: media_player.living_room_tv
-          command: POWER
+          entity_id: script.turn_tv_off
       - service: media_player.volume_set
         data:
           entity_id: media_player.bedroom_speaker
-          volume_level: 0.22
+          volume_level: 0.18
       - service: spotcast.start
         data:
           entity_id: media_player.bedroom_speaker
           uri: spotify:playlist:7wIxtPuEq6mL9LP3QDV6ak
           random_song: true
           shuffle: true
+      - delay: 00:00:12
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
   evening:
     alias: Evening
     mode: restart
@@ -488,10 +514,12 @@ script:
         data:
           entity_id: scene.movie_time
           transition: 5.0
-      - service: androidtv.adb_command
-        data:
-          entity_id: media_player.living_room_tv
-          command: input keyevent 126
+      # - service: androidtv.adb_command
+      #   data:
+      #     entity_id: media_player.living_room_tv
+      #     command: input keyevent 126
+      - service: script.turn_on
+        entity_id: script.play_tv_if_paused
       - delay: 00:00:04
       - service: light.turn_off
         data:
@@ -656,9 +684,13 @@ script:
           entity_id:
             - light.bedroom
             - light.bed
+            - light.bathroom
       - service: rest_command.assistant_relay
         data:
           command: Lock the door
+      - service: climate.turn_off
+        data:
+          entity_id: climate.thermostat
       - delay: 00:00:12
       - service: input_boolean.turn_off
         data:
@@ -788,6 +820,24 @@ script:
           command: BACK
     mode: single
     alias: Set Living Room TV Ambient Mode
+    icon: mdi:wallpaper
+  set_bedroom_tv_ambient_mode:
+    sequence:
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.bedroom_tv
+          command: HOME
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.bedroom_tv
+          command: BACK
+    mode: single
+    alias: Set Bedroom TV Ambient Mode
     icon: mdi:wallpaper
   turn_tv_on_and_ambient:
     alias: Turn TV on and Ambient
