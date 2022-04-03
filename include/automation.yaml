@@ -847,11 +847,12 @@ automation:
           title: DaveCave Alert
           message: Somebody rang the doorbell!
           data:
+            image: /local/cameras/camera.png
             push:
               sound:
                 name: stargate_warning_alarm.wav
                 critical: 1
-                volume: 0.4
+                volume: 0.3
     mode: single
   - id: automation.doorbell_ding_flash
     alias: Doorbell ding flash
@@ -1635,82 +1636,93 @@ automation:
         data:
           transition: 5
     mode: restart
-  - id: "automation.intruder_alert_window"
-    alias: Intruder Alert - Window
-    mode: single
-    description: ""
-    trigger:
-      - platform: state
-        entity_id: 
-          - binary_sensor.back_door_is_open
-          - binary_sensor.front_door_is_open
-          - binary_sensor.living_room_window_south_is_open
-          - binary_sensor.living_room_window_west_left_is_open
-          - binary_sensor.living_room_window_west_right_is_open
-          - binary_sensor.kitchen_window_north_is_open
-          - binary_sensor.kitchen_window_west_right_is_open
-          - binary_sensor.kitchen_window_west_left_is_open
-          - binary_sensor.bedroom_window_east_is_open
-          - binary_sensor.bedroom_window_west_is_open
-          - binary_sensor.bathroom_window_is_open
-          - binary_sensor.bathroom_window_is_open
-        from: "off"
-        to: "on"
-        for: 00:00:02
-    condition:
-      - condition: state
-        entity_id: input_boolean.security_mode
-        state: "on"
-    action:
-      - service: lifx.effect_pulse
-        data:
-          entity_id:
-            light.hallway, light.tv
-          color_name: blue
-          period: 0.3
-          cycles: 2
-          brightness: 51
-      - service: lifx.effect_pulse
-        data:
-          entity_id: light.bedroom
-          color_name: blue
-          period: 0.3
-          cycles: 2
-          brightness: 51
-      # - service: notify.mobile_app_davecom
-      #   data:
-      #     title: "SECURITY ALERT"
-      #     message: "{{ trigger.from_state.attributes.friendly_name }}!"
-      - service: notify.mobile_app_davecom
-        data:
-          title: "SECURITY ALERT"
-          message: "{{ trigger.from_state.attributes.friendly_name }}!"
-          data:
-            push:
-              sound:
-                name: navi_listen.wav
-                critical: 1
-                volume: 0.3
-      - service: notify.mobile_app_ebonycom
-        data:
-          title: "SECURITY ALERT"
-          message: "{{ trigger.from_state.attributes.friendly_name }}!"
-      - service: media_player.volume_set
-        data:
-          entity_id: media_player.living_room_speaker
-          volume_level: 0.4
-      - service: tts.google_translate_say
-        data:
-          entity_id: media_player.living_room_speaker
-          message: "{{ trigger.from_state.attributes.friendly_name }}"
-      - service: media_player.volume_set
-        data:
-          entity_id: media_player.bedroom_speaker
-          volume_level: 0.3
-      - service: tts.google_translate_say
-        data:
-          entity_id: media_player.bedroom_speaker
-          message: "{{ trigger.from_state.attributes.friendly_name }}"
+  # - id: "automation.intruder_alert_window"
+  #   alias: Intruder Alert - Window
+  #   mode: single
+  #   description: ""
+  #   trigger:
+  #     - platform: state
+  #       entity_id: 
+  #         - binary_sensor.back_door_is_open
+  #         - binary_sensor.front_door_is_open
+  #         - binary_sensor.living_room_window_south_is_open
+  #         - binary_sensor.living_room_window_west_left_is_open
+  #         - binary_sensor.living_room_window_west_right_is_open
+  #         - binary_sensor.kitchen_window_north_is_open
+  #         - binary_sensor.kitchen_window_west_right_is_open
+  #         - binary_sensor.kitchen_window_west_left_is_open
+  #         - binary_sensor.bedroom_window_east_is_open
+  #         - binary_sensor.bedroom_window_west_is_open
+  #         - binary_sensor.bathroom_window_is_open
+  #         - binary_sensor.bathroom_window_is_open
+  #       from: "off"
+  #       to: "on"
+  #       for: 00:00:02
+  #   condition:
+  #     - condition: state
+  #       entity_id: input_boolean.security_mode
+  #       state: "on"
+  #     - condition: time
+  #       after: "23:30:00"
+  #       before: "06:30:00"
+  #   action:
+  #     - service: lifx.effect_pulse
+  #       data:
+  #         entity_id:
+  #           light.hallway, light.tv
+  #         color_name: blue
+  #         period: 0.3
+  #         cycles: 4
+  #         brightness: 51
+  #     - service: lifx.effect_pulse
+  #       data:
+  #         entity_id: light.bedroom
+  #         color_name: blue
+  #         period: 0.3
+  #         cycles: 2
+  #         brightness: 51
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         title: "SECURITY ALERT"
+  #         message: "{{ trigger.from_state.attributes.friendly_name }}!"
+  #         data:
+  #           push:
+  #             sound:
+  #               name: navi_listen.wav
+  #               critical: 1
+  #               volume: 0.2
+  #     - service: notify.mobile_app_ebonycom
+  #       data:
+  #         title: "SECURITY ALERT"
+  #         message: "{{ trigger.from_state.attributes.friendly_name }}!"
+  #     - service: media_player.volume_set
+  #       data:
+  #         entity_id: media_player.living_room_speaker
+  #         volume_level: 0.4
+  #     - service: tts.google_translate_say
+  #       data:
+  #         entity_id: media_player.living_room_speaker
+  #         message: "{{ trigger.from_state.attributes.friendly_name }}"
+  #     - service: media_player.volume_set
+  #       data:
+  #         entity_id: media_player.bedroom_speaker
+  #         volume_level: 0.3
+  #     - service: tts.google_translate_say
+  #       data:
+  #         entity_id: media_player.bedroom_speaker
+  #         message: "{{ trigger.from_state.attributes.friendly_name }}"
+  #     - service: notify.living_room_tv
+  #       data:
+  #         message: "{{ trigger.from_state.attributes.friendly_name }}"
+  #         title: Security Status
+  #         data:
+  #           duration: 15
+  #           fontsize: large
+  #           color: red
+  #           position: top-right
+  #           transparency: 75%
+  #           file:
+  #             path: /config/tmp/camera.png
   - id: "automation_intruder_alert_bed_time"
     alias: Intruder Alert for when sleeping
     mode: single
@@ -1732,16 +1744,30 @@ automation:
         from: "off"
         to: "on"
         for: 00:00:02
+    # condition:
+    #   - condition: state
+    #     entity_id: input_boolean.security_mode
+    #     state: "on"
+    #   # - condition: state
+    #   #   entity_id: device_tracker.davecom
+    #   #   state: "home"
+    #   - condition: time
+    #     after: "23:30:00"
+    #     before: "06:30:00"
     condition:
-      - condition: state
-        entity_id: input_boolean.security_mode
-        state: "on"
-      - condition: state
-        entity_id: device_tracker.davecom
-        state: "home"
-      - condition: time
-        after: "23:30:00"
-        before: "06:30:00"
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: input_boolean.security_mode
+          state: "on"
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.security_mode
+              state: "on"
+            - condition: time
+              after: "23:30:00"
+              before: "06:30:00"
     action:
       - service: lifx.effect_pulse
         data:
@@ -1757,7 +1783,7 @@ automation:
           color_name: blue
           period: 0.3
           cycles: 4
-          brightness: 50
+          brightness: 20
       - service: notify.mobile_app_davecom
         data:
           title: "SECURITY ALERT"
@@ -1767,7 +1793,7 @@ automation:
               sound:
                 name: navi_listen.wav
                 critical: 1
-                volume: 0.1
+                volume: 0.2
       - service: media_player.volume_set
         data:
           entity_id: media_player.living_room_speaker
@@ -1779,11 +1805,24 @@ automation:
       - service: media_player.volume_set
         data:
           entity_id: media_player.bedroom_speaker
-          volume_level: 0.6
+          volume_level: 0.4
       - service: tts.google_translate_say
         data:
           entity_id: media_player.bedroom_speaker
           message: "{{ trigger.from_state.attributes.friendly_name }}"
+      - service: notify.living_room_tv
+        data:
+          message: "{{ trigger.from_state.attributes.friendly_name }}"
+          title: Security Status
+          data:
+            duration: 15
+            fontsize: large
+            color: red
+            position: top-right
+            transparency: 50%
+            # file:
+            #   path: /config/tmp/camera.png
+
       # - service: lifx.effect_pulse
       #   target:
       #     entity_id:
@@ -2056,4 +2095,44 @@ automation:
         data:
           title: Reminder
           message: "Don't forget to hydrate! 😊"
+    mode: single
+  - id: automation.send_tv_notif_when_doorbell_ring
+    alias: Send Notification to Living Room TV when Doorbell Rings
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.front_door_ding
+        to: "on"
+      - platform: state
+        entity_id: light.table_lamp
+        to: "on"
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: media_player.living_room_tv
+            state: "off"
+    action:
+      - service: camera.snapshot
+        target:
+          entity_id: camera.driveway
+        data:
+          filename: /config/www/cameras/camera.png
+      - service: notify.living_room_tv
+        data:
+          message: Somebody is at the Front Door.
+          title: DOORBELL!
+          data:
+            duration: 15
+            fontsize: large
+            color: red
+            position: top-right
+            transparency: 50%
+            image:
+              path: /config/www/cameras/camera.png
+      - service: notify.mobile_app_davecom
+        data:
+          title: DOORBELL!
+          message: Somebody is at the Front Door.
+          data:
+            image: /local/cameras/camera.png
     mode: single

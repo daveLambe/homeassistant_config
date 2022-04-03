@@ -1360,23 +1360,27 @@ popup_media:
       title: >
         [[[ return entity.attributes.friendly_name; ]]]
       card:
-        type: "custom:mini-media-player"
-        entity: >
-          [[[ return entity.entity_id ]]]
-        title: >
-          [[[ return entity.attributes.friendly_name ]]]
-        toggle_power: false
-        group: true
-        icon:  >
-          [[[ return entity.attributes.icon ]]]
-        artwork: cover
-        idle:
-          when_idle: true
-          when_standby: true
-        hide:
-          volume: false
-          source: true
-          power_state: false
+        type: vertical-stack
+        cards:
+          - type: "custom:mini-media-player"
+            entity: >
+              [[[ return entity.entity_id ]]]
+            title: >
+              [[[ return entity.attributes.friendly_name ]]]
+            toggle_power: false
+            group: true
+            icon:  >
+              [[[ return entity.attributes.icon ]]]
+            artwork: cover
+            idle:
+              when_idle: true
+              when_standby: true
+            hide:
+              volume: false
+              source: true
+              power_state: false
+          - type: 'custom:spotify-card'
+            always_play_random_song: false
   double_tap_action:
     action: >
       [[[
@@ -1390,7 +1394,6 @@ popup_media:
     service_data:
       entity_id: >
         [[[ return entity === undefined || entity.entity_id; ]]]
-
 
 #################################################
 #                                               #

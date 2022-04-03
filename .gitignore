@@ -6,6 +6,7 @@
 *.xml
 deps
 downloads*
+tmp*
 frigate.yml
 home-assistant.log*
 home-assistant_v2.db*

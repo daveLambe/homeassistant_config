@@ -11,6 +11,9 @@ homeassistant:
   packages: !include_dir_named include
   allowlist_external_dirs:
     - /config
+    - /config/tmp/
+    - /config/downloads/
+    - /config/downloads/camera
 
 default_config:
 
@@ -275,18 +278,19 @@ amcrest:
       - online
       - motion_detected_polled
     sensors:
-      - sdcard
       - ptz_preset
+      # - sdcard
+      
 
   - host: !secret ip_amcrest_driveway
     name: "Amcrest Driveway"
     username: !secret amcrest_username
     password: !secret amcrest_password
-    # binary_sensors:
-    #   - online
-    #   - motion_detected_polled
-    sensors:
-      - sdcard
+    binary_sensors:
+      - online
+      - motion_detected_polled
+    # sensors:
+    #   - sdcard
 
  # - host: !secret ip_amcrest_bedroom_2
    # name: "Amcrest Bedroom New"

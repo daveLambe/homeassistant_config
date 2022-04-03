@@ -325,7 +325,7 @@ views:
                     tap_action: !include popup/tv_livingroom.yaml
                     name: LR TV
                     template:
-                      - popup_media
+                      - media
                       - icon_tv
 
                   - type: custom:button-card
@@ -340,7 +340,7 @@ views:
                     entity: media_player.bedroom_tv
                     tap_action: !include popup/tv_bedroom.yaml
                     template:
-                      - popup_media
+                      - media
                       - icon_tv
 
                   - type: custom:button-card

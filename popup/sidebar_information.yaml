@@ -80,6 +80,9 @@ browser_mod:
             entity: input_boolean.vacation_mode
             name: Vacation
             icon: "mdi:beach"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -95,6 +98,9 @@ browser_mod:
             entity: input_boolean.delivery_mode
             name: Delivery Mode
             icon: "mdi:truck-delivery-outline"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -102,6 +108,9 @@ browser_mod:
             entity: input_boolean.ebony_mode
             name: Ebony
             icon: "mdi:details"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -110,6 +119,9 @@ browser_mod:
             entity: input_boolean.ignore_motion
             name: "Ignore Motion"
             icon: "mdi:camera"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -117,6 +129,9 @@ browser_mod:
             entity: input_boolean.auto_lock
             name: "Auto Lock"
             icon: "mdi:shield-lock"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -124,6 +139,9 @@ browser_mod:
             entity: input_boolean.guest_mode
             name: "Guest Mode"
             icon: "mdi:bed"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -131,6 +149,9 @@ browser_mod:
             entity: input_boolean.cinema_mode
             name: "Cinema Mode"
             icon: "mdi:theater"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -138,6 +159,9 @@ browser_mod:
             entity: input_boolean.notify_proximity
             name: "Proximity Notifications"
             icon: "mdi:map"
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle
@@ -145,6 +169,9 @@ browser_mod:
             entity: input_boolean.security_mode
             name: "Security Mode"
             icon: mdi:lock-open-alert-outline
+            styles:
+              card:
+                - height: 100%
             # show_state: true
             tap_action:
               action: toggle

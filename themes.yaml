@@ -5,8 +5,8 @@ main:
   primary-background-color: '#111111'
   secondary-background-color: '#202020'
   card-background-color: '#1c1c1c'
-  # primary-color: '#03a9f4'
-  primary-color: "#d32f2f"
+  primary-color: "#ff0000"
+  # primary-color: "#d32f2f" # old red
   # app-header-background-color: '#101e24'
   app-header-background-color: var(--primary-background-color)
   table-row-background-color: var(--primary-background-color)
@@ -36,6 +36,7 @@ main:
   paper-toast-color: var(--primary-text-color)
   paper-toast-background-color: '#1b1b1bf2'
   vertical-stack-card-margin: 0
+  paper-item-icon-active-color: var(--primary-color)
 
   #custom variables
   ha-card-background-color: rgba(34,38,39,0.9)
@@ -256,7 +257,7 @@ main:
 
       "$hui-button-card:nth-child(1)$": |
         ha-card, ha-state-icon {
-          color: rgb(211, 47, 47) !important;
+          color: rgb(255, 0, 0) !important;
           opacity: 1 !important;
         }
 
@@ -266,7 +267,7 @@ main:
 
       "$hui-button-card:nth-child(2)$": |
         ha-card, ha-state-icon {
-          color: rgb(211, 47, 47) !important;
+          color: rgb(255, 0, 0) !important;
           opacity: 1 !important;
         }
 
@@ -292,7 +293,7 @@ main:
         {% else %}
 
           ha-card, ha-state-icon {
-            color: rgb(211, 47, 47) !important;
+            color: rgb(255, 0, 0) !important;
             opacity: 1 !important;
           }
 
