@@ -2136,7 +2136,7 @@ automation:
     alias: Send Notification to Living Room TV when Motion Detected and Delivery Mode is on
     trigger:
       - platform: state
-        entity_id: binary_sensor.doorbell_ding
+        entity_id: binary_sensor.doorbell_motion
         to: "on"
     condition:
       - condition: not
@@ -2144,6 +2144,9 @@ automation:
           - condition: state
             entity_id: media_player.living_room_tv
             state: "off"
+      - condition: state
+        entity_id: input_boolean.delivery_mode
+        state: "on"
     action:
       - service: camera.snapshot
         target:
@@ -2155,17 +2158,17 @@ automation:
           message: Somebody is at the Front Door.
           title: DOORBELL!
           data:
-            duration: 15
+            duration: 10
             fontsize: large
             color: red
             position: top-right
             transparency: 50%
             image:
               path: /config/www/cameras/camera.png
-      - service: notify.mobile_app_davecom
-        data:
-          title: DOORBELL!
-          message: Somebody is at the Front Door.
-          data:
-            image: /local/cameras/camera.png
+      # - service: notify.mobile_app_davecom
+      #   data:
+      #     title: DOORBELL!
+      #     message: Somebody is at the Front Door.
+      #     data:
+      #       image: /local/cameras/camera.png
     mode: single
