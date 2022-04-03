@@ -4,10 +4,9 @@ title: Cameras
 id: cameras
 path: cameras
 theme: ios-dark-mode
-icon: 'mdi:camera'
+icon: "mdi:camera"
 cards:
-
-# Working View
+  # Working View
 
   - entity: camera.outdoor_side_stream
     type: picture-entity
@@ -15,7 +14,7 @@ cards:
     camera_image: camera.outdoor_side_stream
     camera_view: live
     show_state: false
-    
+
   - entity: camera.outdoor_corner_stream
     type: picture-entity
     name: "Outdoor Corner Stream"
@@ -23,22 +22,22 @@ cards:
     camera_view: live
     show_state: false
 
-#   - entity: camera.living_room_camera_generic
+  #   - entity: camera.living_room_camera_generic
   - entity: camera.living_room_camera
     type: picture-entity
     name: "Living Room"
     camera_image: camera.living_room_camera
     camera_view: live
     show_state: false
-    
+
   - entity: camera.bedroom
     type: picture-entity
     name: "Bedroom"
     camera_image: camera.bedroom
     camera_view: live
     show_state: false
-    
-  - entity: camera.front_door
+
+  - entity: camera.doorbell
     type: picture-entity
     name: "Front Door"
     show_state: false
@@ -49,40 +48,35 @@ cards:
     camera_image: camera.outdoor_side
     camera_view: live
     show_state: false
-    
+
   - entity: camera.outdoor_corner
     type: picture-entity
     name: "Outdoor - Corner"
     camera_image: camera.outdoor_corner
     camera_view: live
     show_state: false
-    
 # End Working View
 
-
-
-
-
-  # - entity: camera.test
-  #   type: picture-entity
-  #   name: "Test"
-  #   camera_image: camera.test
-  #   # camera_image: camera.living_room_camera_generic
-  #   # camera_image: camera.living_room
-  #   camera_view: live
-  #   show_state: false
+# - entity: camera.test
+#   type: picture-entity
+#   name: "Test"
+#   camera_image: camera.test
+#   # camera_image: camera.living_room_camera_generic
+#   # camera_image: camera.living_room
+#   camera_view: live
+#   show_state: false
 
 # Before Test
-  # - type: entities
-  #   entities:
-  #     - entity: camera.living_room
-  #     - entity: camera.roof
-  #     - entity: camera.front_door
-  #     - entity: camera.outdoor
-  #     - entity: camera.nanny
-  #     - entity: camera.outdoor_camera
-  #   title: Cameras
-  #   theme: slate_red
+# - type: entities
+#   entities:
+#     - entity: camera.living_room
+#     - entity: camera.roof
+#     - entity: camera.doorbell
+#     - entity: camera.outdoor
+#     - entity: camera.nanny
+#     - entity: camera.outdoor_camera
+#   title: Cameras
+#   theme: slate_red
 #   - camera_image: camera.living_room
 #     camera_view: live
 #     elements:
@@ -217,7 +211,7 @@ cards:
 #     show_name: true
 #     camera_image: camera.outdoor
 #   - type: picture-entity
-#     entity: camera.front_door
+#     entity: camera.doorbell
 #     show_state: false
 #     theme: slate_red
 #     show_name: true

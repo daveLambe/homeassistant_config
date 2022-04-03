@@ -676,7 +676,7 @@ automation:
     description: ""
     trigger:
       - platform: numeric_state
-        entity_id: sensor.front_door_battery
+        entity_id: sensor.doorbell_battery
         below: 30
     action:
       - service: notify.mobile_app_davecom
@@ -687,7 +687,7 @@ automation:
     description: ""
     trigger:
       - platform: numeric_state
-        entity_id: sensor.front_door_battery
+        entity_id: sensor.doorbell_battery
         below: 10
     action:
       - service: notify.mobile_app_davecom
@@ -698,7 +698,7 @@ automation:
     description: ""
     trigger:
       - platform: numeric_state
-        entity_id: sensor.front_door_battery
+        entity_id: sensor.doorbell_battery
         above: 99
     action:
       - service: notify.mobile_app_davecom
@@ -708,20 +708,20 @@ automation:
     alias: Save the video when the doorbell is pushed
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_ding
+        entity_id: binary_sensor.doorbell_ding
         to: "on"
     action:
       - service: downloader.download_file
         data:
-          url: "{{ state_attr('camera.front_door', 'video_url') }}"
-          subdir: "{{state_attr('camera.front_door', 'friendly_name')}}"
-          filename: "{{state_attr('camera.front_door', 'friendly_name')}}"
+          url: "{{ state_attr('camera.doorbell', 'video_url') }}"
+          subdir: "{{state_attr('camera.doorbell', 'friendly_name')}}"
+          filename: "{{state_attr('camera.doorbell', 'friendly_name')}}"
   - id: automation.doorbell_motion_flash
     alias: Doorbell motion flash
     description: Flash lights red when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_motion
+        entity_id: sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -742,7 +742,7 @@ automation:
     description: Flash lights red five times when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_motion
+        entity_id: sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -761,7 +761,7 @@ automation:
     description: Flash lights red twice when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_motion
+        entity_id: sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -780,7 +780,7 @@ automation:
     description: Flash lights red twice when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_motion
+        entity_id: sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -801,7 +801,7 @@ automation:
     alias: Notify on Doorbell motion at night
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_motion
+        entity_id: sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -816,7 +816,7 @@ automation:
     alias: Send critical notification for Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_motion
+        entity_id: sensor.doorbell_motion
         from: "off"
         to: "on"
     action:
@@ -834,7 +834,7 @@ automation:
     alias: Critical Notify for Doorbell ring
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_ding
+        entity_id: binary_sensor.doorbell_ding
         from: "off"
         to: "on"
     condition:
@@ -859,7 +859,7 @@ automation:
     description: Flash lights red when Doorbell dings
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_ding
+        entity_id: binary_sensor.doorbell_ding
         from: "off"
         to: "on"
     condition:
@@ -1329,7 +1329,7 @@ automation:
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_ding
+        entity_id: binary_sensor.doorbell_ding
         from: "off"
         to: "on"
     condition:
@@ -1642,7 +1642,7 @@ automation:
   #   description: ""
   #   trigger:
   #     - platform: state
-  #       entity_id: 
+  #       entity_id:
   #         - binary_sensor.back_door_is_open
   #         - binary_sensor.front_door_is_open
   #         - binary_sensor.living_room_window_south_is_open
@@ -1729,7 +1729,7 @@ automation:
     description: ""
     trigger:
       - platform: state
-        entity_id: 
+        entity_id:
           - binary_sensor.front_door_is_open
           - binary_sensor.back_door_is_open
           - binary_sensor.living_room_window_south_is_open
@@ -1771,8 +1771,7 @@ automation:
     action:
       - service: lifx.effect_pulse
         data:
-          entity_id:
-            light.hallway, light.tv
+          entity_id: light.hallway, light.tv
           color_name: blue
           period: 0.3
           cycles: 4
@@ -1853,7 +1852,7 @@ automation:
       #     brightness: 155
       #     period: 1
       #     cycles: 2
-  - id: 'automation.conditional_media_playing'
+  - id: "automation.conditional_media_playing"
     alias: Automation Conditional Media Playing
     initial_state: true
     mode: restart
@@ -1874,7 +1873,7 @@ automation:
         data:
           option: >
             {{ trigger.to_state.name }}
-  - id: 'automation.conditional_media_paused_idle'
+  - id: "automation.conditional_media_paused_idle"
     alias: Automation Conditional Media Paused Idle
     initial_state: true
     mode: restart
@@ -1888,7 +1887,7 @@ automation:
           - media_player.wall_speaker
           - media_player.spotify_dave_lambe
         to:
-          - 'off'
+          - "off"
           - idle
           - standby
       - platform: state
@@ -1924,7 +1923,7 @@ automation:
             {% else %}
             {{ media_players | selectattr('state','eq','playing') | map(attribute='name') | max }}
             {% endif %}
-  - id: 'automation.conditional_media_all_off'
+  - id: "automation.conditional_media_all_off"
     alias: Automation Conditional Media All Off
     initial_state: true
     trigger:
@@ -1992,7 +1991,7 @@ automation:
   #       target:
   #         entity_id: light.tv
   #   mode: single
-  - id: 'automation.trigger_guest_mode_actionable_notification_script'
+  - id: "automation.trigger_guest_mode_actionable_notification_script"
     alias: Trigger Guest Mode Actionable Notification
     description: ""
     trigger:
@@ -2008,13 +2007,13 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.action_guest_mode_on_off
-  - id: 'automation.trigger_security_alert_actionable_notification_script'
+  - id: "automation.trigger_security_alert_actionable_notification_script"
     alias: Trigger Security Alert Actionable Notification
     description: ""
     mode: restart
     trigger:
       - platform: state
-        entity_id: 
+        entity_id:
           - binary_sensor.front_door_is_open
           - binary_sensor.back_door_is_open
           - binary_sensor.livingroom_person_motion
@@ -2077,7 +2076,7 @@ automation:
     alias: Send Ebony Reminder to Drink Water Via Push Notification
     trigger:
       - platform: time_pattern
-        hours: '/2'
+        hours: "/2"
         minutes: 0
         seconds: 0
     condition:
@@ -2100,10 +2099,44 @@ automation:
     alias: Send Notification to Living Room TV when Doorbell Rings
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door_ding
+        entity_id: binary_sensor.doorbell_ding
         to: "on"
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: media_player.living_room_tv
+            state: "off"
+    action:
+      - service: camera.snapshot
+        target:
+          entity_id: camera.driveway
+        data:
+          filename: /config/www/cameras/camera.png
+      - service: notify.living_room_tv
+        data:
+          message: Somebody is at the Front Door.
+          title: DOORBELL!
+          data:
+            duration: 15
+            fontsize: large
+            color: red
+            position: top-right
+            transparency: 50%
+            image:
+              path: /config/www/cameras/camera.png
+      - service: notify.mobile_app_davecom
+        data:
+          title: DOORBELL!
+          message: Somebody is at the Front Door.
+          data:
+            image: /local/cameras/camera.png
+    mode: single
+  - id: automation.send_tv_notif_when_motion_detected
+    alias: Send Notification to Living Room TV when Motion Detected and Delivery Mode is on
+    trigger:
       - platform: state
-        entity_id: light.table_lamp
+        entity_id: binary_sensor.doorbell_ding
         to: "on"
     condition:
       - condition: not

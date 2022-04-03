@@ -11,7 +11,7 @@ cards:
     frigate_url: http://frigate
     # live_provider: webrtc
     # webrtc:
-    # entity: camera.front_door_rtsp
+    # entity: camera.doorbell_rtsp
 
   # - type: horizontal-stack
   #   cards:
@@ -45,5 +45,5 @@ cards:
   #         motion_entity: binary_sensor.outdoor_side_motion_detected
   #       - entity: camera.outdoor_corner
   #         motion_entity: binary_sensor.outdoor_corner_motion_detected
-  #       - entity: camera.front_door
-  #         motion_entity: binary_sensor.front_door_motion
+  #       - entity: camera.doorbell
+  #         motion_entity: sensor.doorbell_motion

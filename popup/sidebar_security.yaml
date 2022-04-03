@@ -201,7 +201,7 @@ browser_mod:
         entities:
           - type: section
             label: Last Detected Motion
-          - entity: sensor.front_door_last_motion
+          - entity: sensor.doorbell_last_motion
             name: "Front Door"
 
           - type: "custom:frigate-card"
@@ -257,8 +257,6 @@ browser_mod:
                 #       action: custom:frigate-card-action
                 #       frigate_card_action: fullscreen
 
-                      
-
           - type: custom:button-card
             name: Show Street on TV
             icon: mdi:cast
@@ -287,9 +285,9 @@ browser_mod:
           #     provider: webrtc
           #     webrtc:
           #       entity: camera.webrtc_livingroom
-            # dimensions:
-            #   aspect_ratio_mode: dynamic
-            #   aspect_ratio: '16:9'
+          # dimensions:
+          #   aspect_ratio_mode: dynamic
+          #   aspect_ratio: '16:9'
 
           # - type: "custom:frigate-card"
           #   camera_entity: camera.livingroom
@@ -298,9 +296,9 @@ browser_mod:
           #     entity: camera.webrtc_livingroom
           #   menu:
           #     mode: none
-            # live:
-            #   webrtc_card:
-            #     ui: true
+          # live:
+          #   webrtc_card:
+          #     ui: true
 
           # - type: "custom:frigate-card"
           #   camera_entity: camera.street
@@ -311,8 +309,6 @@ browser_mod:
           #     webrtc:
           #       entity: camera.webrtc_street
 
-
-
           # - type: "custom:frigate-card"
           #   camera_entity: camera.driveway
           #   menu:
@@ -322,8 +318,6 @@ browser_mod:
           #     webrtc:
           #       entity: camera.webrtc_driveway
 
-
-
           # - type: "custom:frigate-card"
           #   camera_entity: camera.backdoor
           #   menu:
@@ -332,84 +326,79 @@ browser_mod:
           #     provider: webrtc
           #     webrtc:
           #       entity: camera.webrtc_backdoor
-
-
 
           # - type: "custom:frigate-card"
           #   cameras:
           #     - camera_entity: camera.street
           #       camera_name: Street
-                # menu:
-                #   mode: none
-                # client_id: frigate-server-2
-                # label: person
-                # frigate_url: http://my-frigate-server/  # Note: Key name change.
-                # zone: office_door
-                # live_provider: webrtc-card  # Note: Key and value name change.
-                # webrtc_card:
-                #   entity: camera.webrtc_street
-                  # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
-              # - camera_entity: camera.driveway
-              #   camera_name: Driveway
-                # menu:
-                #   mode: none
-                # client_id: frigate-server-2
-                # label: person
-                # frigate_url: http://my-frigate-server/  # Note: Key name change.
-                # zone: office_door
-              #   live_provider: webrtc-card  # Note: Key and value name change.
-              #   webrtc_card:
-              #     entity: camera.webrtc_driveway
-              # - camera_entity: camera.backdoor
-              #   camera_name: Backdoor
-                # menu:
-                #   mode: none
-                # client_id: frigate-server-2
-                # label: person
-                # frigate_url: http://my-frigate-server/  # Note: Key name change.
-                # zone: office_door
-                # live_provider: webrtc-card  # Note: Key and value name change.
-                # webrtc_card:
-                #   entity: camera.webrtc_backdoor
-            # overrides:
-              # - conditions:
-              #     [key]: [value]
-                # overrides:
-                #   menu:
-                #     mode: none
-                  # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
-            # live:
-            #   webrtc_card:
-            #       any_other_webrtc_card_option: value
-
-
-# Old Config
-          # - type: "custom:frigate-card"
-          #   camera_entity: camera.backdoor
+          # menu:
+          #   mode: none
+          # client_id: frigate-server-2
+          # label: person
+          # frigate_url: http://my-frigate-server/  # Note: Key name change.
+          # zone: office_door
+          # live_provider: webrtc-card  # Note: Key and value name change.
+          # webrtc_card:
+          #   entity: camera.webrtc_street
+          # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
+          # - camera_entity: camera.driveway
+          #   camera_name: Driveway
+          # menu:
+          #   mode: none
+          # client_id: frigate-server-2
+          # label: person
+          # frigate_url: http://my-frigate-server/  # Note: Key name change.
+          # zone: office_door
+          #   live_provider: webrtc-card  # Note: Key and value name change.
+          #   webrtc_card:
+          #     entity: camera.webrtc_driveway
+          # - camera_entity: camera.backdoor
+          #   camera_name: Backdoor
+          # menu:
+          #   mode: none
+          # client_id: frigate-server-2
+          # label: person
+          # frigate_url: http://my-frigate-server/  # Note: Key name change.
+          # zone: office_door
+          # live_provider: webrtc-card  # Note: Key and value name change.
+          # webrtc_card:
+          #   entity: camera.webrtc_backdoor
+          # overrides:
+          # - conditions:
+          #     [key]: [value]
+          # overrides:
           #   menu:
           #     mode: none
-          #   live:
-          #     provider: webrtc
-          #     webrtc:
-          #       entity: camera.webrtc_backdoor
+          # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
+          # live:
+          #   webrtc_card:
+          #       any_other_webrtc_card_option: value
+# Old Config
+# - type: "custom:frigate-card"
+#   camera_entity: camera.backdoor
+#   menu:
+#     mode: none
+#   live:
+#     provider: webrtc
+#     webrtc:
+#       entity: camera.webrtc_backdoor
 
 # New Config
-          # - type: "custom:frigate-card"
-          #   cameras:
-          #     - camera_entity: camera.office
-          #       camera_name: office_door
-          #       client_id: frigate-server-2
-          #       label: person
-          #       frigate_url: http://my-frigate-server/  # Note: Key name change.
-          #       zone: office_door
-          #       live_provider: webrtc-card  # Note: Key and value name change.
-          #       webrtc_card:
-          #         entity: camera.office_rtsp
-          #         url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
-          #   live:
-          #     webrtc_card:
-          #         any_other_webrtc_card_option: value
-
+# - type: "custom:frigate-card"
+#   cameras:
+#     - camera_entity: camera.office
+#       camera_name: office_door
+#       client_id: frigate-server-2
+#       label: person
+#       frigate_url: http://my-frigate-server/  # Note: Key name change.
+#       zone: office_door
+#       live_provider: webrtc-card  # Note: Key and value name change.
+#       webrtc_card:
+#         entity: camera.office_rtsp
+#         url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
+#   live:
+#     webrtc_card:
+#         any_other_webrtc_card_option: value
 
 # action: fire-dom-event
 # browser_mod:

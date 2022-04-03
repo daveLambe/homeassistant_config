@@ -23,7 +23,7 @@ cards:
         camera_view: live
         entity: camera.webrtc_backdoor
       - type: picture-entity
-        entity: camera.front_door
+        entity: camera.doorbell
         name: "Front Door"
         show_state: false
 
@@ -41,5 +41,5 @@ cards:
   #       motion_entity: binary_sensor.outdoor_side_motion_detected
   #     - entity: camera.outdoor_corner
   #       motion_entity: binary_sensor.outdoor_corner_motion_detected
-  #     - entity: camera.front_door
-  #       motion_entity: binary_sensor.front_door_motion
+  #     - entity: camera.doorbell
+  #       motion_entity: sensor.doorbell_motion

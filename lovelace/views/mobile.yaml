@@ -345,7 +345,7 @@ cards:
         label: "Cast Camera to TV.."
       - entity: input_select.selectable_camera
   #   - type: picture-entity
-  # entity: camera.front_door
+  # entity: camera.doorbell
   # name: "Front Door"
   # show_state: false
 

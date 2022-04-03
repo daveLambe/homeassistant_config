@@ -653,7 +653,7 @@ cards:
                   - type: vertical-stack
                     cards:
                       # - type: button
-                      #   entity: camera.front_door
+                      #   entity: camera.doorbell
                       - type: vertical-stack
                         cards:
                           # - type: markdown

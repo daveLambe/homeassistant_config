@@ -43,7 +43,7 @@ cards:
           # - entity: binary_sensor.amcrest_bedroom_motion_detected
           #   name: "Bedroom"
           # secondary_info: last-changed
-          - entity: sensor.front_door_last_motion
+          - entity: sensor.doorbell_last_motion
             name: "Front Door"
 
           - type: section
@@ -135,7 +135,7 @@ cards:
           # - type: "custom:frigate-card"
           #   camera_entity: camera.living_room
           # - type: picture-entity
-          #   entity: camera.front_door
+          #   entity: camera.doorbell
           #   name: "Front Door"
           #   show_state: false
           # - type: "custom:webrtc-camera"
