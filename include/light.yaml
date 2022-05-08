@@ -143,6 +143,7 @@ light:
 
   - platform: group
     name: All Lights
+    unique_id: light.all_lights
     entities:
       - light.chandelier
       - light.tv
@@ -158,6 +159,7 @@ light:
 
   - platform: group
     name: All Lights Except Lightning Bolts
+    unique_id: light.all_lights_except_lightning_bolts
     entities:
       - light.chandelier
       - light.tv
@@ -171,6 +173,7 @@ light:
 
   - platform: group
     name: All Lights Except Lightning Bolts And Closet
+    unique_id: light.all_lights_except_lightning_bolts_and_closet
     entities:
       - light.chandelier
       - light.tv
@@ -183,6 +186,7 @@ light:
 
   - platform: group
     name: All Lights Except Closet
+    unique_id: light.all_lights_except_closet
     entities:
       - light.chandelier
       - light.tv
@@ -198,6 +202,7 @@ light:
 
   - platform: group
     name: All Lights Including Closet
+    unique_id: light.all_lights_including_closet
     entities:
       - light.chandelier
       - light.tv
@@ -214,6 +219,7 @@ light:
 
   - platform: group
     name: Living Room And Kitchen Lights
+    unique_id: light.living_room_and_kitchen_lights
     entities:
       - light.chandelier
       - light.tv
@@ -222,24 +228,28 @@ light:
 
   - platform: group
     name: Living Room Lights
+    unique_id: light.living_room_lights
     entities:
       - light.chandelier
       - light.tv
 
   - platform: group
     name: Kitchen Lights
+    unique_id: light.kitchen_lights
     entities:
       - light.kitchen_east
       - light.kitchen_west
 
   - platform: group
     name: Bedroom Lights
+    unique_id: light.bedroom_lights
     entities:
       - light.bedroom
       - light.bed
 
   - platform: group
     name: LIFX
+    unique_id: light.lifx
     entities:
       - light.chandelier
       - light.hallway
@@ -251,6 +261,7 @@ light:
 
   - platform: group
     name: Lightning Bolts
+    unique_id: light.Lightning_Bolts
     entities:
       - light.lightning_red
       - light.lightning_purple_1
@@ -258,19 +269,15 @@ light:
 
   - platform: group
     name: Govee
+    unique_id: light.govee
     entities:
       - light.bed
       - light.bathroom
 
   - platform: group
     name: LED Strips
+    unique_id: light.led_strips
     entities:
       - light.tv
       - light.bed
       - light.bathroom
-
-  # - platform: group
-  #   name: test
-  #   entities:
-  #     - light.hallway
-  #     - light.kitchen_east

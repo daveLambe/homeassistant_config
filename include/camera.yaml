@@ -1,22 +1,22 @@
-camera:
+# camera:
 
-  - platform: generic
-    name: "webrtc_livingroom"
-    still_image_url: http://192.168.0.228/jpg/image.jpg
-    stream_source: !secret cam_rtsp_living_room
+#   - platform: generic
+#     name: "webrtc_livingroom"
+#     still_image_url: !secret cam_still_image_living_room
+#     stream_source: !secret cam_rtsp_living_room
 
-  - platform: generic
-    name: "webrtc_street"
-    # still_image_url: http://192.168.42.227/jpg/image.jpg
-    still_image_url: http://192.168.0.228/jpg/image.jpg
-    stream_source: !secret cam_rtsp_street
+#   - platform: generic
+#     name: "webrtc_street"
+#     # still_image_url: http://192.168.42.227/jpg/image.jpg
+#     still_image_url: http://192.168.0.228/jpg/image.jpg
+#     stream_source: !secret cam_rtsp_street
 
-  - platform: generic
-    name: "webrtc_driveway"
-    still_image_url: http://192.168.0.228/jpg/image.jpg
-    stream_source: !secret cam_rtsp_driveway
+#   - platform: generic
+#     name: "webrtc_driveway"
+#     still_image_url: http://192.168.0.228/jpg/image.jpg
+#     stream_source: !secret cam_rtsp_driveway
 
-  - platform: generic
-    name: "webrtc_backdoor"
-    still_image_url: http://192.168.0.228/jpg/image.jpg
-    stream_source: !secret cam_rtsp_backdoor
+#   - platform: generic
+#     name: "webrtc_backdoor"
+#     still_image_url: http://192.168.0.228/jpg/image.jpg
+#     stream_source: !secret cam_rtsp_backdoor

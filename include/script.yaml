@@ -62,6 +62,18 @@ script:
           entity_id: media_player.living_room_chromecast
         data:
           is_volume_muted: true
+  play_vlc_living_room_tv:
+    alias: Play VLC on Living Room TV
+    mode: restart
+    sequence:
+      - service: androidtv.adb_command
+        data:
+          command: >-
+            am start -a android.intent.action.VIEW -d
+            rtsp://user:pass@192.168.42.xxx/live -n
+            org.videolan.vlc/.gui.video.VideoPlayerActivity
+        target:
+          entity_id: media_player.living_room_tv
   stop_cast_to_tv:
     alias: Stop Cast To TV
     mode: restart
@@ -331,19 +343,20 @@ script:
     alias: Morning
     mode: single
     sequence:
-      - variables:
-          scene:
-            "{% set state = states('sensor.time') %} {% set dave_morning_time = '05:30'\
-            \ < state < '07:45' %} {% set ebony_home = (states('device_tracker.ebonycom')\
-            \ == 'home') %} {% set ebony_mode_on = (states('input_boolean.ebony_mode')\
-            \ == 'on' ) %}\n{% if dave_morning_time and ebony_mode_on %}\n    scene.morning_darker\n\
-            {% else %}\n    scene.morning\n{% endif %}\n"
+      # - variables:
+      #     scene:
+      #       "{% set state = states('sensor.time') %} {% set dave_morning_time = '05:30'\
+      #       \ < state < '07:45' %} {% set ebony_home = (states('device_tracker.ebonycom')\
+      #       \ == 'home') %} {% set ebony_mode_on = (states('input_boolean.ebony_mode')\
+      #       \ == 'on' ) %}\n{% if dave_morning_time and ebony_mode_on %}\n    scene.morning_darker\n\
+      #       {% else %}\n    scene.morning\n{% endif %}\n"
       - service: input_boolean.turn_on
         data:
           entity_id: input_boolean.ignore_motion
       - service: scene.turn_on
         data:
-          entity_id: "{{ scene }}"
+          # entity_id: "{{ scene }}"
+          entity_id: scene.morning
           transition: 180
       - delay: 00:00:03
       # - service: light.turn_on
@@ -370,20 +383,20 @@ script:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.ignore_motion
-  turn_fan_off_if_ebony_not_home:
-    alias: Turn fan off if Ebony not home
-    mode: restart
-    sequence:
-      - service: switch.turn_off
-        data:
-          entity_id: switch.fan
-      - delay: 00:00:05
-      - service: switch.turn_on
-        data:
-          entity_id: switch.fan
-      - condition: state
-        entity_id: input_boolean.ebony_mode
-        state: "off"
+  # turn_fan_off_if_ebony_not_home:
+  #   alias: Turn fan off if Ebony not home
+  #   mode: restart
+  #   sequence:
+  #     - service: switch.turn_off
+  #       data:
+  #         entity_id: switch.fan
+  #     - delay: 00:00:05
+  #     - service: switch.turn_on
+  #       data:
+  #         entity_id: switch.fan
+  #     - condition: state
+  #       entity_id: input_boolean.ebony_mode
+  #       state: "off"
   goodnight:
     alias: Goodnight
     mode: restart
@@ -518,6 +531,7 @@ script:
       #   data:
       #     entity_id: media_player.living_room_tv
       #     command: input keyevent 126
+      - delay: 00:00:01
       - service: script.turn_on
         entity_id: script.play_tv_if_paused
       - delay: 00:00:04
@@ -560,6 +574,9 @@ script:
         data:
           entity_id: scene.dinner_and_a_movie
           transition: 5.0
+      - delay: 00:00:01
+      - service: script.turn_on
+        entity_id: script.play_tv_if_paused
       - delay: 00:00:04
       - service: light.turn_off
         data:

@@ -27,7 +27,7 @@ browser_mod:
               transition: none;
             }
             button-card {
-              align-self: center !important;
+              align-self: center !important1;
               padding: 0 0 0 3.5em;
             }
             /* phone */
@@ -120,10 +120,10 @@ browser_mod:
             name: Bathroom
             secondary_info: last-changed
 
-          - type: section
-            label: Camera Status
-          - entity: binary_sensor.amcrest_living_room_online
-            name: "Living Room Camera"
+          # - type: section
+          #   label: Camera Status
+          # - entity: binary_sensor.amcrest_living_room_online
+          #   name: "Living Room Camera"
 
       - type: entities
         view_layout:
@@ -145,8 +145,8 @@ browser_mod:
 
           - type: section
             label: Last Detected Motion
-          - entity: binary_sensor.amcrest_living_room_motion_detected
-            name: "Living Room"
+          # - entity: binary_sensor.amcrest_living_room_motion_detected
+          #   name: "Living Room"
             secondary_info: last-changed
           - entity: binary_sensor.kitchen_motion_detected
             name: "Kitchen"
@@ -159,17 +159,12 @@ browser_mod:
                 live_provider: webrtc-card
                 webrtc_card:
                   entity: camera.webrtc_livingroom
-              # - webrtc_card:
-              #     entity: camera.webrtc_livingroom
-              #     camera_name: Living Room
-              #     live_provider: webrtc-card
-              #     webrtc_card:
-              #       entity: camera.webrtc_livingroom
-            # live:
-            #   webrtc_card:
-            #     ui: false
-            #     background: true
-            #   preload: true
+                  camera_name: Living Room
+            live:
+              webrtc_card:
+                ui: false
+                background: true
+              preload: true 
             view:
               actions:
                 double_tap_action:
@@ -200,32 +195,42 @@ browser_mod:
             }
         entities:
           - type: section
+            label: Doors
+          - type: section
             label: Last Detected Motion
           - entity: sensor.doorbell_last_motion
             name: "Front Door"
-
+          # - type: custom:webrtc-camera
+          #   entity: camera.doorbell
+          - type: section
+            label: Street
           - type: "custom:frigate-card"
             cameras:
               - camera_entity: camera.street
-                # camera_name: Street
+                camera_name: Street
                 live_provider: webrtc-card
                 webrtc_card:
                   entity: camera.webrtc_street
-              - camera_entity: camera.driveway
-                # camera_name: Driveway
-                live_provider: webrtc-card
-                webrtc_card:
-                  entity: camera.webrtc_driveway
-              - camera_entity: camera.backdoor
-                # camera_name: Backdoor
-                live_provider: webrtc-card
-                webrtc_card:
-                  entity: camera.webrtc_backdoor
+              # - camera_entity: camera.webrtc_driveway
+              #   camera_name: Driveway
+              #   live_provider: webrtc-card
+              #   webrtc_card:
+              #     entity: camera.webrtc_driveway
+              # - camera_entity: camera.backdoor
+              #   camera_name: Backdoor
+              #   live_provider: webrtc-card
+              #   webrtc_card:
+              #     entity: camera.webrtc_backdoor
+              # - camera_entity: camera.doorbell
+              #   camera_name: Doorbell
+                # live_provider: webrtc-card
+                # webrtc_card:
+                #   entity: camera.doorbell
             live:
               webrtc_card:
                 ui: false
-                background: false
-              # preload: true
+                background: true
+              preload: true
             view:
               actions:
                 double_tap_action:
@@ -236,16 +241,113 @@ browser_mod:
                   camera:
                     - camera.street
                     - camera.webrtc_street
-                    - camera.driveway
-                    - camera.webrtc_driveway
-                    - camera.backdoor
-                    - camera.webrtc_backdoor
+                    # - camera.driveway
+                    # - camera.webrtc_driveway
+                    # - camera.backdoor
+                    # - camera.webrtc_backdoor
                 overrides:
                   menu:
                     # mode: none
                     buttons:
                       frigate: false
                       fullscreen: true
+                # elements:
+                #   - type: icon
+                #     entity: camera.street
+                #     icon: mdi:fullscreen
+                #     style:
+                #       left: 40px
+                #       top: 40px
+                #     tap_action:
+                #       action: custom:frigate-card-action
+                #       frigate_card_action: fullscreen
+          - type: section
+            label: Doors
+          - type: "custom:frigate-card"
+            cameras:
+              - camera_entity: camera.driveway
+                camera_name: Driveway
+                live_provider: webrtc-card
+                webrtc_card:
+                  entity: camera.webrtc_driveway
+              - camera_entity: camera.backdoor
+                camera_name: Backdoor
+                live_provider: webrtc-card
+                webrtc_card:
+                  entity: camera.webrtc_backdoor
+              - camera_entity: camera.doorbell
+                camera_name: Doorbell
+                # live_provider: webrtc-card
+                # webrtc_card:
+                #   entity: camera.doorbell
+            live:
+              webrtc_card:
+                ui: false
+                background: true
+              preload: true
+            view:
+              actions:
+                double_tap_action:
+                  action: custom:frigate-card-action
+                  frigate_card_action: fullscreen
+            overrides:
+              - conditions:
+                  camera:
+                    - camera.driveway
+                    - camera.webrtc_driveway
+                    - camera.backdoor
+                    - camera.webrtc_backdoor
+                    - camera.doorbell
+                overrides:
+                  menu:
+                    # mode: none
+                    buttons:
+                      frigate: false
+                      fullscreen: true
+          # - type: section
+          #   label: Doors
+          # - type: section
+          #   label: Last Detected Motion
+          # - entity: sensor.doorbell_last_motion
+          #   name: "Front Door"
+          # - type: "custom:webrtc-camera"
+          #   entity: camera.doorbell
+
+          # - type: "custom:frigate-card"
+          #   cameras:
+          #     - camera_entity: camera.driveway
+          #       camera_name: Driveway
+          #       live_provider: webrtc-card
+          #       webrtc_card:
+          #         entity: camera.webrtc_driveway
+          #     - camera_entity: camera.backdoor
+          #       camera_name: Backdoor
+          #       live_provider: webrtc-card
+          #       webrtc_card:
+          #         entity: camera.webrtc_backdoor
+          #   live:
+          #     webrtc_card:
+          #       ui: false
+          #       background: true
+          #     preload: false
+          #   view:
+          #     actions:
+          #       double_tap_action:
+          #         action: custom:frigate-card-action
+          #         frigate_card_action: fullscreen
+          #   overrides:
+          #     - conditions:
+          #         camera:
+          #           - camera.driveway
+          #           - camera.webrtc_driveway
+          #           - camera.backdoor
+          #           - camera.webrtc_backdoor
+          #       overrides:
+          #         menu:
+                    # mode: none
+                    # buttons:
+                    #   frigate: false
+                    #   fullscreen: true
                 # elements:
                 #   - type: icon
                 #     entity: camera.street

@@ -92,7 +92,7 @@ input_select:
       - Bedroom Speaker
       - Spotify
       - Wall Speaker
-      - Last Downloaded
+      # - Last Downloaded
 
 # input_boolean:
 #   laundry_display:

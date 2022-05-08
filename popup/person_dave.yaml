@@ -83,7 +83,7 @@ browser_mod:
             icon: mdi:home
             style: &state |
               state-badge {
-                color: {{ '#3182b7' if is_state(config.entity, 'home') else '#3c3f3f' }};
+                color: {{ '#ff0000' if is_state(config.entity, 'home') else '#3c3f3f' }};
               }
 
           - entity: sensor.davecom_battery_state
@@ -91,7 +91,7 @@ browser_mod:
             icon: mdi:power-plug
             style: |
               state-badge {
-                color: {{ '#3182b7' if is_state(config.entity, 'Charging') else '#3c3f3f' }};
+                color: {{ '#ff0000' if is_state(config.entity, 'Charging') else '#3c3f3f' }};
               }
 
           - entity: binary_sensor.template_davecom_on_home_wifi
@@ -99,7 +99,7 @@ browser_mod:
             icon: mdi:wifi
             style: |
               state-badge {
-                color: {{ '#3182b7' if is_state(config.entity, 'Wi-Fi') else '#3c3f3f' }};
+                color: {{ '#ff0000' if is_state(config.entity, 'Wi-Fi') else '#3c3f3f' }};
               }
 
       - type: custom:button-card

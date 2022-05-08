@@ -32,20 +32,32 @@ frontend:
 logger:
   default: warning
   logs:
+    homeassistant.components.cast: debug             
+    homeassistant.components.cast.media_player: debug
+    pychromecast: debug                              
+    pychromecast.dial: debug                         
+    pychromecast.discovery: info                     
+    pychromecast.controllers.media: debug            
+    pychromecast.socket_client: debug                
+    homeassistant.components.zeroconf: debug         
+    zeroconf: info
     homeassistant.components.websocket_api: fatal
-    homeassistant.components.camera: fatal
     custom_components.webrtc: debug
+    custom_components.dahua: debug
+    homeassistant.components.amcrest: debug
+    homeassistant.components.camera: fatal
+    # custom_components.webrtc: debug
     # amcrest: debug
-    # homeassistant.components.amcrest: debug
+    
 
-zwave:
-  usb_path: /dev/ttyUSB0
+# zwave:
+#  usb_path: /dev/ttyUSB0
 
 zha:
   usb_path: /dev/ttyUSB1
   database_path: /config/zigbee.db
 
-updater:
+# updater:
 
 downloader:
   download_dir: downloads
@@ -84,18 +96,25 @@ lovelace:
   mode: yaml
   # resources: !include lovelace/resources.yaml
   dashboards:
+    lovelace-homekit:
+      title: "Home"
+      icon: mdi:home-outline
+      filename: ui-lovelace.yaml
+      show_in_sidebar: true
+      require_admin: false
+      mode: yaml
     lovelace-davecave:
       title: "DaveCave"
       icon: "mdi:account-group"
       filename: ui-lovelace-davecave.yaml
-      show_in_sidebar: true
+      show_in_sidebar: false
       require_admin: false
       mode: yaml
     lovelace-mobile:
       title: "DaveCave Mobile"
       icon: mdi:cellphone
       filename: ui-lovelace-mobile.yaml
-      show_in_sidebar: true
+      show_in_sidebar: false
       require_admin: false
       mode: yaml
     # lovelace-guest:
@@ -112,20 +131,13 @@ lovelace:
       show_in_sidebar: false
       require_admin: true
       mode: yaml
-    lovelace-homekit:
-      title: "HomeKit"
-      icon: mdi:apple-ios
-      filename: ui-lovelace-homekit.yaml
-      show_in_sidebar: false
-      require_admin: true
-      mode: yaml
-    lovelace-example:
-      title: "Example"
-      icon: mdi:apple-ios
-      filename: ui-lovelace-example.yaml
-      show_in_sidebar: false
-      require_admin: true
-      mode: yaml
+    # lovelace-example:
+    #   title: "Example"
+    #   icon: mdi:apple-ios
+    #   filename: ui-lovelace-example.yaml
+    #   show_in_sidebar: false
+    #   require_admin: true
+    #   mode: yaml
   resources: # HACS
     - url: /hacsfiles/rgb-light-card/card.js
       type: module
@@ -171,6 +183,12 @@ lovelace:
       type: module
     - url: /hacsfiles/generic-remote-control-card/generic-remote-control-card.js
       type: module
+    - url: /hacsfiles/webrtc-card/webrtc-camera.js
+      type: module
+    # - url: /hacsfiles/webrtc-card/webrtc-card.js
+    #   type: module
+    # - url: /webrtc/webrtc-camera.js
+    #   type: module
     # lovelace-settings:
     #   title: "Guest"
     #   icon: "mdi:cog"
@@ -198,10 +216,10 @@ person:
     device_trackers:
       - device_tracker.davecom
 
-  - name: Ebony
-    id: ebony
-    device_trackers:
-      - device_tracker.ebonycom
+  # - name: Ebony
+  #   id: ebony
+  #   device_trackers:
+  #     - device_tracker.ebonycom
 
 lock:
   - platform: template
@@ -236,19 +254,19 @@ proximity:
     #   - noodle_house
     devices:
       - device_tracker.davecom
-      - device_tracker.ebonycom
+      # - device_tracker.ebonycom
     unit_of_measurement: mi
     tolerance: 50
 
-media_player:
-  - platform: androidtv
-    name: Living Room TV
-    host: !secret living_room_tv_ip
-    screencap: false
-  - platform: androidtv
-    name: Bedroom TV
-    host: !secret bedroom_tv_ip
-    screencap: false
+# media_player:
+#   - platform: androidtv
+#     name: Living Room TV
+#     host: !secret living_room_tv_ip
+#     screencap: false
+#   - platform: androidtv
+#     name: Bedroom TV
+#     host: !secret bedroom_tv_ip
+#     screencap: false
 
   # - platform: androidtv
   #   name: Living Room TV Ethernet
@@ -264,31 +282,31 @@ media_player:
     # another.background.app: ""
 
 # Amcrest
-amcrest:
-  - host: !secret ip_amcrest_living_room
-    name: "Amcrest Living Room"
-    username: !secret amcrest_username
-    password: !secret amcrest_password
+# amcrest:
+#  - host: !secret ip_amcrest_living_room
+   # name: "Amcrest Living Room"
+    #username: !secret amcrest_username
+  #  password: !secret amcrest_password
     # port: 80
     # stream_source: rtsp
     # stream_source: mjpeg
     # resolution: low
-    binary_sensors:
+   # binary_sensors:
       # - motion_detected
-      - online
-      - motion_detected_polled
-    sensors:
-      - ptz_preset
+     # - online
+     # - motion_detected_polled
+  #  sensors:
+   #   - ptz_preset
       # - sdcard
       
 
-  - host: !secret ip_amcrest_driveway
-    name: "Amcrest Driveway"
-    username: !secret amcrest_username
-    password: !secret amcrest_password
-    binary_sensors:
-      - online
-      - motion_detected_polled
+  # - host: !secret ip_amcrest_driveway
+  #   name: "Amcrest Driveway"
+  #   username: !secret amcrest_username
+  #   password: !secret amcrest_password
+  #   binary_sensors:
+  #     - online
+  #     - motion_detected_polled
     # sensors:
     #   - sdcard
 

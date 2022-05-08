@@ -25,11 +25,11 @@ automation:
       - platform: time_pattern
         minutes: "30"
     condition:
-      - condition: not
-        conditions:
-          - condition: state
-            entity_id: device_tracker.ebonycom
-            state: home
+      # - condition: not
+      #   conditions:
+      #     - condition: state
+      #       entity_id: device_tracker.ebonycom
+      #       state: home
       - condition: not
         conditions:
           - condition: state
@@ -59,15 +59,15 @@ automation:
       - platform: state
         entity_id: device_tracker.davecom
         to: home
-      - platform: state
-        entity_id: device_tracker.ebonycom
-        to: home
+      # - platform: state
+      #   entity_id: device_tracker.ebonycom
+      #   to: home
       - platform: state
         entity_id: binary_sensor.template_davecom_on_home_wifi
         to: "on"
-      - platform: state
-        entity_id: binary_sensor.template_ebonycom_on_home_wifi
-        to: "on"
+      # - platform: state
+      #   entity_id: binary_sensor.template_ebonycom_on_home_wifi
+      #   to: "on"
     condition:
       - condition: state
         entity_id: input_boolean.vacation_mode
@@ -113,143 +113,143 @@ automation:
       - service: switch.turn_off
         entity_id: switch.ipad_charger
     mode: single
-  - id: automation.ebonycom_battery_below_10
-    alias: Ebonycom battery below 10
-    description: ""
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.ebonycom_battery_level
-        below: 10
-    action:
-      - service: notify.mobile_app_ebonycom
-        data:
-          title: Battery Low. Charge soon!
-          message: Your battery is below 10%
-  - id: automation.ebonycom_battery_below_20
-    alias: Ebonycom battery below 20
-    description: ""
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.ebonycom_battery_level
-        below: 20
-    action:
-      - service: notify.mobile_app_ebonycom
-        data:
-          title: Battery Low
-          message: Your battery is below 20%
-  - id: automation.ebonycom_fully_charged
-    alias: Ebonycom battery fully charged
-    description: ""
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.ebonycom_battery_level
-        above: 99
-    action:
-      - service: notify.mobile_app_ebonycom
-        data:
-          message: Your phone is fully charged
-  - id: automation.turn_ebony_mode_on
-    alias: Turn Ebony Mode on
-    trigger:
-      - platform: state
-        entity_id: device_tracker.ebonycom
-        to: home
-        for: 00:01:00
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.ebony_mode
-  - id: automation.turn_ebony_mode_off
-    alias: Turn Ebony Mode off
-    trigger:
-      - platform: state
-        entity_id: device_tracker.ebonycom
-        from: home
-        for: 00:05:00
-    action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.ebony_mode
-  - id: automation.ebony_dave_together_on
-    alias: ebony_dave_together_on
-    trigger:
-      - platform: template
-        value_template:
-          "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-          <= 3 }}"
-      - platform: zone
-        entity_id: device_tracker.ebonycom
-        zone: zone.davecave
-        event: enter
-      - platform: zone
-        entity_id: device_tracker.davecom
-        zone: zone.noodle_house
-        event: enter
-      - platform: zone
-        entity_id: device_tracker.davecom
-        zone: zone.noodle_house
-        event: enter
-      - platform: zone
-        entity_id: device_tracker.davecom
-        zone: zone.deandre
-        event: enter
-      - platform: zone
-        entity_id: device_tracker.davecom
-        zone: zone.daycare
-        event: enter
-      - platform: state
-        entity_id: input_boolean.ebony_mode
-        from: "off"
-        to: "on"
-    condition:
-      - condition: template
-        value_template:
-          "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-          <= 3 }}"
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.ebony_dave_together
-    mode: restart
-  - id: automation.ebony_dave_together_off
-    alias: ebony_dave_together_off
-    trigger:
-      - platform: state
-        entity_id: sensor.drive_time_dave_to_ebony
-        to: "5"
-      - platform: zone
-        entity_id: device_tracker.ebonycom
-        zone: zone.davecave
-        event: leave
-      - platform: template
-        value_template:
-          "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-          > 3 }}"
-      - platform: zone
-        entity_id: device_tracker.davecom
-        zone: zone.noodle_house
-        event: leave
-      - platform: zone
-        entity_id: device_tracker.davecom
-        zone: zone.daycare
-        event: leave
-    condition:
-      - condition: template
-        value_template:
-          "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
-          > 3 }}"
-    action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.ebony_dave_together
-    mode: restart
+  # - id: automation.ebonycom_battery_below_10
+  #   alias: Ebonycom battery below 10
+  #   description: ""
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: sensor.ebonycom_battery_level
+  #       below: 10
+  #   action:
+  #     - service: notify.mobile_app_ebonycom
+  #       data:
+  #         title: Battery Low. Charge soon!
+  #         message: Your battery is below 10%
+  # - id: automation.ebonycom_battery_below_20
+  #   alias: Ebonycom battery below 20
+  #   description: ""
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: sensor.ebonycom_battery_level
+  #       below: 20
+  #   action:
+  #     - service: notify.mobile_app_ebonycom
+  #       data:
+  #         title: Battery Low
+  #         message: Your battery is below 20%
+  # - id: automation.ebonycom_fully_charged
+  #   alias: Ebonycom battery fully charged
+  #   description: ""
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: sensor.ebonycom_battery_level
+  #       above: 99
+  #   action:
+  #     - service: notify.mobile_app_ebonycom
+  #       data:
+  #         message: Your phone is fully charged
+  # - id: automation.turn_ebony_mode_on
+  #   alias: Turn Ebony Mode on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: device_tracker.ebonycom
+  #       to: home
+  #       for: 00:01:00
+  #   action:
+  #     - service: input_boolean.turn_on
+  #       entity_id: input_boolean.ebony_mode
+  # - id: automation.turn_ebony_mode_off
+  #   alias: Turn Ebony Mode off
+  #   trigger:
+  #     - platform: state
+  #       entity_id: device_tracker.ebonycom
+  #       from: home
+  #       for: 00:05:00
+  #   action:
+  #     - service: input_boolean.turn_off
+  #       entity_id: input_boolean.ebony_mode
+  # - id: automation.ebony_dave_together_on
+  #   alias: ebony_dave_together_on
+  #   trigger:
+  #     - platform: template
+  #       value_template:
+  #         "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+  #         <= 3 }}"
+  #     - platform: zone
+  #       entity_id: device_tracker.ebonycom
+  #       zone: zone.davecave
+  #       event: enter
+  #     - platform: zone
+  #       entity_id: device_tracker.davecom
+  #       zone: zone.noodle_house
+  #       event: enter
+  #     - platform: zone
+  #       entity_id: device_tracker.davecom
+  #       zone: zone.noodle_house
+  #       event: enter
+  #     - platform: zone
+  #       entity_id: device_tracker.davecom
+  #       zone: zone.deandre
+  #       event: enter
+  #     - platform: zone
+  #       entity_id: device_tracker.davecom
+  #       zone: zone.daycare
+  #       event: enter
+  #     - platform: state
+  #       entity_id: input_boolean.ebony_mode
+  #       from: "off"
+  #       to: "on"
+  #   condition:
+  #     - condition: template
+  #       value_template:
+  #         "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+  #         <= 3 }}"
+  #   action:
+  #     - service: input_boolean.turn_on
+  #       entity_id: input_boolean.ebony_dave_together
+  #   mode: restart
+  # - id: automation.ebony_dave_together_off
+  #   alias: ebony_dave_together_off
+  #   trigger:
+  #     - platform: state
+  #       entity_id: sensor.drive_time_dave_to_ebony
+  #       to: "5"
+  #     - platform: zone
+  #       entity_id: device_tracker.ebonycom
+  #       zone: zone.davecave
+  #       event: leave
+  #     - platform: template
+  #       value_template:
+  #         "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+  #         > 3 }}"
+  #     - platform: zone
+  #       entity_id: device_tracker.davecom
+  #       zone: zone.noodle_house
+  #       event: leave
+  #     - platform: zone
+  #       entity_id: device_tracker.davecom
+  #       zone: zone.daycare
+  #       event: leave
+  #   condition:
+  #     - condition: template
+  #       value_template:
+  #         "{{ distance(states.device_tracker.davecom, states.device_tracker.ebonycom)
+  #         > 3 }}"
+  #   action:
+  #     - service: input_boolean.turn_off
+  #       entity_id: input_boolean.ebony_dave_together
+  #   mode: restart
   - id: automation.turn_blanket_off
     alias: Turn blanket off at 5
     trigger:
       - platform: time
         at: 06:00:00
-    condition:
-      - condition: not
-        conditions:
-          - condition: state
-            entity_id: device_tracker.ebonycom
-            state: home
+    # condition:
+    #   - condition: not
+    #     conditions:
+    #       - condition: state
+    #         entity_id: device_tracker.ebonycom
+    #         state: home
     action:
       - service: switch.turn_off
         entity_id: switch.blanket
@@ -282,117 +282,117 @@ automation:
   #   action:
   #     - service: climate.turn_off
   #       entity_id: climate.thermostat
-  - id: automation.proximity_alert_dave_ebony_further
-    alias: Proximity Alert Dave/Ebony Further
-    description: ""
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.drive_time_dave_to_ebony
-        below: "42"
-    condition:
-      - condition: state
-        entity_id: input_boolean.ebony_dave_together
-        state: "off"
-        for:
-          hours: 0
-          minutes: 10
-          seconds: 0
-          milliseconds: 0
-      - condition: state
-        entity_id: input_boolean.notify_proximity
-        state: "on"
-        for:
-          hours: 0
-          minutes: 0
-          seconds: 0
-          milliseconds: 0
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          message: Ebony is within 45 minutes of your location
-    mode: single
-  - id: automation.proximity_alert_dave_ebony
-    alias: Proximity Alert Dave/Ebony
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.drive_time_dave_to_ebony
-        below: "13"
-    condition:
-      - condition: state
-        entity_id: input_boolean.ebony_dave_together
-        state: "off"
-        for:
-          hours: 0
-          minutes: 0
-          seconds: 0
-          milliseconds: 0
-      - condition: and
-        conditions:
-          - condition: not
-            conditions:
-              - condition: state
-                entity_id: sensor.davecom_geocoded_location
-                state: unknown
-                for:
-                  hours: 0
-                  minutes: 3
-                  seconds: 0
-                  milliseconds: 0
-              - condition: not
-                conditions:
-                  - condition: state
-                    entity_id: sensor.ebonycom_geocoded_location
-                    state: unknown
-                    for:
-                      hours: 0
-                      minutes: 3
-                      seconds: 0
-                      milliseconds: 0
-      - condition: state
-        entity_id: input_boolean.notify_proximity
-        state: "on"
-        for:
-          hours: 0
-          minutes: 0
-          seconds: 0
-          milliseconds: 0
-    action:
-      - service: notify.mobile_app_ebonycom
-        data:
-          message: Dave is within 10 minutes of your location
-      - service: notify.mobile_app_davecom
-        data:
-          message: Ebony is within 10-15 minutes of your location
-    mode: single
-  - id: automation.proximity_alert_dave_ebony_closer
-    alias: Proximity Alert Dave/Ebony Closer
-    description: ""
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.drive_time_dave_to_ebony
-        below: "7"
-    condition:
-      - condition: state
-        entity_id: input_boolean.ebony_dave_together
-        state: "off"
-        for:
-          hours: 0
-          minutes: 10
-          seconds: 0
-          milliseconds: 0
-      - condition: state
-        entity_id: input_boolean.notify_proximity
-        state: "on"
-        for:
-          hours: 0
-          minutes: 0
-          seconds: 0
-          milliseconds: 0
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          message: Ebony is within 5 minutes of your location
-    mode: single
+  # - id: automation.proximity_alert_dave_ebony_further
+  #   alias: Proximity Alert Dave/Ebony Further
+  #   description: ""
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: sensor.drive_time_dave_to_ebony
+  #       below: "42"
+  #   condition:
+  #     - condition: state
+  #       entity_id: input_boolean.ebony_dave_together
+  #       state: "off"
+  #       for:
+  #         hours: 0
+  #         minutes: 10
+  #         seconds: 0
+  #         milliseconds: 0
+  #     - condition: state
+  #       entity_id: input_boolean.notify_proximity
+  #       state: "on"
+  #       for:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 0
+  #         milliseconds: 0
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         message: Ebony is within 45 minutes of your location
+  #   mode: single
+  # - id: automation.proximity_alert_dave_ebony
+  #   alias: Proximity Alert Dave/Ebony
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: sensor.drive_time_dave_to_ebony
+  #       below: "13"
+  #   condition:
+  #     - condition: state
+  #       entity_id: input_boolean.ebony_dave_together
+  #       state: "off"
+  #       for:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 0
+  #         milliseconds: 0
+  #     - condition: and
+  #       conditions:
+  #         - condition: not
+  #           conditions:
+  #             - condition: state
+  #               entity_id: sensor.davecom_geocoded_location
+  #               state: unknown
+  #               for:
+  #                 hours: 0
+  #                 minutes: 3
+  #                 seconds: 0
+  #                 milliseconds: 0
+  #             - condition: not
+  #               conditions:
+  #                 - condition: state
+  #                   entity_id: sensor.ebonycom_geocoded_location
+  #                   state: unknown
+  #                   for:
+  #                     hours: 0
+  #                     minutes: 3
+  #                     seconds: 0
+  #                     milliseconds: 0
+  #     - condition: state
+  #       entity_id: input_boolean.notify_proximity
+  #       state: "on"
+  #       for:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 0
+  #         milliseconds: 0
+  #   action:
+  #     - service: notify.mobile_app_ebonycom
+  #       data:
+  #         message: Dave is within 10 minutes of your location
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         message: Ebony is within 10-15 minutes of your location
+  #   mode: single
+  # - id: automation.proximity_alert_dave_ebony_closer
+  #   alias: Proximity Alert Dave/Ebony Closer
+  #   description: ""
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: sensor.drive_time_dave_to_ebony
+  #       below: "7"
+  #   condition:
+  #     - condition: state
+  #       entity_id: input_boolean.ebony_dave_together
+  #       state: "off"
+  #       for:
+  #         hours: 0
+  #         minutes: 10
+  #         seconds: 0
+  #         milliseconds: 0
+  #     - condition: state
+  #       entity_id: input_boolean.notify_proximity
+  #       state: "on"
+  #       for:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 0
+  #         milliseconds: 0
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         message: Ebony is within 5 minutes of your location
+  #   mode: single
   - id: automation.notify_restart
     alias: Notify on HA Start
     trigger:
@@ -440,40 +440,40 @@ automation:
     action:
       - service: media_player.turn_off
         entity_id: media_player.living_room_chromecast
-  - id: automation.fire_event
-    alias: Fire Event
-    description: ""
-    trigger:
-      - platform: state
-        entity_id: input_boolean.ebony_mode
-    action:
-      - event: event_ebony_state_changed
-        event_data:
-          state: "on"
-  - id: automation.ebony_mode_on_notification
-    alias: Notify Ebony Mode on
-    trigger:
-      - platform: state
-        entity_id: input_boolean.ebony_mode
-        to: "on"
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          title: "Ebony Mode: On"
-          message: Ebony is Home
-    mode: single
-  - id: automation.ebony_mode_off_notification
-    alias: Notify Ebony Mode off
-    trigger:
-      - platform: state
-        entity_id: input_boolean.ebony_mode
-        to: "off"
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          title: "Ebony Mode: Off"
-          message: Ebony left Home
-    mode: single
+  # - id: automation.fire_event
+  #   alias: Fire Event
+  #   description: ""
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.ebony_mode
+  #   action:
+  #     - event: event_ebony_state_changed
+  #       event_data:
+  #         state: "on"
+  # - id: automation.ebony_mode_on_notification
+  #   alias: Notify Ebony Mode on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.ebony_mode
+  #       to: "on"
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         title: "Ebony Mode: On"
+  #         message: Ebony is Home
+  #   mode: single
+  # - id: automation.ebony_mode_off_notification
+  #   alias: Notify Ebony Mode off
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.ebony_mode
+  #       to: "off"
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         title: "Ebony Mode: Off"
+  #         message: Ebony left Home
+  #   mode: single
   - id: automation.alarm_on
     alias: Alarm on
     description: Alarm On
@@ -485,17 +485,17 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.google_say_alarm_on
-  - id: automation.alarm_off
-    alias: Alarm off
-    description: Alarm Off
-    trigger:
-      - platform: state
-        entity_id: input_boolean.vacation_mode
-        from: "on"
-        to: "off"
-    action:
-      - service: script.turn_on
-        entity_id: script.google_say_alarm_off
+  # - id: automation.alarm_off
+  #   alias: Alarm off
+  #   description: Alarm Off
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.vacation_mode
+  #       from: "on"
+  #       to: "off"
+  #   action:
+  #     - service: script.turn_on
+  #       entity_id: script.google_say_alarm_off
   - id: automation.delivery_on
     alias: Delivery on
     description: Delivery on
@@ -721,7 +721,7 @@ automation:
     description: Flash lights red when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: sensor.doorbell_motion
+        entity_id: binary_sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -742,7 +742,7 @@ automation:
     description: Flash lights red five times when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: sensor.doorbell_motion
+        entity_id: binary_sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -761,7 +761,7 @@ automation:
     description: Flash lights red twice when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: sensor.doorbell_motion
+        entity_id: binary_sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -780,7 +780,7 @@ automation:
     description: Flash lights red twice when Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: sensor.doorbell_motion
+        entity_id: binary_sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -801,7 +801,7 @@ automation:
     alias: Notify on Doorbell motion at night
     trigger:
       - platform: state
-        entity_id: sensor.doorbell_motion
+        entity_id: binary_sensor.doorbell_motion
         from: "off"
         to: "on"
     condition:
@@ -816,7 +816,7 @@ automation:
     alias: Send critical notification for Doorbell motion detected
     trigger:
       - platform: state
-        entity_id: sensor.doorbell_motion
+        entity_id: binary_sensor.doorbell_motion
         from: "off"
         to: "on"
     action:
@@ -1099,21 +1099,21 @@ automation:
   #       target:
   #         entity_id: light.bed
   #   mode: single
-  - id: automation.check_ebony_home_every_30_mins
-    alias: Check Ebony home every 30 minutes
-    description: ""
-    trigger:
-      - platform: time_pattern
-        minutes: "30"
-    condition:
-      - condition: state
-        entity_id: device_tracker.ebonycom
-        state: home
-    action:
-      - service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.ebony_mode
-    mode: single
+  # - id: automation.check_ebony_home_every_30_mins
+  #   alias: Check Ebony home every 30 minutes
+  #   description: ""
+  #   trigger:
+  #     - platform: time_pattern
+  #       minutes: "30"
+  #   condition:
+  #     - condition: state
+  #       entity_id: device_tracker.ebonycom
+  #       state: home
+  #   action:
+  #     - service: input_boolean.turn_on
+  #       target:
+  #         entity_id: input_boolean.ebony_mode
+  #   mode: single
   - id: automation.nightlight
     alias: Nightlight
     description: Nightlight if motion detected and lights off
@@ -1254,42 +1254,42 @@ automation:
           message: "{{ trigger.to_state.attributes.friendly_name }} is unavailable!"
     mode: parallel
     max: 10
-  - id: "1634242712912"
-    alias: Ebony arrive Noodle House
-    description: ""
-    trigger:
-      - platform: zone
-        entity_id: device_tracker.ebonycom
-        zone: zone.noodle_house
-        event: enter
-    condition:
-      - condition: not
-        conditions:
-          - condition: zone
-            entity_id: device_tracker.davecom
-            zone: zone.noodle_house
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          message: Ebony entered Noodle House
-    mode: single
-  - id: "1634242807069"
-    alias: Ebony left Noodle House
-    description: ""
-    trigger:
-      - platform: zone
-        entity_id: device_tracker.ebonycom
-        zone: zone.noodle_house
-        event: leave
-    condition:
-      - condition: numeric_state
-        entity_id: sensor.drive_time_dave_to_ebony
-        above: "10"
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          message: Ebony left Noodle House
-    mode: single
+  # - id: "1634242712912"
+  #   alias: Ebony arrive Noodle House
+  #   description: ""
+  #   trigger:
+  #     - platform: zone
+  #       entity_id: device_tracker.ebonycom
+  #       zone: zone.noodle_house
+  #       event: enter
+  #   condition:
+  #     - condition: not
+  #       conditions:
+  #         - condition: zone
+  #           entity_id: device_tracker.davecom
+  #           zone: zone.noodle_house
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         message: Ebony entered Noodle House
+  #   mode: single
+  # - id: "1634242807069"
+  #   alias: Ebony left Noodle House
+  #   description: ""
+  #   trigger:
+  #     - platform: zone
+  #       entity_id: device_tracker.ebonycom
+  #       zone: zone.noodle_house
+  #       event: leave
+  #   condition:
+  #     - condition: numeric_state
+  #       entity_id: sensor.drive_time_dave_to_ebony
+  #       above: "10"
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         message: Ebony left Noodle House
+  #   mode: single
   - id: "1634257958319"
     alias: Non Critical Notify on motion detected when away
     description: If motion detected when phone set to away, send notification to phone
@@ -1394,9 +1394,9 @@ automation:
       - condition: state
         entity_id: input_boolean.guest_mode
         state: "off"
-      - condition: state
-        entity_id: input_boolean.ebony_mode
-        state: "off"
+      # - condition: state
+      #   entity_id: input_boolean.ebony_mode
+      #   state: "off"
     action:
       - service: script.restart_fan
     mode: single
@@ -1469,20 +1469,20 @@ automation:
         target:
           entity_id: script.lock_door_if_closed
     mode: single
-  - id: "1635681009289"
-    alias: Bedroom monitor off with TV
-    description: ""
-    trigger:
-      - platform: state
-        entity_id: media_player.bedroom_tv
-        from: "on"
-        to: "off"
-    condition: []
-    action:
-      - service: switch.turn_off
-        target:
-          entity_id: switch.bedroom_monitor
-    mode: single
+  # - id: "1635681009289"
+  #   alias: Bedroom monitor off with TV
+  #   description: ""
+  #   trigger:
+  #     - platform: state
+  #       entity_id: media_player.bedroom_tv
+  #       from: "on"
+  #       to: "off"
+  #   condition: []
+  #   action:
+  #     - service: switch.turn_off
+  #       target:
+  #         entity_id: switch.bedroom_monitor
+  #   mode: single
   - id: "1636848684976"
     alias: Set LED strip colour at sundown
     description: ""
@@ -1497,41 +1497,40 @@ automation:
           rgb_color: [194, 25, 252]
         target:
           entity_id:
-            - light.bathroom
-            - light.bed
+            - light.led_strips
     mode: single
-  - id: "1638339109760"
-    alias: Set Group Selected Room Lights
-    description: ""
-    trigger:
-      - platform: state
-        entity_id: input_select.selectable_room
-    condition: []
-    action:
-      - service: group.set
-        data_template:
-          object_id: selected_room_lights
-          entities:
-            "{{ expand(('group.' ~ (states('input_select.selectable_room').lower()))
-            | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(',
-            ') }}"
+  # - id: "1638339109760"
+  #   alias: Set Group Selected Room Lights
+  #   description: ""
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_select.selectable_room
+  #   condition: []
+  #   action:
+  #     - service: group.set
+  #       data_template:
+  #         object_id: selected_room_lights
+  #         entities:
+  #           "{{ expand(('group.' ~ (states('input_select.selectable_room').lower()))
+  #           | replace(' ', '_') ~'_lights') |map(attribute='entity_id')|list|join(',
+  #           ') }}"
     # - service: notify.mobile_app_davecom
     #   data_template:
     #     message: '{{trigger.event.data.entity_id}}'
-    mode: single
-  - id: "1638339810402"
-    alias: Set Group Selected Individual Lights
-    description: ""
-    trigger:
-      - platform: state
-        entity_id: input_select.selectable_light
-    condition: []
-    action:
-      - service: group.set
-        data_template:
-          object_id: selected_individual_lights
-          entities: light.{{ (states('input_select.selectable_light').lower()) }}
-    mode: single
+    # mode: single
+  # - id: "1638339810402"
+  #   alias: Set Group Selected Individual Lights
+  #   description: ""
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_select.selectable_light
+  #   condition: []
+  #   action:
+  #     - service: group.set
+  #       data_template:
+  #         object_id: selected_individual_lights
+  #         entities: light.{{ (states('input_select.selectable_light').lower()) }}
+  #   mode: single
   - id: "1638431824196"
     alias: When Closet Door Opened
     description: ""
@@ -1629,7 +1628,7 @@ automation:
             entity_id: media_player.living_room_tv
             to: playing
         continue_on_timeout: false
-        timeout: 00:02:00
+        timeout: 00:05:00
       - service: light.turn_off
         target:
           entity_id: light.kitchen_lights
@@ -1814,11 +1813,11 @@ automation:
           message: "{{ trigger.from_state.attributes.friendly_name }}"
           title: Security Status
           data:
-            duration: 15
+            duration: 5
             fontsize: large
             color: red
             position: top-right
-            transparency: 50%
+            transparency: 25%
             # file:
             #   path: /config/tmp/camera.png
 
@@ -1859,12 +1858,12 @@ automation:
     trigger:
       - platform: state
         entity_id:
-          - media_player.living_room_chromecast
+          - media_player.living_room_tv
           - media_player.living_room_speaker
           - media_player.bedroom_tv
           - media_player.bedroom_speaker
           - media_player.wall_speaker
-          - media_player.spotify_dave_lambe
+          - media_player.spotify
         to: playing
     action:
       - service: input_select.select_option
@@ -1880,24 +1879,24 @@ automation:
     trigger:
       - platform: state
         entity_id:
-          - media_player.living_room_chromecast
+          - media_player.living_room_tv
           - media_player.living_room_speaker
           - media_player.bedroom_tv
           - media_player.bedroom_speaker
           - media_player.wall_speaker
-          - media_player.spotify_dave_lambe
+          - media_player.spotify
         to:
           - "off"
           - idle
           - standby
       - platform: state
         entity_id:
-          - media_player.living_room_chromecast
+          - media_player.living_room_tv
           - media_player.living_room_speaker
           - media_player.bedroom_tv
           - media_player.bedroom_speaker
           - media_player.wall_speaker
-          - media_player.spotify_dave_lambe
+          - media_player.spotify
         to: paused
         for:
           minutes: 10
@@ -1908,12 +1907,12 @@ automation:
         data:
           option: >
             {% set media_players =
-              [states.media_player.living_room_chromecast,
+              [states.media_player.living_room_tv,
                states.media_player.living_room_speaker,
                states.media_player.bedroom_tv,
                states.media_player.bedroom_speaker,
                states.media_player.wall_speaker,
-               states.media_player.spotify_dave_lambe] %}
+               states.media_player.spotify] %}
             {% if media_players | selectattr('state','eq','playing') | list | count == 0 %}
               {% if media_players | selectattr('state','eq','paused') | list | count == 0 %}
               Living Room TV
@@ -1929,7 +1928,7 @@ automation:
     trigger:
       - platform: template
         value_template: >
-          {{ is_state('media_player.living_room_chromecast', 'off') and
+          {{ is_state('media_player.living_room_tv', 'off') and
           is_state('media_player.living_room_speaker', 'off') and
           is_state('media_player.bedroom_tv', 'off') and
           is_state('media_player.bedroom_speaker', 'off') and
@@ -1941,38 +1940,38 @@ automation:
           entity_id: input_select.conditional_media
         data:
           option: Living Room TV
-  - id: automation.notify_ebony_work_arrived
-    alias: Notify Ebony Work Arrived
-    trigger:
-      - platform: zone
-        entity_id: device_tracker.ebonycom
-        zone: zone.ebony_work
-        event: enter
+  # - id: automation.notify_ebony_work_arrived
+  #   alias: Notify Ebony Work Arrived
+  #   trigger:
+  #     - platform: zone
+  #       entity_id: device_tracker.ebonycom
+  #       zone: zone.ebony_work
+  #       event: enter
       # - platform: state
       #   entity_id: device_tracker.ebonycom
       #   to: Ebony Work
       #   for: 00:01:00
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          title: "Location Update"
-          message: Ebony is at work
-  - id: automation.notify_ebony_work_departed
-    alias: Notify Ebony Work Departed
-    trigger:
-      - platform: zone
-        entity_id: device_tracker.ebonycom
-        zone: zone.ebony_work
-        event: leave
+    # action:
+    #   - service: notify.mobile_app_davecom
+    #     data:
+          # title: "Location Update"
+          # message: Ebony is at work
+  # - id: automation.notify_ebony_work_departed
+  #   alias: Notify Ebony Work Departed
+  #   trigger:
+  #     - platform: zone
+  #       entity_id: device_tracker.ebonycom
+  #       zone: zone.ebony_work
+  #       event: leave
       # - platform: state
       #   entity_id: device_tracker.ebonycom
       #   from: Ebony Work
       #   for: 00:03:00
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          title: "Location Update"
-          message: Ebony left work
+    # action:
+    #   - service: notify.mobile_app_davecom
+    #     data:
+    #       title: "Location Update"
+    #       message: Ebony left work
   # - id: automation.ebony_morning_time
   #   alias: Ebony Morning Time
   #   description: "Turn some lights on for Ebony Work Routine"
@@ -1991,6 +1990,24 @@ automation:
   #       target:
   #         entity_id: light.tv
   #   mode: single
+  - id: "automation.notify_cinema_mode_on_long_time"
+    alias: Trigger Guest Mode Actionable Notification
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: input_boolean.cinema_mode
+        from: "off"
+        to: "on"
+        for:
+          hours: 4
+          minutes: 0
+          seconds: 0
+          milliseconds: 0
+    action:
+      - service: notify.mobile_app_davecom
+        data:
+          title: "Status Update"
+          message: "Cinema Mode has been on for 4 hours."
   - id: "automation.trigger_guest_mode_actionable_notification_script"
     alias: Trigger Guest Mode Actionable Notification
     description: ""
@@ -2115,20 +2132,20 @@ automation:
           filename: /config/www/cameras/camera.png
       - service: notify.living_room_tv
         data:
-          message: Somebody is at the Front Door.
+          message: Somebody is at the door.
           title: DOORBELL!
           data:
-            duration: 15
+            duration: 30
             fontsize: large
             color: red
             position: top-right
-            transparency: 50%
+            transparency: 25%
             image:
               path: /config/www/cameras/camera.png
       - service: notify.mobile_app_davecom
         data:
           title: DOORBELL!
-          message: Somebody is at the Front Door.
+          message: Somebody is at the door.
           data:
             image: /local/cameras/camera.png
     mode: single
@@ -2155,20 +2172,14 @@ automation:
           filename: /config/www/cameras/camera.png
       - service: notify.living_room_tv
         data:
-          message: Somebody is at the Front Door.
-          title: DOORBELL!
+          message: Motion at Front Door.
+          title: Motion Detected!
           data:
-            duration: 10
+            duration: 5
             fontsize: large
             color: red
             position: top-right
-            transparency: 50%
+            transparency: 25%
             image:
               path: /config/www/cameras/camera.png
-      # - service: notify.mobile_app_davecom
-      #   data:
-      #     title: DOORBELL!
-      #     message: Somebody is at the Front Door.
-      #     data:
-      #       image: /local/cameras/camera.png
     mode: single

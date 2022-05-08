@@ -35,6 +35,10 @@
   type: module
 - url: /hacsfiles/light-popup-card/light-popup-card.js
   type: module
+- url: /hacsfiles/webrtc-card/webrtc-card.js
+  type: module
+# - url: /local/webrtc-card/webrtc-card.js
+#   type: module
 # - url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
 #   type: module
 

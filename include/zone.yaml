@@ -12,17 +12,17 @@ zone:
     icon: mdi:home
     passive: true
 
-  - name: "Noodle House"
-    latitude: !secret zone_noodle_house_lat
-    longitude: !secret zone_noodle_house_long
-    radius: 100
-    icon: mdi:noodles
+  # - name: "Noodle House"
+  #   latitude: !secret zone_noodle_house_lat
+  #   longitude: !secret zone_noodle_house_long
+  #   radius: 100
+  #   icon: mdi:noodles
     
-  - name: "Ebony Work"
-    latitude: !secret zone_ebony_work_lat
-    longitude: !secret zone_ebony_work_long
-    radius: 100
-    icon: mdi:coffee
+  # - name: "Ebony Work"
+  #   latitude: !secret zone_ebony_work_lat
+  #   longitude: !secret zone_ebony_work_long
+  #   radius: 100
+  #   icon: mdi:coffee
 
   - name: "Deandre"
     latitude: !secret zone_deandre_lat

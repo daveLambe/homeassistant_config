@@ -23,7 +23,8 @@ main:
   grid-card-gap: 5%
   masonry-view-card-margin: 0px
   state-icon-color: '#9da0a2'
-  state-icon-active-color: '#3182b7'
+  # state-icon-active-color: '#3182b7'
+  state-icon-active-color: var(--primary-color)
   switch-checked-color: '#7a7d7f'
   switch-unchecked-button-color: '#3b4041'
   switch-unchecked-track-color: '#0c0d0d'
