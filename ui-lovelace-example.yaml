@@ -455,18 +455,18 @@ views:
               retain: sensor.matte_last_changed
             template: person
 
-          - type: custom:button-card
-            entity: person.ebony
-            name: Ebony
-            triggers_update:
-              - sensor.sanja_last_changed
-            tap_action:
-              !include popup/hemma_sanja.yaml
-            hold_action:
-              action: none
-            variables:
-              retain: sensor.sanja_last_changed
-            template: person
+          # - type: custom:button-card
+          #   entity: person.ebony
+          #   name: Ebony
+          #   triggers_update:
+          #     - sensor.sanja_last_changed
+          #   tap_action:
+          #     !include popup/hemma_sanja.yaml
+          #   hold_action:
+          #     action: none
+          #   variables:
+          #     retain: sensor.sanja_last_changed
+          #   template: person
 
           - type: custom:button-card
             entity: script.home_leave

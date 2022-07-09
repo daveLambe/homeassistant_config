@@ -1,0 +1,154 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Switches & Scripts
+  style:
+    .: |
+      :host .content {
+        width: calc(385px + 385px + 385px);
+        max-width: 90vw;
+      }
+      /* phone */
+      @media screen and (max-width: 800px) {
+        :host .content {
+          max-width: 100vw;
+        }
+      }
+    layout-card:
+      $grid-layout$:
+        hui-entities-card:
+          $: |
+            .card-content {
+              padding: 1.5em 2.7em 2.3em 2em;
+            }
+            ha-card {
+              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+              border-radius: 0;
+              transition: none;
+            }
+            /* phone */
+            @media screen and (max-width: 800px) {
+              ha-card {
+                border-right: none;
+                border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+              }
+            }
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: repeat(2, 1fr)
+      grid-template-rows: 1fr
+      grid-template-areas: |
+        "switches scripts"
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-template-columns: 1fr
+          grid-template-rows: repeat(2, 1fr)
+          grid-template-areas: |
+            "switches"
+            "scripts"
+    cards:
+      #################################################
+      #                                               #
+      #                    Switches                   #
+      #                                               #
+      #################################################
+
+      - type: grid
+        view_layout:
+          grid-area: switches
+        title: "Switches"
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        cards:
+          - type: "custom:button-card"
+            entity: switch.blanket
+            name: Electric Blanket
+            icon: "mdi:bed"
+            styles:
+              card:
+                - height: 100%
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: switch.fan
+            name: Fan
+            icon: "mdi:fan"
+            styles:
+              card:
+                - height: 100%
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: switch.ipad_charger
+            name: iPad Charger
+            icon: "mdi:power-socket-us"
+            styles:
+              card:
+                - height: 100%
+            tap_action:
+              action: toggle
+          - type: "custom:button-card"
+            entity: switch.door_lock_bridge
+            name: Door Lock Bridge
+            icon: "mdi:door"
+            styles:
+              card:
+                - height: 100%
+            tap_action:
+              action: toggle
+
+      - type: entities
+        view_layout:
+          grid-area: scripts
+        title: Scripts
+        show_header_toggle: false
+        card_mod:
+          class: header
+          style: |
+            ha-card {
+              margin: 0px !important;
+            }
+        entities:
+          - type: custom:button-card
+            name: Flash Lights Red
+            icon: mdi:flash
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.flash_red
+          - type: custom:button-card
+            name: Lock the Front Door
+            icon: mdi:door
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.lock_door_if_closed
+          - type: custom:button-card
+            name: Show Street Camera Snapshot on TV
+            icon: mdi:cctv
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.send_street_snapshot_notification_to_tv
+          - type: custom:button-card
+            name: Show Driveway Camera Snapshot on TV
+            icon: mdi:cctv
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.send_driveway_snapshot_notification_to_tv

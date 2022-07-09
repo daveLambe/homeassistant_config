@@ -1,396 +1,396 @@
-action: fire-dom-event
-browser_mod:
-  command: popup
-  title: Lights
-  style:
-    .: |
-      :host .content {
-        width: calc(385px + 385px + 385px);
-        max-width: 90vw;
-      }
-    layout-card:
-      $grid-layout$:
-        hui-entities-card:
-          $: |
-            .card-content {
-              padding: 1.5em 2.7em 2.3em 2em;
-            }
-            ha-card {
-              animation: border 1s forwards;
-              border-radius: 0;
-            }
-            @keyframes border {
-              0%, 100% {
-                border-right: 1px solid rgba(0, 0, 0, 0.3);
-              }
-            }
-            /* phone */
-            @media screen and (max-width: 800px) {
-              ha-card {
-                animation: none;
-              }
-            }
-          $hui-horizontal-stack-card$: |
-            #root {
-              justify-content: space-evenly;
-              margin-top: 1.9em;
-              margin-left: 0.8em;
-            }
-  card:
-    type: custom:layout-card
-    layout_type: custom:grid-layout
-    layout:
-      grid-template-columns: repeat(5, 1fr)
-      grid-template-rows: 1fr
-      grid-template-areas: |
-        "livingroom kitchen bedroom other scenes"
-      mediaquery:
-        #phone
-        "(max-width: 800px)":
-          grid-template-columns: 1fr
-          grid-template-rows: repeat(5, 1fr)
-          grid-template-areas: |
-            "livingroom"
-            "kitchen"
-            "bedroom"
-            "other"
-            "scenes"
-    cards:
-      #################################################
-      #                                               #
-      #                HOME ASSISTANT                 #
-      #                                               #
-      #################################################
-
-      - type: entities
-        view_layout:
-          grid-area: livingroom
-        title: Living Room
-        show_header_toggle: false
-        card_mod:
-          class: header
-          style: |
-            ha-card {
-              margin: 0px !important;
-            }
-        entities:
-          - type: "custom:slider-entity-row"
-            entity: light.living_room_lights
-            name: "All"
-            full_row: true
-            step: 1
-          - type: "custom:slider-entity-row"
-            entity: light.chandelier
-            step: 1
-            toggle: true
-          - type: "custom:slider-entity-row"
-            entity: light.tv
-            name: TV
-            step: 1
-            toggle: true
-          - entity: light.lightning_bolts
-            name: "Lightning (All)"
-            icon: "mdi:lightning-bolt-circle"
-          - entity: light.lightning_red
-          - entity: light.lightning_purple_1
-          - entity: light.lightning_purple_2
-          
-      - type: entities
-        view_layout:
-          grid-area: kitchen
-        title: Kitchen
-        show_header_toggle: false
-        card_mod:
-          class: header
-          style: |
-            ha-card {
-              margin: 0px !important;
-            }
-        entities:
-          - type: "custom:slider-entity-row"
-            entity: light.kitchen_lights
-            name: "All"
-            full_row: true
-            step: 1
-          - type: "custom:slider-entity-row"
-            entity: light.kitchen_lights
-            name: "All"
-            step: 1
-          - type: "custom:slider-entity-row"
-            entity: light.kitchen_east
-            name: Kitchen (Right)
-            step: 1
-            toggle: true
-          - type: "custom:slider-entity-row"
-            entity: light.kitchen_west
-            name: Kitchen (Left)
-            step: 1
-            toggle: true
-            
-      - type: entities
-        view_layout:
-          grid-area: bedroom
-        title: Bedroom
-        show_header_toggle: false
-        card_mod:
-          class: header
-          style: |
-            ha-card {
-              margin: 0px !important;
-            }
-        entities:
-          - type: "custom:slider-entity-row"
-            entity: light.bedroom_lights
-            name: "All"
-            full_row: true
-            step: 1
-          - type: "custom:slider-entity-row"
-            entity: light.bedroom
-            name: Bedroom
-            step: 1
-            toggle: true
-          - type: "custom:slider-entity-row"
-            entity: light.bed
-            name: Bed
-            step: 1
-            toggle: true
-        
-      - type: entities
-        view_layout:
-          grid-area: other
-        title: Other
-        show_header_toggle: false
-        card_mod:
-          class: header
-          style: |
-            ha-card {
-              margin: 0px !important;
-            }
-        entities:
-          - type: "custom:slider-entity-row"
-            entity: light.hallway
-            name: "Hallway"
-            step: 1
-          - type: "custom:slider-entity-row"
-            entity: light.bathroom
-            name: "Bathroom"
-            step: 1
-          - type: "custom:slider-entity-row"
-            entity: light.led_strips
-            name: "LED Strips"
-            step: 1
-          - type: "custom:slider-entity-row"
-            entity: light.closet
-            name: Closet
-            step: 1
-            toggle: true
-
-      - type: entities
-        view_layout:
-          grid-area: scenes
-        title: Scenes
-        show_header_toggle: false
-        card_mod:
-          class: header
-          style: |
-            ha-card {
-              margin: 0px !important;
-            }
-        entities:
-          - light.bed
-          - type: custom:hui-element
-            card_type: grid
-            columns: 3
-            cards:
-              - type: "custom:button-card"
-                entity: script.morning
-                name: "Morning"
-              - type: "custom:button-card"
-                entity: script.evening
-                name: "Evening"
-              - type: "custom:button-card"
-                entity: script.goodnight
-                name: "Goodnight"
-              - type: "custom:button-card"
-                entity: script.movie_time
-                name: "Movie Time"
-              - type: "custom:button-card"
-                entity: script.toilet
-                name: "Intermission"
-              - type: "custom:button-card"
-                entity: script.sexy_time
-                name: "Sexy Time"
-              - type: "custom:button-card"
-                entity: script.normal
-                name: "Normal"
-              - type: "custom:button-card"
-                entity: script.dinner
-                name: "Dinner"
-              - type: "custom:button-card"
-                entity: script.dinner_and_a_movie
-                name: "Dinner And a Movie"
-
-      # - type: grid
-      #   view_layout:
-      #     grid-area: scenes
-      #   title: Set Lighting Scene
-      #   columns: 3
-      #   card_mod:
-      #     class: header
-      #     style: |
-      #       ha-card {
-      #         margin: 0px !important;
-      #       }
-      #   cards:
-      #     - type: "custom:button-card"
-      #       entity: script.morning
-      #       name: "Morning"
-      #     - type: "custom:button-card"
-      #       entity: script.evening
-      #       name: "Evening"
-      #     - type: "custom:button-card"
-      #       entity: script.goodnight
-      #       name: "Goodnight"
-      #     - type: "custom:button-card"
-      #       entity: script.movie_time
-      #       name: "Movie Time"
-      #     - type: "custom:button-card"
-      #       entity: script.toilet
-      #       name: "Intermission"
-      #     - type: "custom:button-card"
-      #       entity: script.sexy_time
-      #       name: "Sexy Time"
-      #     - type: "custom:button-card"
-      #       entity: script.normal
-      #       name: "Normal"
-      #     - type: "custom:button-card"
-      #       entity: script.dinner
-      #       name: "Dinner"
-      #     - type: "custom:button-card"
-      #       entity: script.dinner_and_a_movie
-      #       name: "Dinner And a Movie"
-
-
 # action: fire-dom-event
 # browser_mod:
 #   command: popup
-#   title: All Lights
+#   title: Lights
 #   style:
-#     hui-vertical-stack-card:
-#       $: |
-#         hui-horizontal-stack-card {
-#           padding: 0em 2em 2.3em 2em;
-#         }
-#       $hui-horizontal-stack-card$: |
-#         #root {
-#           justify-content: space-evenly;
-#         }
+#     .: |
+#       :host .content {
+#         width: calc(385px + 385px + 385px);
+#         max-width: 90vw;
+#       }
+#     layout-card:
+#       $grid-layout$:
+#         hui-entities-card:
+#           $: |
+#             .card-content {
+#               padding: 1.5em 2.7em 2.3em 2em;
+#             }
+#             ha-card {
+#               animation: border 1s forwards;
+#               border-radius: 0;
+#             }
+#             @keyframes border {
+#               0%, 100% {
+#                 border-right: 1px solid rgba(0, 0, 0, 0.3);
+#               }
+#             }
+#             /* phone */
+#             @media screen and (max-width: 800px) {
+#               ha-card {
+#                 animation: none;
+#               }
+#             }
+#           $hui-horizontal-stack-card$: |
+#             #root {
+#               justify-content: space-evenly;
+#               margin-top: 1.9em;
+#               margin-left: 0.8em;
+#             }
 #   card:
-#     # type: grid
-#     # columns: 1
-#     # square: false
-#     # cards:
-
-#     type: vertical-stack
+#     type: custom:layout-card
+#     layout_type: custom:grid-layout
+#     layout:
+#       grid-template-columns: repeat(5, 1fr)
+#       grid-template-rows: 1fr
+#       grid-template-areas: |
+#         "livingroom kitchen bedroom other scenes"
+#       mediaquery:
+#         #phone
+#         "(max-width: 800px)":
+#           grid-template-columns: 1fr
+#           grid-template-rows: repeat(5, 1fr)
+#           grid-template-areas: |
+#             "livingroom"
+#             "kitchen"
+#             "bedroom"
+#             "other"
+#             "scenes"
 #     cards:
-#       # Top Lights stack
-#       - type: horizontal-stack
-#         cards:
-#           - type: entities
-#             # title: "Living Room"
-#             show_header_toggle: false
-#             state_color: true
-#             theme: slate_red
-#             entities:
-#               - type: section
-#                 label: "All Lights"
-#               - type: "custom:slider-entity-row"
-#                 entity: light.all_lights_except_lightning_bolts_and_closet
-#                 name: "All"
-#                 full_row: true
-#                 step: 1
-#               - type: section
-#                 label: "Living Room Lights"
-#               - type: "custom:slider-entity-row"
-#                 entity: light.living_room_lights
-#                 name: "All"
-#                 full_row: true
-#                 step: 1
+#       #################################################
+#       #                                               #
+#       #                HOME ASSISTANT                 #
+#       #                                               #
+#       #################################################
 
-#               - type: "custom:slider-entity-row"
-#                 entity: light.chandelier
-#                 step: 1
-#                 toggle: true
-#               - type: "custom:slider-entity-row"
-#                 entity: light.tv
-#                 name: TV
-#                 step: 1
-#                 toggle: true
-#               - entity: light.lightning_bolts
-#                 name: "Lightning (All)"
-#                 icon: "mdi:lightning-bolt-circle"
-#               - entity: light.lightning_red
-#               - entity: light.lightning_purple_1
-#               - entity: light.lightning_purple_2
-#               - type: section
-#                 label: "Kitchen Lights"
-#               - type: "custom:slider-entity-row"
-#                 entity: light.kitchen_lights
-#                 name: "All"
-#                 full_row: true
-#                 step: 1
-#               - type: "custom:slider-entity-row"
-#                 entity: light.kitchen_lights
-#                 name: "All"
-#                 step: 1
-#               - type: "custom:slider-entity-row"
-#                 entity: light.kitchen_east
-#                 name: Kitchen (Right)
-#                 step: 1
-#                 toggle: true
-#               - type: "custom:slider-entity-row"
-#                 entity: light.kitchen_west
-#                 name: Kitchen (Left)
-#                 step: 1
-#                 toggle: true
-#               - type: section
-#                 label: "Bedroom Lights"
-#               - type: "custom:slider-entity-row"
-#                 entity: light.bedroom_lights
-#                 name: "All"
-#                 full_row: true
-#                 step: 1
-#               - type: "custom:slider-entity-row"
-#                 entity: light.bedroom
-#                 name: Bedroom
-#                 step: 1
-#                 toggle: true
-#               - type: "custom:slider-entity-row"
-#                 entity: light.bed
-#                 name: Bed
-#                 step: 1
-#                 toggle: true
-#               # - type: entities
-#               #   show_header_toggle: false
-#               #   state_color: true
-#               #   theme: slate_red
-#               #   entities:
-#               - type: section
-#                 label: "Other Lights"
-#               - type: "custom:slider-entity-row"
-#                 entity: light.hallway
-#                 name: "Hallway"
-#                 step: 1
-#               - type: "custom:slider-entity-row"
-#                 entity: light.bathroom
-#                 name: "Bathroom"
-#                 step: 1
-#               - type: "custom:slider-entity-row"
-#                 entity: light.led_strips
-#                 name: "LED Strips"
-#                 step: 1
-#               - type: "custom:slider-entity-row"
-#                 entity: light.closet
-#                 name: Closet
-#                 step: 1
-#                 toggle: true
+#       - type: entities
+#         view_layout:
+#           grid-area: livingroom
+#         title: Living Room
+#         show_header_toggle: false
+#         card_mod:
+#           class: header
+#           style: |
+#             ha-card {
+#               margin: 0px !important;
+#             }
+#         entities:
+#           - type: "custom:slider-entity-row"
+#             entity: light.living_room_lights
+#             name: "All"
+#             full_row: true
+#             step: 1
+#           - type: "custom:slider-entity-row"
+#             entity: light.chandelier
+#             step: 1
+#             toggle: true
+#           - type: "custom:slider-entity-row"
+#             entity: light.tv
+#             name: TV
+#             step: 1
+#             toggle: true
+#           - entity: light.lightning_bolts
+#             name: "Lightning (All)"
+#             icon: "mdi:lightning-bolt-circle"
+#           - entity: light.lightning_red
+#           - entity: light.lightning_purple_1
+#           - entity: light.lightning_purple_2
+          
+#       - type: entities
+#         view_layout:
+#           grid-area: kitchen
+#         title: Kitchen
+#         show_header_toggle: false
+#         card_mod:
+#           class: header
+#           style: |
+#             ha-card {
+#               margin: 0px !important;
+#             }
+#         entities:
+#           - type: "custom:slider-entity-row"
+#             entity: light.kitchen_lights
+#             name: "All"
+#             full_row: true
+#             step: 1
+#           - type: "custom:slider-entity-row"
+#             entity: light.kitchen_lights
+#             name: "All"
+#             step: 1
+#           - type: "custom:slider-entity-row"
+#             entity: light.kitchen_east
+#             name: Kitchen (Right)
+#             step: 1
+#             toggle: true
+#           - type: "custom:slider-entity-row"
+#             entity: light.kitchen_west
+#             name: Kitchen (Left)
+#             step: 1
+#             toggle: true
+            
+#       - type: entities
+#         view_layout:
+#           grid-area: bedroom
+#         title: Bedroom
+#         show_header_toggle: false
+#         card_mod:
+#           class: header
+#           style: |
+#             ha-card {
+#               margin: 0px !important;
+#             }
+#         entities:
+#           - type: "custom:slider-entity-row"
+#             entity: light.bedroom_lights
+#             name: "All"
+#             full_row: true
+#             step: 1
+#           - type: "custom:slider-entity-row"
+#             entity: light.bedroom
+#             name: Bedroom
+#             step: 1
+#             toggle: true
+#           - type: "custom:slider-entity-row"
+#             entity: light.bed
+#             name: Bed
+#             step: 1
+#             toggle: true
+        
+#       - type: entities
+#         view_layout:
+#           grid-area: other
+#         title: Other
+#         show_header_toggle: false
+#         card_mod:
+#           class: header
+#           style: |
+#             ha-card {
+#               margin: 0px !important;
+#             }
+#         entities:
+#           - type: "custom:slider-entity-row"
+#             entity: light.hallway
+#             name: "Hallway"
+#             step: 1
+#           - type: "custom:slider-entity-row"
+#             entity: light.bathroom
+#             name: "Bathroom"
+#             step: 1
+#           - type: "custom:slider-entity-row"
+#             entity: light.led_strips
+#             name: "LED Strips"
+#             step: 1
+#           - type: "custom:slider-entity-row"
+#             entity: light.closet
+#             name: Closet
+#             step: 1
+#             toggle: true
+
+#       - type: entities
+#         view_layout:
+#           grid-area: scenes
+#         title: Scenes
+#         show_header_toggle: false
+#         card_mod:
+#           class: header
+#           style: |
+#             ha-card {
+#               margin: 0px !important;
+#             }
+#         entities:
+#           - light.bed
+#           - type: custom:hui-element
+#             card_type: grid
+#             columns: 3
+#             cards:
+#               - type: "custom:button-card"
+#                 entity: script.morning
+#                 name: "Morning"
+#               - type: "custom:button-card"
+#                 entity: script.evening
+#                 name: "Evening"
+#               - type: "custom:button-card"
+#                 entity: script.goodnight
+#                 name: "Goodnight"
+#               - type: "custom:button-card"
+#                 entity: script.movie_time
+#                 name: "Movie Time"
+#               - type: "custom:button-card"
+#                 entity: script.toilet
+#                 name: "Intermission"
+#               - type: "custom:button-card"
+#                 entity: script.sexy_time
+#                 name: "Sexy Time"
+#               - type: "custom:button-card"
+#                 entity: script.normal
+#                 name: "Normal"
+#               - type: "custom:button-card"
+#                 entity: script.dinner
+#                 name: "Dinner"
+#               - type: "custom:button-card"
+#                 entity: script.dinner_and_a_movie
+#                 name: "Dinner And a Movie"
+
+#       # - type: grid
+#       #   view_layout:
+#       #     grid-area: scenes
+#       #   title: Set Lighting Scene
+#       #   columns: 3
+#       #   card_mod:
+#       #     class: header
+#       #     style: |
+#       #       ha-card {
+#       #         margin: 0px !important;
+#       #       }
+#       #   cards:
+#       #     - type: "custom:button-card"
+#       #       entity: script.morning
+#       #       name: "Morning"
+#       #     - type: "custom:button-card"
+#       #       entity: script.evening
+#       #       name: "Evening"
+#       #     - type: "custom:button-card"
+#       #       entity: script.goodnight
+#       #       name: "Goodnight"
+#       #     - type: "custom:button-card"
+#       #       entity: script.movie_time
+#       #       name: "Movie Time"
+#       #     - type: "custom:button-card"
+#       #       entity: script.toilet
+#       #       name: "Intermission"
+#       #     - type: "custom:button-card"
+#       #       entity: script.sexy_time
+#       #       name: "Sexy Time"
+#       #     - type: "custom:button-card"
+#       #       entity: script.normal
+#       #       name: "Normal"
+#       #     - type: "custom:button-card"
+#       #       entity: script.dinner
+#       #       name: "Dinner"
+#       #     - type: "custom:button-card"
+#       #       entity: script.dinner_and_a_movie
+#       #       name: "Dinner And a Movie"
+
+
+# # action: fire-dom-event
+# # browser_mod:
+# #   command: popup
+# #   title: All Lights
+# #   style:
+# #     hui-vertical-stack-card:
+# #       $: |
+# #         hui-horizontal-stack-card {
+# #           padding: 0em 2em 2.3em 2em;
+# #         }
+# #       $hui-horizontal-stack-card$: |
+# #         #root {
+# #           justify-content: space-evenly;
+# #         }
+# #   card:
+# #     # type: grid
+# #     # columns: 1
+# #     # square: false
+# #     # cards:
+
+# #     type: vertical-stack
+# #     cards:
+# #       # Top Lights stack
+# #       - type: horizontal-stack
+# #         cards:
+# #           - type: entities
+# #             # title: "Living Room"
+# #             show_header_toggle: false
+# #             state_color: true
+# #             theme: slate_red
+# #             entities:
+# #               - type: section
+# #                 label: "All Lights"
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.all_lights_except_lightning_bolts_and_closet
+# #                 name: "All"
+# #                 full_row: true
+# #                 step: 1
+# #               - type: section
+# #                 label: "Living Room Lights"
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.living_room_lights
+# #                 name: "All"
+# #                 full_row: true
+# #                 step: 1
+
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.chandelier
+# #                 step: 1
+# #                 toggle: true
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.tv
+# #                 name: TV
+# #                 step: 1
+# #                 toggle: true
+# #               - entity: light.lightning_bolts
+# #                 name: "Lightning (All)"
+# #                 icon: "mdi:lightning-bolt-circle"
+# #               - entity: light.lightning_red
+# #               - entity: light.lightning_purple_1
+# #               - entity: light.lightning_purple_2
+# #               - type: section
+# #                 label: "Kitchen Lights"
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.kitchen_lights
+# #                 name: "All"
+# #                 full_row: true
+# #                 step: 1
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.kitchen_lights
+# #                 name: "All"
+# #                 step: 1
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.kitchen_east
+# #                 name: Kitchen (Right)
+# #                 step: 1
+# #                 toggle: true
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.kitchen_west
+# #                 name: Kitchen (Left)
+# #                 step: 1
+# #                 toggle: true
+# #               - type: section
+# #                 label: "Bedroom Lights"
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.bedroom_lights
+# #                 name: "All"
+# #                 full_row: true
+# #                 step: 1
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.bedroom
+# #                 name: Bedroom
+# #                 step: 1
+# #                 toggle: true
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.bed
+# #                 name: Bed
+# #                 step: 1
+# #                 toggle: true
+# #               # - type: entities
+# #               #   show_header_toggle: false
+# #               #   state_color: true
+# #               #   theme: slate_red
+# #               #   entities:
+# #               - type: section
+# #                 label: "Other Lights"
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.hallway
+# #                 name: "Hallway"
+# #                 step: 1
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.bathroom
+# #                 name: "Bathroom"
+# #                 step: 1
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.led_strips
+# #                 name: "LED Strips"
+# #                 step: 1
+# #               - type: "custom:slider-entity-row"
+# #                 entity: light.closet
+# #                 name: Closet
+# #                 step: 1
+# #                 toggle: true

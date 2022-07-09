@@ -173,6 +173,45 @@ scene:
       light.lightning_bolts:
         state: "on"
 
+  # Evening Darker
+  - id: "evening_darker"
+    name: Evening Darker
+    entities:
+      light.chandelier:
+        brightness: 44
+        color_temp: 370
+        state: "on"
+      light.tv:
+        state: "on"
+        brightness_pct: 70
+        rgb_color: [194, 25, 252]
+      light.kitchen_east:
+        brightness: 44
+        color_temp: 370
+        state: "on"
+      light.kitchen_west:
+        brightness: 115
+        color_temp: 370
+        state: "off"
+      light.hallway:
+        brightness: 48
+        color_temp: 370
+        state: "off"
+      light.bedroom:
+        brightness: 30
+        color_temp: 370
+        state: "on"
+      light.bed:
+        state: "on"
+        rgb_color: [194, 25, 252]
+        brightness_pct: 70
+      light.bathroom:
+        state: "on"
+        rgb_color: [194, 25, 252]
+        brightness_pct: 70
+      light.lightning_bolts:
+        state: "on"
+
   # Emergency
   - id: "emergency"
     name: Emergency

@@ -28,27 +28,26 @@ frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
   themes: !include themes.yaml
+  # javascript_version: latest
 
 logger:
   default: warning
   logs:
-    homeassistant.components.cast: debug             
-    homeassistant.components.cast.media_player: debug
-    pychromecast: debug                              
-    pychromecast.dial: debug                         
-    pychromecast.discovery: info                     
-    pychromecast.controllers.media: debug            
-    pychromecast.socket_client: debug                
-    homeassistant.components.zeroconf: debug         
-    zeroconf: info
     homeassistant.components.websocket_api: fatal
     custom_components.webrtc: debug
-    custom_components.dahua: debug
-    homeassistant.components.amcrest: debug
-    homeassistant.components.camera: fatal
-    # custom_components.webrtc: debug
+    # homeassistant.components.cast: debug
+    # homeassistant.components.cast.media_player: debug
+    # pychromecast: debug
+    # pychromecast.dial: debug
+    # pychromecast.discovery: info
+    # pychromecast.controllers.media: debug
+    # pychromecast.socket_client: debug
+    # homeassistant.components.zeroconf: debug
+    # zeroconf: info
+    # custom_components.dahua: debug
+    # homeassistant.components.amcrest: debug
+    # homeassistant.components.camera: fatal
     # amcrest: debug
-    
 
 # zwave:
 #  usb_path: /dev/ttyUSB0
@@ -89,7 +88,7 @@ browser_mod:
 # Text to speech
 tts:
   - platform: google_translate
-    base_url: !secret ha_base_url
+    # base_url: !secret ha_base_url
     service_name: google_translate_say
 
 lovelace:
@@ -101,42 +100,35 @@ lovelace:
       icon: mdi:home-outline
       filename: ui-lovelace.yaml
       show_in_sidebar: true
-      require_admin: false
+      require_admin: true
       mode: yaml
-    lovelace-davecave:
-      title: "DaveCave"
-      icon: "mdi:account-group"
-      filename: ui-lovelace-davecave.yaml
+    lovelace-cast-security:
+      title: " "
+      icon: mdi:cctv
+      filename: ui-lovelace-cast-security.yaml
       show_in_sidebar: false
       require_admin: false
       mode: yaml
-    lovelace-mobile:
-      title: "DaveCave Mobile"
-      icon: mdi:cellphone
-      filename: ui-lovelace-mobile.yaml
-      show_in_sidebar: false
-      require_admin: false
-      mode: yaml
+    # lovelace-davecave:
+    #   title: "DaveCave"
+    #   icon: "mdi:account-group"
+    #   filename: ui-lovelace-davecave.yaml
+    #   show_in_sidebar: false
+    #   require_admin: false
+    #   mode: yaml
+    # lovelace-mobile:
+    #   title: "DaveCave Mobile"
+    #   icon: mdi:cellphone
+    #   filename: ui-lovelace-mobile.yaml
+    #   show_in_sidebar: false
+    #   require_admin: false
+    #   mode: yaml
     # lovelace-guest:
     #   title: "Guest"
     #   icon: "mdi:account-group-outline"
     #   filename: ui-lovelace-guest.yaml
     #   show_in_sidebar: false
     #   require_admin: false
-    #   mode: yaml
-    lovelace-main:
-      title: "V2"
-      icon: mdi:hexagram
-      filename: ui-lovelace-main.yaml
-      show_in_sidebar: false
-      require_admin: true
-      mode: yaml
-    # lovelace-example:
-    #   title: "Example"
-    #   icon: mdi:apple-ios
-    #   filename: ui-lovelace-example.yaml
-    #   show_in_sidebar: false
-    #   require_admin: true
     #   mode: yaml
   resources: # HACS
     - url: /hacsfiles/rgb-light-card/card.js
@@ -145,8 +137,8 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
       type: module
-    - url: /hacsfiles/bignumber-card/bignumber-card.js
-      type: module
+    # - url: /hacsfiles/bignumber-card/bignumber-card.js
+    #   type: module
     - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
       type: module
     - url: /hacsfiles/spotify-card/spotify-card.js
@@ -179,71 +171,16 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-hui-element/hui-element.js
       type: module
-    - url: /hacsfiles/roku-card/roku-card.js
-      type: module
     - url: /hacsfiles/generic-remote-control-card/generic-remote-control-card.js
       type: module
-    - url: /hacsfiles/webrtc-card/webrtc-camera.js
+    - url: /hacsfiles/webrtc/webrtc-camera.js
       type: module
-    # - url: /hacsfiles/webrtc-card/webrtc-card.js
-    #   type: module
-    # - url: /webrtc/webrtc-camera.js
-    #   type: module
-    # lovelace-settings:
-    #   title: "Guest"
-    #   icon: "mdi:cog"
-    #   filename: ui-lovelace-guest.yaml
-    #   show_in_sidebar: false
-    #   mode: yaml
-    # lovelace-test:
-    #   title: "Test"
-    #   icon: "mdi:cog"
-    #   filename: ui-lovelace-test.yaml
-    #   show_in_sidebar: true
-    #   require_admin: true
-    #   mode: yaml
-    # lovelace-cast:
-    #   title: "Cast"
-    #   icon: "mdi:cast"
-    #   filename: ui-lovelace-cast.yaml
-    #   show_in_sidebar: true
-    #   require_admin: true
-    #   mode: yaml
 
 person:
   - name: Dave
     id: dave
     device_trackers:
       - device_tracker.davecom
-
-  # - name: Ebony
-  #   id: ebony
-  #   device_trackers:
-  #     - device_tracker.ebonycom
-
-lock:
-  - platform: template
-    name: Door
-    value_template: >
-      {{ states('binary_sensor.front_door_is_open') }}
-    lock:
-      service: script.turn_on
-      entity_id: script.lock_door_if_closed
-    unlock:
-      service: script.turn_on
-      entity_id: script.unlock_the_door
-
-# alert:
-#   front_door:
-#     name: Front Door is open
-#     # done_message: Garage is closed
-#     entity_id: input_boolean.front_door_sensor_status
-#     state: "on"
-#     repeat: 5
-#     # can_acknowledge: true
-#     skip_first: true
-#     notifiers:
-#       - mobile_app_davecom
 
 proximity:
   home:
@@ -257,6 +194,64 @@ proximity:
       # - device_tracker.ebonycom
     unit_of_measurement: mi
     tolerance: 50
+
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+
+spotcast:
+  sp_dc: !secret spotcast_sp_dc
+  sp_key: !secret spotcast_sp_key
+
+# Rest Commands
+rest_command:
+  # Assistant Relay Commands
+  assistant_broadcast:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "broadcast":true}'
+
+  assistant_converse:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "converse":true}'
+
+  assistant_relay:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
+
+  # - name: Ebony
+  #   id: ebony
+  #   device_trackers:
+  #     - device_tracker.ebonycom
+
+# lock:
+#   - platform: template
+#     name: Door
+#     value_template: >
+#       {{ states('binary_sensor.front_door_is_open') }}
+#     lock:
+#       service: script.turn_on
+#       entity_id: script.lock_door_if_closed
+#     unlock:
+#       service: script.turn_on
+#       entity_id: script.unlock_the_door
+
+# alert:
+#   front_door:
+#     name: Front Door is open
+#     # done_message: Garage is closed
+#     entity_id: input_boolean.front_door_sensor_status
+#     state: "on"
+#     repeat: 5
+#     # can_acknowledge: true
+#     skip_first: true
+#     notifiers:
+#       - mobile_app_davecom
 
 # media_player:
 #   - platform: androidtv
@@ -298,7 +293,6 @@ proximity:
   #  sensors:
    #   - ptz_preset
       # - sdcard
-      
 
   # - host: !secret ip_amcrest_driveway
   #   name: "Amcrest Driveway"
@@ -324,35 +318,6 @@ proximity:
    #   - sdcard
   #  switches:
    #   - privacy_mode
-
-spotify:
-  client_id: !secret spotify_client_id
-  client_secret: !secret spotify_client_secret
-
-spotcast:
-  sp_dc: !secret spotcast_sp_dc
-  sp_key: !secret spotcast_sp_key
-
-# Rest Commands
-rest_command:
-  # Assistant Relay Commands
-  assistant_broadcast:
-    url: !secret assistant_relay_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "broadcast":true}'
-
-  assistant_converse:
-    url: !secret assistant_relay_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "converse":true}'
-
-  assistant_relay:
-    url: !secret assistant_relay_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
 
 # notify:
 #   - name: dave_lambe_gmail

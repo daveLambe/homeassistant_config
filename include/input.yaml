@@ -2,10 +2,13 @@ input_boolean:
   vacation_mode:
     initial: false
     
-  ebony_mode:
-    initial: false
+  # ebony_mode:
+  #   initial: false
     
   guest_mode:
+    initial: false
+
+  dave_arrived_home:
     initial: false
     
   cinema_mode:
@@ -32,8 +35,8 @@ input_boolean:
   ignore_motion:
     initial: false
 
-  ebony_dave_together:
-    initial: false
+  # ebony_dave_together:
+  #   initial: false
 
   notify_indoor_motion:
     initial: false
@@ -76,12 +79,12 @@ input_select:
     initial: "None"
     icon: "mdi:camera"
 
-  destination:
-    name: destination
-    options:
-      - Home
-      - Noodle House
-      - Work
+  # destination:
+  #   name: destination
+  #   options:
+  #     - Home
+  #     - Noodle House
+  #     - Work
 
   conditional_media:
     initial: Living Room TV
@@ -89,7 +92,7 @@ input_select:
       - Living Room TV
       - Living Room Speaker
       - Bedroom TV
-      - Bedroom Speaker
+      - Bedroom speaker
       - Spotify
       - Wall Speaker
       # - Last Downloaded

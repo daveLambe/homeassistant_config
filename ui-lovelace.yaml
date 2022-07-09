@@ -2,7 +2,8 @@ button_card_templates: !include button_card_templates.yaml
 
 views:
   - type: custom:grid-layout
-    path: 0
+    title: "Home"
+    path: home
     layout:
       #default
       grid-gap: var(--custom-layout-card-padding)
@@ -400,7 +401,7 @@ views:
                   - type: conditional
                     conditions:
                       - entity: input_select.conditional_media
-                        state: Bedroom Speaker
+                        state: Bedroom speaker
                     card:
                       type: custom:button-card
                       entity: media_player.bedroom_speaker
@@ -477,16 +478,15 @@ views:
             template:
               - light
               - icon_spot
-              
 
           - type: custom:button-card
-            name: Schedules
+            name: "Switches & \nScripts"
             show_state: false
-            icon: mdi:clock-outline
-            tap_action: !include popup/scheduler.yaml
+            icon: mdi:power-socket-us
+            tap_action: !include popup/switches.yaml
             template:
               - base
-              - icon_schedules
+              # - icon_schedules
 
       #################################################
       #                                               #
@@ -516,7 +516,7 @@ views:
             name: Schedules
             show_state: false
             icon: mdi:clock-outline
-            tap_action: !include popup/person_ebony.yaml
+            tap_action: !include popup/scheduler.yaml
             template:
               - base
               - icon_schedules

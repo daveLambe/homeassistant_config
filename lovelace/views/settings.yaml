@@ -82,13 +82,13 @@ cards:
             show_state: true
             tap_action:
               action: toggle
-          - entity: input_boolean.ebony_mode
-            type: button
-            name: Ebony
-            icon: "mdi:details"
-            show_state: true
-            tap_action:
-              action: toggle
+          # - entity: input_boolean.ebony_mode
+          #   type: button
+          #   name: Ebony
+          #   icon: "mdi:details"
+          #   show_state: true
+          #   tap_action:
+          #     action: toggle
             # theme: ios-dark-mode
           - entity: input_boolean.ignore_motion
             type: button

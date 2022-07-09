@@ -536,15 +536,15 @@ automation:
       - delay: 00:00:15
       - service: media_player.turn_off
         entity_id: media_player.living_room_speaker
-  - id: automation.restart_ffmpeg_daily
-    alias: Restart ffmpeg daily
-    description: Restart ffmpeg once a day
-    trigger:
-      - platform: time
-        at: "21:30:00"
-    action:
-      - service: ffmpeg.restart
-        entity_id: binary_sensor.street_motion_detected
+  # - id: automation.restart_ffmpeg_daily
+  #   alias: Restart ffmpeg daily
+  #   description: Restart ffmpeg once a day
+  #   trigger:
+  #     - platform: time
+  #       at: "21:30:00"
+  #   action:
+  #     - service: ffmpeg.restart
+  #       entity_id: binary_sensor.street_motion_detected
   - id: automation.restart_door_lock_bridge_every_3_hours
     alias: Restart Door Lock Bridge every 3 hours
     trigger:
@@ -882,10 +882,10 @@ automation:
         entity_id: binary_sensor.living_room_motion_detected
         from: "off"
         to: "on"
-      - platform: state
-        entity_id: binary_sensor.living_room_amcrest_motion_detected
-        from: "off"
-        to: "on"
+      # - platform: state
+      #   entity_id: binary_sensor.living_room_amcrest_motion_detected
+      #   from: "off"
+      #   to: "on"
       - platform: state
         entity_id: binary_sensor.livingroom_person_motion
         from: "off"
@@ -898,14 +898,14 @@ automation:
         entity_id: binary_sensor.bathroom_motion_detected
         from: "off"
         to: "on"
-      - platform: state
-        entity_id: binary_sensor.amcrest_living_room_motion_detected
-        from: "off"
-        to: "on"
-      - platform: state
-        entity_id: binary_sensor.amcrest_bedroom_motion_detected
-        from: "off"
-        to: "on"
+      # - platform: state
+      #   entity_id: binary_sensor.amcrest_living_room_motion_detected
+      #   from: "off"
+      #   to: "on"
+      # - platform: state
+      #   entity_id: binary_sensor.amcrest_bedroom_motion_detected
+      #   from: "off"
+      #   to: "on"
     condition:
       - condition: and
         conditions:
@@ -1114,127 +1114,134 @@ automation:
   #       target:
   #         entity_id: input_boolean.ebony_mode
   #   mode: single
-  - id: automation.nightlight
-    alias: Nightlight
-    description: Nightlight if motion detected and lights off
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.livingroom_person_motion
-        from: "off"
-        to: "on"
-    condition:
-      - condition: state
-        entity_id: light.kitchen_east
-        state: "off"
-      - condition: state
-        entity_id: light.kitchen_west
-        state: "off"
-      - condition: state
-        entity_id: light.tv
-        state: "off"
-      - condition: state
-        entity_id: input_boolean.guest_mode
-        state: "off"
-      - condition: state
-        entity_id: sun.sun
-        state: below_horizon
-    action:
-      - service: scene.create
-        data:
-          scene_id: before
-          snapshot_entities:
-            - light.chandelier
-            - light.tv
-            - light.kitchen_east
-            - light.kitchen_west
-            - light.desk
-            - light.hallway
-            - light.bedroom
-            - light.bed
-      - service: light.turn_on
-        target:
-          entity_id:
-            - light.kitchen_east
-            - light.kitchen_west
-            - light.tv
-        data:
-          transition: 10
-          brightness_pct: 15
-      - service: light.turn_on
-        data:
-          brightness_pct: 15
-        target:
-          entity_id: light.bed
-      - delay:
-          hours: 0
-          minutes: 1
-          seconds: 0
-          milliseconds: 0
-      - service: scene.turn_on
-        target:
-          entity_id: scene.before
-        data:
-          transition: 10
-    mode: restart
-  - id: "1633322207312"
-    alias: androidcam1 motion was detected
-    description: androidcam1 Detected Motion
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.androidcam1_motion_active
-        to: "on"
-    condition:
-      - condition: state
-        entity_id: light.bedroom
-        state: "off"
-        for:
-          hours: 0
-          minutes: 0
-          seconds: 10
-          milliseconds: 0
-    action:
-      - service: light.turn_on
-        data:
-          brightness_pct: 50
-        target:
-          entity_id: light.bathroom
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 20
-          milliseconds: 0
-      - service: light.turn_off
-        target:
-          entity_id: light.bathroom
-    mode: restart
-  - id: "1633322353084"
-    alias: androidcam2 motion was detected
-    description: androidcam2 Detected Motion
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.androidcam2_motion_active
-        from: "off"
-        to: "on"
-    condition: []
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          message: "androidcam2 detected motion! "
-    mode: single
-  - id: "1633322390464"
-    alias: androidcam3 motion was detected
-    description: androidcam3 Detected Motion
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.androidcam3_motion_active
-        from: "off"
-        to: "on"
-    condition: []
-    action:
-      - service: notify.mobile_app_davecom
-        data:
-          message: "androidcam3 detected motion! "
-    mode: single
+  
+  # IMPORTANT: Refine and bring this back
+
+  # - id: automation.nightlight
+  #   alias: Nightlight
+  #   description: Nightlight if motion detected and lights off
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.livingroom_person_motion
+  #       from: "off"
+  #       to: "on"
+  #     - platform: state
+  #       entity_id: binary_sensor.kitchen_motion_detected
+  #       from: "off"
+  #       to: "on"
+  #   condition:
+  #     - condition: state
+  #       entity_id: light.kitchen_east
+  #       state: "off"
+  #     - condition: state
+  #       entity_id: light.kitchen_west
+  #       state: "off"
+  #     - condition: state
+  #       entity_id: light.tv
+  #       state: "off"
+  #     - condition: state
+  #       entity_id: input_boolean.guest_mode
+  #       state: "off"
+  #     - condition: state
+  #       entity_id: sun.sun
+  #       state: below_horizon
+  #   action:
+  #     - service: scene.create
+  #       data:
+  #         scene_id: before
+  #         snapshot_entities:
+  #           - light.chandelier
+  #           - light.tv
+  #           - light.kitchen_east
+  #           - light.kitchen_west
+  #           - light.desk
+  #           - light.hallway
+  #           - light.bedroom
+  #           - light.bed
+  #     - service: light.turn_on
+  #       target:
+  #         entity_id:
+  #           - light.kitchen_east
+  #           - light.kitchen_west
+  #           - light.tv
+  #       data:
+  #         transition: 10
+  #         brightness_pct: 15
+  #     - service: light.turn_on
+  #       data:
+  #         brightness_pct: 15
+  #       target:
+  #         entity_id: light.bed
+  #     - delay:
+  #         hours: 0
+  #         minutes: 1
+  #         seconds: 0
+  #         milliseconds: 0
+  #     - service: scene.turn_on
+  #       target:
+  #         entity_id: scene.before
+  #       data:
+  #         transition: 10
+  #   mode: restart
+  # - id: "1633322207312"
+  #   alias: androidcam1 motion was detected
+  #   description: androidcam1 Detected Motion
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.androidcam1_motion_active
+  #       to: "on"
+  #   condition:
+  #     - condition: state
+  #       entity_id: light.bedroom
+  #       state: "off"
+  #       for:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 10
+  #         milliseconds: 0
+  #   action:
+  #     - service: light.turn_on
+  #       data:
+  #         brightness_pct: 50
+  #       target:
+  #         entity_id: light.bathroom
+  #     - delay:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 20
+  #         milliseconds: 0
+  #     - service: light.turn_off
+  #       target:
+  #         entity_id: light.bathroom
+  #   mode: restart
+  # - id: "1633322353084"
+  #   alias: androidcam2 motion was detected
+  #   description: androidcam2 Detected Motion
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.androidcam2_motion_active
+  #       from: "off"
+  #       to: "on"
+  #   condition: []
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         message: "androidcam2 detected motion! "
+  #   mode: single
+  # - id: "1633322390464"
+  #   alias: androidcam3 motion was detected
+  #   description: androidcam3 Detected Motion
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.androidcam3_motion_active
+  #       from: "off"
+  #       to: "on"
+  #   condition: []
+  #   action:
+  #     - service: notify.mobile_app_davecom
+  #       data:
+  #         message: "androidcam3 detected motion! "
+  #   mode: single
   - id: "1633401777499"
     alias: Notify if important sensors become unavailable
     description: ""
@@ -1298,10 +1305,10 @@ automation:
         entity_id: binary_sensor.living_room_motion_detected
         from: "off"
         to: "on"
-      - platform: state
-        entity_id: binary_sensor.living_room_amcrest_motion_detected
-        from: "off"
-        to: "on"
+      # - platform: state
+      #   entity_id: binary_sensor.living_room_amcrest_motion_detected
+      #   from: "off"
+      #   to: "on"
       - platform: state
         entity_id: binary_sensor.livingroom_person_motion
         from: "off"
@@ -1794,20 +1801,20 @@ automation:
                 volume: 0.2
       - service: media_player.volume_set
         data:
-          entity_id: media_player.living_room_speaker
+          entity_id: media_player.living_room_speaker, media_player.bedroom_speaker
           volume_level: 0.4
       - service: tts.google_translate_say
         data:
-          entity_id: media_player.living_room_speaker
+          entity_id: media_player.living_room_speaker, media_player.bedroom_speaker
           message: "{{ trigger.from_state.attributes.friendly_name }}"
-      - service: media_player.volume_set
-        data:
-          entity_id: media_player.bedroom_speaker
-          volume_level: 0.4
-      - service: tts.google_translate_say
-        data:
-          entity_id: media_player.bedroom_speaker
-          message: "{{ trigger.from_state.attributes.friendly_name }}"
+      # - service: media_player.volume_set
+      #   data:
+      #     entity_id: media_player.bedroom_speaker
+      #     volume_level: 0.4
+      # - service: tts.google_translate_say
+      #   data:
+      #     entity_id: media_player.bedroom_speaker
+      #     message: "{{ trigger.from_state.attributes.friendly_name }}"
       - service: notify.living_room_tv
         data:
           message: "{{ trigger.from_state.attributes.friendly_name }}"
@@ -2089,29 +2096,29 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.security_mode
-  - id: automation.send_water_reminder
-    alias: Send Ebony Reminder to Drink Water Via Push Notification
-    trigger:
-      - platform: time_pattern
-        hours: "/2"
-        minutes: 0
-        seconds: 0
-    condition:
-      - condition: time
-        after: "11:59:00"
-        before: "19:00:00"
-        weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-    action:
-      - service: notify.mobile_app_ebonycom
-        data:
-          title: Reminder
-          message: "Don't forget to hydrate! 😊"
-    mode: single
+  # - id: automation.send_water_reminder
+  #   alias: Send Ebony Reminder to Drink Water Via Push Notification
+  #   trigger:
+  #     - platform: time_pattern
+  #       hours: "/2"
+  #       minutes: 0
+  #       seconds: 0
+  #   condition:
+  #     - condition: time
+  #       after: "11:59:00"
+  #       before: "19:00:00"
+  #       weekday:
+  #         - mon
+  #         - tue
+  #         - wed
+  #         - thu
+  #         - fri
+  #   action:
+  #     - service: notify.mobile_app_ebonycom
+  #       data:
+  #         title: Reminder
+  #         message: "Don't forget to hydrate! 😊"
+  #   mode: single
   - id: automation.send_tv_notif_when_doorbell_ring
     alias: Send Notification to Living Room TV when Doorbell Rings
     trigger:

@@ -37,6 +37,8 @@ cloud:
         - input_boolean.delivery_mode
         - input_boolean.vacation_mode
         - input_boolean.security_mode
+        - input_boolean.cinema_mode
+        - input_boolean.dave_arrived_home
         - script.morning
         - script.goodnight
         - script.evening
@@ -44,6 +46,10 @@ cloud:
         - script.sexy_time
         - script.toilet
         - script.dinner_and_a_movie
+        - script.dashcast_street_to_tv
+        - script.dashcast_driveway_to_tv
+        - script.send_street_snapshot_notification_to_tv
+        - script.send_driveway_snapshot_notification_to_tv
       exclude_entities:
         - lock.door
       # include_domains:
@@ -150,6 +156,8 @@ cloud:
         - input_boolean.delivery_mode
         - input_boolean.vacation_mode
         - input_boolean.security_mode
+        - input_boolean.cinema_mode
+        - input_boolean.dave_arrived_home
         - script.morning
         - script.goodnight
         - script.evening
@@ -157,6 +165,10 @@ cloud:
         - script.sexy_time
         - script.toilet
         - script.dinner_and_a_movie
+        - script.dashcast_street_to_tv
+        - script.dashcast_driveway_to_tv
+        - script.send_street_snapshot_notification_to_tv
+        - script.send_driveway_snapshot_notification_to_tv
       exclude_entities:
         - lock.door
     entity_config:
@@ -264,3 +276,120 @@ cloud:
       script.dinner_and_a_movie:
         name: "Dinner And a Movie"
       #       - light.all_lights
+homekit:
+  name: "HA2HK Bridge"
+  filter:
+    exclude_domains:
+      - light
+      - automation
+      - select
+      - binary_sensor
+      - device_tracker
+      - person
+      - script
+      - scene
+      - switch
+      - input_select
+      - input_boolean
+      - media_player
+      - camera
+      - sensor
+      - group
+      - fan
+      - lock
+    include_entities:
+      - light.all_lights
+      - light.living_room_lights
+      - light.kitchen_lights
+      - light.bedroom_lights
+      - light.lightning_bolts
+      - light.chandelier
+      - light.tv
+      - light.lightning_purple_1
+      - light.lightning_purple_2
+      - light.lightning_red
+      - light.kitchen_east
+      - light.kitchen_west
+      - light.bedroom
+      - light.bed
+      - light.hallway
+      - light.bathroom
+      - light.table_lamp
+      - input_boolean.delivery_mode
+      - input_boolean.vacation_mode
+      - input_boolean.security_mode
+      - input_boolean.cinema_mode
+      - input_boolean.dave_arrived_home
+      - script.morning
+      - script.goodnight
+      - script.evening
+      - script.movie_time
+      - script.sexy_time
+      - script.toilet
+      - script.dinner_and_a_movie
+      - script.dashcast_street_to_tv
+      - script.dashcast_driveway_to_tv
+      - script.send_street_snapshot_notification_to_tv
+      - script.send_driveway_snapshot_notification_to_tv
+    exclude_entities:
+      - lock.door
+    # include_domains:
+      # - light
+      # - camera
+      # - media_player
+      # - script
+      # - input_boolean
+      # - group
+  entity_config:
+    light.living_room_lights:
+      name: Living Room Lights
+    light.kitchen_lights:
+      name: Kitchen Lights
+    light.bedroom_lights:
+      name: Bedroom Lights
+    light.chandellier:
+      name: chandelier
+    light.tv:
+      name: TV Light
+    light.lightning_purple_1:
+      name: Lightning Purple Top
+    light.lightning_purple_2:
+      name: Lightning Purple Bottom
+    light.lightning_red:
+      name: Lightning Red
+    light.lightning_bolts:
+      name: Lightning Bolts
+    light.kitchen_east:
+      name: Kitchen East
+    light.kitchen_west:
+      name: Kitchen West
+    light.bedroom:
+      name: Bedroom Light
+    light.bed:
+      name: Bed Light
+    light.hallway:
+      name: Hallway Light
+    light.bathroom:
+      name: Bathroom Light
+    light.table_lamp:
+      name: Table Lamp
+    input_boolean.delivery_mode:
+      name: Delivery Mode
+    input_boolean.vacation_mode:
+      name: Vacation Mode
+    input_boolean.security_mode:
+      name: Security Mode
+    script.morning:
+      name: "Morning"
+    script.goodnight:
+      name: "Goodnight"
+    script.evening:
+      name: "Evening"
+    script.movie_time:
+      name: "Movie Time"
+    script.sexy_time:
+      name: "Sexy Time"
+    script.toilet:
+      name: "Toilet"
+    script.dinner_and_a_movie:
+      name: "Dinner And a Movie"

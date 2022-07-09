@@ -694,14 +694,14 @@ cards:
                       - type: button
                         entity: script.lock_door
 
-                  - type: entities
-                    show_header_toggle: false
-                    theme: slate_red
-                    entities:
-                      - entity: sensor.drive_time_dave_to_ebony
-                        name: "Dave to Ebony"
-                        label: "Cast Camera to TV.."
-                      - entity: input_select.selectable_camera
+                  # - type: entities
+                  #   show_header_toggle: false
+                  #   theme: slate_red
+                  #   entities:
+                  #     - entity: sensor.drive_time_dave_to_ebony
+                  #       name: "Dave to Ebony"
+                  #       label: "Cast Camera to TV.."
+                  #     - entity: input_select.selectable_camera
 
       # Travel Times Stack
       - type: horizontal-stack

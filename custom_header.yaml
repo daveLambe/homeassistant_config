@@ -1,46 +1,46 @@
-compact_mode: true
-background: #d32f2f
-#   all_tabs_color: black
-elements_color: black
-tab_indicator_color: black
-#   fit_tabs: true
-chevrons: false
-shadow: true
-exceptions:
+# compact_mode: true
+# background: #d32f2f
+# #   all_tabs_color: black
+# elements_color: black
+# tab_indicator_color: black
+# #   fit_tabs: true
+# chevrons: false
+# shadow: true
+# exceptions:
+# # - conditions:
+# #     user: "Dave Lambe"
+# #   config:
+# #     hide_tabs:
+# #       - "cameras"
+# #       - "surveillance"
+# #       - "test-ipad"
+# #       - "test-mobile"
 # - conditions:
-#     user: "Dave Lambe"
+#     user: "Ebony"
 #   config:
 #     hide_tabs:
 #       - "cameras"
 #       - "surveillance"
 #       - "test-ipad"
 #       - "test-mobile"
-- conditions:
-    user: "Ebony"
-  config:
-    hide_tabs:
-      - "cameras"
-      - "surveillance"
-      - "test-ipad"
-      - "test-mobile"
-    # hide_tabs: 'Surveillance, Cameras'
-    # disable_sidebar: true
-    hide_help: true
-    hide_unused: true
-    hide_config: true
-    hide_edit_dash: true
-    hide_raw: true
-    hide_ch_settings: true
-# - conditions:
-#     user_agent: "iPad"
-#   config:
-#     hide_tabs: 'Main, Mobile'
-# - conditions:
-#     user_agent: "Macintosh; Intel Mac OS X"
-#   config:
-#     hide_tabs: 'Main, Mobile'
-# - conditions:
-#     user_agent: "iPhone; CPU iPhone OS"
-#     # user_agent: "Meow OS"
-#   config:
-#     hide_tabs: 'iPad'
+#     # hide_tabs: 'Surveillance, Cameras'
+#     # disable_sidebar: true
+#     hide_help: true
+#     hide_unused: true
+#     hide_config: true
+#     hide_edit_dash: true
+#     hide_raw: true
+#     hide_ch_settings: true
+# # - conditions:
+# #     user_agent: "iPad"
+# #   config:
+# #     hide_tabs: 'Main, Mobile'
+# # - conditions:
+# #     user_agent: "Macintosh; Intel Mac OS X"
+# #   config:
+# #     hide_tabs: 'Main, Mobile'
+# # - conditions:
+# #     user_agent: "iPhone; CPU iPhone OS"
+# #     # user_agent: "Meow OS"
+# #   config:
+# #     hide_tabs: 'iPad'

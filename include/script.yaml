@@ -27,14 +27,14 @@ script:
                 name: finns_girl_scream.wav
                 critical: 1
                 volume: 1.0
-  send_email_notification:
-    alias: Send email notification
-    mode: restart
-    sequence:
-      - service: notify.dave_lambe_gmail
-        data:
-          title: Home Assistant Priority Notifier
-          message: Important event in Home Assistant
+  # send_email_notification:
+  #   alias: Send email notification
+  #   mode: restart
+  #   sequence:
+  #     - service: notify.dave_lambe_gmail
+  #       data:
+  #         title: Home Assistant Priority Notifier
+  #         message: Important event in Home Assistant
   cast_street_to_tv:
     alias: Cast Street to TV
     mode: restart
@@ -52,6 +52,33 @@ script:
           media_player: media_player.living_room_chromecast
         target:
           entity_id: camera.street
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
+        data:
+          is_volume_muted: true
+  cast_backdoor_to_tv:
+    alias: Cast Backdoor to TV
+    mode: restart
+    sequence:
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: camera.play_stream
+        data:
+          media_player: media_player.living_room_chromecast
+        target:
+          entity_id: camera.backdoor
       - delay:
           hours: 0
           minutes: 0
@@ -120,7 +147,7 @@ script:
       - service: media_player.volume_set
         data:
           entity_id: media_player.bedroom_speaker
-          volume_level: 0.18
+          volume_level: 0.24
       - service: spotcast.start
         data:
           entity_id: media_player.bedroom_speaker
@@ -253,26 +280,26 @@ script:
       - service: switch.turn_on
         data:
           entity_id: switch.fan
-  enable_motion_rec:
-    alias: Enable Motion Recording
-    mode: single
-    sequence:
-      - service: amcrest.enable_motion_recording
-        data:
-          entity_id: camera.living_room
-      - service: notify.notify
-        data:
-          message: Motion Recording enabled on DaveCamAlpha
-  disable_motion_rec:
-    alias: Disable Motion Recording
-    mode: single
-    sequence:
-      - service: amcrest.disable_motion_recording
-        data:
-          entity_id: camera.living_room
-      - service: notify.notify
-        data:
-          message: Motion Recording disabled on DaveCamAlpha
+  # enable_motion_rec:
+  #   alias: Enable Motion Recording
+  #   mode: single
+  #   sequence:
+  #     - service: amcrest.enable_motion_recording
+  #       data:
+  #         entity_id: camera.living_room
+  #     - service: notify.notify
+  #       data:
+  #         message: Motion Recording enabled on DaveCamAlpha
+  # disable_motion_rec:
+  #   alias: Disable Motion Recording
+  #   mode: single
+  #   sequence:
+  #     - service: amcrest.disable_motion_recording
+  #       data:
+  #         entity_id: camera.living_room
+  #     - service: notify.notify
+  #       data:
+  #         message: Motion Recording disabled on DaveCamAlpha
   flash_red:
     alias: Flash Red
     mode: single
@@ -378,6 +405,10 @@ script:
         data:
           entity_id: media_player.living_room_speaker
           volume_level: 0.4
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_speaker
+          volume_level: 0.4
       - delay:
           minutes: 3
       - service: input_boolean.turn_off
@@ -451,7 +482,7 @@ script:
       - service: media_player.volume_set
         data:
           entity_id: media_player.bedroom_speaker
-          volume_level: 0.18
+          volume_level: 0.24
       - service: spotcast.start
         data:
           entity_id: media_player.bedroom_speaker
@@ -473,18 +504,21 @@ script:
         data:
           entity_id: scene.evening
           transition: 10.0
-      # - service: light.turn_on
-      #   data:
-      #     entity_id: light.bathroom
-      #     brightness_pct: 60
-      # - delay: 00:00:01
-      # - service: light.turn_on
-      #   data:
-      #     entity_id: light.bathroom
-      #     rgb_color:
-      #       - 255
-      #       - 147
-      #       - 41
+      - delay: 00:00:12
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ignore_motion
+  evening_darker:
+    alias: Evening Darker
+    mode: restart
+    sequence:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.ignore_motion
+      - service: scene.turn_on
+        data:
+          entity_id: scene.evening_darker
+          transition: 10.0
       - delay: 00:00:12
       - service: input_boolean.turn_off
         data:
@@ -574,10 +608,10 @@ script:
         data:
           entity_id: scene.dinner_and_a_movie
           transition: 5.0
-      - delay: 00:00:01
+      - delay: 00:00:04
       - service: script.turn_on
         entity_id: script.play_tv_if_paused
-      - delay: 00:00:04
+      # - delay: 00:00:04
       - service: light.turn_off
         data:
           entity_id: light.bathroom
@@ -767,7 +801,7 @@ script:
         data:
           message:
             <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Street
-            Camera</a>
+            Camera at {{ link_id }}</a>
     mode: single
   create_living_room_camera_link:
     alias: Create temporary camera link for Living Room
@@ -786,29 +820,209 @@ script:
             <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Living
             Room Camera</a>
     mode: single
-  dashcast_driveway:
-    alias: DashCast Driveway camera
+  # dashcast_driveway:
+  #   alias: DashCast Driveway camera
+  #   sequence:
+  #     - service: webrtc.dash_cast
+  #       entity_id: media_player.living_room_chromecast
+  #       data:
+  #         url: !secret cam_rtsp_driveway
+  #   mode: single
+  dashcast_camera_to_tv:
+    alias: DashCast camera to TV
+    description: "Play camera stream on TV"
+    fields:
+      camera_url:
+        description: "URL of camera stream"
+        example: "rtsp://xxx.xxx.xxx.xxx/live"
+      tv:
+        description: "entity_id of cast capable media player"
+        example: "media_player.chromecast"
     sequence:
-      - service: webrtc.dash_cast
-        entity_id: media_player.living_room_chromecast
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+          prefix: !secret dashcast_url
+      - service: media_player.turn_on
         data:
-          url: !secret cam_rtsp_driveway
+          entity_id: "{{ tv }}"
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: "{{ camera_url }}"
+          open_limit: 1
+          time_to_live: 3600
+      - service: dash_cast.load_url
+        data:
+          url: "{{ prefix }}{{ link_id }}"
+          entity_id: "{{ tv }}"
     mode: single
-  dashcast_street:
-    alias: DashCast Street camera
+  # dashcast_dashboard_to_tv:
+  #   alias: DashCast dashboard to TV
+  #   description: "Show Dashboard on TV"
+  #   fields:
+  #     camera_url:
+  #       description: "URL of camera stream"
+  #       example: "rtsp://xxx.xxx.xxx.xxx/live"
+  #     tv:
+  #       description: "entity_id of cast capable media player"
+  #       example: "media_player.chromecast"
+  #   sequence:
+  #     - variables:
+  #         link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+  #         prefix: !secret dashcast_url
+  #     - service: media_player.turn_on
+  #       data:
+  #         entity_id: "{{ tv }}"
+  #     - delay:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 3
+  #         milliseconds: 0
+  #     - service: webrtc.create_link
+  #       data:
+  #         link_id: "{{ link_id }}"
+  #         url: " "
+  #         # url: "{{ camera_url }}"
+  #         open_limit: 1
+  #         time_to_live: 3600
+  #     - service: dash_cast.load_url
+  #       data:
+  #         # url: "{{ prefix }}{{ link_id }}"
+  #         url: "{{ prefix }}{{ link_id }}"
+  #         entity_id: "{{ tv }}"
+  #   mode: single
+  dashcast_street_to_tv:
+    alias: DashCast Street camera to Living Room TV
     sequence:
-      - service: webrtc.dash_cast
-        entity_id: media_player.living_room_chromecast
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+          prefix: !secret dashcast_url
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
         data:
+          is_volume_muted: true
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
           url: !secret cam_rtsp_street
-    mode: single
-  dashcast_living_room:
-    alias: DashCast Living Room camera
-    sequence:
-      - service: webrtc.dash_cast
-        entity_id: media_player.living_room_chromecast
+          open_limit: 1
+          time_to_live: 3600
+      - service: dash_cast.load_url
         data:
+          url: "{{ prefix }}{{ link_id }}"
+          entity_id: media_player.living_room_chromecast
+    mode: single
+  dashcast_driveway_to_tv:
+    alias: DashCast Driveway camera to Living Room TV
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+          prefix: !secret dashcast_url
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
+        data:
+          is_volume_muted: true
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_driveway
+          open_limit: 1
+          time_to_live: 3600
+      - service: dash_cast.load_url
+        data:
+          url: "{{ prefix }}{{ link_id }}"
+          entity_id: media_player.living_room_chromecast
+    mode: single
+  dashcast_backdoor_to_tv:
+    alias: DashCast Backdoor camera to Living Room TV
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+          prefix: !secret dashcast_url
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
+        data:
+          is_volume_muted: true
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_backdoor
+          open_limit: 1
+          time_to_live: 3600
+      - service: dash_cast.load_url
+        data:
+          url: "{{ prefix }}{{ link_id }}"
+          entity_id: media_player.living_room_chromecast
+    mode: single
+  dashcast_living_room_to_tv:
+    alias: DashCast Living Room camera to Living Room TV
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+          prefix: !secret dashcast_url
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
+        data:
+          is_volume_muted: true
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
           url: !secret cam_rtsp_living_room
+          open_limit: 1
+          time_to_live: 3600
+      - service: dash_cast.load_url
+        data:
+          url: "{{ prefix }}{{ link_id }}"
+          entity_id: media_player.living_room_chromecast
+    mode: single
+  # dashcast_living_room:
+  #   alias: DashCast Living Room camera
+  #   sequence:
+  #     - service: webrtc.dash_cast
+  #       entity_id: media_player.living_room_chromecast
+  #       data:
+  #         url: !secret cam_rtsp_living_room
   lock_door_if_closed:
     alias: Lock door if closed
     mode: single
@@ -829,7 +1043,7 @@ script:
       - delay:
           hours: 0
           minutes: 0
-          seconds: 2
+          seconds: 1
           milliseconds: 0
       - service: androidtv.adb_command
         data:
@@ -878,7 +1092,7 @@ script:
       - delay:
           hours: 0
           minutes: 0
-          seconds: 2
+          seconds: 1
           milliseconds: 0
       - service: androidtv.adb_command
         data:
@@ -886,6 +1100,23 @@ script:
           command: BACK
     mode: single
     icon: mdi:wallpaper
+  create_temporary_camera_link_for_street:
+    alias: Create temporary camera link for Street
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_street
+          open_limit: 1
+          time_to_live: 3600
+      - service: persistent_notification.create
+        data:
+          message:
+            <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Street
+            Camera</a>
+    mode: single
   create_temporary_camera_link_for_driveway:
     alias: Create temporary camera link for Driveway
     sequence:
@@ -894,9 +1125,9 @@ script:
       - service: webrtc.create_link
         data:
           link_id: "{{ link_id }}"
-          url: !secret cam_rtsp_street
-          open_limit: 2
-          time_to_live: 500
+          url: !secret cam_rtsp_driveway
+          open_limit: 1
+          time_to_live: 3600
       - service: persistent_notification.create
         data:
           message:
@@ -1087,3 +1318,45 @@ script:
           uri: !secret spotify_uri_sleep
           random_song: true
           shuffle: true
+  send_street_snapshot_notification_to_tv:
+    alias: send_street_snapshot_notification_to_tv
+    mode: restart
+    sequence:
+      - service: camera.snapshot
+        target:
+          entity_id: camera.street
+        data:
+          filename: /config/www/cameras/street_snapshot.png
+      - service: notify.living_room_tv
+        data:
+          message: "Street Camera"
+          title: Security Status
+          data:
+            duration: 10
+            fontsize: large
+            color: red
+            position: top-right
+            transparency: 25%
+            image:
+              path: /config/www/cameras/street_snapshot.png
+  send_driveway_snapshot_notification_to_tv:
+    alias: send_driveway_snapshot_notification_to_tv
+    mode: restart
+    sequence:
+      - service: camera.snapshot
+        target:
+          entity_id: camera.driveway
+        data:
+          filename: /config/www/cameras/driveway_snapshot.png
+      - service: notify.living_room_tv
+        data:
+          message: "Driveway Camera"
+          title: Security Status
+          data:
+            duration: 10
+            fontsize: large
+            color: red
+            position: top-right
+            transparency: 25%
+            image:
+              path: /config/www/cameras/driveway_snapshot.png

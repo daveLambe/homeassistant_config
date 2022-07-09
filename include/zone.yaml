@@ -24,17 +24,17 @@ zone:
   #   radius: 100
   #   icon: mdi:coffee
 
-  - name: "Deandre"
-    latitude: !secret zone_deandre_lat
-    longitude: !secret zone_deandre_long
-    radius: 100
-    icon: mdi:campfire
+  # - name: "Deandre"
+  #   latitude: !secret zone_deandre_lat
+  #   longitude: !secret zone_deandre_long
+  #   radius: 100
+  #   icon: mdi:campfire
 
-  - name: "Daycare"
-    latitude: !secret zone_jaz_lat
-    longitude: !secret zone_jaz_long
-    radius: 100
-    icon: mdi:baby-bottle-outline
+  # - name: "Daycare"
+  #   latitude: !secret zone_jaz_lat
+  #   longitude: !secret zone_jaz_long
+  #   radius: 100
+  #   icon: mdi:baby-bottle-outline
 
   - name: "Wayside (Lambe House)"
     latitude: !secret zone_wayside_lat

@@ -297,7 +297,7 @@ template:
           ] %}
 
           {%- set windows_open = windows | selectattr('state','eq','on') | list %}
-          {%- set windows_name = windows | selectattr('state','eq','on') | map(attribute='name') | join('\n') %}
+          {%- set windows_name = windows | selectattr('state','eq','on') | map(attribute='name') | join('& ') %}
 
           {%- if (windows_open | length > 0) -%}
             {%- if (windows_open | length == 1) -%}
@@ -308,6 +308,9 @@ template:
             {% endif %}
           {% endif %}
           </b>
+
+        
+        
 
         # {% set entities = states.sensor 
         #   | selectattr('entity_id', 'search', 'battery_level')

@@ -125,5 +125,4 @@ browser_mod:
         hours_to_show: 12
         entities:
           - device_tracker.davecom
-          - device_tracker.ebonycom
           - zone.home

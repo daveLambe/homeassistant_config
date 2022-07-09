@@ -27,7 +27,7 @@ browser_mod:
               transition: none;
             }
             button-card {
-              align-self: center !important1;
+              align-self: center !important;
               padding: 0 0 0 3.5em;
             }
             /* phone */
@@ -42,7 +42,7 @@ browser_mod:
               #root {
                 justify-content: space-evenly;
                 margin-top: 1.9em;
-                max-width: 82vw; /* iphonex */
+                max-width: 84vw; /* iphonex */
               }
   card:
     type: custom:layout-card
@@ -59,7 +59,7 @@ browser_mod:
           grid-template-rows: repeat(3, 1fr)
           grid-template-areas: |
             "info info"
-            "indoor   indoor"
+            "indoor indoor"
             "outdoor outdoor"
     cards:
       #################################################
@@ -156,15 +156,16 @@ browser_mod:
             cameras:
               - camera_entity: camera.livingroom
                 title: Living Room
+                id: living_room_id
                 live_provider: webrtc-card
                 webrtc_card:
-                  entity: camera.webrtc_livingroom
+                  url: !secret cam_rtsp_living_room
                   camera_name: Living Room
             live:
               webrtc_card:
                 ui: false
-                background: true
-              preload: true 
+                background: false
+              preload: false
             view:
               actions:
                 double_tap_action:
@@ -174,10 +175,9 @@ browser_mod:
               - conditions:
                   camera:
                     - camera.livingroom
-                    - camera.webrtc_livingroom
+                    - living_room_id
                 overrides:
                   menu:
-                    # mode: none
                     buttons:
                       frigate: false
                       fullscreen: true
@@ -200,37 +200,21 @@ browser_mod:
             label: Last Detected Motion
           - entity: sensor.doorbell_last_motion
             name: "Front Door"
-          # - type: custom:webrtc-camera
-          #   entity: camera.doorbell
           - type: section
             label: Street
           - type: "custom:frigate-card"
             cameras:
               - camera_entity: camera.street
                 camera_name: Street
+                id: street_id
                 live_provider: webrtc-card
                 webrtc_card:
-                  entity: camera.webrtc_street
-              # - camera_entity: camera.webrtc_driveway
-              #   camera_name: Driveway
-              #   live_provider: webrtc-card
-              #   webrtc_card:
-              #     entity: camera.webrtc_driveway
-              # - camera_entity: camera.backdoor
-              #   camera_name: Backdoor
-              #   live_provider: webrtc-card
-              #   webrtc_card:
-              #     entity: camera.webrtc_backdoor
-              # - camera_entity: camera.doorbell
-              #   camera_name: Doorbell
-                # live_provider: webrtc-card
-                # webrtc_card:
-                #   entity: camera.doorbell
+                  url: rtsp://homeassistant.local:8554/street
             live:
               webrtc_card:
                 ui: false
-                background: true
-              preload: true
+                background: false
+              preload: false
             view:
               actions:
                 double_tap_action:
@@ -240,46 +224,31 @@ browser_mod:
               - conditions:
                   camera:
                     - camera.street
-                    - camera.webrtc_street
-                    # - camera.driveway
-                    # - camera.webrtc_driveway
-                    # - camera.backdoor
-                    # - camera.webrtc_backdoor
+                    - street_id
                 overrides:
                   menu:
                     # mode: none
                     buttons:
                       frigate: false
                       fullscreen: true
-                # elements:
-                #   - type: icon
-                #     entity: camera.street
-                #     icon: mdi:fullscreen
-                #     style:
-                #       left: 40px
-                #       top: 40px
-                #     tap_action:
-                #       action: custom:frigate-card-action
-                #       frigate_card_action: fullscreen
           - type: section
             label: Doors
           - type: "custom:frigate-card"
             cameras:
               - camera_entity: camera.driveway
                 camera_name: Driveway
+                id: driveway_id
                 live_provider: webrtc-card
                 webrtc_card:
-                  entity: camera.webrtc_driveway
+                  url: !secret cam_rtsp_driveway
               - camera_entity: camera.backdoor
                 camera_name: Backdoor
+                id: backdoor_id
                 live_provider: webrtc-card
                 webrtc_card:
-                  entity: camera.webrtc_backdoor
+                  url: rtsp://homeassistant.local:8554/backdoor
               - camera_entity: camera.doorbell
                 camera_name: Doorbell
-                # live_provider: webrtc-card
-                # webrtc_card:
-                #   entity: camera.doorbell
             live:
               webrtc_card:
                 ui: false
@@ -294,9 +263,9 @@ browser_mod:
               - conditions:
                   camera:
                     - camera.driveway
-                    - camera.webrtc_driveway
+                    - driveway_id
                     - camera.backdoor
-                    - camera.webrtc_backdoor
+                    - backdoor_id
                     - camera.doorbell
                 overrides:
                   menu:
@@ -304,252 +273,25 @@ browser_mod:
                     buttons:
                       frigate: false
                       fullscreen: true
-          # - type: section
-          #   label: Doors
-          # - type: section
-          #   label: Last Detected Motion
-          # - entity: sensor.doorbell_last_motion
-          #   name: "Front Door"
-          # - type: "custom:webrtc-camera"
-          #   entity: camera.doorbell
-
-          # - type: "custom:frigate-card"
-          #   cameras:
-          #     - camera_entity: camera.driveway
-          #       camera_name: Driveway
-          #       live_provider: webrtc-card
-          #       webrtc_card:
-          #         entity: camera.webrtc_driveway
-          #     - camera_entity: camera.backdoor
-          #       camera_name: Backdoor
-          #       live_provider: webrtc-card
-          #       webrtc_card:
-          #         entity: camera.webrtc_backdoor
-          #   live:
-          #     webrtc_card:
-          #       ui: false
-          #       background: true
-          #     preload: false
-          #   view:
-          #     actions:
-          #       double_tap_action:
-          #         action: custom:frigate-card-action
-          #         frigate_card_action: fullscreen
-          #   overrides:
-          #     - conditions:
-          #         camera:
-          #           - camera.driveway
-          #           - camera.webrtc_driveway
-          #           - camera.backdoor
-          #           - camera.webrtc_backdoor
-          #       overrides:
-          #         menu:
-                    # mode: none
-                    # buttons:
-                    #   frigate: false
-                    #   fullscreen: true
-                # elements:
-                #   - type: icon
-                #     entity: camera.street
-                #     icon: mdi:fullscreen
-                #     style:
-                #       left: 40px
-                #       top: 40px
-                #     tap_action:
-                #       action: custom:frigate-card-action
-                #       frigate_card_action: fullscreen
 
           - type: custom:button-card
-            name: Show Street on TV
+            name: Stream Street on TV
             icon: mdi:cast
             template: icon_name
             tap_action:
               action: call-service
               service: script.turn_on
               service_data:
-                entity_id: script.cast_street_to_tv
+                entity_id: script.dashcast_street_to_tv
+                # entity_id: script.cast_street_to_tv
 
           - type: custom:button-card
-            name: Show Driveway on TV
+            name: Stream Driveway on TV
             icon: mdi:cast
             template: icon_name
             tap_action:
               action: call-service
               service: script.turn_on
               service_data:
-                entity_id: script.cast_driveway_to_tv
-
-          # - type: "custom:frigate-card"
-          #   camera_entity: camera.livingroom
-          #   menu:
-          #     mode: none
-          #   live:
-          #     provider: webrtc
-          #     webrtc:
-          #       entity: camera.webrtc_livingroom
-          # dimensions:
-          #   aspect_ratio_mode: dynamic
-          #   aspect_ratio: '16:9'
-
-          # - type: "custom:frigate-card"
-          #   camera_entity: camera.livingroom
-          #   live_provider: webrtc-card
-          #   webrtc_card:
-          #     entity: camera.webrtc_livingroom
-          #   menu:
-          #     mode: none
-          # live:
-          #   webrtc_card:
-          #     ui: true
-
-          # - type: "custom:frigate-card"
-          #   camera_entity: camera.street
-          #   menu:
-          #     mode: none
-          #   live:
-          #     provider: webrtc
-          #     webrtc:
-          #       entity: camera.webrtc_street
-
-          # - type: "custom:frigate-card"
-          #   camera_entity: camera.driveway
-          #   menu:
-          #     mode: none
-          #   live:
-          #     provider: webrtc
-          #     webrtc:
-          #       entity: camera.webrtc_driveway
-
-          # - type: "custom:frigate-card"
-          #   camera_entity: camera.backdoor
-          #   menu:
-          #     mode: none
-          #   live:
-          #     provider: webrtc
-          #     webrtc:
-          #       entity: camera.webrtc_backdoor
-
-          # - type: "custom:frigate-card"
-          #   cameras:
-          #     - camera_entity: camera.street
-          #       camera_name: Street
-          # menu:
-          #   mode: none
-          # client_id: frigate-server-2
-          # label: person
-          # frigate_url: http://my-frigate-server/  # Note: Key name change.
-          # zone: office_door
-          # live_provider: webrtc-card  # Note: Key and value name change.
-          # webrtc_card:
-          #   entity: camera.webrtc_street
-          # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
-          # - camera_entity: camera.driveway
-          #   camera_name: Driveway
-          # menu:
-          #   mode: none
-          # client_id: frigate-server-2
-          # label: person
-          # frigate_url: http://my-frigate-server/  # Note: Key name change.
-          # zone: office_door
-          #   live_provider: webrtc-card  # Note: Key and value name change.
-          #   webrtc_card:
-          #     entity: camera.webrtc_driveway
-          # - camera_entity: camera.backdoor
-          #   camera_name: Backdoor
-          # menu:
-          #   mode: none
-          # client_id: frigate-server-2
-          # label: person
-          # frigate_url: http://my-frigate-server/  # Note: Key name change.
-          # zone: office_door
-          # live_provider: webrtc-card  # Note: Key and value name change.
-          # webrtc_card:
-          #   entity: camera.webrtc_backdoor
-          # overrides:
-          # - conditions:
-          #     [key]: [value]
-          # overrides:
-          #   menu:
-          #     mode: none
-          # url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
-          # live:
-          #   webrtc_card:
-          #       any_other_webrtc_card_option: value
-# Old Config
-# - type: "custom:frigate-card"
-#   camera_entity: camera.backdoor
-#   menu:
-#     mode: none
-#   live:
-#     provider: webrtc
-#     webrtc:
-#       entity: camera.webrtc_backdoor
-
-# New Config
-# - type: "custom:frigate-card"
-#   cameras:
-#     - camera_entity: camera.office
-#       camera_name: office_door
-#       client_id: frigate-server-2
-#       label: person
-#       frigate_url: http://my-frigate-server/  # Note: Key name change.
-#       zone: office_door
-#       live_provider: webrtc-card  # Note: Key and value name change.
-#       webrtc_card:
-#         entity: camera.office_rtsp
-#         url: 'rtsp://USERNAME:PASSWORD@CAMERA:554/RTSP_PATH'
-#   live:
-#     webrtc_card:
-#         any_other_webrtc_card_option: value
-
-# action: fire-dom-event
-# browser_mod:
-#   command: popup
-#   title: Cameras
-#   style:
-#     .: |
-#       :host .content {
-#         width: 60em;
-#         height: 100%;
-#         padding: 2.1em 1.9em 1.9em 2.7em;
-#       }
-#     hui-grid-card:
-#       $: |
-#         button-card:nth-child(2), button-card:nth-child(4) {
-#           margin: 0.5em 0 3em 0.4em;
-#         }
-#         #root {
-#           grid-gap: 0 !important;
-#         }
-#   card:
-#     type: grid
-#     columns: 2
-#     square: false
-#     cards:
-#       - type: 'custom:frigate-card'
-#         camera_entity: camera.livingroom
-#         live:
-#           provider: webrtc
-#           webrtc:
-#             entity: camera.webrtc_livingroom
-
-#       - type: 'custom:frigate-card'
-#         camera_entity: camera.street
-#         live:
-#           provider: webrtc
-#           webrtc:
-#             entity: camera.webrtc_street
-
-#       - type: 'custom:frigate-card'
-#         camera_entity: camera.driveway
-#         live:
-#           provider: webrtc
-#           webrtc:
-#             entity: camera.webrtc_driveway
-
-#       - type: 'custom:frigate-card'
-#         camera_entity: camera.backdoor
-#         live:
-#           provider: webrtc
-#           webrtc:
-#             entity: camera.webrtc_backdoor
+                entity_id: script.dashcast_driveway_to_tv
+                # entity_id: script.cast_driveway_to_tv

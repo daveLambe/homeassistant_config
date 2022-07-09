@@ -30,9 +30,9 @@ sensor:
   #   source: container
   #   beta: true
 
-  - platform: filesize
-    file_paths:
-      - /config/home-assistant.log
+  # - platform: filesize
+  #   file_paths:
+  #     - /config/home-assistant.log
 
   - platform: spotcast
   

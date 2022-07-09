@@ -1,0 +1,39 @@
+views:
+  - title: " "
+    path: "cast-security"
+    cards:
+      - type: grid
+        cards:
+          # - type: "custom:frigate-card"
+          #   cameras:
+          #     - camera_entity: camera.street
+          #       camera_name: Street
+          #       id: street_id
+          #       live_provider: webrtc-card
+          #       webrtc_card:
+          #         url: rtsp://homeassistant.local:8554/street
+          #   live:
+          #     webrtc_card:
+          #       ui: false
+          #       background: false
+          #     preload: false
+          #   view:
+          #     actions:
+          #       double_tap_action:
+          #         action: custom:frigate-card-action
+          #         frigate_card_action: fullscreen
+          #   overrides:
+          #     - conditions:
+          #         camera:
+          #           - camera.street
+          #           - street_id
+          #       overrides:
+          #         menu:
+          #           # mode: none
+          #           buttons:
+          #             frigate: false
+          #             fullscreen: true
+          - type: "custom:webrtc-camera"
+            url: "rtsp://homeassistant.local:8554/street"
+          - type: "custom:webrtc-camera"
+            url: "rtsp://homeassistant.local:8554/backdoor"

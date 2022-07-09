@@ -64,6 +64,8 @@ homeassistant:
       icon: mdi:white-balance-sunny
     script.evening:
       icon: mdi:weather-sunset
+    script.evening_darker:
+      icon: mdi:weather-sunset
     script.normal:
       icon: mdi:brightness-5
     script.goodnight:
