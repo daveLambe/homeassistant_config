@@ -20,6 +20,7 @@ default_config:
 # group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+# rest_command: !include rest_commands.yaml
 # scene: !include scenes.yaml
 # camera: !include cameras.yaml
 # zone: !include zones.yaml
@@ -204,25 +205,25 @@ spotcast:
   sp_key: !secret spotcast_sp_key
 
 # Rest Commands
-rest_command:
-  # Assistant Relay Commands
-  assistant_broadcast:
-    url: !secret assistant_relay_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "broadcast":true}'
+# rest_command:
+#   # Assistant Relay Commands
+#   assistant_broadcast:
+#     url: !secret assistant_relay_url
+#     method: POST
+#     content_type: "application/json"
+#     payload: '{"command":"{{ command }}", "user":"Dave Lambe", "broadcast":true}'
 
-  assistant_converse:
-    url: !secret assistant_relay_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "converse":true}'
+#   assistant_converse:
+#     url: !secret assistant_relay_url
+#     method: POST
+#     content_type: "application/json"
+#     payload: '{"command":"{{ command }}", "user":"Dave Lambe", "converse":true}'
 
-  assistant_relay:
-    url: !secret assistant_relay_url
-    method: POST
-    content_type: "application/json"
-    payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
+#   assistant_relay:
+#     url: !secret assistant_relay_url
+#     method: POST
+#     content_type: "application/json"
+#     payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
 
   # - name: Ebony
   #   id: ebony

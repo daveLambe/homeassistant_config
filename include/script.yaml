@@ -1016,13 +1016,113 @@ script:
           url: "{{ prefix }}{{ link_id }}"
           entity_id: media_player.living_room_chromecast
     mode: single
-  # dashcast_living_room:
-  #   alias: DashCast Living Room camera
-  #   sequence:
-  #     - service: webrtc.dash_cast
-  #       entity_id: media_player.living_room_chromecast
-  #       data:
-  #         url: !secret cam_rtsp_living_room
+  pip_popup_street_to_tv:
+    alias: Display Street PIP Popup on TV
+    mode: single
+    variables:
+      link_id: '{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}'
+      prefix: !secret dashcast_url
+    sequence:
+      - service: webrtc.create_link
+        data:
+          link_id: '{{ link_id }}'
+          url: !secret cam_rtsp_street
+          open_limit: 1
+          time_to_live: 60
+      - service: rest_command.pipup_url_on_tv
+        data:
+          title: Street
+          message: Streetview
+          width: 640
+          height: 480
+          url: "{{ prefix }}{{ link_id }}&webrtc=false"
+
+  pip_popup_driveway_to_tv:
+    alias: Display Driveway PIP Popup on TV
+    mode: single
+    variables:
+      link_id: '{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}'
+      prefix: !secret dashcast_url
+    sequence:
+      - service: webrtc.create_link
+        data:
+          link_id: '{{ link_id }}'
+          url: !secret cam_rtsp_driveway
+          open_limit: 1
+          time_to_live: 60
+      - service: rest_command.pipup_url_on_tv
+        data:
+          title: Driveway
+          width: 640
+          height: 480
+          url: "{{ prefix }}{{ link_id }}&webrtc=false"
+
+  pip_popup_backdoor_to_tv:
+    alias: Display Backdoor PIP Popup on TV
+    mode: single
+    variables:
+      link_id: '{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}'
+      prefix: !secret dashcast_url
+    sequence:
+      - service: webrtc.create_link
+        data:
+          link_id: '{{ link_id }}'
+          url: !secret cam_rtsp_backdoor
+          open_limit: 1
+          time_to_live: 60
+      - service: rest_command.pipup_url_on_tv
+        data:
+          title: Backdoor
+          width: 640
+          height: 480
+          url: "{{ prefix }}{{ link_id }}&webrtc=false"
+
+  pip_popup_living_room_to_tv:
+    alias: Display Living Room PIP Popup on TV
+    mode: single
+    variables:
+      link_id: '{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}'
+      prefix: !secret dashcast_url
+    sequence:
+      - service: webrtc.create_link
+        data:
+          link_id: '{{ link_id }}'
+          url: !secret cam_rtsp_living_room
+          open_limit: 1
+          time_to_live: 60
+      - service: rest_command.pipup_url_on_tv
+        data:
+          title: "Living Room"
+          width: 640
+          height: 480
+          url: "{{ prefix }}{{ link_id }}&webrtc=false"
+
+  pip_popup_doorbell_to_tv:
+    alias: Display Doorbell PIP Popup on TV
+    mode: single
+    variables:
+      link_id: '{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}'
+    sequence:
+      - service: rest_command.pipup_url_on_tv
+        data:
+          title: "Front Door"
+          width: 640
+          height: 480
+          url: "{{ state_attr('camera.doorbell', 'video_url') }}"
+
+  pip_popup_doorbell_image_to_tv:
+    # Displaying camera image attribute, not URL.
+    alias: Display Doorbell Image PIP Popup on TV
+    mode: single
+    variables:
+      link_id: '{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}'
+      prefix: !secret ha_public_prefix
+    sequence:
+      - service: rest_command.pipup_image_on_tv
+        data:
+          title: "Front Door"
+          width: 640
+          url: "{{ prefix }}{{ state_attr('camera.doorbell', 'entity_picture') }}"
   lock_door_if_closed:
     alias: Lock door if closed
     mode: single

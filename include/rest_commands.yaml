@@ -1,0 +1,89 @@
+rest_command:
+  pipup_image_on_tv:
+    # Use Pipup to display image notifications on Android TV devices.
+    # url: http://ANDROID_TV_IP_ADDRESS:7979/notify
+    url: !secret living_room_tv_pipup
+    content_type: 'application/json'
+    verify_ssl: false
+    method: 'post'
+    timeout: 20
+    payload: >
+      {
+        "duration": {{ duration | default(20) }},
+        "position": {{ position | default(0) }},
+        "title": "{{ title | default('') }}",
+        "titleColor": "{{ titleColor | default('#FF0000') }}",
+        "titleSize": {{ titleSize | default(10) }},
+        "message": "{{ message }}",
+        "messageColor": "{{ messageColor | default('#FF0000') }}",
+        "messageSize": {{ messageSize | default(14) }},
+        "backgroundColor": "{{ backgroundColor | default('#0f0e0e') }}",
+        "media": {
+          "image": {
+            "uri": "{{ url }}",
+            "width": {{ width | default(640) }}
+          }
+        }
+      }
+  # Examples:
+    # service: rest_command.pipup_image_on_tv
+    # data:
+    #   title: hey
+    #   message: I can see you
+    #   titleColor: red
+    #   position: 0
+    #   url: https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cfcc3137009463.5731d08bd66a1.png
+
+    # service: rest_command.pipup_image_on_tv
+    # data:
+    #   title: Doorbell
+    #   message: "There's somebody at the door"
+    #   url: <PUBLIC_ROOT_URL>{{ state_attr('camera.driveway_doorbell', 'entity_picture') }}"
+
+  pipup_url_on_tv:
+    # Use with Webrtc camera as described here:
+    # https://github.com/AlexxIT/WebRTC/wiki/Cast-or-share-camera-stream#html-page
+    # url: http://ANDROID_TV_IP_ADDRESS:7979/notify
+    url: !secret living_room_tv_pipup
+    content_type: 'application/json'
+    verify_ssl: false
+    method: 'post'
+    timeout: 20
+    payload: >
+      {
+        "duration": {{ duration | default(20) }},
+        "position": {{ position | default(0) }},
+        "title": "{{ title | default('') }}",
+        "titleColor": "{{ titleColor | default('#FF0000') }}",
+        "titleSize": {{ titleSize | default(10) }},
+        "message": "{{ message }}",
+        "messageColor": "{{ messageColor | default('#FF0000') }}",
+        "messageSize": {{ messageSize | default(14) }},
+        "backgroundColor": "{{ backgroundColor | default('#0f0e0e') }}",
+        "media": {
+          "web": {
+            "uri": "{{ url }}",
+            "width": {{ width | default(640) }},
+            "height": {{ height | default(480) }}
+          }
+        }
+      }
+
+  # Assistant Relay Commands
+  assistant_broadcast:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "broadcast":true}'
+
+  assistant_converse:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe", "converse":true}'
+
+  assistant_relay:
+    url: !secret assistant_relay_url
+    method: POST
+    content_type: "application/json"
+    payload: '{"command":"{{ command }}", "user":"Dave Lambe"}'
