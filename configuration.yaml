@@ -176,6 +176,8 @@ lovelace:
       type: module
     - url: /hacsfiles/webrtc/webrtc-camera.js
       type: module
+    - url: /hacsfiles/lovelace-thermostat-dark-card/thermostat-dark-card.js
+      type: module
 
 person:
   - name: Dave

@@ -1,7 +1,5 @@
 switch.table_lamp:
   icon: mdi:floor-lamp
-switch.blanket:
-  icon: mdi:bed-outline
 switch.fan:
   icon: mdi:fan
 switch.space_heater:

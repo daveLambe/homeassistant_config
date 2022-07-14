@@ -1,47 +1,64 @@
 input_boolean:
   vacation_mode:
+    name: "Vacation Mode"
     initial: false
     
   # ebony_mode:
   #   initial: false
     
   guest_mode:
+    name: "Guest Mode"
     initial: false
 
   dave_arrived_home:
+    name: "Dave Arrived Home"
     initial: false
     
   cinema_mode:
+    name: "Cinema Mode"
     initial: false
 
   auto_lock:
+    name: "Auto Lock"
     initial: true
 
   notify_proximity:
+    name: "Notify Proximity"
     initial: true
 
   security_mode:
+    name: "Security Mode"
     initial: true
 
+  privacy_mode:
+    name: "Privacy Mode"
+    initial: false
+
   stay_dark:
+    name: "Stay Dark"
     initial: false
 
   delivery_mode:
+    name: "Delivery Mode"
     initial: false
 
   extreme_delivery_mode:
+    name: "Extreme Delivery Mode"
     initial: false
 
   ignore_motion:
+    name: "Ignore Motion"
     initial: false
 
   # ebony_dave_together:
   #   initial: false
 
   notify_indoor_motion:
+    name: "Notify Indoor Motion"
     initial: false
 
   notify_outdoor_motion:
+    name: "Notify Outdoor Motion"
     initial: false
 
 input_select:

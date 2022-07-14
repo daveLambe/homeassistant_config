@@ -239,24 +239,36 @@ automation:
   #     - service: input_boolean.turn_off
   #       entity_id: input_boolean.ebony_dave_together
   #   mode: restart
-  - id: automation.turn_blanket_off
-    alias: Turn blanket off at 5
+  - id: automation.privacy_mode_turned_on
+    alias: Privacy Mode Turned On
     trigger:
-      - platform: time
-        at: 06:00:00
-    # condition:
-    #   - condition: not
-    #     conditions:
-    #       - condition: state
-    #         entity_id: device_tracker.ebonycom
-    #         state: home
+      - platform: state
+        entity_id: input_boolean.privacy_mode
+        to: "on"
     action:
       - service: switch.turn_off
-        entity_id: switch.blanket
-      - delay:
-          seconds: 30
+        entity_id: switch.bedroom_camera_killswitch
+      - service: switch.turn_off
+        entity_id: switch.living_room_camera_killswitch
+      - service: notify.mobile_app_davecom
+        data:
+          title: Privacy Mode
+          message: Privacy Mode turned on. Indoor cameras powered off.
+  - id: automation.privacy_mode_turned_off
+    alias: Privacy Mode Turned Off
+    trigger:
+      - platform: state
+        entity_id: input_boolean.privacy_mode
+        to: "off"
+    action:
       - service: switch.turn_on
-        entity_id: switch.blanket
+        entity_id: switch.bedroom_camera_killswitch
+      - service: switch.turn_on
+        entity_id: switch.living_room_camera_killswitch
+      - service: notify.mobile_app_davecom
+        data:
+          title: Privacy Mode
+          message: Privacy Mode turned off. Indoor cameras powered on.
   # - id: automation.turn_heating_on_for_ebony_work
   #   alias: Turn Heating On for Ebony Work
   #   trigger:
@@ -2142,13 +2154,15 @@ automation:
           message: Somebody is at the door.
           title: DOORBELL!
           data:
-            duration: 30
+            duration: 10
             fontsize: large
             color: red
-            position: top-right
+            position: top-left
             transparency: 25%
             image:
               path: /config/www/cameras/camera.png
+      - service: script.turn_on
+        entity_id: script.pip_popup_doorbell_to_tv
       - service: notify.mobile_app_davecom
         data:
           title: DOORBELL!

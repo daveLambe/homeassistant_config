@@ -12,9 +12,23 @@ browser_mod:
   card:
     type: vertical-stack
     cards:
-
-      - type: thermostat
+      # - type: thermostat
+      #   entity: climate.thermostat
+      - type: custom:thermostat-dark-card
+        title: Thermostat
         entity: climate.thermostat
+        step: 1.0
+        highlight_tap: true
+      - type: custom:button-card
+        name: Heat for 1 hour
+        icon: mdi:fire
+        entity: script.turn_on_heating_for_one_hour
+        tap_action:
+          action: toggle
+          # action: call-service
+          # service: script.turn_on
+          # service_data:
+          #   entity_id: script.turn_on_heating_for_one_hour
 
       # - type: entities
       #   card_mod:

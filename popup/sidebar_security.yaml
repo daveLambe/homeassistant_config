@@ -81,8 +81,6 @@ browser_mod:
             }
         entities:
           - type: section
-            label: Last Opened
-          - type: section
             label: Doors
           - entity: binary_sensor.front_door_is_open
             name: "Front Door"
@@ -195,8 +193,6 @@ browser_mod:
             }
         entities:
           - type: section
-            label: Doors
-          - type: section
             label: Last Detected Motion
           - entity: sensor.doorbell_last_motion
             name: "Front Door"
@@ -231,8 +227,9 @@ browser_mod:
                     buttons:
                       frigate: false
                       fullscreen: true
+
           - type: section
-            label: Doors
+            label: Driveway
           - type: "custom:frigate-card"
             cameras:
               - camera_entity: camera.driveway
@@ -241,14 +238,6 @@ browser_mod:
                 live_provider: webrtc-card
                 webrtc_card:
                   url: !secret cam_rtsp_driveway
-              - camera_entity: camera.backdoor
-                camera_name: Backdoor
-                id: backdoor_id
-                live_provider: webrtc-card
-                webrtc_card:
-                  url: rtsp://homeassistant.local:8554/backdoor
-              - camera_entity: camera.doorbell
-                camera_name: Doorbell
             live:
               webrtc_card:
                 ui: false
@@ -264,6 +253,46 @@ browser_mod:
                   camera:
                     - camera.driveway
                     - driveway_id
+                overrides:
+                  menu:
+                    # mode: none
+                    buttons:
+                      frigate: false
+                      fullscreen: true
+
+          - type: section
+            label: Doors
+          - type: "custom:frigate-card"
+            cameras:
+              - camera_entity: camera.frontdoor
+                camera_name: Front Door
+                id: frontdoor_id
+                live_provider: webrtc-card
+                webrtc_card:
+                  url: !secret cam_rtsp_frontdoor
+              - camera_entity: camera.backdoor
+                camera_name: Backdoor
+                id: backdoor_id
+                live_provider: webrtc-card
+                webrtc_card:
+                  url: rtsp://homeassistant.local:8554/backdoor
+              - camera_entity: camera.doorbell
+                camera_name: Doorbell
+            live:
+              webrtc_card:
+                ui: false
+                background: false
+              preload: false
+            view:
+              actions:
+                double_tap_action:
+                  action: custom:frigate-card-action
+                  frigate_card_action: fullscreen
+            overrides:
+              - conditions:
+                  camera:
+                    - camera.frontdoor
+                    - frontdoor_id
                     - camera.backdoor
                     - backdoor_id
                     - camera.doorbell
@@ -295,3 +324,14 @@ browser_mod:
               service_data:
                 entity_id: script.dashcast_driveway_to_tv
                 # entity_id: script.cast_driveway_to_tv
+
+          - type: custom:button-card
+            name: Stream Front Door on TV
+            icon: mdi:cast
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.dashcast_frontdoor_to_tv
+

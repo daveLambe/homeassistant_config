@@ -156,14 +156,22 @@ browser_mod:
             # show_state: true
             tap_action:
               action: toggle
+          # - type: "custom:button-card"
+          #   entity: input_boolean.notify_proximity
+          #   name: "Proximity Notifications"
+          #   icon: "mdi:map"
+          #   styles:
+          #     card:
+          #       - height: 100%
+          #   tap_action:
+          #     action: toggle
           - type: "custom:button-card"
-            entity: input_boolean.notify_proximity
-            name: "Proximity Notifications"
-            icon: "mdi:map"
+            entity: input_boolean.privacy_mode
+            name: "Privacy Mode"
+            icon: "mdi:cctv-off"
             styles:
               card:
                 - height: 100%
-            # show_state: true
             tap_action:
               action: toggle
           - type: "custom:button-card"

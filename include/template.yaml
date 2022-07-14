@@ -46,11 +46,6 @@ template:
   #           {{ option }}
 
   binary_sensor:
-    #   - unique_id: laundry_time_trigger
-    #     state: >
-    #       {% set start_time = state_attr('calendar.tvatta', 'start_time') %}
-    #       {{ as_timestamp(start_time) - as_timestamp(now()) < 10 * 60 if start_time != None }}
-
     - unique_id: sidebar_update_color
       state: >
         {% set installed = states('sensor.hass_version_installed') %}
@@ -58,6 +53,12 @@ template:
         if not installed | regex_search('b') else states('sensor.hass_version_latest_beta') %}
         {{ (installed != latest and installed != 'unknown' and latest != 'unknown')
         or (states('sensor.hacs') != 'unknown' and states('sensor.hacs') | int(default=0) > 0) }}
+
+    #   - unique_id: laundry_time_trigger
+    #     state: >
+    #       {% set start_time = state_attr('calendar.tvatta', 'start_time') %}
+    #       {{ as_timestamp(start_time) - as_timestamp(now()) < 10 * 60 if start_time != None }}
+
 
 
     - unique_id: davecom_on_home_wifi
@@ -128,12 +129,12 @@ template:
         greet: |
           <b>
           {%- set time = now().hour %}
-          {%- if time <= 1 -%} Good Night {{'\uD83C\uDF19'}}
-          {%- elif time <= 3 -%} Good Night {{'\uD83C\uDF19'}}
-          {%- elif time <= 5 -%} Good Night {{'\uD83C\uDF19'}}
-          {%- elif time <= 7 -%} Good Morning {{'\u2600\uFE0F'}}
-          {%- elif time <= 9 -%} Good Morning {{'\u2600\uFE0F'}}
-          {%- elif time <= 10 -%} Good Morning {{'\u2600\uFE0F'}}
+          {%- if time <= 1 -%} Good Night
+          {%- elif time <= 3 -%} Good Night
+          {%- elif time <= 5 -%} Good Night
+          {%- elif time <= 7 -%} Good Morning
+          {%- elif time <= 9 -%} Good Morning
+          {%- elif time <= 10 -%} Good Morning
           {%- elif time <= 13 -%} Good Afternoon
           {%- elif time <= 15 -%} Good Afternoon
           {%- elif time <= 17 -%} Good Afternoon
@@ -161,7 +162,6 @@ template:
           ] %}
 
           {%- set switches = [
-            states.switch.blanket,
             states.switch.fan,
             states.switch.ipad_charger
           ] %}
@@ -206,57 +206,6 @@ template:
             <font color='#6a7377'>Everything is off</font>
           {%- endif -%}
           </b>
-        # mailbox: |
-        #   {% set mailbox = states('sensor.mailbox') %}
-        #   {% if mailbox | int(default=0) > 0 %}
-        #     {{ '\U0001F4EC' }} <font color='#6a7377'><b>Brevlåda ({{ mailbox }})</b></font>
-        #   {% endif %}
-        # vacuum: |
-        #   {% set entity_id = 'vacuum.morty' %}
-        #   {%- if is_state(entity_id, 'cleaning') -%}
-        #     <b>Morty dammsuger</b>
-        #   {%- elif is_state(entity_id, 'returning') -%}
-        #     <b>Morty är färdig</b>
-        #   {%- endif %}
-        # weather: |
-        #   {%- set temperature = states('sensor.dark_sky_temperature') %}
-        #   {%- set apparent = states('sensor.dark_sky_apparent_temperature') | round %}
-        #   {%- set precip = states('sensor.dark_sky_precip_probability') | round %}
-        #   {% if not is_state('sensor.dark_sky_temperature', 'unknown') %}
-        #     {%- if temperature | float(default=0) <= 0.0 -%}
-        #       Känns som {{ apparent }}° med {{ precip }}% risk för snö {{'\u2744\uFE0F'}}
-        #     {%- elif temperature | float(default=0) > 0.0 -%}
-        #       Känns som {{ apparent}}° med {{ precip }}% risk för regn {{ '\u2614\uFE0F' if precip > 30 }}
-        #     {%- endif %}
-        #   {%- else %}
-        #     Kan inte läsa in väderinformation...
-        #   {%- endif %}
-        # transport: |
-        #   {{ states('sensor.skanetrafiken') }}
-        # laundry: |
-        #   {%- set start_time = state_attr('calendar.tvatta', 'start_time') %}
-        #   {% if start_time != None %}
-        #     {%- set time = as_timestamp(start_time) | timestamp_custom('%H:%M') %}
-        #     {%- set hours = as_timestamp(start_time) | timestamp_custom('%H') | int(default=0) / 24 %}
-        #     {%- set count = (as_timestamp(start_time) - as_timestamp(now())) / 86400 - hours %}
-        #     {%- set day = strptime(start_time, '%Y-%m-%d %H:%M:%S').strftime('%A')
-        #     | replace('Monday', 'Måndag')
-        #     | replace('Tuesday', 'Tisdag')
-        #     | replace('Wednesday', 'Onsdag')
-        #     | replace('Thursday', 'Torsdag')
-        #     | replace('Friday', 'Fredag')
-        #     | replace('Saturday', 'Lördag')
-        #     | replace('Sunday', 'Söndag') %}
-        #     {%- if count <= 0.0 -%}
-        #       {{'\U0001F4A6'}} Tvätt idag {{ time }}
-        #     {%- elif count <= 1.0 -%}
-        #       Tvätt imorgon klockan {{ time }}
-        #     {%- elif count <= 2.0 -%}
-        #       Tvätt i övermorgon klockan {{ time }}
-        #     {%- else -%}
-        #       Tvätt om {{ (count + hours) | round }} dagar på {{ day }} kl {{ time }}
-        #     {%- endif %}
-        #   {%- endif %}
         battery: |
           {% set entities = states.sensor 
             | selectattr('entity_id', 'search', 'battery_level')
@@ -279,7 +228,7 @@ template:
           {%- set doors_name = doors | selectattr('state','eq','on') | map(attribute='name') | join(', \n') %}
 
           {%- if (doors_open | length > 0) -%}
-            {{ doors_name }}
+            <font color='#ff0000'>{{ doors_name }}</font>
           {% endif %}
           </b>
         open_windows: |
@@ -303,14 +252,28 @@ template:
             {%- if (windows_open | length == 1) -%}
               {{ windows_name }}
             {%- else %}
-              Open Windows:
+              <font color='#ff0000'>Open Windows:</font>
               {{ windows_name | regex_replace('Window','') | regex_replace('Is Open','') }}
             {% endif %}
           {% endif %}
           </b>
+        modes: |
+          <font color='#ff0000'><b>
+          {%- set modes = [
+            states.input_boolean.security_mode,
+            states.input_boolean.privacy_mode,
+            states.input_boolean.guest_mode,
+            states.input_boolean.vacation_mode,
+            states.input_boolean.delivery_mode
+          ] %}
 
-        
-        
+          {%- set modes_on = modes | selectattr('state','eq','on') | list %}
+          {%- set modes_name = modes | selectattr('state','eq','on') | map(attribute='name') | join(' is on. ') %}
+
+          {%- if (modes_on | length > 0) -%}
+            {{ modes_name }} is on.
+          {% endif %}
+          </b></font>
 
         # {% set entities = states.sensor 
         #   | selectattr('entity_id', 'search', 'battery_level')

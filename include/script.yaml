@@ -956,6 +956,36 @@ script:
           url: "{{ prefix }}{{ link_id }}"
           entity_id: media_player.living_room_chromecast
     mode: single
+  dashcast_frontdoor_to_tv:
+    alias: DashCast Frontdoor camera to Living Room TV
+    sequence:
+      - variables:
+          link_id: "{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}"
+          prefix: !secret dashcast_url
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_chromecast
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_chromecast
+        data:
+          is_volume_muted: true
+      - service: webrtc.create_link
+        data:
+          link_id: "{{ link_id }}"
+          url: !secret cam_rtsp_frontdoor
+          open_limit: 1
+          time_to_live: 3600
+      - service: dash_cast.load_url
+        data:
+          url: "{{ prefix }}{{ link_id }}"
+          entity_id: media_player.living_room_chromecast
+    mode: single
   dashcast_backdoor_to_tv:
     alias: DashCast Backdoor camera to Living Room TV
     sequence:
@@ -1056,6 +1086,26 @@ script:
           width: 640
           height: 480
           url: "{{ prefix }}{{ link_id }}&webrtc=false"
+
+  # pip_popup_frontdoor_to_tv:
+  #   alias: Display Frontdoor PIP Popup on TV
+  #   mode: single
+  #   variables:
+  #     link_id: '{% for _ in range(40) %}{{ range(10)|random }}{% endfor %}'
+  #     prefix: !secret dashcast_url
+  #   sequence:
+  #     - service: webrtc.create_link
+  #       data:
+  #         link_id: '{{ link_id }}'
+  #         url: !secret cam_rtsp_frontdoor
+  #         open_limit: 1
+  #         time_to_live: 60
+  #     - service: rest_command.pipup_url_on_tv
+  #       data:
+  #         title: Frontdoor
+  #         width: 640
+  #         height: 480
+  #         url: "{{ prefix }}{{ link_id }}&webrtc=false"
 
   pip_popup_backdoor_to_tv:
     alias: Display Backdoor PIP Popup on TV
@@ -1234,19 +1284,6 @@ script:
             <a href="/webrtc/embed?url={{ link_id }}" target="_blank">View Street
             Camera</a>
     mode: single
-  restart_blanket:
-    alias: Restart Blanket
-    sequence:
-      - service: switch.turn_off
-        data: {}
-        target:
-          entity_id: switch.blanket
-      - delay: 00:00:05
-      - service: switch.turn_on
-        data: {}
-        target:
-          entity_id: switch.blanket
-    mode: restart
   unlock_the_door:
     alias: Unlock the door
     sequence:
@@ -1460,3 +1497,20 @@ script:
             transparency: 25%
             image:
               path: /config/www/cameras/driveway_snapshot.png
+  turn_on_heating_for_one_hour:
+    alias: "Turn on heating for one hour"
+    mode: restart
+    sequence:
+      - service: climate.turn_on
+        data:
+          entity_id: climate.thermostat
+      - delay:
+          seconds: 5
+      - service: climate.set_temperature
+        data:
+          temperature: 80
+      - delay:
+          minutes: 60
+      - service: climate.turn_off
+        data:
+          entity_id: climate.thermostat

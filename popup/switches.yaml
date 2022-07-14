@@ -68,15 +68,6 @@ browser_mod:
             }
         cards:
           - type: "custom:button-card"
-            entity: switch.blanket
-            name: Electric Blanket
-            icon: "mdi:bed"
-            styles:
-              card:
-                - height: 100%
-            tap_action:
-              action: toggle
-          - type: "custom:button-card"
             entity: switch.fan
             name: Fan
             icon: "mdi:fan"
@@ -134,6 +125,8 @@ browser_mod:
               service: script.turn_on
               service_data:
                 entity_id: script.lock_door_if_closed
+
+# TV Notification
           - type: custom:button-card
             name: Show Street Camera Snapshot on TV
             icon: mdi:cctv
@@ -152,3 +145,50 @@ browser_mod:
               service: script.turn_on
               service_data:
                 entity_id: script.send_driveway_snapshot_notification_to_tv
+
+# PipUp
+          - type: custom:button-card
+            name: "TV Popup: Street"
+            icon: mdi:cctv
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.pip_popup_street_to_tv
+
+          - type: custom:button-card
+            name: "TV Popup: Driveway"
+            icon: mdi:cctv
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.pip_popup_driveway_to_tv
+
+          - type: custom:button-card
+            name: "TV Popup: Backdoor"
+            icon: mdi:cctv
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.pip_popup_backdoor_to_tv
+
+          - type: custom:button-card
+            name: "TV Popup: Living Room"
+            icon: mdi:cctv
+            template: icon_name
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.pip_popup_living_room_to_tv
+
+
+
+
+
+
